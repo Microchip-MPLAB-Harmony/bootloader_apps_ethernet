@@ -1,7 +1,6 @@
-![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
-![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
+﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 
-# MPLAB® Harmony 3 Bootloader Module
+# MPLAB® Harmony 3 Ethernet Bootloader Application Examples
 
 MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating
 embedded firmware solutions for Microchip 32-bit SAM and PIC® microcontroller
@@ -13,27 +12,37 @@ and microprocessor devices. Refer to the following links for more information.
 - [Microchip MPLAB Harmony](https://www.microchip.com/mplab/mplab-harmony)
 - [Microchip MPLAB Harmony Pages](https://microchip-mplab-harmony.github.io/)
 
-This repository contains the MPLAB® Harmony 3 Bootloader. The bootloader module
-components provide framework to develop bootloaders for Microchip 32-bit SAM
-microcontrollers. Refer to the following links for release notes, training materials,
-and interface reference information.
+This repository contains the MPLAB® Harmony 3 USB Bootloader application examples
 
-- [Release Notes](./release_notes.md)
+- [Release Notes](release_notes.md)
 - [MPLAB® Harmony License](mplab_harmony_license.md)
-- [MPLAB® Harmony 3 Bootloader Wiki](https://github.com/Microchip-MPLAB-Harmony/bootloader/wiki)
-- [MPLAB® Harmony 3 Bootloader API Help](https://microchip-mplab-harmony.github.io/bootloader)
 
-# Contents Summary
+To clone or download these application from Github,go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/bootloader_apps_ethernet) and then click Clone button to clone this repo or download as zip file. This content can also be download using content manager by following [these instructions](https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki)
 
-| Folder    | Description                                                |
-|-----------|------------------------------------------------------------|
-| apps      | Bootloader example applications                            |
-| config    | Bootloader module configuration scripts                    |
-| doc       | Bootloader module library help documentation               |
-| docs      | Bootloader module library HTML help documentation          |
-| templates | Bootloader and system file templates                       |
-| tools     | Bootl0ader Host scripts                                    |
+## Contents Summary
 
+| Folder     | Description                                  |
+| ---        | ---                                          |
+| apps       | Ethernet Bootloader example applications     |
+| docs       | Applications help documentation              |
+
+
+## Bootloader Examples
+
+The following applications are provided to demonstrate the Ethernet bootloader
+
+| Name                                              | Description                                                                      |
+| ---------                                         | -----------                                                                      |
+| [UDP Bootloader](apps/udp_bootloader/readme.md)   | This example application shows how to use the Bootloader Library to bootload an application using UDP protocol |
+
+
+## Bootloader Library
+
+Refer to [Bootloader Library Help](https://microchip-mplab-harmony.github.io/bootloader) for understanding
+- Bootloader framework
+- How the Bootloader library works
+- Bootloader library configurations
+- Bootloader memory layout
 
 ____
 
