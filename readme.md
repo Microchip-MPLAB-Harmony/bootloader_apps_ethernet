@@ -1,4 +1,11 @@
-﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+﻿---
+title: Ethernet Bootloader Applications
+has_children: true
+has_toc: false
+nav_order: 1
+---
+
+![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 
 # MPLAB® Harmony 3 Ethernet Bootloader Application Examples
 

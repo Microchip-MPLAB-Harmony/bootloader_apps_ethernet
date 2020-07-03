@@ -1,3 +1,10 @@
+---
+grand_parent: Ethernet Bootloader Applications
+parent: UDP Bootloader
+title: Building and Running on SAM V71 Xplained Ultra Evaluation Kit
+has_toc: false
+---
+
 [![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
 
 # Building and Running the UDP Bootloader applications
