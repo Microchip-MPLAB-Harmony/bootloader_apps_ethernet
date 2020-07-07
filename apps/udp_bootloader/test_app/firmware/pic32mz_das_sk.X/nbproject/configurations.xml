@@ -90,6 +90,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/pic32mz_das_sk/harmony.prj</itemPath>
       <itemPath>../src/config/pic32mz_das_sk/pic32mz_das_sk.xml</itemPath>
+      <itemPath>../../../../../../mhc/../bootloader_apps_ethernet/apps/udp_bootloader/test_app/firmware/src/config/pic32mz_das_sk/pic32mz_das_sk.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
