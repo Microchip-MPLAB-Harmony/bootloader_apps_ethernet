@@ -5,6 +5,14 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="config" projectFiles="true">
+        <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
+          <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
+            <logicalFolder name="f1" displayName="Core" projectFiles="true">
+              <logicalFolder name="f1" displayName="Include" projectFiles="true">
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="sam_v71_xult" projectFiles="true">
           <logicalFolder name="f2" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/sam_v71_xult/bsp/bsp.h</itemPath>
@@ -45,6 +53,18 @@
       <logicalFolder name="f1" displayName="packs" projectFiles="true">
         <logicalFolder name="f1" displayName="ATSAMV71Q21B_DFP" projectFiles="true">
           <logicalFolder name="f1" displayName="component" projectFiles="true">
+            <logicalFolder name="f1" displayName="clk" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="efc" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="nvic" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="pio" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="systick" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="usart" projectFiles="true">
+            </logicalFolder>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/acc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/aes.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/afec.h</itemPath>
@@ -85,6 +105,10 @@
           </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/pio/samv71q21b.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f3" displayName="system" projectFiles="true">
+            <logicalFolder name="f1" displayName="cache" projectFiles="true">
+            </logicalFolder>
           </logicalFolder>
           <itemPath>../src/packs/ATSAMV71Q21B_DFP/device.h</itemPath>
           <itemPath>../src/packs/ATSAMV71Q21B_DFP/atsamv71q21b.h</itemPath>
@@ -166,6 +190,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_v71_xult/harmony.prj</itemPath>
       <itemPath>../src/config/sam_v71_xult/sam_v71_xult.xml</itemPath>
+      <itemPath>../../../../../../mhc/../bootloader_apps_ethernet/apps/udp_bootloader/test_app/firmware/src/config/sam_v71_xult/sam_v71_xult.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -179,7 +204,7 @@
         <targetDevice>ATSAMV71Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>EdbgTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.41</languageToolchainVersion>
         <platform>3</platform>
