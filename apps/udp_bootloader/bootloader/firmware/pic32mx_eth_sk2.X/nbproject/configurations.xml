@@ -239,6 +239,14 @@
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>../src/config/pic32mx_eth_sk2/harmony.prj</itemPath>
+      <itemPath>../src/config/pic32mx_eth_sk2/pic32mx_eth_sk2.xml</itemPath>
+      <itemPath>../../../../../../mhc/../bootloader_apps_ethernet/apps/udp_bootloader/bootloader/firmware/src/config/pic32mx_eth_sk2/pic32mx_eth_sk2.xml</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -345,13 +353,6 @@
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/pic32mx_eth_sk2/harmony.prj</itemPath>
-      <itemPath>../src/config/pic32mx_eth_sk2/pic32mx_eth_sk2.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -622,7 +623,6 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>
         <property key="memories.eeprom" value="true"/>
