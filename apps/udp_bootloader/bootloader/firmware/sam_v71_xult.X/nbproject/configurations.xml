@@ -425,6 +425,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_v71_xult/harmony.prj</itemPath>
       <itemPath>../src/config/sam_v71_xult/sam_v71_xult.xml</itemPath>
+      <itemPath>../../../../../../mhc/../bootloader_apps_ethernet/apps/udp_bootloader/bootloader/firmware/src/config/sam_v71_xult/sam_v71_xult.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

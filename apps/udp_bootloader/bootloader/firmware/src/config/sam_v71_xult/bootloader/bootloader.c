@@ -324,7 +324,9 @@ static void bootloader_ProcessBuffer( BOOTLOADER_DATA *handle )
 
         case JMP_TO_APP:
         {
-            bootloader_TriggerReset();
+            handle->buffSize = 1;
+            handle->prevState = BOOTLOADER_ENTER_APPLICATION;
+            handle->currentState = BOOTLOADER_SEND_RESPONSE;
 
             break;
         }
@@ -392,6 +394,10 @@ void bootloader_Tasks( void )
                 {
                     btlData.currentState = BOOTLOADER_PROCESS_COMMAND;
                 }
+                else if (btlData.prevState == BOOTLOADER_ENTER_APPLICATION)
+                {
+                    btlData.currentState = BOOTLOADER_ENTER_APPLICATION;
+                }
                 else
                 {
                     btlData.currentState = BOOTLOADER_GET_COMMAND;
@@ -435,9 +441,19 @@ void bootloader_Tasks( void )
 
                 DATASTREAM_Data_Write( btlData.streamHandle, dataBuff.buffers.procBuff, BuffLen);
 
-                btlData.prevState = BOOTLOADER_SEND_RESPONSE;
+                if (btlData.prevState != BOOTLOADER_ENTER_APPLICATION)
+                {
+                    btlData.prevState = BOOTLOADER_SEND_RESPONSE;
+                }
+
                 btlData.currentState = BOOTLOADER_WAIT_FOR_DONE;
             }
+            break;
+        }
+
+        case BOOTLOADER_ENTER_APPLICATION:
+        {
+            bootloader_TriggerReset();
             break;
         }
 
