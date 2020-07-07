@@ -433,6 +433,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_e54_xpro/harmony.prj</itemPath>
       <itemPath>../src/config/sam_e54_xpro/sam_e54_xpro.xml</itemPath>
+      <itemPath>../../../../../../mhc/../bootloader_apps_ethernet/apps/udp_bootloader/bootloader/firmware/src/config/sam_e54_xpro/sam_e54_xpro.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
