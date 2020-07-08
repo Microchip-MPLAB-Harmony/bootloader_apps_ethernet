@@ -33,8 +33,6 @@ To build the application, refer to the following table and open the project usin
 ## Setting up [SAM V71 Xplained Ultra Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/ATSAMV71-XULT)
 
 - Connect the Debug USB port on the board to the computer using a micro USB cable
-- Jumper J805 must be open
-- Insert the LAN8740 PHY daughter board on the ETHERNET PHY MODULE header
 - Establish a connection between Host PC and the device through the RJ45 Ethernet connector on the PHY daughter board using an Ethernet cable
 
 ## Running the Application
