@@ -8,6 +8,15 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## Ethernet Bootloader Applications Release v3.0.2
+- Added discover.microchip.com metadata
+
+### Known Issues
+- No changes from v3.0.0
+
+### Development Tools
+- No changes from v3.0.0
+
 ## Ethernet Bootloader Applications Release v3.0.1
 
 - Updated test application projects to disable default linker file generation added in csp v3.8.0 as it requires custom linker file
