@@ -1,0 +1,6 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: drvExtPhyKsz8091}
+children:
+- type: ElementPosition
+  attributes: {x: '124', y: '73', id: drvExtPhyKsz8091}
