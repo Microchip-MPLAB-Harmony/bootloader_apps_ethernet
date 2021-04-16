@@ -53,49 +53,49 @@ To build the application, refer to the following table and open the project usin
     - Flow Control : None
 
 8. Configure the Host PC for setting up IP Address to communicate with the device
-    - Go to **Control Panel\Network and Internet\Network Connections**
+    - Go to **Control Panel/Network and Internet/Network Connections**
     - Open **Ethernet properties**
 
-        ![ethernetProperties](./images/btl_udp_host_pc_ethernet_properties.png)
+        ![ethernetProperties](../../docs/images/udp_host_pc_ethernet_properties.png)
 
     - Double Click on **Internet Protocol Version 4 (TCP/IPv4)**
 
-        ![ethernetProperties](./images/btl_udp_host_pc_ipv4_click.png)
+        ![ethernetProperties](../../docs/images/udp_host_pc_ipv4_click.png)
 
     - Configure the IP Address as shown below
         - **IP address : 192.168.1.12**
         - **Subnet Mask : 255.255.255.0**
 
-        ![ethernetProperties](./images/btl_udp_host_pc_ip_address.png)
+        ![ethernetProperties](../../docs/images/udp_host_pc_ip_address.png)
 
 9. Launch the Unified Host application from below path
-    - *\<harmony3_path\>\bootloader\tools\UnifiedHost-\*\UnifiedHost-\*.jar*
+    - \<harmony3_path\>/bootloader/tools/UnifiedHost-\*/UnifiedHost-\*.jar
 
 10. Configure the Unified host application
     - Select the **Device architecture** and **Protocol** as shown below
 
-        ![hostConfig](./images/btl_unified_host_config.png)
+        ![hostConfig](../../docs/images/unified_host_config.png)
 
     - Click on configure button to configure UDP port Number and IP Address
 
-        ![hostUSBSetting](./images/btl_unified_host_udp_setting.png)
+        ![hostUSBSetting](../../docs/images/unified_host_udp_setting.png)
 
     - Load the test application hex file to be programmed using below option
-        - *\<harmony3_path\>\bootloader_apps_ethernet\apps\udp_bootloader\test_app\firmware\sam_e54_xpro.X\dist\sam_e54_xpro\production\sam_e54_xpro.X.production.hex*
+        - *\<harmony3_path\>/bootloader_apps_ethernet/apps/udp_bootloader/test_app/firmware/sam_e54_xpro.X/dist/sam_e54_xpro/production/sam_e54_xpro.X.production.hex*
 
-        ![hostLoadHex](./images/btl_unified_host_load_hex.png)
+        ![hostLoadHex](../../docs/images/unified_host_load_hex.png)
 
     - Open the **Console** window of the host application to view application bootloading sequence
 
-        ![hostToolsConsole](./images/btl_unified_host_tools_console.png)
+        ![hostToolsConsole](../../docs/images/unified_host_tools_console.png)
 
 11. Click on **Program Device** button to program the loaded test application hex file on to the device
 
-    ![hostProgramDevice](./images/btl_unified_host_program_device.png)
+    ![hostProgramDevice](../../docs/images/unified_host_program_device.png)
 
 12. Following snapshot shows output of successfully programming the test application
 
-    ![hostSuccess](./images/btl_unified_host_success.png)
+    ![hostSuccess](../../docs/images/unified_host_success.png)
 
 13. If above step is successful then **LED0** should start blinking and you should see below output on the console
 
