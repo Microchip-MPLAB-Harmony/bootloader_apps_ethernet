@@ -19,7 +19,7 @@ This example application shows how to use the Bootloader Library to bootload an 
 - This is a bootloader application which resides from
     - The starting location of the flash memory region for SAM devices
     - The starting location of the Boot flash memory region for PIC32MZ devices
-    - The starting location of Program Flash memory for PIC32MK and PIC32MX devices
+    - The starting location of Program Flash memory for PIC32MX devices
 - It uses the UDP port to receive application hex from host PC using the Unified Bootloader Host Application
     - **Port number : 6234**
     - **IP Address  : 192.168.1.11**
@@ -32,7 +32,7 @@ This example application shows how to use the Bootloader Library to bootload an 
 
 - This is a test application which resides from
     - The end of bootloader size in device flash memory for SAM devices
-    - The end of bootloader size in Program Flash memory for PIC32MK and PIC32MX devices
+    - The end of bootloader size in Program Flash memory for PIC32MX devices
     - The start of Program Flash memory for PIC32MZ devices
 - It will be loaded into flash memory by bootloader application
 - It blinks an LED and provides console output
@@ -40,7 +40,7 @@ This example application shows how to use the Bootloader Library to bootload an 
     - Once the switch is pressed it loads first 16 bytes of RAM with bootloader request pattern **(0x5048434D)** and resets the device
 
 ## Development Kits
-The following table provides links to documentation on how to build and run USB Device HID bootloader on different development kits
+The following table provides links to documentation on how to build and run UDP bootloader on different development kits
 
 | Development Kit |
 |:---------|
