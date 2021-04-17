@@ -41,6 +41,7 @@ The following applications are provided to demonstrate the Ethernet bootloader
 | Name                                              | Description                                                                      |
 | ---------                                         | -----------                                                                      |
 | [UDP Bootloader](apps/udp_bootloader/readme.md)   | This example application shows how to use the Bootloader Library to bootload an application using UDP protocol |
+| [UDP Live Update](apps/udp_live_update/readme.md) | This example application shows how to use the Bootloader Library as a Live Update application using UDP protocol on devices with Dual Bank Support |
 
 
 ## Bootloader Library

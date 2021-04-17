@@ -159,13 +159,13 @@ void APP_SAM_Tasks ( void )
 
             if ((nvmctrlStatus & NVMCTRL_STATUS_AFIRST_Msk) != 0)
             {
-                printf("\n\r####### Live Update Application running from Program Flash BANK A #######\n\r");
+                printf("\n\r####### Live Update Application running from NVM Flash BANK A #######\n\r");
 
                 printf("\n\r####### Send new binary from host tool to program in BANK B #######\n\r");
             }
             else
             {
-                printf("\n\r####### Live Update Application running from Program Flash BANK B #######\n\r");
+                printf("\n\r####### Live Update Application running from NVM Flash BANK B #######\n\r");
 
                 printf("\n\r####### Send new binary from host tool to program in BANK A #######\n\r");
             }

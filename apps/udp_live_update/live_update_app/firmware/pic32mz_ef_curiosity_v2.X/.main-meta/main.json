@@ -3,10 +3,10 @@
 	"category": "com.microchip.ide.project",
 	"content": {
 		"metaDataVersion": "1.1.0",
-		"name": "com.microchip.mcu32.mplabx.project.bootloader_apps_ethernet_udp_live_update_pic32mz_ef_sk",
+		"name": "com.microchip.mcu32.mplabx.project.bootloader_apps_ethernet_udp_live_update_pic32mz_ef_curiosity_v2",
 		"version": "3.1.0",
 		"displayName": "UDP Live Update for PIC32MZ EF Family",
-		"projectName": "udp_live_update_pic32mz_ef_sk",
+		"projectName": "udp_live_update_pic32mz_ef_curiosity_v2",
 		"shortDescription": "This example application shows how to use the Bootloader Library as a Live Update application using UDP protocol on devices with Dual Bank Support.",
 		"ide": {
 			"name": "MPLABX",
@@ -32,14 +32,14 @@
 			"content": {
 				"metaDataVersion": "1.0.0",
 				"category": "com.microchip.device",
-				"name": "PIC32MZ2048EFH144",
+				"name": "PIC32MZ2048EFM144",
 				"versionRange": "*"
 			}
 		},
 		"author": "Microchip",
 		"subcategories": [
 			[
-				"Development Kit", "PIC32MZ Embedded Connectivity with FPU (EF) Starter Kit"
+				"Development Kit", "Curiosity PIC32MZ EF 2.0 Development Board"
 			],
 			[
 				"Harmony", "Bootloader", "UDP"
@@ -56,7 +56,7 @@
 			"Harmony",
 			"Bootloader",
 			"Live Update",
-			"PIC32MZ2048EFH144",
+			"PIC32MZ2048EFM144",
 			"PIC32MZ EF Family"
 		],
 		"additionalData": {
