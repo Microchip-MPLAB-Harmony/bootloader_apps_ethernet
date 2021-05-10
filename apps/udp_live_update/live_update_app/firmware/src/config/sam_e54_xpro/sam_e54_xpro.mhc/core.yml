@@ -10,7 +10,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: udp_bootloader, value: c000}
+        attributes: {id: udp_bootloader, value: e000}
   - type: KeyValueSet
     attributes: {id: COMPILER_CHOICE}
     children:
@@ -1343,7 +1343,7 @@ children:
       - type: String
         attributes: {id: value}
         children:
-        - {type: Value, value: ROM_ORIGIN=0xc000;ROM_LENGTH=0xf4000}
+        - {type: Value, value: ROM_ORIGIN=0xe000;ROM_LENGTH=0xf2000}
   - type: Integer
     attributes: {id: XOSC1_FREQ}
     children:

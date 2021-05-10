@@ -148,31 +148,12 @@ BOOTLOADER_DATA btlData =
     .usrBufferEventComplete = false
 };
 
-bool __WEAK bootloader_Trigger(void)
+
+void bootloader_TriggerReset(void)
 {
-    /* Function can be overriden with custom implementation */
-    return false;
+    NVIC_SystemReset();
 }
 
-static void bootloader_TriggerReset(void)
-{
-    bootloader_NvmSwapAndReset();
-}
-
-void run_Application(void)
-{
-    uint32_t msp            = *(uint32_t *)(APP_START_ADDRESS);
-    uint32_t reset_vector   = *(uint32_t *)(APP_START_ADDRESS + 4);
-
-    if (msp == 0xffffffff)
-    {
-        return;
-    }
-
-    __set_MSP(msp);
-
-    asm("bx %0"::"r" (reset_vector));
-}
 
 static const uint16_t crc_table[16] =
 {
@@ -338,8 +319,8 @@ static void bootloader_ProcessBuffer( BOOTLOADER_DATA *handle )
 
 void bootloader_SwapAndReset( void )
 {
-
-    bootloader_TriggerReset();
+    /* Swap bank and Reset */
+    bootloader_NvmSwapAndReset();
 }
 
 void bootloader_Tasks( void )
