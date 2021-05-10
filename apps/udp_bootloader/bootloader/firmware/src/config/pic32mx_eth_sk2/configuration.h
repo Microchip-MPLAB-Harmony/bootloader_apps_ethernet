@@ -80,13 +80,13 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* TIME System Service Configuration Options */
-#define SYS_TIME_INDEX_0                     0
-#define SYS_TIME_MAX_TIMERS                  5
-#define SYS_TIME_HW_COUNTER_WIDTH            32
-#define SYS_TIME_HW_COUNTER_PERIOD           4294967295U
-#define SYS_TIME_HW_COUNTER_HALF_PERIOD	     (SYS_TIME_HW_COUNTER_PERIOD>>1)
-#define SYS_TIME_CPU_CLOCK_FREQUENCY         80000000
-#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES      (460)
+#define SYS_TIME_INDEX_0                            (0)
+#define SYS_TIME_MAX_TIMERS                         (5)
+#define SYS_TIME_HW_COUNTER_WIDTH                   (32)
+#define SYS_TIME_HW_COUNTER_PERIOD                  (4294967295U)
+#define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
+#define SYS_TIME_CPU_CLOCK_FREQUENCY                (80000000)
+#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (460)
 
 
 
@@ -118,7 +118,7 @@ extern "C" {
 // *****************************************************************************
 /*** TCPIP MAC Configuration ***/
 #define TCPIP_EMAC_TX_DESCRIPTORS				    8
-#define TCPIP_EMAC_RX_DESCRIPTORS				    6
+#define TCPIP_EMAC_RX_DESCRIPTORS				    8
 #define TCPIP_EMAC_RX_DEDICATED_BUFFERS				4
 #define TCPIP_EMAC_RX_INIT_BUFFERS				    0
 #define TCPIP_EMAC_RX_LOW_THRESHOLD				    1
@@ -148,10 +148,6 @@ extern "C" {
 #define TCPIP_INTMAC_MODULE_ID		    			_ETH_BASE_ADDRESS
 #define TCPIP_INTMAC_PERIPHERAL_CLK  				80000000
 
-#define DRV_ETHMAC_INSTANCES_NUMBER				1
-#define DRV_ETHMAC_CLIENTS_NUMBER				1
-#define DRV_ETHMAC_INDEX	    	    		1
-#define DRV_ETHMAC_PERIPHERAL_ID				1
 #define DRV_ETHMAC_INTERRUPT_SOURCE				_ETHERNET_IRQ
 
 #define DRV_ETHMAC_INTERRUPT_MODE        			true
@@ -187,8 +183,9 @@ extern "C" {
 #define TCPIP_ARP_CACHE_PURGE_QUANTA		    		1
 #define TCPIP_ARP_CACHE_ENTRY_RETRIES		    		3
 #define TCPIP_ARP_GRATUITOUS_PROBE_COUNT			1
-#define TCPIP_ARP_TASK_PROCESS_RATE		        	2
+#define TCPIP_ARP_TASK_PROCESS_RATE		        	2000
 #define TCPIP_ARP_PRIMARY_CACHE_ONLY		        	true
+#define TCPIP_ARP_COMMANDS false
 
 
                                                   
@@ -210,7 +207,7 @@ extern "C" {
 
 /* Network Configuration Index 0 */
 #define TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0	"ETHMAC"
-#define TCPIP_IF_ETHMAC
+#define TCPIP_IF_PIC32MZW_ETHMAC	
 
 #define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0				"MCHPBOARD_E"
 #define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0				0
@@ -230,13 +227,22 @@ extern "C" {
 
 
 
+
+
+
 /*** IPv4 Configuration ***/
+#define TCPIP_IPV4_ARP_SLOTS                        10
 #define TCPIP_IPV4_EXTERN_PACKET_PROCESS   false
+
+#define TCPIP_IPV4_COMMANDS false
+
+#define TCPIP_IPV4_FORWARDING_ENABLE    false 
+
+
 
 
 
 /*** TCPIP Heap Configuration ***/
-
 #define TCPIP_STACK_USE_INTERNAL_HEAP
 #define TCPIP_STACK_DRAM_SIZE                       39250
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
