@@ -69,9 +69,9 @@
 #define UPPER_FLASH_SERIAL_START        (FLASH_END_ADDRESS - PAGE_SIZE)
 #define UPPER_FLASH_SERIAL_SECTOR       (FLASH_END_ADDRESS - ERASE_BLOCK_SIZE)
 
-#define FLASH_SERIAL_CHECKSUM_START     0xDEADBEEF
-#define FLASH_SERIAL_CHECKSUM_END       0xBEEFDEAD
-#define FLASH_SERIAL_CHECKSUM_CLR       0xFFFFFFFF
+#define FLASH_SERIAL_PROLOGUE           0xDEADBEEF
+#define FLASH_SERIAL_EPILOGUE           0xBEEFDEAD
+#define FLASH_SERIAL_CLEAR              0xFFFFFFFF
 
 #define LOWER_FLASH_SERIAL_READ         ((T_FLASH_SERIAL *)KVA0_TO_KVA1(LOWER_FLASH_SERIAL_START))
 #define UPPER_FLASH_SERIAL_READ         ((T_FLASH_SERIAL *)KVA0_TO_KVA1(UPPER_FLASH_SERIAL_START))
@@ -81,9 +81,9 @@
  */
 typedef struct
 {
-    uint32_t checksum_start;
+    uint32_t prologue;
     uint32_t serial;
-    uint32_t checksum_end;
+    uint32_t epilogue;
     uint32_t dummy;
 } T_FLASH_SERIAL;
 

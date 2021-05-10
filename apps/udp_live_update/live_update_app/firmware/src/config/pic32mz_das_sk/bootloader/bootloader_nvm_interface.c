@@ -70,6 +70,11 @@ static T_NVM_DATA CACHE_ALIGN nvm_data =
     .prevAddr = APP_START_ADDRESS
 };
 
+bool bootloader_NvmIsBusy(void)
+{
+    return (NVM_IsBusy());
+}
+
 T_FLASH_SERIAL CACHE_ALIGN  update_flash_serial;
 
 /* Function to read the Serial number from Flash bank mapped to lower region */
@@ -90,18 +95,16 @@ void bootloader_NvmUpdateFlashSerial(uint32_t addr)
      */
     upper_flash_serial = (get_LowerFlashSerial() + 1);
 
-    update_flash_serial.serial          = upper_flash_serial;
-    update_flash_serial.checksum_start  = FLASH_SERIAL_CHECKSUM_START;
-    update_flash_serial.checksum_end    = FLASH_SERIAL_CHECKSUM_END;
+    update_flash_serial.serial     = upper_flash_serial;
+    update_flash_serial.prologue   = FLASH_SERIAL_PROLOGUE;
+    update_flash_serial.epilogue   = FLASH_SERIAL_EPILOGUE;
 
     NVM_QuadWordWrite((uint32_t *)&update_flash_serial, addr);
 
-    while(NVM_IsBusy() == true);
-}
+    while(bootloader_NvmIsBusy() == true)
+    {
 
-bool bootloader_NvmIsBusy(void)
-{
-    return (NVM_IsBusy());
+    }
 }
 
 void bootloader_NvmAppErase( void )
@@ -112,7 +115,10 @@ void bootloader_NvmAppErase( void )
     {
         NVM_PageErase(flashAddr);
 
-        while(bootloader_NvmIsBusy() == true);
+        while(bootloader_NvmIsBusy() == true)
+        {
+
+        }
 
         flashAddr += ERASE_BLOCK_SIZE;
     }
@@ -122,7 +128,10 @@ void bootloader_NVMPageWrite(uint32_t address, uint8_t* data)
 {
     NVM_RowWrite((uint32_t *)data, address);
 
-    while(bootloader_NvmIsBusy() == true);
+    while(bootloader_NvmIsBusy() == true)
+    {
+
+    }
 }
 
 static void bootloader_AlignProgAddress(uint32_t curAddress)

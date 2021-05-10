@@ -59,6 +59,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#define TIMER_DELAY_BOOT_MS     3000
+#define TIMER_DELAY_MS          1000
+
 // *****************************************************************************
 /* Application Data
 
@@ -136,7 +139,7 @@ void APP_MIPS_Tasks ( void )
             /* Add Delay for the UART Console to get enumerated after reset */
             app_mipsData.timerHandle = SYS_TIME_HANDLE_INVALID;
 
-            if (SYS_TIME_DelayMS(1000, &app_mipsData.timerHandle) != SYS_TIME_SUCCESS)
+            if (SYS_TIME_DelayMS(TIMER_DELAY_BOOT_MS, &app_mipsData.timerHandle) != SYS_TIME_SUCCESS)
             {
                 app_mipsData.state = APP_MIPS_STATE_ERROR;
                 
@@ -169,7 +172,7 @@ void APP_MIPS_Tasks ( void )
             /* Register a 1 Second periodic callback with time system service to Blink LED */
             app_mipsData.timerHandle = SYS_TIME_HANDLE_INVALID;
 
-            app_mipsData.timerHandle = SYS_TIME_CallbackRegisterMS(timerCallback, (uintptr_t)&app_mipsData, 1000, SYS_TIME_PERIODIC);
+            app_mipsData.timerHandle = SYS_TIME_CallbackRegisterMS(timerCallback, (uintptr_t)&app_mipsData, TIMER_DELAY_MS, SYS_TIME_PERIODIC);
 
             if (app_mipsData.timerHandle == SYS_TIME_HANDLE_INVALID)
             {

@@ -4,3 +4,7 @@ attributes: {displayName: TCP/IP STACK, id: TCP/IP STACK}
 children:
 - type: ElementPosition
   attributes: {x: '338', y: '226', id: TCP/IP STACK}
+- type: Attachments
+  children:
+  - type: Attachment
+    attributes: {namespace: BASIC CONFIGURATION, id: 'tcpipStack:Core_SysConsole_Dependency'}
