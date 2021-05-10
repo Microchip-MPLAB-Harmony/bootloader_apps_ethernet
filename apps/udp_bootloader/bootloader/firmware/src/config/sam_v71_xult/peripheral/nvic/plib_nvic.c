@@ -51,7 +51,7 @@
 void NVIC_Initialize( void )
 {
     /* Priority 0 to 7 and no sub-priority. 0 is the highest priority */
-    NVIC_SetPriorityGrouping( 0x04 );
+    NVIC_SetPriorityGrouping( 0x00 );
 
     /* Enable NVIC Controller */
     __DMB();
@@ -63,8 +63,49 @@ void NVIC_Initialize( void )
     NVIC_EnableIRQ(TC0_CH0_IRQn);
     NVIC_SetPriority(GMAC_IRQn, 7);
     NVIC_EnableIRQ(GMAC_IRQn);
+    NVIC_SetPriority(GMAC_Q1_IRQn, 7);
+    NVIC_EnableIRQ(GMAC_Q1_IRQn);
+    NVIC_SetPriority(GMAC_Q2_IRQn, 7);
+    NVIC_EnableIRQ(GMAC_Q2_IRQn);
+    NVIC_SetPriority(GMAC_Q3_IRQn, 7);
+    NVIC_EnableIRQ(GMAC_Q3_IRQn);
+    NVIC_SetPriority(GMAC_Q4_IRQn, 7);
+    NVIC_EnableIRQ(GMAC_Q4_IRQn);
+    NVIC_SetPriority(GMAC_Q5_IRQn, 7);
+    NVIC_EnableIRQ(GMAC_Q5_IRQn);
 
 
 
-    return;
+}
+
+void NVIC_INT_Enable( void )
+{
+    __DMB();
+    __enable_irq();
+}
+
+bool NVIC_INT_Disable( void )
+{
+    bool processorStatus;
+
+    processorStatus = (bool) (__get_PRIMASK() == 0);
+
+    __disable_irq();
+    __DMB();
+
+    return processorStatus;
+}
+
+void NVIC_INT_Restore( bool state )
+{
+    if( state == true )
+    {
+        __DMB();
+        __enable_irq();
+    }
+    else
+    {
+        __disable_irq();
+        __DMB();
+    }
 }
