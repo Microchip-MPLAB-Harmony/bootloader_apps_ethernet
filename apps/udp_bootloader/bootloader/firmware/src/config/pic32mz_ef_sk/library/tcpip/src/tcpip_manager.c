@@ -11,7 +11,7 @@
 *******************************************************************************/
 
 /*****************************************************************************
- Copyright (C) 2012-2018 Microchip Technology Inc. and its subsidiaries.
+ Copyright (C) 2012-2020 Microchip Technology Inc. and its subsidiaries.
 
 Microchip Technology Inc. and its subsidiaries.
 
@@ -291,6 +291,8 @@ static bool _TCPIPStack_AdjustTimeouts(void);
 
 static void _TCPIP_SelectDefaultNet(TCPIP_NET_IF* pDownIf);
 
+static void _TCPIPStackSetIfNumberName(void);
+
 #if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 static void _TCPIPCopyMacAliasIf(TCPIP_NET_IF* pAliasIf, TCPIP_NET_IF* pPriIf);
 #endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
@@ -480,6 +482,9 @@ static const TCPIP_STACK_MODULE_ENTRY  TCPIP_STACK_MODULE_ENTRY_TBL [] =
 #endif   
 #if defined(TCPIP_STACK_USE_FTP_CLIENT)
     {TCPIP_MODULE_FTP_CLIENT,   (tcpipModuleInitFunc)TCPIP_FTPC_Initialize,        TCPIP_FTPC_Deinitialize},          // TCPIP_MODULE_FTP_CLIENT
+#endif 
+#if defined(TCPIP_STACK_USE_MAC_BRIDGE)
+    {TCPIP_MODULE_MAC_BRIDGE,   (tcpipModuleInitFunc)TCPIP_MAC_Bridge_Initialize,  TCPIP_MAC_Bridge_Deinitialize},      // TCPIP_MODULE_MAC_BRIDGE
 #endif 
     // Add other stack modules here
      
@@ -714,14 +719,14 @@ static bool _TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
         tcpipNetIf = (TCPIP_NET_IF*)TCPIP_HEAP_Calloc(heapH, nNets, sizeof(TCPIP_NET_IF)); // allocate for each network interface
         if(tcpipNetIf == 0)
         {   // failed
-            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration allocation failed: %d\r\n", nNets * sizeof(TCPIP_NET_IF));
+            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration allocation failed: %lu\r\n", nNets * sizeof(TCPIP_NET_IF));
             initFail = 2;
             break;
         }
 
         if(TCPIP_PKT_Initialize(heapH, pUsrConfig, nNets) == false)
         {
-            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Packet initialization failed: 0x%x\r\n", heapH);
+            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Packet initialization failed: 0x%x\r\n", (uint32_t)heapH);
             initFail = 3;
             break;
         }
@@ -786,13 +791,15 @@ static bool _TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
         dupIpAddr.Val = 0;
         for(netIx = 0, pIf = tcpipNetIf; netIx < nNets && !initFail; netIx++, pIf++)
         {
-            dupIpAddr.Val = pIf->DefaultIPAddr.Val;
-            for(ix = netIx + 1, pScanIf = pIf + 1; ix < nNets; ix++, pScanIf++)
-            {
-                if(pScanIf->DefaultIPAddr.Val == dupIpAddr.Val)
+            if((dupIpAddr.Val = pIf->DefaultIPAddr.Val) != 0)
+            {   // IP address 0 does not count as duplicate
+                for(ix = netIx + 1, pScanIf = pIf + 1; ix < nNets; ix++, pScanIf++)
                 {
-                    initFail = 6;
-                    break;
+                    if(pScanIf->DefaultIPAddr.Val == dupIpAddr.Val)
+                    {
+                        initFail = 6;
+                        break;
+                    }
                 }
             }
         }
@@ -808,6 +815,8 @@ static bool _TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_IGMP)
         tcpipDefIf.defaultMcastNet = 0;
 #endif
+
+        _TCPIPStackSetIfNumberName();
 
         // initialize the signal handlers
         memset(TCPIP_STACK_MODULE_SIGNAL_TBL, 0x0, sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL));
@@ -836,7 +845,7 @@ static bool _TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
 
             // check the power mode
             powerMode = TCPIP_Helper_StringToPowerMode(pUsrConfig->powerMode);
-            if(powerMode != TCPIP_MAC_POWER_FULL)
+            if(powerMode != TCPIP_MAC_POWER_FULL && powerMode != TCPIP_MAC_POWER_DOWN)
             {   
                 SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Power Mode initialization fail: %d\r\n", powerMode);
                 initFail = 7;
@@ -905,7 +914,7 @@ static bool _TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
         heapLeft = TCPIP_HEAP_FreeSize(heapH);
         if(heapLeft < TCPIP_STACK_DRAM_RUN_LIMIT)
         {
-            SYS_ERROR_PRINT(SYS_ERROR_WARNING, TCPIP_STACK_HDR_MESSAGE "Dynamic memory is low: %d\r\n", heapLeft);
+            SYS_ERROR_PRINT(SYS_ERROR_WARNING, TCPIP_STACK_HDR_MESSAGE "Dynamic memory is low: %lu\r\n", heapLeft);
         }
 #endif  // !defined (TCPIP_STACK_USE_EXTERNAL_HEAP)
         return true;
@@ -953,7 +962,7 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
     while(true)
     {
         if(_TCPIPStackNetIsPrimary(pNetIf))
-        {
+        {   // init primary interface
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION) && (TCPIP_STACK_USER_NOTIFICATION != 0)
             if(!TCPIP_Notification_Initialize(&pNetIf->registeredClients))
             {
@@ -973,8 +982,9 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
                     pNetIf->pMacConfig = configData = pConfig->configData;
                 }
             }
-            // init the MAC
-            {
+
+            if(stackCtrlData->powerMode == TCPIP_MAC_POWER_FULL)
+            {   // init the MAC
                 TCPIP_STACK_StacktoMacCtrl(&macCtrl, stackCtrlData);
                 TCPIP_MAC_INIT macInit =
                 {
@@ -992,17 +1002,17 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
                     netUpFail = 1;
                     break;
                 }
-            }
 
-            // open the MAC
-            pNetIf->hIfMac = (*pMacObj->TCPIP_MAC_Open)(pMacObj->macId, DRV_IO_INTENT_READWRITE);
-            if(pNetIf->hIfMac == DRV_HANDLE_INVALID)
-            {
-                pNetIf->hIfMac = 0;
-                pNetIf->macObjHandle = 0;
-                SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "%s MAC Open failed\r\n", pMacObj->macName);
-                netUpFail = 1;
-                break;
+                // open the MAC
+                pNetIf->hIfMac = (*pMacObj->TCPIP_MAC_Open)(pMacObj->macId, DRV_IO_INTENT_READWRITE);
+                if(pNetIf->hIfMac == DRV_HANDLE_INVALID)
+                {
+                    pNetIf->hIfMac = 0;
+                    pNetIf->macObjHandle = 0;
+                    SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "%s MAC Open failed\r\n", pMacObj->macName);
+                    netUpFail = 1;
+                    break;
+                }
             }
         }
 
@@ -1031,19 +1041,23 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
             pEntry++;
         }
 
-        if(!netUpFail && _TCPIPStackNetIsPrimary(pNetIf))
+        if(!netUpFail && pNetIf->hIfMac != 0)
         {
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
-
-            if(!(*pNetIf->pMacObj->TCPIP_MAC_EventMaskSet)(pNetIf->hIfMac, TCPIP_STACK_MAC_ALL_EVENTS, true))
+            if(_TCPIPStackNetIsPrimary(pNetIf))
             {
-                SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "%s MAC event notification setting failed\r\n", pNetIf->pMacObj->macName);
-                netUpFail = 1;
-                break;
+                if(!(*pNetIf->pMacObj->TCPIP_MAC_EventMaskSet)(pNetIf->hIfMac, TCPIP_STACK_MAC_ALL_EVENTS, true))
+                {
+                    SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "%s MAC event notification setting failed\r\n", pNetIf->pMacObj->macName);
+                    netUpFail = 1;
+                    break;
+                }
             }
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 
             // completed the MAC initialization
+            pNetIf->Flags.bMacInitialize = true;
+            pNetIf->Flags.bMacInitDone = false;
         }
 
         break;
@@ -1054,8 +1068,6 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
         return false;
     }
 
-    pNetIf->Flags.bMacInitialize = true;
-    pNetIf->Flags.bMacInitDone = false;
 
 #if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     TCPIP_NET_IF* pPriIf;
@@ -1121,7 +1133,7 @@ bool TCPIP_STACK_NetUp(TCPIP_NET_HANDLE netH, const TCPIP_NETWORK_CONFIG* pUsrCo
         }
 
         powerMode = TCPIP_Helper_StringToPowerMode(pUsrConfig->powerMode);
-        if(powerMode != TCPIP_MAC_POWER_FULL)
+        if(powerMode != TCPIP_MAC_POWER_FULL && powerMode != TCPIP_MAC_POWER_DOWN)
         {   
             SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Power Mode initialization fail: %d\r\n", powerMode);
             return false;
@@ -1632,7 +1644,6 @@ static bool _TCPIPStackIsRunState(void)
                     (*pNetIf->pMacObj->TCPIP_MAC_ParametersGet)(pNetIf->hIfMac, &macParams);
                     memcpy(pNetIf->netMACAddr.v, macParams.ifPhyAddress.v, sizeof(pNetIf->netMACAddr));
                     pNetIf->Flags.bMacProcessOnEvent = macParams.processFlags != TCPIP_MAC_PROCESS_FLAG_NONE;
-                    pNetIf->macType = macParams.macType;
                     pNetIf->linkMtu = macParams.linkMtu;
                     // enable this interface
                     pNetIf->Flags.bInterfaceEnabled = true;
@@ -1665,12 +1676,19 @@ static bool _TCPIPStackIsRunState(void)
         {
             pPriIf = _TCPIPStackNetGetPrimary(pNetIf);    // look at the primary initialization
 
-            if(pPriIf->Flags.bMacInitDone == 0)
+            if(pPriIf->Flags.powerMode == TCPIP_MAC_POWER_FULL)
             {
-                return false;  // not done
+                if(pPriIf->Flags.bMacInitDone == 0)
+                {
+                    return false;  // not done
+                }
+                else if(pPriIf->Flags.bInterfaceEnabled != 0)
+                {
+                    ifUpMask |= (1 << netIx);
+                }
             }
-            else if(pPriIf->Flags.bInterfaceEnabled != 0)
-            {
+            else
+            {   // done
                 ifUpMask |= (1 << netIx);
             }
         }
@@ -1678,27 +1696,6 @@ static bool _TCPIPStackIsRunState(void)
         // passed through all interfaces
         if(ifUpMask == ((1 << netIx) - 1))
         {   // all interfaces up
-            int ifNumber[TCPIP_MAC_TYPES] = { 0 };
-            for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
-            {
-                // set the interfaces name
-                // and update the alias interfaces
-                if(_TCPIPStackNetIsPrimary(pNetIf))
-                {
-                    const char* ifName = TCPIP_STACK_IF_ALIAS_NAME_TBL[pNetIf->macType]; 
-                    snprintf(pNetIf->ifName, sizeof(pNetIf->ifName), "%s%d", ifName, ifNumber[pNetIf->macType]);
-                    pNetIf->ifName[sizeof(pNetIf->ifName) - 1] = 0;
-                    // update all its aliases
-#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-                    for(pAliasIf = _TCPIPStackNetGetAlias(pNetIf), aliasIx = 0; pAliasIf != 0; pAliasIf = _TCPIPStackNetGetAlias(pAliasIf), aliasIx++)
-                    {
-                        snprintf(pAliasIf->ifName, sizeof(pAliasIf->ifName), "%s%d:%d", ifName, ifNumber[pNetIf->macType], aliasIx);
-                        pAliasIf->ifName[sizeof(pAliasIf->ifName) - 1] = 0;
-                    }
-#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-                    ifNumber[pNetIf->macType]++;
-                }
-            }
             tcpip_stack_status = SYS_STATUS_READY;
             SYS_CONSOLE_MESSAGE(TCPIP_STACK_HDR_MESSAGE "Initialization Ended - success \r\n");
         }
@@ -1730,6 +1727,38 @@ static bool _TCPIPStackIsRunState(void)
     }
 
     return true;
+}
+
+static void _TCPIPStackSetIfNumberName(void)
+{ 
+    int netIx;
+    TCPIP_NET_IF* pNetIf;
+    int ifNumber[TCPIP_MAC_TYPES] = { 0 };
+
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
+    {
+        // set the interface number
+        pNetIf->netIfIx = netIx;
+        // set the interfaces name
+        // and update the alias interfaces
+        if(_TCPIPStackNetIsPrimary(pNetIf))
+        {
+            const char* ifName = TCPIP_STACK_IF_ALIAS_NAME_TBL[pNetIf->macType]; 
+            snprintf(pNetIf->ifName, sizeof(pNetIf->ifName), "%s%d", ifName, ifNumber[pNetIf->macType]);
+            pNetIf->ifName[sizeof(pNetIf->ifName) - 1] = 0;
+            // update all its aliases
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+            int aliasIx;
+            TCPIP_NET_IF* pAliasIf;
+            for(pAliasIf = _TCPIPStackNetGetAlias(pNetIf), aliasIx = 0; pAliasIf != 0; pAliasIf = _TCPIPStackNetGetAlias(pAliasIf), aliasIx++)
+            {
+                snprintf(pAliasIf->ifName, sizeof(pAliasIf->ifName), "%s%d:%d", ifName, ifNumber[pNetIf->macType], aliasIx % 10);
+                pAliasIf->ifName[sizeof(pAliasIf->ifName) - 1] = 0;
+            }
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+            ifNumber[pNetIf->macType]++;
+        }
+    }
 }
 
 #if !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
@@ -1840,6 +1869,17 @@ static uint32_t _TCPIPProcessMacPackets(bool signal)
         }
             
 #endif  // (TCPIP_STACK_EXTERN_PACKET_PROCESS != 0)
+
+#if defined(TCPIP_STACK_USE_MAC_BRIDGE)
+        TCPIP_MAC_BRIDGE_PKT_RES brRes = TCPIP_MAC_Bridge_ProcessPacket( pRxPkt);
+        if(brRes != TCPIP_MAC_BRIDGE_PKT_RES_HOST_PROCESS)
+        {
+            continue;
+        } 
+        
+#endif  // defined(TCPIP_STACK_USE_MAC_BRIDGE)
+
+
         frameFound = false;
         pFrameEntry = TCPIP_FRAME_PROCESS_TBL;
         for(frameIx = 0; frameIx < sizeof(TCPIP_FRAME_PROCESS_TBL) / sizeof(*TCPIP_FRAME_PROCESS_TBL); frameIx++, pFrameEntry++)
@@ -2285,7 +2325,7 @@ int TCPIP_STACK_NumberOfNetworksGet(void)
  ********************************************************************/
 TCPIP_NET_HANDLE TCPIP_STACK_IndexToNet(int netIx)
 {
-    if(netIx < tcpip_stack_ctrl_data.nIfs)
+    if(0 <= netIx && netIx < tcpip_stack_ctrl_data.nIfs)
     {
         return tcpipNetIf + netIx;
     }
@@ -2481,6 +2521,28 @@ TCPIP_NET_IF* TCPIP_STACK_NetByAddress(const IPV4_ADDR* pIpAddress)
         }
     }
 
+    return 0;
+}
+
+// finds a network interface matching an IPv4 address
+// does NOT check for interface up/down!
+TCPIP_NET_IF* TCPIP_STACK_MatchNetAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
+{
+    int netIx;
+    TCPIP_NET_IF* pIf;
+
+    if(pIpAdd->Val == 0x0100007f /* || pNetIf->netIPAddr.Val == pIpAdd->Val*/)
+    {
+        return pNetIf;
+    }
+
+    for(netIx = 0, pIf = tcpipNetIf ; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
+    {
+        if(pIf->netIPAddr.Val == pIpAdd->Val)
+        {
+            return pIf;
+        }
+    }
 
     return 0;
 }
@@ -2763,13 +2825,8 @@ bool TCPIP_STACK_NetBiosNameSet(TCPIP_NET_HANDLE netH, const char* biosName)
 
 const uint8_t* TCPIP_STACK_NetAddressMac(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
-    if(pNetIf)
-    {
-        return TCPIP_STACK_NetMACAddressGet(pNetIf);
-    }
-
-    return 0;
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(netH);
+    return TCPIP_STACK_NetUpMACAddressGet(pNetIf);
 }
 
 TCPIP_STACK_MODULE  TCPIP_STACK_NetMACIdGet(TCPIP_NET_HANDLE netH)
@@ -3368,7 +3425,7 @@ static bool _LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET
 
     if(restartIf)
     {   // save old data that's still useful
-        strncpy(oldIfName, pNetIf->ifName, sizeof(pNetIf->ifName)); 
+        strncpy(oldIfName, pNetIf->ifName, sizeof(oldIfName) - 1); 
         pMacConfig = pNetIf->pMacConfig;
         netIfIx = pNetIf->netIfIx;
 #if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
@@ -3412,6 +3469,12 @@ static bool _LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET
         }
 
         pNetIf->macId = pNetIf->pMacObj->macId;
+        pNetIf->macType = pNetIf->pMacObj->macType;
+        if(pNetIf->macType == 0 || pNetIf->macType >= TCPIP_MAC_TYPES)
+        {
+            loadFault = true;       // no such MAC type
+            break;
+        } 
 
         // Load the NetBIOS Host Name
         memcpy(pNetIf->NetBIOSName, pUsrConfig->hostName, sizeof(tcpipNetIf[0].NetBIOSName));
@@ -3472,7 +3535,7 @@ static bool _LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET
     if(restartIf)
     {   
         // restore the if name
-        strncpy(pNetIf->ifName, oldIfName, sizeof(pNetIf->ifName)); 
+        memcpy(pNetIf->ifName, oldIfName, sizeof(pNetIf->ifName)); 
         // restore MAC config data
         pNetIf->pMacConfig = pMacConfig;
         pNetIf->netIfIx = netIfIx;
@@ -3517,20 +3580,17 @@ TCPIP_EVENT TCPIP_STACK_EventsPendingGet(const void* h)
 #if (TCPIP_STACK_USER_NOTIFICATION != 0)
 TCPIP_EVENT_HANDLE    TCPIP_STACK_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_EVENT evMask, TCPIP_STACK_EVENT_HANDLER handler, const void* hParam)
 {
-    TCPIP_EVENT_LIST_NODE* newNode;
     TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(hNet);
 
     if(pNetIf && _TCPIPStackNetIsPrimary(pNetIf) && handler)
     {
-        newNode = (TCPIP_EVENT_LIST_NODE*)TCPIP_Notification_Add(&pNetIf->registeredClients, tcpip_stack_ctrl_data.memH, sizeof(*newNode));
-        if(newNode)
-        {
-            newNode->handler = handler;
-            newNode->hParam = hParam;
-            newNode->evMask = evMask;
-            newNode->pNetIf = pNetIf;
-        }
-        return newNode;
+        TCPIP_EVENT_LIST_NODE eventNode;
+        eventNode.handler = handler;
+        eventNode.hParam = hParam;
+        eventNode.evMask = evMask;
+        eventNode.pNetIf = pNetIf;
+
+        return (TCPIP_EVENT_LIST_NODE*)TCPIP_Notification_Add(&pNetIf->registeredClients, tcpip_stack_ctrl_data.memH, &eventNode, sizeof(eventNode));
     }
 
     return 0;
@@ -3817,9 +3877,26 @@ TCPIP_NET_IF* _TCPIPStackAnyNetLinked(bool useDefault)
 }
 
 
+// returns the interface for which this address is a net_directed address
+// 0 in not found
+// does NOT check network up, linked, etc.
+// does NOT check primary/virtual interface!
+TCPIP_NET_IF* _TCPIPStackAnyNetDirected(const IPV4_ADDR* pIpAdd)
+{
+    int netIx;
 
+    TCPIP_NET_IF* pIf;
 
+    for(netIx = 0, pIf = tcpipNetIf ; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
+    {
+        if(_TCPIPStack_IsDirectedBcast(pIf, pIpAdd))
+        {
+            return pIf;
+        }
+    }
 
+    return 0;
+}
 
 TCPIP_STACK_MODULE  TCPIP_STACK_NetMACId(TCPIP_NET_IF* pNetIf)
 {
@@ -3834,7 +3911,7 @@ TCPIP_STACK_MODULE  TCPIP_STACK_NetMACId(TCPIP_NET_IF* pNetIf)
 
 
 
-const uint8_t*  TCPIP_STACK_NetMACAddressGet(TCPIP_NET_IF* pNetIf)
+const uint8_t*  TCPIP_STACK_NetUpMACAddressGet(TCPIP_NET_IF* pNetIf)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
@@ -3890,7 +3967,7 @@ static void TCPIP_STACK_StacktoMacCtrl(TCPIP_MAC_MODULE_CTRL* pMacCtrl, TCPIP_ST
     pMacCtrl->netIx = stackCtrlData->netIx;
     pMacCtrl->macAction = TCPIP_STACK_StackToMacAction(stackCtrlData->stackAction);
     pMacCtrl->powerMode = stackCtrlData->powerMode;
-
+    pMacCtrl->segLoadOffset = TCPIP_PKT_SegLoadOffset();
     memcpy(pMacCtrl->ifPhyAddress.v, pNetIf->netMACAddr.v, sizeof(pMacCtrl->ifPhyAddress));
 }
 
@@ -4268,7 +4345,7 @@ unsigned int TCPIP_STACK_VersionGet ( const SYS_MODULE_INDEX index )
 }
 
 
-char * TCPIP_STACK_VersionStrGet ( const SYS_MODULE_INDEX index )
+const char * TCPIP_STACK_VersionStrGet ( const SYS_MODULE_INDEX index )
 {
     return TCPIP_STACK_VERSION_STR;
 }

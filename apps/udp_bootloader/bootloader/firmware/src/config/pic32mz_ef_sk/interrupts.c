@@ -50,7 +50,9 @@
 // *****************************************************************************
 
 #include "configuration.h"
+#include "interrupts.h"
 #include "definitions.h"
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,12 +67,12 @@ void ETHERNET_InterruptHandler( void );
 
 
 /* All the handlers are defined here.  Each will call its PLIB-specific function. */
-void __ISR(_CORE_TIMER_VECTOR, ipl1AUTO) CORE_TIMER_Handler (void)
+void __ISR(_CORE_TIMER_VECTOR, ipl1SRS) CORE_TIMER_Handler (void)
 {
     CORE_TIMER_InterruptHandler();
 }
 
-void __ISR(_ETHERNET_VECTOR, ipl1AUTO) ETHERNET_Handler (void)
+void __ISR(_ETHERNET_VECTOR, ipl1SRS) ETHERNET_Handler (void)
 {
     ETHERNET_InterruptHandler();
 }
