@@ -1,0 +1,63 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: udp_bootloader}
+children:
+- type: Symbols
+  children:
+  - type: String
+    attributes: {id: BTL_SIZE}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'true'}
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: udp_bootloader, value: '86016'}
+  - type: Boolean
+    attributes: {id: BTL_TRIGGER_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: 'true'}
+  - type: String
+    attributes: {id: BTL_TRIGGER_LEN}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'true'}
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '16'}
+  - type: String
+    attributes: {id: MEM_USED}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: udp_bootloader, value: NVM}
+- type: Attachments
+  children:
+  - type: DirectDependency
+    attributes: {id: btl_MEMORY_dependency}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: targetComponentID}
+        children:
+        - {type: Value, value: nvm}
+      - type: String
+        attributes: {id: targetAttachmentID}
+        children:
+        - {type: Value, value: NVM_MEMORY}
+- type: ElementPosition
+  attributes: {x: '154', y: '195', id: udp_bootloader}
