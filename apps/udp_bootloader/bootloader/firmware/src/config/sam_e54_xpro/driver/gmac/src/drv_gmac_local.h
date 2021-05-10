@@ -147,8 +147,13 @@ typedef enum{
 	/*DOM-IGNORE-BEGIN*/= (	GMAC_EV_MGMTFRAMESENT | GMAC_EV_RXCOMPLETE |  GMAC_EV_RXUSEDBITREAD |
 	GMAC_EV_TXUNDERRUN | GMAC_EV_RETRYLIMITEXCEED |	GMAC_EV_TXFRAMECORRUPT |
 	GMAC_EV_TXCOMPLETE | GMAC_EV_RXOVERRUN | GMAC_EV_HRESPNOTOK |
-	GMAC_EV_PAUSEFRAMENZRECV | GMAC_EV_PAUSETIMEZERO | GMAC_EV_PAUSEFRAMETX ) /*DOM-IGNORE-END*/
-            
+	GMAC_EV_PAUSEFRAMENZRECV | GMAC_EV_PAUSETIMEZERO | GMAC_EV_PAUSEFRAMETX ) /*DOM-IGNORE-END*/,
+    // RX events
+	GMAC_EV_RX_ALL
+	/*DOM-IGNORE-BEGIN*/= (GMAC_EV_RXCOMPLETE | GMAC_EV_RXUSEDBITREAD | GMAC_EV_RXOVERRUN) /*DOM-IGNORE-END*/, 
+    // TX events
+	GMAC_EV_TX_ALL
+	/*DOM-IGNORE-BEGIN*/= (GMAC_EV_TXCOMPLETE | GMAC_EV_TXFRAMECORRUPT | GMAC_EV_TXUNDERRUN) /*DOM-IGNORE-END*/ 
 } GMAC_EVENTS;
 /* TCPIP Stack Event Descriptor
 
@@ -161,12 +166,18 @@ typedef enum{
 */
 typedef struct
 {
-    TCPIP_MAC_EVENT             _TcpEnabledEvents;          // group enabled notification events
-    volatile TCPIP_MAC_EVENT    _TcpPendingEvents;          // group notification events that are set, waiting to be re-acknowledged
-    GMAC_EVENTS             _EthEnabledEvents;          // copy in GMAC_EVENTS space
-    volatile GMAC_EVENTS    _EthPendingEvents;          // copy in GMAC_EVENTS space
-    TCPIP_MAC_EventF            _TcpNotifyFnc;              // group notification handler
-    const void*                 _TcpNotifyParam;            // notification parameter
+    // group enabled notification events
+    TCPIP_MAC_EVENT             _TcpEnabledEvents;  
+    // group notification events that are set, waiting to be re-acknowledged
+    volatile TCPIP_MAC_EVENT    _TcpPendingEvents;  
+    // copy in GMAC_EVENTS space
+    GMAC_EVENTS             _EthEnabledEvents;  
+    // copy in GMAC_EVENTS space
+    volatile GMAC_EVENTS    _EthPendingEvents;   
+    // group notification handler
+    TCPIP_MAC_EventF            _TcpNotifyFnc;     
+    // notification parameter
+    const void*                 _TcpNotifyParam;            
 }DRV_GMAC_EVENT_DCPT;   // event descriptor per group
 
 // synchronization for the RX flow
@@ -183,14 +194,34 @@ typedef struct
 //#define   DRV_GMAC_USE_RX_SEMAPHORE_LOCK
 #define   DRV_GMAC_USE_TX_SEMAPHORE_LOCK
 
+// minimum RX buffer size
+// less than this creates excessive fragmentation
+// Keep it always multiple of 16!
+#define DRV_GMAC_MIN_RX_SIZE           64    
 
-#define DRV_GMAC_MIN_RX_SIZE           64     // minimum RX buffer size
-                                                // less than this creates excessive fragmentation
-                                                // Keep it always multiple of 16!
+// minimum number of TX descriptors
+// needed to accommodate zero copy and TCP traffic
+#define DRV_GMAC_MIN_TX_DESCRIPTORS    1    
 
-#define DRV_GMAC_MIN_TX_DESCRIPTORS    1       // minimum number of TX descriptors
-                                                 // needed to accomodate zero copy and TCP traffic
-                                                 
+// maximum number of TX descriptors for Queue 0
+// needed to allocate GMAC descriptor space
+// edit this value if more TX descriptors are needed
+#define DRV_GMAC_MAX_TX_DESCRIPTORS_QUE0    20  
+
+// maximum number of TX descriptors for Queues other than default Queue
+// needed to allocate GMAC descriptor space
+// edit this value if more TX descriptors are needed
+#define DRV_GMAC_MAX_TX_DESCRIPTORS_QUEx    2   
+
+// maximum number of RX descriptors for Queue 0
+// needed to allocate GMAC descriptor space
+// edit this value if more RX descriptors are needed
+#define DRV_GMAC_MAX_RX_DESCRIPTORS_QUE0    20  
+
+// maximum number of RX descriptors for Queues other than default Queue
+// needed to allocate GMAC descriptor space
+// edit this value if more RX descriptors are needed
+#define DRV_GMAC_MAX_RX_DESCRIPTORS_QUEx    2 
 // *****************************************************************************
 /* Ethernet Driver Module Link check states
 
@@ -218,9 +249,9 @@ typedef enum
  */
 typedef struct
 {	
-	/** Pointer to allocated RX buffer */
-	TCPIP_MAC_PACKET *pRxPckt[TCPIP_GMAC_RX_DESCRIPTORS_COUNT_QUE0]; //normally QUE0 will have maximum RX descriptors
-                                                                  // So that many number of Rx packet pointers for all Queues
+	/** Pointer to allocated RX buffer */    
+    TCPIP_MAC_PACKET **pRxPckt;
+    // So that many number of Rx packet pointers for all Queues
 	/** Pointer to Rx TDs (must be 8-byte aligned) */
 	DRV_PIC32CGMAC_HW_RXDCPT *pRxDesc;
     // Rx queues for RX packet buffers
@@ -241,7 +272,9 @@ typedef struct
 	uint16_t nTxDescHead;
 	/** Circular buffer tail pointer incremented by handlers (buffer sent) */
 	uint16_t nTxDescTail;	
-
+    
+    /** interrupt source for GMAC queues */
+    INT_SOURCE   _queIntSrc;
 } DRV_GMAC_QUEUE;
 // *****************************************************************************
 /* GMAC driver data.
@@ -292,17 +325,17 @@ typedef struct {
 	DRV_GMAC_LINK_CHECK_STATE       _linkCheckState;    // link state machine current status
 	INT_SOURCE                      _macIntSrc;							// this MAC interrupt source
 	
-	DRV_GMAC_EVENT_DCPT             _pic32c_ev_group_dcpt;
+	DRV_GMAC_EVENT_DCPT             _gmac_event_group_dcpt;
 	uintptr_t                       _syncRxH;          // synch object handle for RX operations
 	uintptr_t                       _syncTxH;          // synch object handle for TX operations
 	
 	// debug: run time statistics
 	TCPIP_MAC_RX_STATISTICS         _rxStat;
 	TCPIP_MAC_TX_STATISTICS         _txStat;
-	
+               
     // GMAC queues
-	DRV_GMAC_QUEUE                      gmac_queue[DRV_GMAC_NUMBER_OF_QUEUES];	
-	TCPIP_MODULE_MAC_PIC32C_CONFIG    gmacConfig;  // configuration parameters
+	DRV_GMAC_QUEUE                  gmac_queue[DRV_GMAC_NUMBER_OF_QUEUES];	
+	TCPIP_MODULE_MAC_PIC32C_CONFIG  gmacConfig;  // configuration parameters
 	
 } DRV_GMAC_INSTANCE;
 

@@ -63,7 +63,10 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 #include "driver/ethphy/src/dynamic/drv_extphy_regs.h"
 
 // debugging
-#define DRV_PHY_DEBUG_MASK_BASIC        (0x0001)
+#define DRV_PHY_DEBUG_MASK_BASIC            (0x0001)    // basic assert/condition
+#define DRV_PHY_DEBUG_MASK_DETECT_PHASE     (0x0002)    // display detect phases/states
+#define DRV_PHY_DEBUG_MASK_DETECT_VALUES    (0x0004)    // display detect register read/write values
+
 
 // enable IPV4 debugging levels
 #define DRV_PHY_DEBUG_LEVEL  (0)
@@ -99,9 +102,6 @@ typedef enum
     DRV_ETHPHY_CLIENT_OP_TYPE_RESET,            // ask for a PHY reset
     DRV_ETHPHY_CLIENT_OP_SMI_READ,              // SMI read operation scheduled
     DRV_ETHPHY_CLIENT_OP_SMI_WRITE,             // SMI write operation scheduled
-    DRV_ETHPHY_CLIENT_OP_SMI_SCAN,              // SMI scan operation scheduled
-
-
 } DRV_ETHPHY_CLIENT_OP_TYPE;
 
 
@@ -262,11 +262,35 @@ typedef enum
 
 typedef enum
 {
-    DRV_ETHPHY_SMI_TXFER_OP_NONE = 0,      // operation not started
+    DRV_ETHPHY_SMI_TXFER_OP_NONE = 0,      // no operation in progress
     DRV_ETHPHY_SMI_TXFER_OP_START,         // command to start the operation
-    DRV_ETHPHY_SMI_TXFER_OP_BUSY_COMPLETE, // operation waiting to complete
-    DRV_ETHPHY_SMI_TXFER_OP_DONE,          // operation completed successfully
+    DRV_ETHPHY_SMI_TXFER_OP_WAIT_COMPLETE, // operation waiting to complete
 } DRV_ETHPHY_SMI_TXFER_OP_STATUS;
+
+// *****************************************************************************
+/* ETHPHY Driver Client SMI Operation result
+
+  Summary:
+    Defines the result of an initiated SMI operation
+
+  Description:
+    Defines the result of an initiated SMI operation
+
+  Remarks:
+    None.
+*/
+
+typedef enum
+{
+    DRV_ETHPHY_SMI_TXFER_RES_DONE,      // operation completed successfully
+    DRV_ETHPHY_SMI_TXFER_RES_SCHEDULED, // operation scheduled succesfuly, not yet complete
+    DRV_ETHPHY_SMI_TXFER_RES_WAIT,      // operation not yet complete, call again
+    DRV_ETHPHY_SMI_TXFER_RES_BUSY,      // operation failed - another operation in progress; retry
+    // errors
+    DRV_ETHPHY_SMI_TXFER_RES_ILLEGAL    = -1,   // illegal operation attempted
+    DRV_ETHPHY_SMI_TXFER_RES_MIIM_ERROR = -2,   // MIIM operation failed - MIIM couldn't start operation 
+} DRV_ETHPHY_SMI_TXFER_RES;
+
 
 // *****************************************************************************
 /* ETHPHY Driver PHY MIIM transfer type
@@ -287,7 +311,6 @@ typedef enum
     DRV_ETHPHY_SMI_XFER_TYPE_WRITE,             // write operation
     DRV_ETHPHY_SMI_XFER_TYPE_WRITE_COMPLETE,    // write with completion
     DRV_ETHPHY_SMI_XFER_TYPE_READ,              // read operation
-    DRV_ETHPHY_SMI_XFER_TYPE_SCAN,              // scan operation
 } DRV_ETHPHY_SMI_XFER_TYPE;
 
 // *****************************************************************************
@@ -308,7 +331,7 @@ typedef struct _DRV_ETHPHY_CLIENT_OBJ_STRUCT
 {
     uint16_t                    clientInUse;// True if in use
     uint16_t                    clientIx;   // client number
-    uintptr_t               ethphyId;   // The peripheral Id associated with the object
+    uintptr_t                   ethphyId;   // The peripheral Id associated with the object
     DRV_ETHPHY_CLIENT_STATUS    status;     // Client Status
     struct _DRV_ETHPHY_OBJ_STRUCT* hDriver; // Handle of driver that owns the client
     const DRV_MIIM_OBJECT_BASE* pMiimBase;  // MIIM driver base object to use   
@@ -335,6 +358,7 @@ typedef struct _DRV_ETHPHY_CLIENT_OBJ_STRUCT
 
     // vendor specific data
     uintptr_t                   vendorData;
+    DRV_ETHPHY_VENDOR_DETECT    vendorDetect;
 
 } DRV_ETHPHY_CLIENT_OBJ;
 
@@ -354,16 +378,16 @@ typedef struct _DRV_ETHPHY_CLIENT_OBJ_STRUCT
 
 typedef struct _DRV_ETHPHY_OBJ_STRUCT
 {
-    uint8_t             objInUse;       // True if in use
-    uint8_t             busInUse;       // True if SMI bus in use;
-    uint16_t            numClients;     // Number of active clients
-    SYS_STATUS          status;         // Status of module
-    SYS_MODULE_INDEX    iModule;        // Module instance number
-    uintptr_t       ethphyId;       // The peripheral Id associated with the object
-    TCPIP_ETH_OPEN_FLAGS      openFlags;      // flags required at open time
-    DRV_ETHPHY_CONFIG_FLAGS configFlags;    // ETHPHY MII/RMII configuration flags
-    TCPIP_ETH_PAUSE_TYPE      macPauseType;   // MAC supported pause type
-    int                 phyAddress;     // PHY SMI address
+    uint8_t                     objInUse;       // True if in use
+    uint8_t                     busInUse;       // True if SMI bus in use;
+    uint16_t                    numClients;     // Number of active clients
+    SYS_STATUS                  status;         // Status of module
+    SYS_MODULE_INDEX            iModule;        // Module instance number
+    uintptr_t                   ethphyId;       // The peripheral Id associated with the object
+    TCPIP_ETH_OPEN_FLAGS        openFlags;      // flags required at open time
+    DRV_ETHPHY_CONFIG_FLAGS     configFlags;    // ETHPHY MII/RMII configuration flags
+    TCPIP_ETH_PAUSE_TYPE        macPauseType;   // MAC supported pause type
+    int                         phyAddress;     // PHY SMI address
     const DRV_ETHPHY_OBJECT*    pPhyObj; // PHY object, vendor specififc functions
     DRV_ETHPHY_CLIENT_OBJ       objClients[DRV_ETHPHY_CLIENTS_NUMBER]; // array of clients
     const DRV_MIIM_OBJECT_BASE* pMiimBase;  // MIIM driver base object to use   
