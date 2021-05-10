@@ -148,13 +148,8 @@ BOOTLOADER_DATA btlData =
     .usrBufferEventComplete = false
 };
 
-bool __WEAK bootloader_Trigger(void)
-{
-    /* Function can be overriden with custom implementation */
-    return false;
-}
 
-static void bootloader_TriggerReset(void)
+void bootloader_TriggerReset(void)
 {
     /* Perform system unlock sequence */
     SYSKEY = 0x00000000;
@@ -165,22 +160,6 @@ static void bootloader_TriggerReset(void)
     (void)RSWRST;
 }
 
-void run_Application(void)
-{
-    uint32_t msp            = *(uint32_t *)(APP_START_ADDRESS);
-
-    void (*fptr)(void);
-
-    /* Set default to APP_RESET_ADDRESS */
-    fptr = (void (*)(void))APP_START_ADDRESS;
-
-    if (msp == 0xffffffff)
-    {
-        return;
-    }
-
-    fptr();
-}
 
 static const uint16_t crc_table[16] =
 {
