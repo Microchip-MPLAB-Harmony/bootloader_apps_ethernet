@@ -39,13 +39,17 @@
 		"author": "Microchip",
 		"subcategories": [
 			[
-				"Development Kit", "Curiosity PIC32MZ EF 2.0 Development Board"
+				"Development Kit",
+				"Curiosity PIC32MZ EF 2.0 Development Board"
 			],
 			[
-				"Harmony", "Bootloader", "UDP"
+				"Harmony",
+				"Bootloader",
+				"UDP"
 			],
 			[
-				"Bootloader", "UDP"
+				"Bootloader",
+				"UDP"
 			]
 		],
 		"peripherals": [
