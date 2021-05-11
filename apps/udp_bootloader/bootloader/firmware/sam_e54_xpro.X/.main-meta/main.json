@@ -39,13 +39,17 @@
 		"author": "Microchip",
 		"subcategories": [
 			[
-				"Development Kit", "SAM E54 Xplained Pro Evaluation Kit"
+				"Development Kit",
+				"SAM E54 Xplained Pro Evaluation Kit"
 			],
 			[
-				"Harmony", "Bootloader", "UDP"
+				"Harmony",
+				"Bootloader",
+				"UDP"
 			],
 			[
-				"Bootloader", "UDP"
+				"Bootloader",
+				"UDP"
 			]
 		],
 		"peripherals": [
