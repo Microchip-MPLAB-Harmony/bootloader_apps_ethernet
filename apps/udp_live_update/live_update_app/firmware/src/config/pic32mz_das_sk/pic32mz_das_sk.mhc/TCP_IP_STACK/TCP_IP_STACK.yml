@@ -8,3 +8,5 @@ children:
   children:
   - type: Attachment
     attributes: {namespace: BASIC CONFIGURATION, id: 'tcpipStack:Core_SysConsole_Dependency'}
+  - type: Attachment
+    attributes: {namespace: BASIC CONFIGURATION, id: 'tcpipStack:Core_SysConsole_Dependency'}
