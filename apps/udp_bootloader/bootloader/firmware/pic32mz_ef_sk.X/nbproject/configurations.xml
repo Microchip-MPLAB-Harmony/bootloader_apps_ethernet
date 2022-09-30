@@ -10,8 +10,9 @@
             <logicalFolder name="f1" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/pic32mz_ef_sk/bootloader/datastream/datastream.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader.h</itemPath>
             <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader_nvm_interface.h</itemPath>
+            <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader_udp.h</itemPath>
+            <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/pic32mz_ef_sk/bsp/bsp.h</itemPath>
@@ -129,6 +130,8 @@
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/lldp_tlv.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/dhcp_server_private.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_common_ports.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_mac.h</itemPath>
@@ -175,6 +178,7 @@
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_ethernet.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_mac_bridge.h</itemPath>
+              <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/dhcp_server.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f5" displayName="net_pres" projectFiles="true">
@@ -184,12 +188,12 @@
               <itemPath>../src/config/pic32mz_ef_sk/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f8" displayName="osal" projectFiles="true">
+          <logicalFolder name="f6" displayName="osal" projectFiles="true">
             <itemPath>../src/config/pic32mz_ef_sk/osal/osal.h</itemPath>
             <itemPath>../src/config/pic32mz_ef_sk/osal/osal_definitions.h</itemPath>
             <itemPath>../src/config/pic32mz_ef_sk/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="peripheral" projectFiles="true">
+          <logicalFolder name="f7" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f1" displayName="clk" projectFiles="true">
               <itemPath>../src/config/pic32mz_ef_sk/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
@@ -206,7 +210,7 @@
               <itemPath>../src/config/pic32mz_ef_sk/peripheral/nvm/plib_nvm.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="system" projectFiles="true">
+          <logicalFolder name="f8" displayName="system" projectFiles="true">
             <logicalFolder name="f1" displayName="debug" projectFiles="true">
               <itemPath>../src/config/pic32mz_ef_sk/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
@@ -242,6 +246,7 @@
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/pic32mz_ef_sk/harmony-manifest-success.yml</itemPath>
+      <itemPath>udp_bootloader_pic32mz_ef_sk.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -257,8 +262,9 @@
             <logicalFolder name="f1" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/pic32mz_ef_sk/bootloader/datastream/datastream_udp.c</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader.c</itemPath>
             <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader_nvm_interface.c</itemPath>
+            <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader_udp.c</itemPath>
+            <itemPath>../src/config/pic32mz_ef_sk/bootloader/bootloader_common.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/pic32mz_ef_sk/bsp/bsp.c</itemPath>
@@ -400,13 +406,14 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32mz_ef_sk;../src/config/pic32mz_ef_sk/library;../src/config/pic32mz_ef_sk/library/tcpip/src;../src/config/pic32mz_ef_sk/library/tcpip/src/common;../src/packs/PIC32MZ2048EFH144_DFP"/>
+                  value="../src;../src/config/pic32mz_ef_sk;../src/config/pic32mz_ef_sk/library;../src/config/pic32mz_ef_sk/library/tcpip/src;../src/config/pic32mz_ef_sk/library/tcpip/src/common"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -456,6 +463,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -495,6 +503,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -504,7 +513,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32mz_ef_sk;../src/packs/PIC32MZ2048EFH144_DFP"/>
+                  value="../src;../src/config/pic32mz_ef_sk"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
