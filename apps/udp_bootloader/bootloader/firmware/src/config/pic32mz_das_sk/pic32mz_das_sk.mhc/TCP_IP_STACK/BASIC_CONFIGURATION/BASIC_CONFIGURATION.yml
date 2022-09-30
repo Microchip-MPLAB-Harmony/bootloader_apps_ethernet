@@ -11,5 +11,6 @@ children:
   - type: Attachment
     attributes: {namespace: tcpipStack, id: Core_SysConsole_Dependency}
   - type: Attachment
-    attributes: {targetComponentID: DRIVER LAYER, namespace: tcpipNetConfig_0, id: NETCONFIG_MAC_Dependency,
-      targetAttachmentID: 'drvPic32mEthmac:libdrvPic32mEthmac'}
+    attributes: {namespace: tcpipNetConfig_0, id: NETCONFIG_MAC_Dependency}
+  - type: Attachment
+    attributes: {namespace: tcpipStack, id: Core_SysConsole_Dependency}
