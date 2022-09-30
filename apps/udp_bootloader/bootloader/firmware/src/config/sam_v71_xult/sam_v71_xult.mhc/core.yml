@@ -662,7 +662,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '1879048192'}
+        attributes: {id: core, value: '2147483648'}
   - type: Boolean
     attributes: {id: MPU_Region_4_Enable}
     children:
@@ -704,7 +704,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '1'}
+        attributes: {id: core, value: '0'}
   - type: KeyValueSet
     attributes: {id: MPU_Region_5_Access}
     children:
@@ -837,7 +837,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: EBI_SDRAM}
+        attributes: {id: core, value: QSPI}
   - type: String
     attributes: {id: MPU_Region_Name5}
     children:
@@ -1630,13 +1630,6 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: 'false'}
-  - type: Integer
-    attributes: {id: SDRAMC_CLOCK_FREQUENCY}
-    children:
-    - type: Values
-      children:
-      - type: Dynamic
-        attributes: {id: core, value: '150000000'}
   - type: Integer
     attributes: {id: SMC_CLOCK_FREQUENCY}
     children:

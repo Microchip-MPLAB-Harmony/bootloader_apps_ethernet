@@ -10,8 +10,9 @@
             <logicalFolder name="f1" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/sam_v71_xult/bootloader/datastream/datastream.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_v71_xult/bootloader/bootloader.h</itemPath>
             <itemPath>../src/config/sam_v71_xult/bootloader/bootloader_nvm_interface.h</itemPath>
+            <itemPath>../src/config/sam_v71_xult/bootloader/bootloader_udp.h</itemPath>
+            <itemPath>../src/config/sam_v71_xult/bootloader/bootloader_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/sam_v71_xult/bsp/bsp.h</itemPath>
@@ -128,6 +129,8 @@
                 <itemPath>../src/config/sam_v71_xult/library/tcpip/src/lldp_tlv.h</itemPath>
                 <itemPath>../src/config/sam_v71_xult/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
                 <itemPath>../src/config/sam_v71_xult/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/sam_v71_xult/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/sam_v71_xult/library/tcpip/src/dhcp_server_private.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/sam_v71_xult/library/tcpip/tcpip_common_ports.h</itemPath>
               <itemPath>../src/config/sam_v71_xult/library/tcpip/tcpip_mac.h</itemPath>
@@ -174,6 +177,7 @@
               <itemPath>../src/config/sam_v71_xult/library/tcpip/tcpip.h</itemPath>
               <itemPath>../src/config/sam_v71_xult/library/tcpip/tcpip_ethernet.h</itemPath>
               <itemPath>../src/config/sam_v71_xult/library/tcpip/tcpip_mac_bridge.h</itemPath>
+              <itemPath>../src/config/sam_v71_xult/library/tcpip/dhcp_server.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f5" displayName="net_pres" projectFiles="true">
@@ -183,12 +187,12 @@
               <itemPath>../src/config/sam_v71_xult/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f8" displayName="osal" projectFiles="true">
+          <logicalFolder name="f6" displayName="osal" projectFiles="true">
             <itemPath>../src/config/sam_v71_xult/osal/osal.h</itemPath>
             <itemPath>../src/config/sam_v71_xult/osal/osal_definitions.h</itemPath>
             <itemPath>../src/config/sam_v71_xult/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="peripheral" projectFiles="true">
+          <logicalFolder name="f7" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f1" displayName="clk" projectFiles="true">
               <itemPath>../src/config/sam_v71_xult/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
@@ -210,7 +214,7 @@
               <itemPath>../src/config/sam_v71_xult/peripheral/tc/plib_tc_common.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="system" projectFiles="true">
+          <logicalFolder name="f8" displayName="system" projectFiles="true">
             <logicalFolder name="f1" displayName="cache" projectFiles="true">
               <itemPath>../src/config/sam_v71_xult/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
@@ -270,7 +274,6 @@
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/rswdt.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/rtc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/rtt.h</itemPath>
-            <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/sdramc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/smc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/spi.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/ssc.h</itemPath>
@@ -284,8 +287,9 @@
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/utmi.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/wdt.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/xdmac.h</itemPath>
+            <itemPath>../src/packs/ATSAMV71Q21B_DFP/component/fuses.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="instance" projectFiles="true">
+          <logicalFolder name="f2" displayName="instance" projectFiles="true">
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/acc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/aes.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/afec0.h</itemPath>
@@ -317,7 +321,6 @@
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/rswdt.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/rtc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/rtt.h</itemPath>
-            <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/sdramc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/smc.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/spi0.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/spi1.h</itemPath>
@@ -343,8 +346,9 @@
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/utmi.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/wdt.h</itemPath>
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/xdmac.h</itemPath>
+            <itemPath>../src/packs/ATSAMV71Q21B_DFP/instance/fuses.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="pio" projectFiles="true">
+          <logicalFolder name="f3" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAMV71Q21B_DFP/pio/samv71q21b.h</itemPath>
           </logicalFolder>
           <itemPath>../src/packs/ATSAMV71Q21B_DFP/samv71q21b.h</itemPath>
@@ -375,6 +379,8 @@
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_v71_xult/harmony-manifest-success.yml</itemPath>
+      <itemPath>../src/config/sam_v71_xult/pin_configurations.csv</itemPath>
+      <itemPath>udp_bootloader_sam_v71_xult.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -394,8 +400,9 @@
             <logicalFolder name="f1" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/sam_v71_xult/bootloader/datastream/datastream_udp.c</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_v71_xult/bootloader/bootloader.c</itemPath>
             <itemPath>../src/config/sam_v71_xult/bootloader/bootloader_nvm_interface.c</itemPath>
+            <itemPath>../src/config/sam_v71_xult/bootloader/bootloader_udp.c</itemPath>
+            <itemPath>../src/config/sam_v71_xult/bootloader/bootloader_common.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/sam_v71_xult/bsp/bsp.c</itemPath>
@@ -505,14 +512,14 @@
         <targetDevice>ATSAMV71Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>EdbgTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>3.00</languageToolchainVersion>
+        <languageToolchainVersion>4.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
+        <pack name="SAMV71_DFP" vendor="Microchip" version="4.6.90"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="SAMV71_DFP" vendor="Microchip" version="4.5.82"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -568,6 +575,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -624,6 +632,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -664,6 +673,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -692,6 +702,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
@@ -706,9 +717,13 @@
       </C32Global>
       <EdbgTool>
         <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
         <property key="communication.activationmode" value="nohv"/>
         <property key="communication.interface" value="swd"/>
         <property key="communication.speed" value="2.000"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="firmware.path"
                   value="Press to browse for a specific firmware version"/>
@@ -716,6 +731,8 @@
                   value="Press to select which tool pack to use"/>
         <property key="firmware.update.action" value="firmware.update.use.latest"/>
         <property key="freeze.timers" value="false"/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -729,7 +746,6 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="400000-5fffff"/>
-        <property key="memories.rww" value="true"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
@@ -741,6 +757,10 @@
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
         <property key="toolpack.updateoptions"
                   value="toolpack.updateoptions.uselatestoolpack"/>
         <property key="toolpack.updateoptions.packversion"
@@ -1273,6 +1293,8 @@
         <property key="communication.activationmode" value="nohv"/>
         <property key="communication.interface" value="swd"/>
         <property key="communication.speed" value="2.000"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="firmware.path"
                   value="Press to browse for a specific firmware version"/>
@@ -1281,6 +1303,7 @@
         <property key="firmware.update.action" value="firmware.update.use.latest"/>
         <property key="freeze.timers" value="false"/>
         <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -1306,7 +1329,8 @@
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
-        <property key="script.log_level" value="0"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
         <property key="script.reset_delay" value="0"/>
         <property key="script.show_output" value="false"/>
         <property key="toolpack.updateoptions"
