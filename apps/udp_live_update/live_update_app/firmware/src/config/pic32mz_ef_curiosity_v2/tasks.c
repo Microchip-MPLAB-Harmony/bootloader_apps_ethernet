@@ -59,11 +59,11 @@
 // Section: RTOS "Tasks" Routine
 // *****************************************************************************
 // *****************************************************************************
-void _bootloader_Tasks(  void *pvParameters  )
+void _bootloader_UDP_Tasks(  void *pvParameters  )
 {
     while(1)
     {
-        bootloader_Tasks();
+        bootloader_UDP_Tasks();
         vTaskDelay(1 / portTICK_PERIOD_MS);
     }
 }
@@ -122,8 +122,8 @@ void SYS_Tasks ( void )
     
 
     /* Maintain Device Drivers */
-        xTaskCreate( _bootloader_Tasks,
-        "BOOTLOADER_TASKS",
+        xTaskCreate( _bootloader_UDP_Tasks,
+        "BOOTLOADER_UDP_Tasks",
         1024,
         (void*)NULL,
         1,

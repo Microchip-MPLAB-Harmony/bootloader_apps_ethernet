@@ -1361,6 +1361,13 @@ children:
         attributes: {id: enabled}
         children:
         - {type: Value, value: 'true'}
+  - type: Boolean
+    attributes: {id: IOLOCK_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'false'}
   - type: String
     attributes: {id: KEIL_STACK_HEAP_SIZE}
     children:
@@ -1405,6 +1412,13 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: '5242880'}
+  - type: Boolean
+    attributes: {id: PMDLOCK_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'false'}
   - type: Hex
     attributes: {id: SYS_PORT_B_LAT}
     children:

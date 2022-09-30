@@ -20,6 +20,20 @@ children:
         attributes: {id: visible}
         children:
         - {type: Value, value: 'true'}
+  - type: Boolean
+    attributes: {id: TCPIP_STACK_INTERRUPT_EN_IDX0}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcpipStack, value: 'true'}
+  - type: Integer
+    attributes: {id: TCPIP_STACK_MAC_CLOCK}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcpipStack, value: '120000000'}
   - type: Menu
     attributes: {id: TCPIP_STACK_RTOS_MENU}
     children:
