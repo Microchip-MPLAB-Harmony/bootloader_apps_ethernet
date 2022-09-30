@@ -88,7 +88,7 @@ OPTIONAL("processor.o")
  *   xc32-gcc src.c -Wl,--defsym=_ebase_address=0x9D001000
  *************************************************************************/
 PROVIDE(_vector_spacing = 0x0001);
-PROVIDE(_ebase_address = 0x9D015000);
+PROVIDE(_ebase_address = 0x9D016000);
 
 /*************************************************************************
  * Memory Address Equates
@@ -99,7 +99,7 @@ PROVIDE(_ebase_address = 0x9D015000);
  * _DBG_CODE_SIZE                 -- In-circuit Debug Executive size
  * _GEN_EXCPT_ADDR                -- General Exception Vector
  *************************************************************************/
-_RESET_ADDR                    = 0xBD000000 + 0x14000; /* Size of Bootloader is 0x14000 */
+_RESET_ADDR                    = 0xBD000000 + 0x15000; /* Size of Bootloader is 0x15000 */
 _GEN_EXCPT_ADDR                = _ebase_address + 0x180;
 
 /*************************************************************************
@@ -119,8 +119,8 @@ _GEN_EXCPT_ADDR                = _ebase_address + 0x180;
 MEMORY
 {
   /* Size of Bootloader is 0x14000 */
-  kseg0_program_mem     (rx)  : ORIGIN = 0x9D015000, LENGTH = 0x80000 - 0x1000 - 0x14000
-  kseg1_boot_mem              : ORIGIN = 0xBD014000, LENGTH = 0x490
+  kseg0_program_mem     (rx)  : ORIGIN = 0x9D016000, LENGTH = 0x80000 - 0x1000 - 0x15000
+  kseg1_boot_mem              : ORIGIN = 0xBD015000, LENGTH = 0x490
 
   /* Bootloader Trigger Pattern 16 Bytes */
   kseg1_data_mem       (w!x)  : ORIGIN = 0xA0000000 + 16, LENGTH = 0x20000 - 16

@@ -104,7 +104,7 @@ _GEN_EXCPT_ADDR                = _ebase_address + 0x180;
 
 MEMORY
 {
-  kseg0_program_mem     (rx)  : ORIGIN = 0x9D000000, LENGTH = 81920 /* All C files will be located here */
+  kseg0_program_mem     (rx)  : ORIGIN = 0x9D000000, LENGTH = 86016 /* All C files will be located here */
   kseg1_boot_mem              : ORIGIN = 0xBFC00000, LENGTH = 0x490
   debug_exec_mem              : ORIGIN = 0xBFC02000, LENGTH = 0xFF0
   exception_mem               : ORIGIN = 0x9FC01000, LENGTH = 0x1000
