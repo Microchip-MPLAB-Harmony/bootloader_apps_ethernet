@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Package name="bootloader_apps_ethernet">
     <Dependencies>
-        <Dependency name="bootloader" version="v3.5.0"/>
-        <Dependency name="CMSIS-FreeRTOS" version="v10.3.1"/>
+        <Dependency name="bootloader" version="v3.6.0"/>
+        <Dependency name="CMSIS-FreeRTOS" version="v10.4.6"/>
     </Dependencies>
 </Package>

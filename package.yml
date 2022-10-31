@@ -1,0 +1,17 @@
+package:
+  format-version: "1.0.0"
+  name: "bootloader_apps_ethernet"
+  version: "3.2.0"
+  type: "application"
+  status: "production"
+  required: true
+
+  dependencies:
+    - name: "bootloader"
+      type: "package"
+      version: "3.6.0"
+    - name: "CMSIS-FreeRTOS"
+      type: "package"
+      version: "10.4.6"
+
+
