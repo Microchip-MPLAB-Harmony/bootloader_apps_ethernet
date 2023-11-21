@@ -56,7 +56,7 @@ typedef struct
     DATASTREAM_HandlerType handler;
 } UDP_DATA;
 
-UDP_DATA udpData;
+static UDP_DATA udpData;
 
 void DATASTREAM_Tasks(void)
 {
@@ -72,8 +72,8 @@ void DATASTREAM_Tasks(void)
     {
         if(TCPIP_UDP_PutIsReady(udpData.udpSocket) >= udpData.txMaxSize)
         {
-            TCPIP_UDP_ArrayPut(udpData.udpSocket, udpData.txBuffer, udpData.txMaxSize);
-            TCPIP_UDP_Flush(udpData.udpSocket);
+            (void) TCPIP_UDP_ArrayPut(udpData.udpSocket, udpData.txBuffer, (uint16_t)udpData.txMaxSize);
+            (void) TCPIP_UDP_Flush(udpData.udpSocket);
             udpData.currDir = IDLE;
             udpData.handler(DATASTREAM_BUFFER_EVENT_COMPLETE, (DATASTREAM_HANDLE)udpData.udpHandle, udpData.txMaxSize);
 
@@ -82,7 +82,7 @@ void DATASTREAM_Tasks(void)
 
     if (RX == udpData.currDir)
     {
-        if (TCPIP_UDP_GetIsReady(udpData.udpSocket))
+        if (TCPIP_UDP_GetIsReady(udpData.udpSocket) != 0U)
         {
             avlBytes = TCPIP_UDP_GetIsReady(udpData.udpSocket);
 
@@ -93,10 +93,12 @@ void DATASTREAM_Tasks(void)
     }
 }
 
+/* MISRA C-2012 Rule 21.7 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_21_7_DR_1 */
+
 DATASTREAM_HANDLE DATASTREAM_Open(const DRV_IO_INTENT ioIntent)
 {
     SYS_STATUS          tcpipStat;
-    static IPV4_ADDR    dwLastIP[2] = { {-1}, {-1} };
+    static IPV4_ADDR    dwLastIP[2] = { {0xFFFFFFFFU}, {0XFFFFFFFFU} };
     IPV4_ADDR           ipAddr;
     TCPIP_NET_HANDLE    netH;
     int                 i, nNets;
@@ -105,7 +107,7 @@ DATASTREAM_HANDLE DATASTREAM_Open(const DRV_IO_INTENT ioIntent)
 
     tcpipStat = TCPIP_STACK_Status(sysObj.tcpip);
 
-    if((tcpipStat < 0) || (tcpipStat != SYS_STATUS_READY))
+    if(((uint32_t)tcpipStat < 0U) || (tcpipStat != SYS_STATUS_READY))
     {
         return (udpData.udpHandle);
     }
@@ -123,9 +125,9 @@ DATASTREAM_HANDLE DATASTREAM_Open(const DRV_IO_INTENT ioIntent)
         {
             dwLastIP[i].Val = ipAddr.Val;
 
-            if (ipAddr.v[0] != 0 && ipAddr.v[0] != 169) // Wait for a Valid IP
+            if (ipAddr.v[0] != 0U && ipAddr.v[0] != 169U) // Wait for a Valid IP
             {
-                UDP_PORT port = atoi(BOOTLOADER_UDP_PORT_NUMBER);
+                UDP_PORT port = (uint16_t)atoi(BOOTLOADER_UDP_PORT_NUMBER);
 
                 udpData.udpSocket = TCPIP_UDP_ServerOpen(IP_ADDRESS_TYPE_IPV4,
                      port,
@@ -148,11 +150,13 @@ DATASTREAM_HANDLE DATASTREAM_Open(const DRV_IO_INTENT ioIntent)
     return(udpData.udpHandle);
 }
 
+/* MISRAC 2012 deviation block end */
+
 void DATASTREAM_Close(void)
 {
     if (udpData.connected)
     {
-        TCPIP_UDP_Close(udpData.udpSocket);
+        (void) TCPIP_UDP_Close(udpData.udpSocket);
         TCPIP_STACK_Deinitialize(sysObj.tcpip);
     }
 }
@@ -183,6 +187,9 @@ int DATASTREAM_Data_Write(DATASTREAM_HANDLE handle, uint8_t *buffer, const uint3
     return(0);
 }
 
+/* MISRA C-2012 Rule 11.1, 11.8 deviated below. Deviation record ID -  
+   H3_MISRAC_2012_R_11_1_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+
 void DATASTREAM_BufferEventHandlerSet
 (
     const DATASTREAM_HANDLE hClient,
@@ -193,3 +200,5 @@ void DATASTREAM_BufferEventHandlerSet
     udpData.handler = (DATASTREAM_HandlerType)eventHandler;
     udpData.context = context;
 }
+
+/* MISRAC 2012 deviation block end */

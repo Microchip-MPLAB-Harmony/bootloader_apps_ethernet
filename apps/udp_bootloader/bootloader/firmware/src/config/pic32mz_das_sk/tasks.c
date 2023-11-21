@@ -52,6 +52,7 @@
 
 #include "configuration.h"
 #include "definitions.h"
+#include "sys_tasks.h"
 
 
 
@@ -75,7 +76,7 @@ void SYS_Tasks ( void )
     
 
     /* Maintain Device Drivers */
-    DRV_MIIM_Tasks(sysObj.drvMiim);
+       DRV_MIIM_OBJECT_BASE_Default.DRV_MIIM_Tasks(sysObj.drvMiim_0);
 
 
     bootloader_UDP_Tasks();
@@ -84,7 +85,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
     
-TCPIP_STACK_Task(sysObj.tcpip);
+   TCPIP_STACK_Task(sysObj.tcpip);
 
 
 

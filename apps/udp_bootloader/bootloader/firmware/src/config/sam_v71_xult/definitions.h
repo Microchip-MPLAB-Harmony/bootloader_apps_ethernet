@@ -78,6 +78,12 @@ extern "C" {
 #endif
 // DOM-IGNORE-END
 
+/* Device Information */
+#define DEVICE_NAME			 "ATSAMV71Q21B"
+#define DEVICE_ARCH			 "CORTEX-M7"
+#define DEVICE_FAMILY		 "SAMV"
+#define DEVICE_SERIES		 "SAMV71"
+
 /* CPU clock frequency */
 #define CPU_CLOCK_FREQUENCY 300000000
 
@@ -191,8 +197,8 @@ Remarks:
 
 typedef struct
 {
+   SYS_MODULE_OBJ  drvMiim_0;
 
-    SYS_MODULE_OBJ  drvMiim;
     SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ  tcpip;
