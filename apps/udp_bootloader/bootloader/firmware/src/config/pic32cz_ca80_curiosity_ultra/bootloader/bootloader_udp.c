@@ -257,9 +257,9 @@ static void bootloader_ProcessBuffer( BOOTLOADER_DATA *handle )
     {
         case (uint8_t)READ_BOOT_INFO:
         {
-            btlVersion = bootloader_GetVersion();
+            btlVersion = bootloader_GetVersion(); 
 
-            bootloader_Block_init();
+            bootloader_EraseRecInit();
 
             /* Major Number */
             dataBuff.buffers.inputBuff[1] = (uint8_t)(btlVersion >> 8);
@@ -274,6 +274,7 @@ static void bootloader_ProcessBuffer( BOOTLOADER_DATA *handle )
 
         case (uint8_t)ERASE_FLASH:
         {
+bootloader_NvmAppErase(APP_START_ADDRESS, FLASH_END_ADDRESS);
             handle->currentState = BOOTLOADER_SEND_RESPONSE;
             handle->buffSize = 1;
             break;

@@ -255,7 +255,7 @@ dtcm (WX!R) : ORIGIN = DTCM_ORIGIN, LENGTH = __XC32_DTCM_LENGTH
 # define DATA_REGION ram
 #endif 
 #ifndef VECTOR_REGION
-# define VECTOR_REGION rom
+# define VECTOR_REGION boot_rom
 #endif
 
 __rom_end = ORIGIN(rom) + LENGTH(rom);

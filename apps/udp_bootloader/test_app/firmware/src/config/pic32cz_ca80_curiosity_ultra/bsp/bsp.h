@@ -1,17 +1,18 @@
 /*******************************************************************************
-  Board Support Package Implementation
+  Board Support Package Header File.
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    bsp.c
+    bsp.h
 
   Summary:
-    Board Support Package implementation.
+    Board Support Package Header File 
 
   Description:
-    This file contains routines that implement the board support package
+    This file contains constants, macros, type definitions and function
+    declarations 
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -39,15 +40,53 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
+#ifndef BSP_H
+#define BSP_H
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
 
-#include "bsp.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "device.h"
 
 // *****************************************************************************
+// *****************************************************************************
+// Section: BSP Macros
+// *****************************************************************************
+// *****************************************************************************
+#define pic32cz_ca80_curiosity_ultra
+#define BSP_NAME             "pic32cz_ca80_curiosity_ultra"
+
+
+
+/*** LED Macros for LED0 ***/
+#define LED0_Toggle()     (PORT_REGS->GROUP[1].PORT_OUTTGL = 1UL << 21)
+#define LED0_On()         (PORT_REGS->GROUP[1].PORT_OUTCLR = 1UL << 21)
+#define LED0_Off()        (PORT_REGS->GROUP[1].PORT_OUTSET = 1UL << 21)
+/*** LED Macros for LED1 ***/
+#define LED1_Toggle()     (PORT_REGS->GROUP[1].PORT_OUTTGL = 1UL << 22)
+#define LED1_On()         (PORT_REGS->GROUP[1].PORT_OUTCLR = 1UL << 22)
+#define LED1_Off()        (PORT_REGS->GROUP[1].PORT_OUTSET = 1UL << 22)
+
+/*** SWITCH Macros for SWITCH0 ***/
+#define SWITCH0_Get()     ((PORT_REGS->GROUP[1].PORT_IN >> 24) & 0x01)
+#define SWITCH0_STATE_PRESSED   0
+#define SWITCH0_STATE_RELEASED  1
+/*** SWITCH Macros for SWITCH1 ***/
+#define SWITCH1_Get()     ((PORT_REGS->GROUP[2].PORT_IN >> 23) & 0x01)
+#define SWITCH1_STATE_PRESSED   0
+#define SWITCH1_STATE_RELEASED  1
+
+
+
+
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines
@@ -62,24 +101,31 @@
     Performs the necessary actions to initialize a board
 
   Description:
-    This function initializes the LED, Switch and other ports on the board.
-    This function must be called by the user before using any APIs present in
-    this BSP.
+    This function initializes the LED and Switch ports on the board.  This
+    function must be called by the user before using any APIs present on this
+    BSP.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    BSP_Initialize();
+    </code>
 
   Remarks:
-    Refer to bsp.h for usage information.
+    None
 */
 
-void BSP_Initialize(void )
-{
+void BSP_Initialize(void);
 
-
-    /* Switch off LEDs */
-    LED_Off();
-    LED1_Off();
-
-
-}
+#endif // BSP_H
 
 /*******************************************************************************
  End of File

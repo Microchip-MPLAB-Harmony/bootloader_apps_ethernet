@@ -1,21 +1,16 @@
 /*******************************************************************************
-  User Configuration Header
-
   File Name:
-    user.h
+    bootloader_nvm_interface.h
 
   Summary:
-    Build-time configuration header for the user defined by this project.
+    NVM Interface function definitions.
 
   Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
+    This file contains the definitions needed for PLIB usage of the Flash
+    Controller.
+ *******************************************************************************/
 
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
@@ -38,40 +33,56 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-
-#ifndef USER_H
-#define USER_H
-
-#include "bsp/bsp.h"
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
-#endif
 // DOM-IGNORE-END
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: User Configuration macros
-// *****************************************************************************
-// *****************************************************************************
+#ifndef BOOTLOADER_NVM_INTERFACE_H
+#define BOOTLOADER_NVM_INTERFACE_H
 
-#define LED_ON()        LED_On()
-#define LED_OFF()       LED_Off()
-#define LED_TOGGLE()    LED_Toggle()
-
-#define SWITCH_GET()    SWITCH_Get()
-#define SWITCH_PRESSED  SWITCH_STATE_PRESSED
-
-//DOM-IGNORE-BEGIN
 #ifdef __cplusplus
+    extern "C" {
+#endif
+
+#include <stdint.h>
+#include <stdbool.h>
+
+#define DATA_RECORD             0
+#define END_OF_FILE_RECORD      1
+#define EXT_SEG_ADRS_RECORD     2
+#define EXT_LIN_ADRS_RECORD     4
+#define START_LIN_ADRS_RECORD   5
+
+typedef enum
+{
+    // indicates that the CRC value between the calculated value and the
+    // value received from data stream did not match
+    HEX_REC_CRC_ERROR   = -10,
+
+    // programming error
+    HEX_REC_PGM_ERROR   = -5,
+
+    // An unspecified hex record tyype is received
+    HEX_REC_UNKNOW_TYPE = -1,
+
+    // the record type is a valid hex record
+    HEX_REC_NORMAL      = 0,
+} HEX_RECORD_STATUS;
+
+HEX_RECORD_STATUS bootloader_NvmProgramHexRecord(uint8_t* HexRecord, uint32_t totalLen);
+
+void bootloader_BlockErase(uint32_t curAddress);
+
+void bootloader_EraseRecInit(void);
+
+void bootloader_NvmAppErase(uint32_t startAddr, uint32_t endAddr);
+
+void bootloader_NVMPageWrite(uint32_t address, uint8_t* data);
+
+bool bootloader_NvmIsBusy(void);
+
+
+
+#ifdef  __cplusplus
 }
 #endif
-//DOM-IGNORE-END
 
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/
+#endif //BOOTLOADER_NVM_INTERFACE_H

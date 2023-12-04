@@ -1,15 +1,15 @@
 Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,Open Drain,Slew Rate Control
-1,PA00,,ETH_TXD1,Digital,High Impedance,n/a,No,No,No,FAST
-2,PA01,,ETH_TXD0,Digital,High Impedance,n/a,No,No,No,FAST
-3,PA02,,ETH_TXEN,Digital,High Impedance,n/a,No,No,No,FAST
-4,PA03,,ETH_MDC,Digital,High Impedance,n/a,No,No,No,FAST
-5,PA04,,ETH_MDIO,Digital,High Impedance,n/a,No,No,No,FAST
+1,PA00,,Available,,,,,,No,FAST
+2,PA01,,Available,,,,,,No,FAST
+3,PA02,,Available,,,,,,No,FAST
+4,PA03,,Available,,,,,,No,FAST
+5,PA04,,Available,,,,,,No,FAST
 6,PE04,,Available,,,,,,No,FAST
-9,PA05,,ETH_RXDV,Digital,High Impedance,n/a,No,No,No,FAST
-10,PA06,,ETH_RXER,Digital,High Impedance,n/a,No,No,No,FAST
+9,PA05,,Available,,,,,,No,FAST
+10,PA06,,Available,,,,,,No,FAST
 11,PA30,,Available,,,,,,No,FAST
 12,PA31,,Available,,,,,,No,FAST
-13,PA21,,ETH_TX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
+13,PA21,,Available,,,,,,No,FAST
 14,PA22,,Available,,,,,,No,FAST
 15,PA23,,Available,,,,,,No,FAST
 16,PE00,,Available,,,,,,No,FAST
@@ -52,10 +52,10 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,O
 59,PB20,,Available,,,,,,No,FAST
 62,PB04,,Available,,,,,,No,FAST
 63,PB05,,Available,,,,,,No,FAST
-66,PB21,LED,LED_AL,Digital,Out,High,,,No,FAST
+66,PB21,LED0,LED_AL,Digital,Out,High,,,No,FAST
 67,PB06,,Available,,,,,,No,FAST
 68,PB22,LED1,LED_AL,Digital,Out,High,,,No,FAST
-69,PB23,GPIO_PB23,GPIO,Digital,Out,Low,,,No,FAST
+69,PB23,,Available,,,,,,No,FAST
 70,PB07,,Available,,,,,,No,FAST
 71,PB08,,Available,,,,,,No,FAST
 72,PF01,,Available,,,,,,No,FAST
@@ -75,7 +75,7 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,O
 90,PF08,,Available,,,,,,No,FAST
 91,PB30,,Available,,,,,,No,FAST
 92,PB31,,Available,,,,,,No,FAST
-93,PB24,SWITCH,SWITCH_AL,Digital,In,n/a,Yes,No,No,FAST
+93,PB24,SWITCH0,SWITCH_AL,Digital,In,n/a,Yes,No,No,FAST
 94,PB25,,Available,,,,,,No,FAST
 95,PB26,,Available,,,,,,No,FAST
 96,PB12,,Available,,,,,,No,FAST
@@ -133,26 +133,26 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,O
 176,PD25,,Available,,,,,,No,FAST
 179,PD13,,Available,,,,,,No,FAST
 180,PD23,,Available,,,,,,No,FAST
-181,PD14,,ETH_TXD7,Digital,High Impedance,n/a,No,No,No,FAST
-182,PD02,,ETH_TXER,Digital,High Impedance,n/a,No,No,No,FAST
-183,PD03,,ETH_TXD3,Digital,High Impedance,n/a,No,No,No,FAST
+181,PD14,,Available,,,,,,No,FAST
+182,PD02,,Available,,,,,,No,FAST
+183,PD03,,Available,,,,,,No,FAST
 184,PD26,,Available,,,,,,No,FAST
 185,PD27,,Available,,,,,,No,FAST
 186,PD28,,Available,,,,,,No,FAST
 187,PD29,,Available,,,,,,No,FAST
-190,PD15,,ETH_TXD6,Digital,High Impedance,n/a,No,No,No,FAST
-191,PD16,,ETH_TXD5,Digital,High Impedance,n/a,No,No,No,FAST
-192,PD17,,ETH_TXD4,Digital,High Impedance,n/a,No,No,No,FAST
-193,PD04,,ETH_TXD2,Digital,High Impedance,n/a,No,No,No,FAST
-194,PD18,,ETH_RXD7,Digital,High Impedance,n/a,No,No,No,FAST
-195,PD19,,ETH_RXD6,Digital,High Impedance,n/a,No,No,No,FAST
-196,PD05,,ETH_GTX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
-197,PD06,,ETH_RXD3,Digital,High Impedance,n/a,No,Yes,No,FAST
-198,PD20,,ETH_RXD4,Digital,High Impedance,n/a,No,No,No,FAST
-199,PD21,,ETH_RXD5,Digital,High Impedance,n/a,No,No,No,FAST
-200,PD07,,ETH_RXD2,Digital,High Impedance,n/a,No,Yes,No,FAST
-204,PD08,,ETH_COL,Digital,High Impedance,n/a,No,No,No,FAST
-205,PD09,,ETH_CRS,Digital,High Impedance,n/a,No,No,No,FAST
-206,PD10,,ETH_RXD1,Digital,High Impedance,n/a,No,Yes,No,FAST
-207,PD11,,ETH_RXD0,Digital,High Impedance,n/a,Yes,No,No,FAST
-208,PD12,,ETH_RX_CLK,Digital,High Impedance,n/a,No,Yes,No,FAST
+190,PD15,,Available,,,,,,No,FAST
+191,PD16,,Available,,,,,,No,FAST
+192,PD17,,Available,,,,,,No,FAST
+193,PD04,,Available,,,,,,No,FAST
+194,PD18,,Available,,,,,,No,FAST
+195,PD19,,Available,,,,,,No,FAST
+196,PD05,,Available,,,,,,No,FAST
+197,PD06,,Available,,,,,,No,FAST
+198,PD20,,Available,,,,,,No,FAST
+199,PD21,,Available,,,,,,No,FAST
+200,PD07,,Available,,,,,,No,FAST
+204,PD08,,Available,,,,,,No,FAST
+205,PD09,,Available,,,,,,No,FAST
+206,PD10,,Available,,,,,,No,FAST
+207,PD11,,Available,,,,,,No,FAST
+208,PD12,,Available,,,,,,No,FAST

@@ -59,12 +59,12 @@ extern "C" {
 // Section: User Configuration macros
 // *****************************************************************************
 // *****************************************************************************
-#define LED_ON()        LED_On()
-#define LED_OFF()       LED_Off()
-#define LED_TOGGLE()    LED_Toggle()
+#define LED_ON()        LED1_On()
+#define LED_OFF()       LED1_Off()
+#define LED_TOGGLE()    LED1_Toggle()
 
-#define SWITCH_GET()    SWITCH_Get()
-#define SWITCH_PRESSED  SWITCH_STATE_PRESSED
+#define SWITCH_GET()    SWITCH0_Get()
+#define SWITCH_PRESSED  SWITCH0_STATE_PRESSED
     
 #define APP_TIMER_START     SYSTICK_TimerStart
 #define APP_TIMER_DelayMs   SYSTICK_DelayMs

@@ -5,254 +5,254 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80"
-                       displayName="pic32cz_ca80"
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
+                       displayName="pic32cz_ca80_curiosity_ultra"
                        projectFiles="true">
           <logicalFolder name="bootloader" displayName="bootloader" projectFiles="true">
             <logicalFolder name="datastream" displayName="datastream" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/bootloader/datastream/datastream.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/datastream/datastream.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/pic32cz_ca80/bootloader/bootloader_udp.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/bootloader/bootloader_nvm_interface.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/bootloader/bootloader_common.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/bootloader/bootloader_interrupt.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/bootloader_nvm_interface.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/bootloader_interrupt.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/bootloader_udp.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/bootloader_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
-            <itemPath>../src/config/pic32cz_ca80/bsp/bsp.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bsp/bsp.h</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="ethphy" displayName="ethphy" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/driver/ethphy/src/dynamic/drv_extphy_ksz9031.h</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80/driver/ethphy/src/dynamic/drv_extphy_regs.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/dynamic/drv_extphy_regs.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/dynamic/drv_extphy_ksz9031.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/pic32cz_ca80/driver/ethphy/src/drv_ethphy_local.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/drv_ethphy_local.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/pic32cz_ca80/driver/ethphy/drv_ethphy.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/drv_ethphy.h</itemPath>
             </logicalFolder>
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/driver/gmac/src/dynamic/_gmac_dcpt_lists.h</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80/driver/gmac/src/dynamic/drv_gmac_lib_pic32cz.h</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80/driver/gmac/src/dynamic/drv_gmac_lib.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/_gmac_dcpt_lists.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac_lib.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac_lib_pic32cz.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/pic32cz_ca80/driver/gmac/src/drv_gmac_local.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/drv_gmac_local.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/pic32cz_ca80/driver/gmac/drv_gmac.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/drv_gmac.h</itemPath>
             </logicalFolder>
             <logicalFolder name="miim" displayName="miim" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/driver/miim/src/dynamic/drv_miim_device.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/miim/src/dynamic/drv_miim_device.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/pic32cz_ca80/driver/miim/src/drv_miim_local.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/miim/src/drv_miim_local.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/pic32cz_ca80/driver/miim/drv_miim.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/miim/drv_miim.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/pic32cz_ca80/driver/driver.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/driver/driver_common.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/driver.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/driver_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="common" displayName="common" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/common/helpers.h</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/common/sys_fs_shell.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common/helpers.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common/sys_fs_shell.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/sntp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ipv6_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/smtp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_types.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tftpc_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/udp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tftps_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcpv6_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/arp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ftp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/iperf_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ndp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/http_net_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/arp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ftpc_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/oahash.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/telnet_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcps_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/smtpc_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tftps_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_packet.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/lldp_tlv.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_manager_control.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/zero_conf_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/snmpv3_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ipv4_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ipv4_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_notify.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/smtpc_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dns_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/snmp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_commands_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/udp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/snmp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/igmp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dns_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/igmp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/berkeley_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_helpers_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/lldp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tftpc_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/zero_conf_helper.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcps_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/lldp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/icmp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/nbns_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ndp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_module_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/hash_fnv.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcpv6_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ftp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_announce_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ddns_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/http_net_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ftpc_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ipv6_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcp_server_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/link_list.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/http_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/icmpv6_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dnss_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/http_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dnss_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ndp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ipv6_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tftpc_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/berkeley_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/smtp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/http_net_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dns_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/sntp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/icmpv6_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/hash_fnv.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_commands_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/snmpv3_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tftps_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/iperf_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ipv4_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcps_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/smtpc_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/udp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tftps_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_module_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/smtpc_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dns_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dnss_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ddns_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ndp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_manager_control.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/zero_conf_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/http_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dnss_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/arp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ipv6_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/http_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/zero_conf_helper.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/oahash.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/lldp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/arp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/icmp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/snmp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ftpc_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/lldp_tlv.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/nbns_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/telnet_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ftp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/link_list.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ipv4_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/igmp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_types.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcpv6_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcpv6_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcps_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/http_net_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_helpers_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_packet.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/udp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/igmp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ftpc_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/snmp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ftp_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/lldp_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_notify.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tftpc_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_announce_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcp_server_manager.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/http.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_mac_bridge.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/ftpc.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/dhcpv6.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/lldp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/zero_conf_multicast_dns.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/dhcps.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/zero_conf_link_local.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/icmpv6.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_reboot.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/ddns.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_mac_object.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/smtp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/dnss.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/telnet.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_common_ports.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/udp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/berkeley_api.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/sntp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_ethernet.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_manager.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/ftp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_heap.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_commands.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/arp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/dhcp_server.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/snmpv3.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_helpers.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_mac.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/ipv4.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/dns.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/snmp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/dhcp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/http_net.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/nbns.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/igmp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/ndp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tcpip_announce.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/iperf.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/icmp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/smtpc.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/ipv6.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tftps.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/library/tcpip/tftpc.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/ndp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_mac_bridge.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_ethernet.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/igmp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/zero_conf_link_local.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_common_ports.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_heap.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/ftpc.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/arp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/http_net.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/sntp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/icmp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/udp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_helpers.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_commands.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/ipv6.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_manager.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/lldp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tftpc.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/smtpc.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/iperf.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/smtp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/ddns.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tftps.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/dnss.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/ipv4.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/dhcpv6.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/nbns.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_announce.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/dhcp_server.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/dhcps.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/telnet.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/http.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/berkeley_api.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_mac_object.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_reboot.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/snmp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/zero_conf_multicast_dns.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/dhcp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/ftp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/icmpv6.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/snmpv3.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_mac.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/dns.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
             <logicalFolder name="pres" displayName="pres" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/net_pres/pres/net_pres.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/net_pres/pres/net_pres_socketapi.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/net_pres/pres/net_pres_socketapi.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/net_pres/pres/net_pres.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
-            <itemPath>../src/config/pic32cz_ca80/osal/osal_definitions.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/osal/osal.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/osal/osal_impl_basic.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/osal/osal.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/osal/osal_impl_basic.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/osal/osal_definitions.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/clock/plib_clock.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
             <logicalFolder name="evsys" displayName="evsys" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/evsys/plib_evsys.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/evsys/plib_evsys.h</itemPath>
             </logicalFolder>
             <logicalFolder name="fcw" displayName="fcw" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/fcw/plib_fcw.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/fcw/plib_fcw.h</itemPath>
             </logicalFolder>
             <logicalFolder name="mpu" displayName="mpu" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/mpu/plib_mpu_local.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/peripheral/mpu/plib_mpu.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/mpu/plib_mpu.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/mpu/plib_mpu_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/nvic/plib_nvic.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
             <logicalFolder name="port" displayName="port" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/port/plib_port.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/port/plib_port.h</itemPath>
             </logicalFolder>
             <logicalFolder name="rtc" displayName="rtc" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/rtc/plib_rtc.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/rtc/plib_rtc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/system/cache/sys_cache.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/system/debug/sys_debug.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/system/int/sys_int.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/int/sys_int.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/system/time/sys_time.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/system/time/sys_time_definitions.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80/system/time/src/sys_time_local.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/time/sys_time.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/pic32cz_ca80/system/sys_random_h2_adapter.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/system/system_common.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/system/system_module.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/system/system.h</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/system/sys_time_h2_adapter.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/system_module.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/sys_random_h2_adapter.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/system_common.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/system.h</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/sys_time_h2_adapter.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/pic32cz_ca80/device_cache.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/system_config.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/sys_tasks.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/device_vectors.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/user.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/system_definitions.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/toolchain_specifics.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/device.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/configuration.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/interrupts.h</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/definitions.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/sys_tasks.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/definitions.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/user.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system_definitions.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/configuration.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/interrupts.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/device_cache.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system_config.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/device_vectors.h</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/device.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -394,10 +394,10 @@
                    displayName="Linker Files"
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80"
-                       displayName="pic32cz_ca80"
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
+                       displayName="pic32cz_ca80_curiosity_ultra"
                        projectFiles="true">
-          <itemPath>../src/config/pic32cz_ca80/PIC32CZ8110CA80208.ld</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/PIC32CZ8110CA80208.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -405,42 +405,42 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80"
-                       displayName="pic32cz_ca80"
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
+                       displayName="pic32cz_ca80_curiosity_ultra"
                        projectFiles="true">
           <logicalFolder name="bootloader" displayName="bootloader" projectFiles="true">
             <logicalFolder name="datastream" displayName="datastream" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/bootloader/datastream/datastream_udp.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/datastream/datastream_udp.c</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/pic32cz_ca80/bootloader/bootloader_udp.c</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/bootloader/bootloader_nvm_interface.c</itemPath>
-            <itemPath>../src/config/pic32cz_ca80/bootloader/bootloader_common.c</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/bootloader_nvm_interface.c</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/bootloader_udp.c</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/bootloader_common.c</itemPath>
           </logicalFolder>
           <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
-            <itemPath>../src/config/pic32cz_ca80/bsp/bsp.c</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bsp/bsp.c</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="ethphy" displayName="ethphy" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/driver/ethphy/src/dynamic/drv_extphy_ksz9031.c</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80/driver/ethphy/src/dynamic/drv_ethphy.c</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/dynamic/drv_extphy_ksz9031.c</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/dynamic/drv_ethphy.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/driver/gmac/src/dynamic/drv_gmac_lib_pic32CZ.c</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac_lib_pic32CZ.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="miim" displayName="miim" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/driver/miim/src/dynamic/drv_miim.c</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80/driver/miim/src/dynamic/drv_miim_pic32cz.c</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/miim/src/dynamic/drv_miim_pic32cz.c</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/miim/src/dynamic/drv_miim.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -449,73 +449,73 @@
             <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="common" displayName="common" projectFiles="true">
-                  <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/helpers.c</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/helpers.c</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/oahash.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/arp.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_heap_internal.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/udp.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dhcp.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/ipv4.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_packet.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_notify.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_helpers.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/tcpip_manager.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/hash_fnv.c</itemPath>
-                <itemPath>../src/config/pic32cz_ca80/library/tcpip/src/dns.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/hash_fnv.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_helpers.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/ipv4.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_notify.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcp.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/arp.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/udp.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/oahash.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dns.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_manager.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_heap_internal.c</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_packet.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/clock/plib_clock.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
             <logicalFolder name="evsys" displayName="evsys" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/evsys/plib_evsys.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/evsys/plib_evsys.c</itemPath>
             </logicalFolder>
             <logicalFolder name="fcw" displayName="fcw" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/fcw/plib_fcw.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/fcw/plib_fcw.c</itemPath>
             </logicalFolder>
             <logicalFolder name="mpu" displayName="mpu" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/mpu/plib_mpu.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/mpu/plib_mpu.c</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/nvic/plib_nvic.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
             <logicalFolder name="port" displayName="port" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/port/plib_port.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/port/plib_port.c</itemPath>
             </logicalFolder>
             <logicalFolder name="rtc" displayName="rtc" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/peripheral/rtc/plib_rtc_timer.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/peripheral/rtc/plib_rtc_timer.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
-            <itemPath>../src/config/pic32cz_ca80/stdio/xc32_monitor.c</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/system/cache/sys_cache.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/system/int/src/sys_int.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
-              <itemPath>../src/config/pic32cz_ca80/system/time/src/sys_time.c</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/pic32cz_ca80/system/sys_time_h2_adapter.c</itemPath>
+            <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/sys_time_h2_adapter.c</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/pic32cz_ca80/exceptions.c</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/startup_xc32.c</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/libc_syscalls.c</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/tasks.c</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/initialization.c</itemPath>
-          <itemPath>../src/config/pic32cz_ca80/interrupts.c</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/initialization.c</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/interrupts.c</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/tasks.c</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/exceptions.c</itemPath>
+          <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/startup_xc32.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../src/config/pic32cz_ca80/pin_configurations.csv</itemPath>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app_pic32cz_ca.c</itemPath>
+      <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/pin_configurations.csv</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -526,13 +526,13 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="pic32cz_ca80" type="2">
+    <conf name="pic32cz_ca80_curiosity_ultra" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC32CZ8110CA80208</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>pkob4hybrid</platformTool>
+        <platformTool></platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.30</languageToolchainVersion>
         <platform>3</platform>
@@ -578,7 +578,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cz_ca80;../src/config/pic32cz_ca80/library;../src/config/pic32cz_ca80/library/tcpip/src;../src/config/pic32cz_ca80/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
+                  value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/config/pic32cz_ca80_curiosity_ultra/library;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -645,7 +645,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="98304"/>
+        <property key="heap-size" value="64960"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -679,7 +679,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cz_ca80;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
+                  value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

@@ -70,7 +70,7 @@
 #define APP_START_ADDRESS                       (0xc000000U)
 
 
-#define BTL_TRIGGER_RAM_START                   0x20020000
+#define BTL_TRIGGER_RAM_START                   0x20020000U
 
 #define BTL_TRIGGER_LEN                         16
 
