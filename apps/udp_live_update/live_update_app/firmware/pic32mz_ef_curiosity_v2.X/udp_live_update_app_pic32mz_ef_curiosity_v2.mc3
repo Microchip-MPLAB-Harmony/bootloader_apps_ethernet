@@ -979,25 +979,13 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;APPLICATION LAYER&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;402&quot; canvasWidth=&quot;448&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
+      &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
+    &lt;/PowerProfiles&gt;
+    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;APPLICATION LAYER&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpip_apps_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;TCP/IP STACK&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;APPLICATION LAYER&quot; x=&quot;29&quot; y=&quot;39&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;195&quot; y=&quot;219&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;DRIVER LAYER&quot; x=&quot;35&quot; y=&quot;219&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;NETWORK LAYER&quot; x=&quot;30&quot; y=&quot;165&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;21&quot; y=&quot;103&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;NETWORK LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipArp&quot; x=&quot;152&quot; y=&quot;107&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipIPv4&quot; x=&quot;24&quot; y=&quot;89&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpip_network_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;BASIC CONFIGURATION&quot;&gt;
@@ -1015,7 +1003,29 @@
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpip_driver_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;NETWORK LAYER&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipArp&quot; x=&quot;152&quot; y=&quot;107&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipIPv4&quot; x=&quot;24&quot; y=&quot;89&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpip_network_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;6&quot; id=&quot;TCP/IP STACK&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;APPLICATION LAYER&quot; x=&quot;29&quot; y=&quot;39&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;195&quot; y=&quot;219&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;DRIVER LAYER&quot; x=&quot;35&quot; y=&quot;219&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;NETWORK LAYER&quot; x=&quot;30&quot; y=&quot;165&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;21&quot; y=&quot;103&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;7&quot; id=&quot;TRANSPORT LAYER&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipUdp&quot; x=&quot;82&quot; y=&quot;94&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpip_transport_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;8&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32MZ_EF_Curiosity_2.0&quot; x=&quot;320&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;FreeRTOS&quot; x=&quot;316&quot; y=&quot;129&quot;/&gt;
@@ -1029,13 +1039,6 @@
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;sys_time&quot; x=&quot;164&quot; y=&quot;107&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;uart6&quot; x=&quot;18&quot; y=&quot;294&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;udp_bootloader&quot; x=&quot;163&quot; y=&quot;227&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;402&quot; canvasWidth=&quot;448&quot; dnOrder=&quot;6&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;7&quot; id=&quot;TRANSPORT LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipUdp&quot; x=&quot;82&quot; y=&quot;94&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpip_transport_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -4869,7 +4872,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\bootloader\bootloader_udp.c</file>
-         <hash>f46859951921539dedfa920a302fc0ba038824dd7316533b8018adbaf03d6ddd</hash>
+         <hash>abb26651f8c38cbc248d179b39f717d67385533f79e8faba9d7f24744f4d6591</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\bootloader\bootloader_udp.h</file>
@@ -4897,7 +4900,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\definitions.h</file>
-         <hash>a88b09e1c2b003679fee0d5167fe3119b4fc8b6105c87fe3639dc7fc58bdc3fb</hash>
+         <hash>3ce1ed93713494d841e7c6fb9f1193cc9844b9d1f3ec112f2ee031d68c2816d8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\device.h</file>
@@ -4997,7 +5000,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\initialization.c</file>
-         <hash>9a5382a4d7dab0b9d2914711106556f4fd51cd7df1d18dafb54a480e2536f825</hash>
+         <hash>7ebae77fb8056af74e8d9200502e3fec4b4a892c1d52c8309fcfac2080e57c6f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\interrupts.c</file>

@@ -51,9 +51,9 @@
 #include <stdio.h>
 #include "driver/ethmac/drv_ethmac.h"
 #include "bsp/bsp.h"
-#include "peripheral/uart/plib_uart6.h"
-#include "system/time/sys_time.h"
 #include "peripheral/nvm/plib_nvm.h"
+#include "system/time/sys_time.h"
+#include "peripheral/uart/plib_uart6.h"
 #include "peripheral/coretimer/plib_coretimer.h"
 #include "bootloader/bootloader_udp.h"
 #include "library/tcpip/tcpip.h"
