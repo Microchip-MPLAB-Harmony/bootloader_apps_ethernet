@@ -426,6 +426,7 @@ void SYS_Initialize ( void* data )
         run_Application(APP_JUMP_ADDRESS);
     }
 
+
     NVM_Initialize();
 
     CORETIMER_Initialize();
