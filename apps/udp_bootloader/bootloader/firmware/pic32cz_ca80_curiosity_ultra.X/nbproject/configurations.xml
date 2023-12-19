@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <configurationDescriptor version="65">
   <logicalFolder name="root" displayName="root" projectFiles="true">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
+    <logicalFolder name="HeaderFiles" displayName="Header Files" projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
-                       displayName="pic32cz_ca80_curiosity_ultra"
-                       projectFiles="true">
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra" displayName="pic32cz_ca80_curiosity_ultra" projectFiles="true">
           <logicalFolder name="bootloader" displayName="bootloader" projectFiles="true">
             <logicalFolder name="datastream" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/datastream/datastream.h</itemPath>
@@ -274,9 +270,7 @@
             </logicalFolder>
           </logicalFolder>
         </logicalFolder>
-        <logicalFolder name="PIC32CZ8110CA80208_DFP"
-                       displayName="PIC32CZ8110CA80208_DFP"
-                       projectFiles="true">
+        <logicalFolder name="PIC32CZ8110CA80208_DFP" displayName="PIC32CZ8110CA80208_DFP" projectFiles="true">
           <logicalFolder name="component" displayName="component" projectFiles="true">
             <itemPath>../src/packs/PIC32CZ8110CA80208_DFP/component/mlb.h</itemPath>
             <itemPath>../src/packs/PIC32CZ8110CA80208_DFP/component/eth.h</itemPath>
@@ -390,24 +384,16 @@
       </logicalFolder>
       <itemPath>../src/app_pic32cz_ca.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="LinkerScript"
-                   displayName="Linker Files"
-                   projectFiles="true">
+    <logicalFolder name="LinkerScript" displayName="Linker Files" projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
-                       displayName="pic32cz_ca80_curiosity_ultra"
-                       projectFiles="true">
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra" displayName="pic32cz_ca80_curiosity_ultra" projectFiles="true">
           <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/PIC32CZ8110CA80208.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
-                   projectFiles="true">
+    <logicalFolder name="SourceFiles" displayName="Source Files" projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
-                       displayName="pic32cz_ca80_curiosity_ultra"
-                       projectFiles="true">
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra" displayName="pic32cz_ca80_curiosity_ultra" projectFiles="true">
           <logicalFolder name="bootloader" displayName="bootloader" projectFiles="true">
             <logicalFolder name="datastream" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/datastream/datastream_udp.c</itemPath>
@@ -517,9 +503,7 @@
       <itemPath>../src/app_pic32cz_ca.c</itemPath>
       <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/pin_configurations.csv</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
+    <logicalFolder name="ExternalFiles" displayName="Important Files" projectFiles="false">
       <itemPath>Makefile</itemPath>
       <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra.mc3</itemPath>
     </logicalFolder>
@@ -530,11 +514,11 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC32CZ8110CA80208</targetDevice>
-        <targetHeader></targetHeader>
-        <targetPluginBoard></targetPluginBoard>
-        <platformTool></platformTool>
+        <targetHeader/>
+        <targetPluginBoard/>
+        <platformTool/>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.30</languageToolchainVersion>
+        <languageToolchainVersion>4.35</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -553,7 +537,7 @@
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <parseOnProdLoad>false</parseOnProdLoad>
-          <alternateLoadableFile></alternateLoadableFile>
+          <alternateLoadableFile/>
         </loading>
         <subordinates>
         </subordinates>
@@ -561,9 +545,9 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPreStep/>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
-        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPostStep/>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
@@ -577,8 +561,7 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/config/pic32cz_ca80_curiosity_ultra/library;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
+        <property key="extra-include-directories" value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/config/pic32cz_ca80_curiosity_ultra/library;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -655,8 +638,7 @@
         <property key="no-startup-files" value="false"/>
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
-        <property key="preprocessor-macros"
-                  value="RAM_LENGTH=0xffff0;RAM_ORIGIN=0x20020010;ROM_LENGTH=0x1adb0;ROM_ORIGIN=&quot;BOOT_ROM_ORIGIN + 1024&quot;"/>
+        <property key="preprocessor-macros" value="RAM_LENGTH=0xffff0;RAM_ORIGIN=0x20020010;ROM_LENGTH=0x1adb0;ROM_ORIGIN=&quot;BOOT_ROM_ORIGIN + 1024&quot;"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
@@ -678,8 +660,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
+        <property key="extra-include-directories" value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

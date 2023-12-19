@@ -274,7 +274,7 @@ static void bootloader_ProcessBuffer( BOOTLOADER_DATA *handle )
 
         case (uint8_t)ERASE_FLASH:
         {
-bootloader_NvmAppErase(APP_START_ADDRESS, FLASH_END_ADDRESS);
+            bootloader_NvmAppErase(APP_START_ADDRESS, FLASH_END_ADDRESS);
             handle->currentState = BOOTLOADER_SEND_RESPONSE;
             handle->buffSize = 1;
             break;
