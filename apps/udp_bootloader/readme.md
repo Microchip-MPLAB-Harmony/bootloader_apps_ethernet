@@ -44,6 +44,7 @@ The following table provides links to documentation on how to build and run UDP 
 
 | Development Kit |
 |:---------|
+|[PIC32CZ-CA80 Curiosity Ultra board](docs/readme_pic32cz_ca80_curiosity_ultra.md) |
 |[PIC32MX Ethernet Starter Kit II](docs/readme_pic32mx_eth_sk2.md) |
 |[PIC32MZ Embedded Graphics with Stacked DRAM (DA) Starter Kit (Crypto)](docs/readme_pic32mz_das_sk.md) |
 |[PIC32MZ Embedded Connectivity with FPU (EF) Starter Kit](docs/readme_pic32mz_ef_sk.md) |
