@@ -417,6 +417,7 @@ void SYS_Initialize ( void* data )
         run_Application(APP_JUMP_ADDRESS);
     }
 
+
 	BSP_Initialize();
     NVM_Initialize();
 
