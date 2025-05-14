@@ -6,14 +6,14 @@
 
   Description:
     This library provides a low-level abstraction of the Ethernet module
-    on Microchip PIC32MX family microcontrollers with a convenient C language
+    on Microchip PIC32CZ CA8 & CA9 family microcontrollers with a convenient C language
     interface.  It can be used to simplify low-level access to the module
     without the necessity of interacting directly with the module's registers,
     thus hiding differences from one microcontroller variant to another.
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2008-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2008-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -169,6 +169,7 @@ void DRV_PIC32CGMAC_LibInit(DRV_GMAC_DRIVER* pMACDrv)
     {
         pGmacRegs->ETH_CTRLB |= ETH_CTRLB_GMIIEN(1) | ETH_CTRLB_GBITCLKREQ(1);
         while(pGmacRegs->ETH_SYNCB);
+        pGmacRegs->ETH_NCFGR |= ETH_NCFGR_GIGE(1);
     }
     else if (pMACDrv->sGmacData.gmacConfig.pPhyInit->phyFlags & DRV_ETHPHY_CFG_MII)//MII Mode
     {
@@ -293,6 +294,7 @@ void DRV_PIC32CGMAC_LibMACOpen(DRV_GMAC_DRIVER * pMACDrv, TCPIP_ETH_OPEN_FLAGS o
 {   
     eth_registers_t *  pGmacRegs = (eth_registers_t *) pMACDrv->sGmacData.gmacConfig.ethModuleId;
     uint32_t ncfgr;
+    GMAC_QUE_LIST queueIdx;
     
     pGmacRegs->ETH_NCR &= ~ETH_NCR_TXEN_Msk;
     pGmacRegs->ETH_NCR &= ~ETH_NCR_RXEN_Msk;
@@ -307,21 +309,7 @@ void DRV_PIC32CGMAC_LibMACOpen(DRV_GMAC_DRIVER * pMACDrv, TCPIP_ETH_OPEN_FLAGS o
     {
         ncfgr &= ~ETH_NCFGR_FD_Msk ;    
     }
-    
-    if(oFlags & TCPIP_ETH_OPEN_1000)
-    {
-        ncfgr |= (ETH_NCFGR_SPD_Msk | ETH_NCFGR_GIGE_Msk);
-    }
-    else if (oFlags & TCPIP_ETH_OPEN_100)
-    {
-        ncfgr &= ~ETH_NCFGR_GIGE_Msk;
-        ncfgr |= ETH_NCFGR_SPD_Msk;        
-    }
-    else
-    {
-        ncfgr &= ~(ETH_NCFGR_SPD_Msk | ETH_NCFGR_GIGE_Msk);
-    }
-
+        
     if(pauseType & TCPIP_ETH_PAUSE_TYPE_EN_RX)
     {
         ncfgr |= ETH_NCFGR_PEN_Msk ;
@@ -331,27 +319,45 @@ void DRV_PIC32CGMAC_LibMACOpen(DRV_GMAC_DRIVER * pMACDrv, TCPIP_ETH_OPEN_FLAGS o
         ncfgr &= ~ETH_NCFGR_PEN_Msk ;       
     }
     
-    pGmacRegs->ETH_NCFGR = ncfgr;
-    
-    // Select MII interface mode 
-    if(oFlags & TCPIP_ETH_OPEN_GMII)//GMII Mode
-    {        
+    //Speed & MII settings
+    if (oFlags & TCPIP_ETH_OPEN_1000)
+    {   //GMII
+        ncfgr |= (ETH_NCFGR_SPD_Msk | ETH_NCFGR_GIGE_Msk);
         pGmacRegs->ETH_CTRLB |= ETH_CTRLB_GMIIEN(1) | ETH_CTRLB_GBITCLKREQ(1);
         while(pGmacRegs->ETH_SYNCB);
     }
-    else if(oFlags & TCPIP_ETH_OPEN_MII)//MII Mode
+    else
     {
+        ncfgr &= ~ETH_NCFGR_GIGE_Msk;
+        if (oFlags & TCPIP_ETH_OPEN_100)
+        {
+            ncfgr |= ETH_NCFGR_SPD_Msk;
+        }
+        else
+        {
+            ncfgr &= ~ETH_NCFGR_SPD_Msk;
+        }
         pGmacRegs->ETH_CTRLB &= ~ETH_CTRLB_GBITCLKREQ_Msk;
-        pGmacRegs->ETH_CTRLB |= ETH_CTRLB_GMIIEN(1);
+        if (oFlags & TCPIP_ETH_OPEN_MII)
+        {   //MII
+            pGmacRegs->ETH_CTRLB |= ETH_CTRLB_GMIIEN(1);
+        }
+        else if (oFlags & TCPIP_ETH_OPEN_RMII)
+        {   //RMII
+            pGmacRegs->ETH_CTRLB &= ~ETH_CTRLB_GMIIEN_Msk;
+        }
         while(pGmacRegs->ETH_SYNCB);
-        pGmacRegs->ETH_NCFGR &= ~ETH_NCFGR_GIGE_Msk;
     }
-    else if(oFlags & TCPIP_ETH_OPEN_RMII)//RMII Mode
+ 
+    pGmacRegs->ETH_NCFGR = ncfgr;   
+    
+    // Reset Tx Indexes. After TXEN reset, the Transmit Queue Pointer will point to the start of the
+    // transmit descriptor list.
+    for(queueIdx = GMAC_QUE_0; queueIdx < pMACDrv->sGmacData.gmacConfig.macQueNum; queueIdx++)
     {
-        pGmacRegs->ETH_CTRLB &= ~(ETH_CTRLB_GMIIEN_Msk | ETH_CTRLB_GBITCLKREQ_Msk);
-        while(pGmacRegs->ETH_SYNCB);
-        pGmacRegs->ETH_NCFGR &= ~ETH_NCFGR_GIGE_Msk;
-    }   
+        // Reset Transmit Indexes
+        DRV_PIC32CGMAC_LibClearTxIndex(pMACDrv, queueIdx);
+    }
     
     pGmacRegs->ETH_NCR |= ETH_NCR_RXEN_Msk;
     pGmacRegs->ETH_NCR |= ETH_NCR_TXEN_Msk;
@@ -1931,6 +1937,18 @@ void DRV_PIC32CGMAC_LibTxEnable(DRV_GMAC_DRIVER* pMACDrv, bool enable)
     {
         pGmacRegs->ETH_NCR &= ~ETH_NCR_TXEN_Msk;  
     }
+}
+
+/****************************************************************************
+ * Function:    DRV_PIC32CGMAC_LibClearTxIndex
+ * Summary:     Reset Transmit Processing Indexes
+ *****************************************************************************/
+void  DRV_PIC32CGMAC_LibClearTxIndex(DRV_GMAC_DRIVER* pMACDrv, GMAC_QUE_LIST queueIdx)
+{
+    // Reset Transmit processing indexes. Because, after TXEN reset, the Transmit  
+    // Queue Pointer will point to the start of the transmit descriptor list.
+    pMACDrv->sGmacData.gmac_queue[queueIdx].nTxDescHead = 0;
+    pMACDrv->sGmacData.gmac_queue[queueIdx].nTxDescTail = 0;
 }
 
 /****************************************************************************

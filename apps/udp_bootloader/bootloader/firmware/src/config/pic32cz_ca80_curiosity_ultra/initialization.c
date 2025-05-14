@@ -69,11 +69,11 @@
 #pragma config FUSES_USERCFG1_FUCFG1_SSXEXSQI0 = 0xffU
 #pragma config FUSES_USERCFG1_FUCFG1_SSXEXSQI1 = 0xffU
 #pragma config FUSES_USERCFG1_FUCFG2_BOR_HYST = SET
-#pragma config FUSES_USERCFG1_FUCFG2_BOR_TRIP = 0x3U
+#pragma config FUSES_USERCFG1_FUCFG2_BOR_TRIP = 0x0U
 #pragma config FUSES_USERCFG1_FUCFG3_HYST_BOR_VDDIO = SET
-#pragma config FUSES_USERCFG1_FUCFG3_BOR_TRIP_VDDIO = 0x3U
+#pragma config FUSES_USERCFG1_FUCFG3_BOR_TRIP_VDDIO = 0x0U
 #pragma config FUSES_USERCFG1_FUCFG3_HYST_BOR_VDDA = SET
-#pragma config FUSES_USERCFG1_FUCFG3_BOR_TRIP_VDDA = 0x3U
+#pragma config FUSES_USERCFG1_FUCFG3_BOR_TRIP_VDDA = 0x0U
 #pragma config FUSES_USERCFG1_FUCFG3_HYST_BOR_VDDREG = SET
 #pragma config FUSES_USERCFG1_FUCFG5_UCP0 = 0xfU
 #pragma config FUSES_USERCFG1_FUCFG5_UCP1 = 0xfU
@@ -173,11 +173,11 @@
 #pragma config FUSES_USERCFG2_FUCFG1_SSXEXSQI0 = 0xffU
 #pragma config FUSES_USERCFG2_FUCFG1_SSXEXSQI1 = 0xffU
 #pragma config FUSES_USERCFG2_FUCFG2_BOR_HYST = SET
-#pragma config FUSES_USERCFG2_FUCFG2_BOR_TRIP = 0x3U
+#pragma config FUSES_USERCFG2_FUCFG2_BOR_TRIP = 0x0U
 #pragma config FUSES_USERCFG2_FUCFG3_HYST_BOR_VDDIO = SET
-#pragma config FUSES_USERCFG2_FUCFG3_BOR_TRIP_VDDIO = 0x3U
+#pragma config FUSES_USERCFG2_FUCFG3_BOR_TRIP_VDDIO = 0x0U
 #pragma config FUSES_USERCFG2_FUCFG3_HYST_BOR_VDDA = SET
-#pragma config FUSES_USERCFG2_FUCFG3_BOR_TRIP_VDDA = 0x3U
+#pragma config FUSES_USERCFG2_FUCFG3_BOR_TRIP_VDDA = 0x0U
 #pragma config FUSES_USERCFG2_FUCFG3_HYST_BOR_VDDREG = SET
 #pragma config FUSES_USERCFG2_FUCFG5_UCP0 = 0xfU
 #pragma config FUSES_USERCFG2_FUCFG5_UCP1 = 0xfU
@@ -428,11 +428,13 @@ const DRV_ETHPHY_INIT tcpipPhyInitData_KSZ9031 =
     .phyAddress             = DRV_KSZ9031_PHY_ADDRESS,
     .phyFlags               = DRV_KSZ9031_PHY_CONFIG_FLAGS,
     .pPhyObject             = &DRV_ETHPHY_OBJECT_KSZ9031,
-    .resetFunction          = AppKSZ9031ResetFunction,
     .ethphyTmo              = &drvksz9031Tmo,
     .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
     .pMiimInit              = &drvMiimInitData_0,
     .miimIndex              = 0,
+
+
+    .resetFunction          = AppKSZ9031ResetFunction,
 };
 
 
@@ -605,7 +607,7 @@ static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
 static const SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
-    .hwTimerIntNum = RTC_PERIOD_IRQn,
+    .hwTimerIntNum = RTC_COMPARE_IRQn,
 };
 
 // </editor-fold>
@@ -634,8 +636,9 @@ void SYS_Initialize ( void* data )
 {
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
-    FCW_Initialize();
+        FCW_Initialize();
 
+    CLOCK_Initialize();
 
     PORT_Initialize();
 
@@ -645,7 +648,6 @@ void SYS_Initialize ( void* data )
     }
 
 
-    CLOCK_Initialize();
 
     FCW_Initialize();
 

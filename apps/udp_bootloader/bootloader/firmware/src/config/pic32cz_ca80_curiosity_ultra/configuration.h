@@ -113,7 +113,7 @@ extern "C" {
 // *****************************************************************************
 /*** ETH Configuration ***/
 #define DRV_ETH
-#define DRV_PIC32CZ
+#define DRV_PIC32CZCA8
 #define TCPIP_ETH_TX_DESCRIPTORS_COUNT_DUMMY    1
 #define TCPIP_ETH_RX_DESCRIPTORS_COUNT_DUMMY    1
 #define TCPIP_ETH_RX_BUFF_SIZE_DUMMY            64
@@ -205,7 +205,7 @@ extern "C" {
 #define DRV_ETH_NUMBER_OF_QUEUES               6
 #define DRV_ETH_RMII_MODE                      0
 
-#define DRV_ETH_DESCRIPTOR_ADDRESS                0x2009f000
+#define DRV_ETH_DESCRIPTOR_ADDRESS                0x2011f000
 
 
 
@@ -241,6 +241,7 @@ extern "C" {
 
 /* Network Configuration Index 0 */
 #define TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0 "ETH"
+#define TCPIP_IF_PIC32CZCA8_CA9_ETH
 
 #define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0              "MCHPBOARD_ETH"
 #define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0               "00:04:25:1C:A0:02"

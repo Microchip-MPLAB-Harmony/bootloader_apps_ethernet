@@ -85,11 +85,14 @@ void MPU_Initialize(void)
     MPU->RASR = MPU_REGION_SIZE(27U) | MPU_RASR_AP(MPU_RASR_AP_READWRITE_Val) | MPU_ATTR_STRONGLY_ORDERED \
                 | MPU_ATTR_ENABLE  ;
 
-    /* Region 6 Name: GMAC Descriptor, Base Address: 0x2009f000, Size: 4KB  */
-    MPU->RBAR = MPU_REGION(6U, 0x2009f000U);
+    /* Region 6 Name: GMAC Descriptor, Base Address: 0x2011f000, Size: 4KB  */
+    MPU->RBAR = MPU_REGION(6U, 0x2011f000U);
     MPU->RASR = MPU_REGION_SIZE(11U) | MPU_RASR_AP(MPU_RASR_AP_READWRITE_Val) | MPU_ATTR_NORMAL \
                 | MPU_ATTR_ENABLE | MPU_ATTR_EXECUTE_NEVER ;
 
+    /* Disable Region 7*/
+    MPU->RBAR = MPU_RBAR_REGION(7U) | MPU_RBAR_VALID_Msk;
+    MPU->RASR &= ~MPU_ATTR_ENABLE;
 
 
 

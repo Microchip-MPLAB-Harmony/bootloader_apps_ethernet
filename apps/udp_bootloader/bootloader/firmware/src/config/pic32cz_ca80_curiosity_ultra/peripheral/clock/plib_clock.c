@@ -51,6 +51,7 @@ static void OSCCTRL_Initialize(void)
     {
         /* Waiting for the XOSC Ready state */
     }
+
 }
 
 static void OSC32KCTRL_Initialize(void)
@@ -71,8 +72,8 @@ static void OSC32KCTRL_Initialize(void)
 static void PLL0_Initialize(void)
 {
     /* Enable Additional Voltage Regulator */
-    SUPC_REGS->SUPC_VREGCTRL |= SUPC_VREGCTRL_AVREGEN_Msk;
-    while ((SUPC_REGS->SUPC_STATUS & SUPC_STATUS_ADDVREGRDY_Msk) != SUPC_STATUS_ADDVREGRDY_Msk)
+    SUPC_REGS->SUPC_VREGCTRL |= SUPC_VREGCTRL_AVREGEN(4U);
+    while ((SUPC_REGS->SUPC_STATUS & ((uint32_t)4U << SUPC_STATUS_ADDVREGRDY_Pos)) != ((uint32_t)4U << SUPC_STATUS_ADDVREGRDY_Pos))
     {
         /* Do Nothing */
     }
@@ -81,6 +82,8 @@ static void PLL0_Initialize(void)
     /****************** PLL0 Initialization  *********************************/
 
     /* Configure PLL0 */
+    /* Disable PLL0 and clear PLL0 control register */
+    OSCCTRL_REGS->OSCCTRL_PLL0CTRL = 0U;
     OSCCTRL_REGS->OSCCTRL_PLL0REFDIV = OSCCTRL_PLL0REFDIV_REFDIV(3U);
     OSCCTRL_REGS->OSCCTRL_PLL0FBDIV = OSCCTRL_PLL0FBDIV_FBDIV(225U);
 
@@ -103,8 +106,8 @@ static void PLL0_Initialize(void)
 static void PLL1_Initialize(void)
 {
     /* Enable Additional Voltage Regulator */
-    SUPC_REGS->SUPC_VREGCTRL |= SUPC_VREGCTRL_AVREGEN_Msk;
-    while ((SUPC_REGS->SUPC_STATUS & SUPC_STATUS_ADDVREGRDY_Msk) != SUPC_STATUS_ADDVREGRDY_Msk)
+    SUPC_REGS->SUPC_VREGCTRL |= SUPC_VREGCTRL_AVREGEN(4U);
+    while ((SUPC_REGS->SUPC_STATUS & ((uint32_t)4U << SUPC_STATUS_ADDVREGRDY_Pos)) != ((uint32_t)4U << SUPC_STATUS_ADDVREGRDY_Pos))
     {
         /* Do Nothing */
     }
@@ -113,6 +116,8 @@ static void PLL1_Initialize(void)
     /****************** PLL1 Initialization  *********************************/
 
     /* Configure PLL1 */
+    /* Disable PLL1 and clear PLL1 control register */
+    OSCCTRL_REGS->OSCCTRL_PLL1CTRL = 0U;
     OSCCTRL_REGS->OSCCTRL_PLL1REFDIV = OSCCTRL_PLL1REFDIV_REFDIV(3U);
     OSCCTRL_REGS->OSCCTRL_PLL1FBDIV = OSCCTRL_PLL1FBDIV_FBDIV(250U);
 
@@ -181,9 +186,9 @@ void CLOCK_Initialize (void)
 
     PLL1_Initialize();
     PLL0_Initialize();
+    GCLK2_Initialize();
     GCLK0_Initialize();
     GCLK1_Initialize();
-    GCLK2_Initialize();
 
 
 
