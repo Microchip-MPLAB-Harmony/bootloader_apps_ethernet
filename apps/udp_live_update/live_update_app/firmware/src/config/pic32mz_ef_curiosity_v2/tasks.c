@@ -79,8 +79,11 @@ void _TCPIP_STACK_Task(  void *pvParameters  )
     }
 }
 
+
 /* Handle for the APP_MIPS_Tasks. */
 TaskHandle_t xAPP_MIPS_Tasks;
+
+
 
 static void lAPP_MIPS_Tasks(  void *pvParameters  )
 {   
@@ -162,14 +165,15 @@ void SYS_Tasks ( void )
 
 
     /* Maintain the application's state machine. */
-        /* Create OS Thread for APP_MIPS_Tasks. */
-    (void) xTaskCreate((TaskFunction_t) lAPP_MIPS_Tasks,
-                "APP_MIPS_Tasks",
-                1024,
-                NULL,
-                1,
-                &xAPP_MIPS_Tasks);
-
+    
+    /* Create OS Thread for APP_MIPS_Tasks. */
+    (void) xTaskCreate(
+           (TaskFunction_t) lAPP_MIPS_Tasks,
+           "APP_MIPS_Tasks",
+           1024,
+           NULL,
+           1U ,
+           &xAPP_MIPS_Tasks);
 
 
 

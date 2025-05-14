@@ -1,4 +1,4 @@
-<config configName="pic32mz_ef_curiosity_v2" projectName="udp_live_update_app_pic32mz_ef_curiosity_v2" configVersion="1.1" device="PIC32MZ2048EFM144" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.6.1">
+<config configName="pic32mz_ef_curiosity_v2" projectName="udp_live_update_app_pic32mz_ef_curiosity_v2" configVersion="1.1" device="PIC32MZ2048EFM144" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.7.1">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -127,7 +127,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.4.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.5.3"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -4852,7 +4852,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\FreeRTOSConfig.h</file>
-         <hash>7257fc316dfd53a702073a4ac219315084fab1a9e09b7e18e1743539b6d38981</hash>
+         <hash>f8fed57782e0ed4751d094b3c2af7a5f6a64a656e7cf20cc68b8eab35451c9a0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\bootloader\bootloader_common.c</file>
@@ -4860,7 +4860,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\bootloader\bootloader_common.h</file>
-         <hash>2ad2de23df87bb0ec7a3fcfec2c30d80dfba6f92989839271419c270b6d555df</hash>
+         <hash>f728c33853065953412c10e90b980e45c90956a5eff45cdb57e7218b25e6afa3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\bootloader\bootloader_nvm_interface.c</file>
@@ -4872,7 +4872,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\bootloader\bootloader_udp.c</file>
-         <hash>abb26651f8c38cbc248d179b39f717d67385533f79e8faba9d7f24744f4d6591</hash>
+         <hash>024c62339bdfc5f54d31623021bc994c1dd5f8352fecd4d23f27890c0ca4a30f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\bootloader\bootloader_udp.h</file>
@@ -4896,15 +4896,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\configuration.h</file>
-         <hash>0622e84bf8b4d42a6139eb6bda9692a266d0396e7de392fa285c07c42a3e3c97</hash>
+         <hash>1f86f3dbf3dc16c79a0c9cf26aff53c4b0fed2473feac9263639ee36b8f7b65d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\definitions.h</file>
-         <hash>3ce1ed93713494d841e7c6fb9f1193cc9844b9d1f3ec112f2ee031d68c2816d8</hash>
+         <hash>4cd690f8e89fc8952bafba9402e3f5abaa6d28d18ee14b8a9647c45e7d0db54a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\device.h</file>
-         <hash>10ec93c43a7b158a129ae05bd8f4a59ff5bcf3d0f3f062fdd64c374bc2d42099</hash>
+         <hash>4d4341a6f9628cea0bf73f980b639f7cb81089e55a60ad7e434be2a71e477442</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\driver\driver.h</file>
@@ -4948,15 +4948,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\driver\ethphy\drv_ethphy.h</file>
-         <hash>9d6dac988264897815d8d97ea559ed4cec334109dec6098b5533e1974b5fa490</hash>
+         <hash>19c63b50d002ecffcdc302012af6515d876f3e7bf612acc749c97bf0d78d9207</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\driver\ethphy\src\drv_ethphy_local.h</file>
-         <hash>d2fca30512453811bb11b4cfff6e0bf937a0fe5afc2698a5ba1440f6346b7620</hash>
+         <hash>3f19a0efd23df04cc9ba8e7359d01372236eed0688979ea00507b429c6c9c698</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\driver\ethphy\src\dynamic\drv_ethphy.c</file>
-         <hash>c3d2f4da008b8ad990932fc3fd4f5842d1ce6b3ecf6d05a396fbc5f89604febd</hash>
+         <hash>75183993e62a8a904cc4d28310d2296be1c54f0840fb5c1b27112b05c0dfc0bf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\driver\ethphy\src\dynamic\drv_extphy_lan8740.c</file>
@@ -4968,7 +4968,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\driver\ethphy\src\dynamic\drv_extphy_regs.h</file>
-         <hash>f86abe844bea011040ca6705895d34f1106aa53cf875bde5bc4fb9d608a9bf29</hash>
+         <hash>8b304230ccee2b2aef3b92eef3c004c938e81432844db5fb0db127986a811e9f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\driver\miim\drv_miim.h</file>
@@ -4992,23 +4992,23 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\exceptions.c</file>
-         <hash>30b880390be9495d817d130a99612cbe4a21ce5f953a22bf77fc97872b770538</hash>
+         <hash>8c1843dacd6aec28ef12be3d763763a268e0facd02d4f1e7d67e21a8d73061d1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\freertos_hooks.c</file>
-         <hash>ee4a4dfc44aa3d45b99065a3d972818fcbd019d39450a67f168aa7f047f55149</hash>
+         <hash>c97b8f92ad60ff513a27ac7a27b3c6824b75005eb8f7b85fe5ae18deaf568c4e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\initialization.c</file>
-         <hash>7ebae77fb8056af74e8d9200502e3fec4b4a892c1d52c8309fcfac2080e57c6f</hash>
+         <hash>0a204cca4d58f978cdc330ba5bb853620a1214aa792e4455e90c351a8a474728</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\interrupts.c</file>
-         <hash>28034b1db0e6f992cdf6d17c1eaa76853f8605ae290172a66ceceff67895bfa9</hash>
+         <hash>ada3a4f73b2cdc811f4c88cff0b898e1987ecfeeb6e3025733ccd4515ed01992</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\interrupts.h</file>
-         <hash>00817a4f4effa18ed0ad6d6b93afd58e928dc1446e2dfe2968b34fcbdbe6f40b</hash>
+         <hash>284f430768173fb47c618793bc22dbee6e59140bf3d39f5a5fca57ed7911e656</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\interrupts_a.S</file>
@@ -5028,7 +5028,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\dhcp.h</file>
-         <hash>4594bbf9c37117583548d8a5cf7e54fb470b4cb60c5bd18f245b02f99ebf5f99</hash>
+         <hash>b4d999699bf15079ea9d3c907ac3cc77f3d0547b46b100413e58bc4530708559</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\dhcp_server.h</file>
@@ -5036,7 +5036,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\dhcps.h</file>
-         <hash>0c6459cf65d1c4da32a6e7b9f12b2edc9f525922411c2eda680e757d5e1bef0f</hash>
+         <hash>660852a6a642b29f23ffcdab88fd8931adc1acae051288691247ecddecc2d3ac</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\dhcpv6.h</file>
@@ -5044,7 +5044,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\dns.h</file>
-         <hash>1a1a176f26d2ec79ca6d6de7c55b59e535752dc2ca1b022895850073a47f58c7</hash>
+         <hash>8f012b5a60435f4333dea747d3ff3de3811f8febee22e42f6a0b4186b65dc901</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\dnss.h</file>
@@ -5060,7 +5060,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\http.h</file>
-         <hash>f911deb4198c712caf25ed6ffc749776586c0945e692fc222500fdf2a5cb479f</hash>
+         <hash>c624983fac1a910df704aea42e31de2dabf37e54f0994f36b945243d76fb69a9</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\http_net.h</file>
@@ -5088,7 +5088,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\ipv6.h</file>
-         <hash>b675c4df60b778005ba0cde22d44a25d8baf0991f631747d9f377830f0271f1f</hash>
+         <hash>ff15077578923fe5a30b33b7bbe49f71cc338f7bb54daafd859402eaac44aa9f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\lldp.h</file>
@@ -5104,7 +5104,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\smtp.h</file>
-         <hash>474828e7dc8a204101443abf70a5b622986734367e430eee2db797d20c67620c</hash>
+         <hash>79268ea631f733be1f34cab892fb9bb0d6e956652f805e5e96fd7d557c3129ba</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\smtpc.h</file>
@@ -5116,7 +5116,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\snmpv3.h</file>
-         <hash>8c24aaa8cc60fedc4077728ac0a219ed7d921c39fa78bbded08fd3232f37609f</hash>
+         <hash>aceaa660e21a025148679aef5bebc1a162376392cf66736388dbe4bbecbe80ce</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\sntp.h</file>
@@ -5124,7 +5124,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\arp.c</file>
-         <hash>a61a82c338f7b8409f82bb3c2e1f589a7930680d3fc765a90d71f2e0805b4fe3</hash>
+         <hash>79977f34fd72ff71a5cd9c5bebd932d9cb5d5300a5b5c8a4a2a48e59cc006578</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\arp_manager.h</file>
@@ -5152,7 +5152,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dhcp.c</file>
-         <hash>a629753d2f2d981f8004f7531c95dec09437223bac5939caa805018d6e1353ae</hash>
+         <hash>d0e21acd785cd7e1a6c8ea805caa09a4fed69f9a100372a37db79e9fea892b3f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dhcp_manager.h</file>
@@ -5160,7 +5160,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dhcp_private.h</file>
-         <hash>23be25f5989fcd849e4690f7504f5321a326dc8e685c41d385f0ca6f1294af4b</hash>
+         <hash>239cf6740eedd49b616c0ed0d19a0e753d23ea39005ac45917cca0a739ea9c5c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dhcp_server_manager.h</file>
@@ -5176,7 +5176,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dhcps_private.h</file>
-         <hash>05813acf368bf4936adb3ff2a8fe1a643e377d4552ec2bbff9259b49159e4a3d</hash>
+         <hash>5e8f0c30c2bc0abfe3ed2fd00fca8fa27f75980098f0dbc434ea793f4737497e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dhcpv6_manager.h</file>
@@ -5196,7 +5196,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dns_private.h</file>
-         <hash>f9f7f3018ecb8b718f967ab36a6c4d1f2b22180e7f2f43d22ec2a71287489e9d</hash>
+         <hash>5c16def3ab1248a0146661ff3e7641bd39a0d464ec8dea0ab484875df863128a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\dnss_manager.h</file>
@@ -5272,7 +5272,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\ipv4.c</file>
-         <hash>5ff453e661ba6b6a9dd56b60a3cd423b067b80aac5bf81d7fbae7f59c76d2e13</hash>
+         <hash>a267bbbf54e48ce952155e9c4f502a94b655e1f4be197117b8da8e153bbd0c3d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\ipv4_manager.h</file>
@@ -5284,7 +5284,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\ipv6_manager.h</file>
-         <hash>f452c104d1f0c9f2184b05e27daf96b52d2f93732c69b9a2f972ff4d86108c38</hash>
+         <hash>b3e53c05254a285834eb0eb1b630857f184cd786a1dfccd3fc7384e806e9a579</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\ipv6_private.h</file>
@@ -5292,7 +5292,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\link_list.h</file>
-         <hash>33d4d925cf813f96addd2909c3b6b4b05498d87261285879f02ff15f094579e9</hash>
+         <hash>258f4b8b84d295a9ae012fb6049995b4074dbca9230e7ce184224e9cfa0320cd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\lldp_manager.h</file>
@@ -5316,7 +5316,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\ndp_private.h</file>
-         <hash>b329e4d0b584e60c3b8546d3a4d6d98246d8dc08f383a065a829e56d80911b19</hash>
+         <hash>f717e33491ed8feb01389ae7d9dff0f944411cd676cf71eadaf858b3cb67568d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\oahash.c</file>
@@ -5348,7 +5348,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\snmpv3_private.h</file>
-         <hash>99dce061177b8e4d7b6a2d05e0c9930184a5902e23e56b064927ffc38df5b7c2</hash>
+         <hash>2829d2d64b8dd0022f06f2dc93567cce8bc86c059130af2ea3028252b736a1f9</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\sntp_manager.h</file>
@@ -5360,7 +5360,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcp_private.h</file>
-         <hash>6caadd47adc022fb7ed49c90fa97594397471a5c0fbbd81f8a5a2d85ad481746</hash>
+         <hash>51d518216ec292b19321f7043f1c1f93e577b01fe77db7b4e52573f8d5cb56c2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_announce_manager.h</file>
@@ -5388,7 +5388,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_helpers.c</file>
-         <hash>9a4ecbe2ef8d7d68543bc4c9410aa04a99908f902a97d52cd5f1f2666b97ab07</hash>
+         <hash>941fce11e083b5220bf19144d4e63c90bf83a4e2dd574d7cd4414ac887b64408</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_helpers_private.h</file>
@@ -5400,15 +5400,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_mac_bridge_private.h</file>
-         <hash>4f94e7c23deb567c6717c1e790d8dd779ce85835dfb3b28f104e0460f8b90dcb</hash>
+         <hash>8a616af6e5e81b37d32df4a326d20d6f52e91a2053211a6abf2ec9391ef2b2a3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_manager.c</file>
-         <hash>a349da5cf9b7604cdbc2615f6e738fae4acef9c189ec3b82bf67a1d3b0b07061</hash>
+         <hash>13883bd70b394bbe37e2624a7962ee292b7b3fd52a13034cb028d5ff92734f5e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_manager_control.h</file>
-         <hash>f769f891208a7eec11876c1b6d40460623c84d937e8d25be2c41a914505708ea</hash>
+         <hash>f8004bf4c0330cd88c64023a6dea31876ba353b9785fcaa26585884d0136ac06</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_module_manager.h</file>
@@ -5424,7 +5424,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_packet.c</file>
-         <hash>db457403eda9d5500a17439f9a737d5d37d114b23c53a16c3db211ee65f06589</hash>
+         <hash>6f9a50bfdd735e8e453a41e4f10040efac9fd505335197c237d369de0fa496a2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\tcpip_packet.h</file>
@@ -5464,7 +5464,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\udp.c</file>
-         <hash>666b20fc7b4c256205c0a0c5c93947ac3c87424e6479363c74f6c1ef8f85ee2b</hash>
+         <hash>9479edef57387aff0635891b4b1580e79225c4f529b6dfa2045361ccd401c6cd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\udp_manager.h</file>
@@ -5472,7 +5472,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\udp_private.h</file>
-         <hash>da5614473b469d1f1b2b52c4b529fd13126fccc55684db2ad85a3c34c95997df</hash>
+         <hash>d45d62008b7e4978453c37e124a7205662558d4c0086ac03fab7b41990f3c9fa</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\src\zero_conf_helper.h</file>
@@ -5492,7 +5492,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\tcpip.h</file>
-         <hash>c466884902a9a7b1bbc2824a34af25ebd1e5bccc69f89658c7bef392b1415757</hash>
+         <hash>f492dffce88758fc383398a3ce40f9815da209d813d72bf72454b4a2ebd48f36</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\tcpip_announce.h</file>
@@ -5516,11 +5516,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\tcpip_helpers.h</file>
-         <hash>236891098e8a147014fa37589465bfabdbbe93c6abb2fd0cafee4a115270566b</hash>
+         <hash>e68458ba5061938427ec2b29f87cfcdbf5dfe6fd17620e62e03fbf1c823192ee</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\tcpip_mac.h</file>
-         <hash>218593a61106f8271a1f93a33124f01482c46982a7b70fa29a4916045e466599</hash>
+         <hash>7137ed6478803b511ada20f717583d7168e680c784b6d6c42dbaa75e4b928ea1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\tcpip_mac_bridge.h</file>
@@ -5532,7 +5532,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\tcpip_manager.h</file>
-         <hash>2108c41f646378c23e612b7d52479ffabcb1bb07a999a0293e1c9aba00b8eab1</hash>
+         <hash>7aa08845aecc0dccf2cfb6769b679c35e54af7d9aa901572be09883323719d81</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\tcpip_reboot.h</file>
@@ -5552,7 +5552,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\udp.h</file>
-         <hash>ea405bdcd021f77c5002ff868dc513a76a1f4074cedc29f7df364c9a48b2e89d</hash>
+         <hash>29442924e56cb3a82e5973c04b23adca67a21ff4052876e12dc46e431e17f75d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\library\tcpip\zero_conf_link_local.h</file>
@@ -5580,7 +5580,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\osal\osal.h</file>
-         <hash>8404fbe44807fa0484ffb38843a72cb9af8e31c9c30bd1b2594e609b8ea317d9</hash>
+         <hash>1cfe3b61d9693b2369922041eef33fe16b3c1ccd9c85d4ded808b805f90a869c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\osal\osal_definitions.h</file>
@@ -5588,15 +5588,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\osal\osal_freertos.c</file>
-         <hash>8092bb557d244984ab601e36d3dc25408c8b57f3c8f090aac491891b4a32cb28</hash>
+         <hash>565c6dc54044f91bfd235f3f240e2ddf0ff49189d692fe5be50862d2b6c296f0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\osal\osal_freertos.h</file>
-         <hash>7ad9faa903d8587bab9490660328f134b8e027f9c24bca47201f3f96f3b99474</hash>
+         <hash>f9d8c97ce37bbb7516242ec37c4b0db387090cfed54580af683bc0ce126094e0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\clk\plib_clk.c</file>
-         <hash>c2ab355c02a0d117208eedd4dfcb1390425feae796a7420f53c65071b5856f5e</hash>
+         <hash>72d11689daf5ffa9d1534290c41b0ba72ef467fdde84aa51a3a14a87ca0e8788</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\clk\plib_clk.h</file>
@@ -5604,7 +5604,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\coretimer\plib_coretimer.c</file>
-         <hash>2f636a8a90403a73ce55b8397c9ea548bb1e4ef7c022796ec2b3dffe7f97e96c</hash>
+         <hash>d2e0839da9beba86ea927aad046330882835e6d1177f6f327eba3e7ecc7e66ff</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\coretimer\plib_coretimer.h</file>
@@ -5612,11 +5612,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\evic\plib_evic.c</file>
-         <hash>8e853bcd77eba22412a91a4deffd38f8d9a7516e6cf9d283390fc4f4f970f6a6</hash>
+         <hash>0dbee4c316efe20a7cb0985bbfa382ffa38cca2b204c2fe50be5cfd35248588f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\evic\plib_evic.h</file>
-         <hash>55a4d4a3985da6e88a9548a0a29a4f8d08e077348dbad6cd6ddce5fe40d01a33</hash>
+         <hash>8d23fbec497272607e866c677642a16f99b84018980cee72d0df73db1f696194</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\gpio\plib_gpio.c</file>
@@ -5624,7 +5624,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\gpio\plib_gpio.h</file>
-         <hash>df6d121e8464522528a5a7b03eae4bc3436ee5ed9c9af4ad80563bdecd26dc8e</hash>
+         <hash>108fc503975f63e53fb4ce73a77f7bd0ff77c1bca060b91a7ad75b74c1861488</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\nvm\plib_nvm.c</file>
@@ -5636,7 +5636,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\uart\plib_uart6.c</file>
-         <hash>3fdf59f3ece6f6663ac0f3e454eaf923939d80c166c6c36c6bf30ee9323d241b</hash>
+         <hash>1615815752b29b71a2b2b1a8ced898fcb62b8375ac97065f005dbfab6ef0fb94</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\peripheral\uart\plib_uart6.h</file>
@@ -5656,7 +5656,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\system\debug\sys_debug.h</file>
-         <hash>5c34d947b4d700829a89d9d7616d941fa9e17047c67adc6de4d365b0a8ce39f4</hash>
+         <hash>aa94da8f32cbcb40672145542d149d077ff8f4b25c08d47d53e3d206d1c6bb83</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\system\int\src\sys_int.c</file>
@@ -5720,7 +5720,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\tasks.c</file>
-         <hash>a9d0c703cb147ccae52813cf1ffff609d6b22d95bb89b7d127314467e56967ea</hash>
+         <hash>e2ebae8484cc332114b2b7fffa1927e16e57b9193a3bd7c0e404c160dbdcaae3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32mz_ef_curiosity_v2\toolchain_specifics.h</file>
@@ -5736,115 +5736,119 @@
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\FreeRTOS_tasks.c</file>
-         <hash>14020d617b96dd2814e1211f6e3b645bcf5e2bd3179c23fe7dd16bc666fe9463</hash>
+         <hash>b0e2349f8d150fcb569570d73cf8a80da4eee689039a9f291e8b3c36af6f97f4</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\croutine.c</file>
-         <hash>ebf0cdce261dc4a256c06c0d4ad2582e6026a6da0e973d4cb92092e94ce8f370</hash>
+         <hash>0ca8c178b698a6ad5ce3f6f1246ab287bfb5510f3c04e1d00e5cfb49c57fc66b</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\event_groups.c</file>
-         <hash>76e967b14d231e4f31f014f1564f359a7bfd36bfa263ee6f437afa8c056df657</hash>
+         <hash>42ca0bc7afdfb48e9089dff2b4b047e1515a93e7fce031756af6c49b2212c215</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\FreeRTOS.h</file>
-         <hash>03e9c94aba57e3cf7f4f73bc2d3eb4a96ae38f3425eedb5450622ca286475a0b</hash>
+         <hash>7e29c7d9c773561ec4d0125409036f102f1f15162e213d32568ddf3d8ceddfeb</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\croutine.h</file>
-         <hash>cf52c15fa26a8d4f82b55909b75ebfe2aab25468ba7780748912ddead9812b4e</hash>
+         <hash>b7060be39f6c8d0ffd169806382eed5a411776f0d69b0fb3ade6b07e678303f9</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\deprecated_definitions.h</file>
-         <hash>35000a143464bbbd8df7c9a6f066a64598a24da5174a7be33972e62bfbd75f4d</hash>
+         <hash>81d325362fc67518de04d5070609e537d0757e4cc6d6332e8118b4f81a4fdce7</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\event_groups.h</file>
-         <hash>7b3dd12a50d649c124c1af8be742671b9965b6f924310bda7984fe1b65c7f54a</hash>
+         <hash>2399a780de0eefe95067f5b7744d5e213ad9c793fc6468a8535a8e604f85cbba</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\list.h</file>
-         <hash>dc572f54391c0407fc25db360d912fca9118cddae7bd2e3099eb13f18804e5a9</hash>
+         <hash>0848dc9696a2d4d11bb6957fedb6ec5dfb1c2326dfb66af5ca848b1b32a86b66</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\message_buffer.h</file>
-         <hash>9a8141d3d6c8044a57d7e448180c9bd2ed32e45ded32be288d095a39dced91ab</hash>
+         <hash>4883fce829d415b7d14d0567965cd97e41634339cd3a72a07b76baebedbc0a57</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\mpu_prototypes.h</file>
-         <hash>2b46a2511ce5d23a56bc83079333d8d0a2e33763e5829c9383252806887a3dc0</hash>
+         <hash>8cb02fee372e1cc1958022e054122d248c1c184cfc00eb3db6d0fbc0bfef87d1</hash>
+      </entry>
+      <entry>
+         <file>..\src\third_party\rtos\FreeRTOS\Source\include\mpu_syscall_numbers.h</file>
+         <hash>ae11f0a0ea07101af83b9fc387662703a188bc3dfd71784ee24e85cc2f518ce0</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\mpu_wrappers.h</file>
-         <hash>5014408cc33f0f616215f2b48c67b0d47ccc35bfd5f0044ac653b5bbc6cf5778</hash>
+         <hash>d99486024fd44173ff23c14ee8561b6e0ce6ee41ad6d6a7e7b17ea97a5023e8b</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\portable.h</file>
-         <hash>7ade8f368002778c723b3c4e14084910b7225cd36363ed0c948e9ea36c6f251f</hash>
+         <hash>d26267188226020346bd048c9dd0e767b91c7023e5ee0d5f9aa7c7c1864de180</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\projdefs.h</file>
-         <hash>8faf4220ded25b00fd72424a2fa4e63e154713ae7b42f7270f1e3289362a6312</hash>
+         <hash>3d37a1403a69a58a07e214f6a9759601cc0fbe53319c5b14e17f4de5fb8ec0b7</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\queue.h</file>
-         <hash>1b61c1669091e59798a34c32c0f1e234d3f6a645f47641753eceeb7e1d9ce628</hash>
+         <hash>27b85dc3c610f83fee9208e0dd4d8dfa3168ea2259cbe1662e2f6a0ac55431f5</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\semphr.h</file>
-         <hash>c624e8cdfc07844d4cf35382f3cc908c872375c7a3048482bdc110bda88cc4f2</hash>
+         <hash>89a46fcd718990d24f9fea16c681527eec502712ca2d1b0a4e8d6c205f7452e1</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\stack_macros.h</file>
-         <hash>3cddf2b3d47ae387e376ac75eb468f9d8ffb575d68c143e08d54af4087474cce</hash>
+         <hash>d167d886d199615eeeca0acb935bf5c99b42c30a322273363ddc8dec03a58174</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\stream_buffer.h</file>
-         <hash>b876d839460197d94d0f95fb93c6aeb457f6fc572d32258480fed7d4de686b6b</hash>
+         <hash>51da6d9a7cc2cf1504b4f1564e814f422efb9b688fc6e58946f41d0fe23d2d22</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\task.h</file>
-         <hash>45f2245c914ed25ab26a1ea78ddd4ac74cb6522e1b26ac5c44b614ca4c8cee99</hash>
+         <hash>0d71440d1d81d990fa79677c0836712a3e2655ff3ad75478f5a221e2f0583cf8</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\timers.h</file>
-         <hash>ee0f596a54137e26ca806ebf067c4c6219a61348f1cbae8861a43d2d4891e1f9</hash>
+         <hash>19e373d04e2f01f9f69a9d3017a75a46b4f7b6e8016742702b10e112786d6181</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\list.c</file>
-         <hash>db5c169cf3efd68da1c6a923ac84eebc724d602c940bde0b9b5f01f05028fde4</hash>
+         <hash>55a947c8bd1eec01ebafcb46ccc96cd33090cbdcd3f0114b9ea6a61ebdd6ee7a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\portable\MPLAB\PIC32MZ\ISR_Support.h</file>
-         <hash>1383b839420a54f23c13f4f2866202e976d24029ba24d1a1c34a9a3f34aecd58</hash>
+         <hash>f035f03c56c0148bc0e3ddd5c7d0880d1aa041e6a83e2880e62e28d9ee23fdd1</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\portable\MPLAB\PIC32MZ\port.c</file>
-         <hash>0c7ec508b6ff59ff3a681dc18dd544164c80b9035d85a907f09912564409117f</hash>
+         <hash>0fa39ccbd15a90bc02b1361e81020a97670cdfc453c33885ef2f4b10a1563418</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\portable\MPLAB\PIC32MZ\port_asm.S</file>
-         <hash>07555285e8e80a89b611945f028fb8140ef0308adda388187461734b5b629c75</hash>
+         <hash>ad8eee9bb49ea681a72d2323a73a78f946a8dbddf0a511d7a9c6d164345eafc5</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\portable\MPLAB\PIC32MZ\portmacro.h</file>
-         <hash>166f2c5cafe84b0bab9bfbea52f35de8e2f9ce8de79eb8a036fa6fb5d7f814a2</hash>
+         <hash>3f2319cf683873b27043bee9521d9d49e7b1f5b6dbe41011ab62e7635db5306e</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\portable\MemMang\heap_1.c</file>
-         <hash>286e3fee81c9107fc6dec40405f500cabdca56836d29747c182f0899bb8997fd</hash>
+         <hash>7155176186aff6591df2f5f82c3b3bfe8f94c96536b604dcdc4f54e0ad8eb6e9</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\queue.c</file>
-         <hash>5cdf4fa35fe059446effff5bf20deaf83ddffb08921bc198fda106b1d17dd894</hash>
+         <hash>a4c20318c20a5f49a34fc757092818eb1065b19f142394a04889aa40d67a5023</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\stream_buffer.c</file>
-         <hash>0ec303ba296caca5de955dc470bcadd134fb15b192ddf61c9afc92070bc1039a</hash>
+         <hash>b825d6bccefea8a8c06b4a2022dede20af67f5bc2a2e4976947b376bc41613a7</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\timers.c</file>
-         <hash>24962ef361f396aaa5e6e33776eeeddaf2fb251c87b6fe50602acc56c537b093</hash>
+         <hash>3b936fac70fa25b959b53990cd15c20fb85956cdbe22af4249fde0a94590ff01</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>

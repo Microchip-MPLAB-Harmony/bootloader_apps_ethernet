@@ -284,7 +284,7 @@ extern "C" {
 
 
 #define DRV_LAN8740_PHY_CONFIG_FLAGS       ( 0 \
-                                                    | DRV_ETHPHY_CFG_AUTO \
+                                                    | DRV_ETHPHY_CFG_RMII \
                                                     )
                                                     
 #define DRV_LAN8740_PHY_LINK_INIT_DELAY            500
