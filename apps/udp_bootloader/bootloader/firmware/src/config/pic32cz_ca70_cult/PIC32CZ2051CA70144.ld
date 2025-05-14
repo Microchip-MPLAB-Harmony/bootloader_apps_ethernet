@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------
  * MPLAB XC32 Compiler -  PIC32CZ2051CA70144 linker script
  * 
- * Copyright (c) 2024, Microchip Technology Inc. and its subsidiaries ("Microchip")
+ * Copyright (c) 2025, Microchip Technology Inc. and its subsidiaries ("Microchip")
  * All rights reserved.
  * 
  * This software is developed by Microchip Technology Inc. and its
@@ -65,17 +65,17 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
 #  define ROM_ORIGIN 0x400000
 #endif
 #ifndef ROM_LENGTH
-#  define ROM_LENGTH 0x200000
-#elif (ROM_LENGTH > 0x200000)
-#  error ROM_LENGTH is greater than the max size of 0x200000
+#  define ROM_LENGTH 0x400000
+#elif (ROM_LENGTH > 0x400000)
+#  error ROM_LENGTH is greater than the max size of 0x400000
 #endif
 #ifndef RAM_ORIGIN
 #  define RAM_ORIGIN 0x20400000
 #endif
 #ifndef RAM_LENGTH
-#  define RAM_LENGTH 0x60000
-#elif (RAM_LENGTH > 0x60000)
-#  error RAM_LENGTH is greater than the max size of 0x60000
+#  define RAM_LENGTH 0x800000
+#elif (RAM_LENGTH > 0x800000)
+#  error RAM_LENGTH is greater than the max size of 0x800000
 #endif
 #ifndef ITCM_ORIGIN
 #  define ITCM_ORIGIN 0x0

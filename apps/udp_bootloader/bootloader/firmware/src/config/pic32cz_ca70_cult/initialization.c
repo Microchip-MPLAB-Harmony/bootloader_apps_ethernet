@@ -449,13 +449,13 @@ void SYS_Initialize ( void* data )
 
 	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
 
-	BSP_Initialize();
   
 
  
     TC0_CH0_TimerInitialize(); 
      
     
+	BSP_Initialize();
 
     /* MISRAC 2012 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
