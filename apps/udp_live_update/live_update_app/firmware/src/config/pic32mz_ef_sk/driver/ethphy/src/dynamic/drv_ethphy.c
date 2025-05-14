@@ -19,7 +19,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2013-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2013-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -2067,7 +2067,10 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_HWConfigFlagsGet( DRV_HANDLE handle, DRV_ETHPHY_CON
 #elif defined (TCPIP_IF_GMAC)
             hwFlags = ((GMAC_REGS->GMAC_UR & GMAC_UR_Msk)== DRV_GMAC_RMII_MODE) ?  DRV_ETHPHY_CFG_RMII : DRV_ETHPHY_CFG_MII;
             ethRes = DRV_ETHPHY_RES_OK;
-#elif defined (TCPIP_IF_PIC32CZ_GMAC)
+#elif defined (TCPIP_IF_PIC32CXBZ6_ETH)
+            hwFlags = ((ETH_REGS->ETH_UR & ETH_UR_Msk)== DRV_ETH_RMII_MODE) ?  DRV_ETHPHY_CFG_RMII : DRV_ETHPHY_CFG_MII;
+            ethRes = DRV_ETHPHY_RES_OK;            
+#elif defined (TCPIP_IF_PIC32CZCA8_CA9_ETH)
             if (ETH_REGS->ETH_CTRLB & ETH_CTRLB_GMIIEN_Msk)
             {
                 if(ETH_REGS->ETH_NCFGR & ETH_NCFGR_GIGE_Msk)
@@ -2085,7 +2088,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_HWConfigFlagsGet( DRV_HANDLE handle, DRV_ETHPHY_CON
             }
            
             ethRes = DRV_ETHPHY_RES_OK;
-#elif defined(TCPIP_IF_GMAC0) || defined(TCPIP_IF_GMAC1)
+#elif defined(DRV_SAMA7G) && (defined(DRV_GMAC0) || defined(DRV_GMAC1))
             gmac_registers_t *  pGmacRegs = (gmac_registers_t *) hClientObj->ethphyId;
             if(pGmacRegs->GMAC_NCR & GMAC_NCR_MIIONRGMII_Msk)
             {
@@ -2108,7 +2111,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_HWConfigFlagsGet( DRV_HANDLE handle, DRV_ETHPHY_CON
                     ethRes = DRV_ETHPHY_RES_OK;
                 }
             }  
-#elif defined(TCPIP_IF_GMAC_SAM9X7)
+#elif defined(TCPIP_IF_GMAC_SAM9X7) || defined(DRV_SAMA7D6)
             gmac_registers_t *  pGmacRegs = (gmac_registers_t *) hClientObj->ethphyId;
             if ((pGmacRegs->GMAC_UR & GMAC_UR_MIM_Msk) == GMAC_UR_MIM_RGMII)
             {

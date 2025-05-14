@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -119,9 +119,10 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Following MISRA-C rules are deviated in the below code block */
-/* MISRA C-2012 Rule 11.1 */
-/* MISRA C-2012 Rule 11.3 */
-/* MISRA C-2012 Rule 11.8 */
+/* MISRA C-2012 Rule 7.2 - Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1 */
+/* MISRA C-2012 Rule 11.1 - Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
+/* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 /* Forward declaration of MAC initialization data */
 const TCPIP_MODULE_MAC_PIC32INT_CONFIG tcpipMACPIC32INTInitData;
 
@@ -188,11 +189,13 @@ const DRV_ETHPHY_INIT tcpipPhyInitData_LAN8740 =
     .phyAddress             = DRV_LAN8740_PHY_ADDRESS,
     .phyFlags               = DRV_LAN8740_PHY_CONFIG_FLAGS,
     .pPhyObject             = &DRV_ETHPHY_OBJECT_LAN8740,
-    .resetFunction          = 0,
     .ethphyTmo              = &drvlan8740Tmo,
     .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
     .pMiimInit              = &drvMiimInitData_0,
     .miimIndex              = 0,
+
+
+    .resetFunction          = 0,
 };
 
 
@@ -399,6 +402,7 @@ static void STDIO_BufferModeSet(void)
 
     /* Make stdout unbuffered */
     setbuf(stdout, NULL);
+    /* MISRAC 2012 deviation block end */
 }
 
 
@@ -442,7 +446,6 @@ void SYS_Initialize ( void* data )
 
     CORETIMER_Initialize();
 	UART2_Initialize();
-
 
 
     /* MISRAC 2012 deviation block start */
