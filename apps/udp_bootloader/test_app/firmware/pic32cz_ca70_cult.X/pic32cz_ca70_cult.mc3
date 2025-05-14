@@ -10214,7 +10214,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\PIC32CZ2051CA70144.ld</file>
-         <hash>698a7f4d2fbeca75818ab1601ab0b052ad3e7a9cd56d4f4b15c3aee5416c2ac7</hash>
+         <hash>f781d8f4ec84bbb1a6652cd97778840fb1cca6f45f136cce814ffe2d6a057a02</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\bsp\bsp.c</file>
@@ -10230,11 +10230,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\definitions.h</file>
-         <hash>a08d3371f0b82aa9c7f3fce56965ac78d97de91d8653b8010ecc428db00f5462</hash>
+         <hash>6bc69e545fda1f368278731ab72e12dc0ce796ffefe64d42e873d47b8e999d4e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\device.h</file>
-         <hash>c0a578fa22dcd6baaabc309ffe5a7eaf586b744a60b1e1a044ae08aa12ba33a6</hash>
+         <hash>a7307b47c912aeebd3dc44830c8c567914683bceda9c4472156aaf78d2a2f76a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\device_cache.h</file>
@@ -10250,15 +10250,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\initialization.c</file>
-         <hash>255a610b054e1d4d6ef67ec474557dfd4ad097c15076ab1fad3b17848b4fd8c6</hash>
+         <hash>e8ef49fde1a760204337eb2117905e70bbb0b1d74ffd643f710a10a87654935f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\interrupts.c</file>
-         <hash>09411b7bbd665b6cd061913582e241c7c143075e590f006d193bf4a9263e13f8</hash>
+         <hash>39629645bafec9dcf4c74d7cf6dccffce94e6a8120199e0d73fba695e16225dc</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\interrupts.h</file>
-         <hash>51a66f1b8fa6ef9e021e84e64a8eeb9cf954ef63cfdd9cb28c6808abc26a4f95</hash>
+         <hash>65c5edcf97cdaf499497c7e18d8fa01383032be88e8aedfc883cbc35dc8bbfc8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\libc_syscalls.c</file>
@@ -10298,7 +10298,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\peripheral\systick\plib_systick.c</file>
-         <hash>44cbcb5b251fce38cde2021ba6c6cdda64e2f4449b4ffb7f2a8f5c1d51731a9a</hash>
+         <hash>adc780f2fa55234e79ea6b98d1ab1cfa607d44da61351b51e9722c948a6c349a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\peripheral\systick\plib_systick.h</file>
@@ -10318,7 +10318,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\pin_configurations.csv</file>
-         <hash>326f1d5db6ec089729fc1376bc3dbef8a20c4e3e2afa0d1ab35671925d1902d4</hash>
+         <hash>cbcfe84d713772ddd9ef31c5270a9a50e8a5481235784dbd008b49515c84ccd7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca70_cult\startup_xc32.c</file>
@@ -10398,387 +10398,387 @@
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\acc.h</file>
-         <hash>d718db07a5d2abc888b9773b3657b2e64da9386fd47905382767a0684e63220c</hash>
+         <hash>9d235be3aa437a7aabf493e4c5ada15129c95d08b91897e2ec1104f7b5353856</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\aes.h</file>
-         <hash>258c965c51b480683521848c98a28f364ffbca5a856187f1e5d132360d883d3c</hash>
+         <hash>f19de1f902fd9fb72bb567773cc667aa36344c60898929b7a4faecb1f6686c7e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\afec.h</file>
-         <hash>8becf13fd8d4fc70a41e351c2cf0f0b39b05d4ac87a8a3a760882f0530bfb99a</hash>
+         <hash>90560aa49d54022711e56a5f4e79335b85db7d9082303de4cc3b98f7ecb37fdd</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\chipid.h</file>
-         <hash>5b0f291f8a0c9f31f7324d232f6ef75c18f08b428dc6b3968b7e0ee4ec3f62bb</hash>
+         <hash>cb9cec21ed1bde9a8f8864d8117ffbd64adbbee1dd9eb95d7441e6b410d4992e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\dacc.h</file>
-         <hash>7e21139a2b9ef6249b7c75e47d2f0d99b17c9e024c1e5a9af7a22ca46b3d7554</hash>
+         <hash>89e401e6fc047305bd9ecea5f82701347b8e88b97543e5ca5d449bb9d8cbd610</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\efc.h</file>
-         <hash>a248c00b3cdb8a04297e15e306a908e9cabfd5f199bc8192eb01246640857c7d</hash>
+         <hash>2c84e45ced21ed7b44fdda30c03caf0c324662eea742d3a13da68d5af9b7dd78</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\fuses.h</file>
-         <hash>d744266cefbe575e54741ef0127efc19b1abce1a0a4fb229a947465a49d05d0d</hash>
+         <hash>a93a0f371d303261e798d3c9184c9825972cf3559fa4a5d7b52ca68f9142837b</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\gmac.h</file>
-         <hash>274512eb256297a06db04f52a02a89b11a55ca0beadd9b393b3512b4dd66fd75</hash>
+         <hash>431a0283a7e4446c64a76dab967f18d4713aad39e331db61f6f78864e73b4e2a</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\gpbr.h</file>
-         <hash>0c1421903dbe6bcd16ce5644c0f7a21aabc2da738f0b29bc3c313ef3a258d4d3</hash>
+         <hash>3a40cb511f3c0ea2c45defb6aef565813c18d0cd897d402928280a5735c7a8c8</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\hsmci.h</file>
-         <hash>07b95143d6faf7dca549c1e3ad9f7058f3e8832d96bfab1423296509597954cc</hash>
+         <hash>4c28ec50ab3eec6d1f3fe75b549a453461a2979ab0a970320a16bd7d03445148</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\i2sc.h</file>
-         <hash>1b2f68c55e8e381a274cba12d9c8f14640fc5b1053fdfaa009b18b8e1e1084ec</hash>
+         <hash>414839c294a6746d19450decfb2f208593e3f4c873492cbaeeb9b9d7821642f0</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\icm.h</file>
-         <hash>a64db94e635026d8642ba5fff173ea9883f91193ea9d94bba5630fb77a4792aa</hash>
+         <hash>2d862e97796f90690f4c5c16f056875183bd19491421041de9ca3dc5bae2fcd8</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\isi.h</file>
-         <hash>e55b81bd892e4439ffc3458d23a096dba7f2402627100dad6d4b82bdcee14f82</hash>
+         <hash>9bed11679c34be2dff0e60553c8861f0cbb1eca894d3e21b53ffd3821845ebc0</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\matrix.h</file>
-         <hash>3c5ca2164e7d7036be6434c1c504b454ec4e14c65236380cabe8c5b083c93461</hash>
+         <hash>db0147d5e47b8416415c13dee2d2fb5bc3ff1ba56439f86ec72835604d4b5fa3</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\mcan.h</file>
-         <hash>dce8b553382cde148b038407f2f36d5df1082a5c0185326c61ea914e3207b8ce</hash>
+         <hash>8d5bc7f22e791535e5187d7989e09eb1896f4cb47de7d96c093d832bc0cc0535</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\mlb.h</file>
-         <hash>8e13c5e7166a81727907f906652bfd7f0431919d8a892622eeeaa7122c05986c</hash>
+         <hash>8372b08d51262f596901748d2e9c2c83a29a25013de1fc1174a0336c3c5a171c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\pio.h</file>
-         <hash>d37568ee0c5d667243e55c0931c52ebc4f91de2d02b3e79dc602b2202e46fa74</hash>
+         <hash>164e68a11117157e2bf72623a81398a2c15d0997cdf41a021b83c659f8f290a7</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\pmc.h</file>
-         <hash>7686da4dcc97e169b8d8ca1f41437f30fb15e19e7bc5ab8d41248991834c4439</hash>
+         <hash>4a6e338a15306f116416dce1269fb46dab8cf0aabf07e96de41185c031bd7cfd</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\pwm.h</file>
-         <hash>de92d70a1ea5b4d087dac9b5653eda37dab348144aa8943f657833c23f41954b</hash>
+         <hash>163add71f772733d938fa6395fbf055b70995aad9ce58cfeba3d0823feed440c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\qspi.h</file>
-         <hash>041b8779cdab58259ba103631d0e8778a850d4ae4c55b6a204180aee36e10931</hash>
+         <hash>ec1e59e37af2ceca21aacb1f27f92dac41220bc1cbe23c547b691df68ed037f9</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\rstc.h</file>
-         <hash>56f4ea04aa658821e196e1a7baa7cbbe0a927812164bfa9fdb104b9e9306c195</hash>
+         <hash>cdd9a22f9ca0b8b69ce4bdbee464db47157972cc915372b1d6c659b489a53791</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\rswdt.h</file>
-         <hash>1595827abc4bec5ce850361e314000d6805a758dd1f76c9fe9aa0d5c2e556df1</hash>
+         <hash>424acb408f48513cafe552cebb483cdedcdae9facb8e43e8820e64602c8a57aa</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\rtc.h</file>
-         <hash>8efd2b3bd923ca697f67183528c92e32215059f4e2fef2b28e270c2817ac8508</hash>
+         <hash>0f3b5d0c2a0f77301690a53181ec4de448c4aa0aa5c35fbe95e88e691a537292</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\rtt.h</file>
-         <hash>a342099c7d5d96ae57087d4c62a3c54a7c488b3981c8efb9a9da4c1e52c89d2e</hash>
+         <hash>e210d1a783586efd11b3ab1360cdc466f324873a4b3687eebb747cecbdafb71d</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\smc.h</file>
-         <hash>1374d78b0d5942f0227bb2944ae39107489901d9ff7af153f68aee313ddd1e83</hash>
+         <hash>94247e6b0c4c759261d1f67af87e0b0abfc6fb8756a4f29163df5fb55f60fe12</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\spi.h</file>
-         <hash>ee540f89e0e2e07475de2f883f1f9f54880edb5da2f1afabff5fd350dee9ddb5</hash>
+         <hash>0352de352b77bdb8118917c8270da945eceef8988b6b12a0258ada1989a9f6bc</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\ssc.h</file>
-         <hash>38d8b5c22e2436d3909cef8d4a1a183972e519c0f02af30a933e2d2e5719d7ec</hash>
+         <hash>8579031f349d74a8d9981c642010f2b891e2e767aaafa922091fc0a517c8abd7</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\supc.h</file>
-         <hash>ea2b443a6b51a5ed2a70eca7d66ca1ff5dae48dd199b6a35ed82f7aab7e993a1</hash>
+         <hash>3d640de9633ad0a260b76aca28b498db4409750c536061439987e742e421d74b</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\tc.h</file>
-         <hash>18682b212232f3234a27656560d8aefde0f57a5ebed430fb98dbd092f5b85716</hash>
+         <hash>8a1a3f3882183afb3472b86a5d89772a85e75f4a76308b5d1e09f68c4b3e3730</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\trng.h</file>
-         <hash>0f90175a495e249df46971abf66c6ff457d14628a10820a53cb9b6a91d5e2918</hash>
+         <hash>391ede2496a40e60daa572631943203a6ae6071c1afd5db4734c410e05b69c29</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\twihs.h</file>
-         <hash>51ab5f040929980c76dc25805098e07fb762f016fcf27e3f5ed6b443bac8cc3c</hash>
+         <hash>597da26df80a3917aa372b21447795f505818b870c60b4c8f5e350bdedcccf32</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\uart.h</file>
-         <hash>a308391d770db52383fcdb14e661fd02cb9955809447c4eefa8e9d3a84cecf03</hash>
+         <hash>b4f79a6de03dba80743d9cb732c63c9d49079ad65f8d2f37ec74f652632b34dc</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\usart.h</file>
-         <hash>a0bc65effba4b97f4c49706d92823f1a0c2ca05cb85fc2f994a7a34b459f27f8</hash>
+         <hash>8ec45ba33951e54318d848711f43d72a68456f7dd6faf8da9ab8cd59b6abf853</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\usbhs.h</file>
-         <hash>2d4ef3988274496b1b1f899eaec60f8f7bc74a98922a87a4b22eeba77125aa06</hash>
+         <hash>d464fca0a2a8404797c7733948b573226b584c1838bbfb31ba78d6693510f57b</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\utmi.h</file>
-         <hash>6313b78bfbb4e9805acfcf621de597f9997dc726ff1405bdeac7e5d691c50c31</hash>
+         <hash>c7c4d4b428177c8e369eff074c66ef5ae9ff81af22e1ef7408fb9d757d9e5db7</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\wdt.h</file>
-         <hash>7bdff1bd70d9275cd6a33df352cb8a0aac24f9438cc8bfb014e1897113348488</hash>
+         <hash>c7ffa21b2c6cb93930163a7c435fc638ab1d70ae4c1e28c992f44cd59b65a129</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\component\xdmac.h</file>
-         <hash>46ca2f55b5846461b19cfb0b6b671fd3731f61661e09d493098453f4cddaab75</hash>
+         <hash>ca169c463a8a3d46dfda5b6cf60c4c58c577f69928677f82e8f177f95a803a9d</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\acc.h</file>
-         <hash>48c4eef7d3a46570ea58352121cd174c2ae6e87e493efa0ace848f8df43291a3</hash>
+         <hash>d86c0f4ad58476b583747c5ae2b11636edb210e60cf17ad07b7d3505903c7eaf</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\aes.h</file>
-         <hash>333e24d1e0314ab1ed9f9bbb00ecda214241631b2d813d09f840119a9d170dc4</hash>
+         <hash>c7dc2f352aa2ef6e8b2c698c4fd94de9da01582fea7be2882b4fffe0b6a65d49</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\afec0.h</file>
-         <hash>21608c771e3f874e3bd59b35093e6e970cf56228ba12b04edfdcad78cb5b7174</hash>
+         <hash>b91eb096eed3cfdecf11df7c1e834ac1100374aa817d2d38b0dcc2300f3bfba0</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\afec1.h</file>
-         <hash>1c12a65d67d8f230d44f6283eccdbe9038f4b11f940a164eda7b0cece26ed4ef</hash>
+         <hash>b4a40173f59b6a860c4942b877d5dd72bfd1b434a27845b9534aea1e11b92b1c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\chipid.h</file>
-         <hash>14dee20836b18996a0fc3c8d4eec7cca2deb82c3a9da19b282ebe66133b34451</hash>
+         <hash>bffb19d21c8c0977e011eb06d1102eb7336bfc753c0555ae904916fd81740b1e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\dacc.h</file>
-         <hash>d4c4dfe3cb68378312efcebe95d0cb4e62776bd6644849a1c5a22067ae6e3f48</hash>
+         <hash>d54a6ab4106c6b205e245be65480161f70133f9000459bdf6758b51a702c372c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\efc.h</file>
-         <hash>ad4e7fad5770c1bd05917ffb2f86fc7b0577bdf6b7973a8c50daba497c4a2382</hash>
+         <hash>cd2ee63ffc4edc94ab07bf744b87856e88531664263bbcf41adfd7a6de440884</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\fuses.h</file>
-         <hash>7263c35ca6f365bd81a9060215e0e6844095f03aa5f9de65ced181683ea44639</hash>
+         <hash>fb239892511e5d32da8fc3cb43f4f0c069fc4d931d92e493c93bf8a0928dc734</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\gmac.h</file>
-         <hash>393ce0eb83480245e6933cb2738df060d81584b0edac68855292e64f83aa59dd</hash>
+         <hash>93bf2d5c83ddae62dc02b619d4960ac15124adb42c3b4afb1e4f620b62eea0f3</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\gpbr.h</file>
-         <hash>08c9ec077c8b08f52e78670296f75eb34b773823518458f0ea4df21a698cd34e</hash>
+         <hash>c33eabab3fd3a8f3ca09e1133e6c51ba5746ed30d4bbb4b407fb1999fc27ec7a</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\hsmci.h</file>
-         <hash>3cfc96da3c3e72c63c81c08048a3a52b4f4dcd2e5785674b8b7f28d7ad6fa8fb</hash>
+         <hash>e987b420462d80150c57c2ae1f0adba75b2dea3ffcb66d1e97feb9a4bb3348de</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\i2sc0.h</file>
-         <hash>ad51131229a6df9c9316d5615c46f483089235f0e75e501a75b372c5bef3031d</hash>
+         <hash>8f89a6b49c5bb72d5b1ca7be59031aad56f55081507bdcb3c8fb3234a35ad82f</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\i2sc1.h</file>
-         <hash>ac39de8dc2ff16bda28b47ee98b029fc66f21652f23554bab7e8577d867280c1</hash>
+         <hash>32c87074571e6c3578a12d33b9425917dcb4df5f1c8799dde73826dbfb1eb77f</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\icm.h</file>
-         <hash>b482bb55c537fb036bc0c9b57dd896776114ac39da98abbe3904e258e57c4224</hash>
+         <hash>99c8aab5fdb96d77156d8b1ce41e4c36d06bee4701352564d3aced77cc8737cd</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\isi.h</file>
-         <hash>e14ed72920ae926d2ae65963ba9d65e770ec9de07cdb0b5ead9c6dc90087d5b9</hash>
+         <hash>c8acad0b4e4ab3ca48345908676327169dc056c877747ef7dbbe33cdb6b40db2</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\matrix.h</file>
-         <hash>54c29983004681c501c3a832d1ee1ec24a3c139d857dbe5746838fc05f49b703</hash>
+         <hash>c07b2e2fd1a4f8096c935ca8da0e1f022dca9d43e573096993c885305cba25b4</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\mcan0.h</file>
-         <hash>5a32681d5badd825751c464bf4848370bf6f70e78744f47201bc0934f0c7010a</hash>
+         <hash>a502284d42c0ec28c76be7010d1918b4387dc236da2ce41d09e7a00f85475c64</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\mcan1.h</file>
-         <hash>a1ff279073f7148e6390083941f53781c6e99544be034023179b15c4da004ee3</hash>
+         <hash>6b8004f0dd76a026af53a68bd29622bfddefabd9256bac6a6ac5cc6ee394a390</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\mlb.h</file>
-         <hash>6dd564464f58c466e2c747a6f47fda95631b4fe144d1597538c8421f553d3667</hash>
+         <hash>34065c55fc824957fe8a69255b6501bd4eb56d55d45e0b0c3f085538abfbc157</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\pioa.h</file>
-         <hash>afac8bb4320afb9d379965ffbdb1403e00dfec02739c6e15cffe6daf42ff9659</hash>
+         <hash>27ce4a4a305721b5108502a1c20c9f341640873205b8f6d95f1b68ac53210a72</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\piob.h</file>
-         <hash>b725ba159b5ed73e5af322631dada15ff4c9013183ac01ed3cccce9f18c7fb30</hash>
+         <hash>1b5258ada55231bce2af1aed97485d412d949c70c7ce2c536db9f640d0dbeac5</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\pioc.h</file>
-         <hash>f9c72023d7c9099015e0427698b0dbf9119b3282c4f7c761e98818f5fc233a42</hash>
+         <hash>bfef908b4aa42f060a1777bca7be95c878bf08343397a122e71d5f9d6e9afb30</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\piod.h</file>
-         <hash>bb29c8eae13daa0955869e84dc187996e029c3ecc74657c917f565346e30cf32</hash>
+         <hash>6116612edd617f4a3c01733a66a2ec0f0706e67267a122a2551e261cabe1d7ba</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\pioe.h</file>
-         <hash>5b536d7829a862188f0253ee99053333575815ece2269c2a98bfaa264ebde2b6</hash>
+         <hash>86fd1eb1c969be3fbd29403f91500e7e19e4f6d021dec63f0ebcfcb988c2331b</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\pmc.h</file>
-         <hash>7e5e2439895a5296ca40fe27e5e0cb8adbb892f04c5b45efaba0d86dbb1c7186</hash>
+         <hash>83ca9fdb2a1f00f9f02da2948bf4253028ff4cc478b88b2830c92e04556c65e1</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\pwm0.h</file>
-         <hash>c0683e19a9ed042830e4625bce41f353988d386d22cd3e8957b6861210b106d1</hash>
+         <hash>54bef6af3b7b005b2cc4304c136368871947529eb855ce8d70897f8fdd74fc93</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\pwm1.h</file>
-         <hash>9a4434c1e9f84f2daf87cfd66f148760cfe73b51157333089df5f847d1351367</hash>
+         <hash>56ba006528b7dcf75b73dccf11717c020f63a5e9b5525aaa6f8ab28106350056</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\qspi.h</file>
-         <hash>e9c3a97858b0e482945a4a9d4f2ec3923298375e32bc03f42d82f944cd241c13</hash>
+         <hash>4e5d558ab20e4ba1c1e0b8058e4a61e2bc67bbd3ebb90a7ef53185e04c62e0ce</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\rstc.h</file>
-         <hash>291c7ba221265d305c89594eb286acdd843b3fb53043ef5e4ae5528b81a5c907</hash>
+         <hash>e22d1d6c709c16cf2ff66b8540382c2c41d3ef7f4f594a3f4d8e8901ee8470e8</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\rswdt.h</file>
-         <hash>2d4934718851e70d2ee69e639772ad1443fecdabe37b3f200df86f3ffb76fa9b</hash>
+         <hash>70dfb16faa32655d2f4786c372770e7291b313edb2f6b7ec206d42ce85d4832a</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\rtc.h</file>
-         <hash>053937447fac751c49350acbea9b712b94e3dc74af3204f5c3f22b276e7342a4</hash>
+         <hash>61ee3720617e523620bb5cbee09ce912d9e491929747a9afe301d06ef56c292e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\rtt.h</file>
-         <hash>4aa1dfaf8e8e011aa3d7e6685e2a4c5540a4553eb8cb838a6cae44936a7e442d</hash>
+         <hash>c640194ff333b9e852828382461e1f5f5877786c0dec27d167cbdd7e967e68c7</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\smc.h</file>
-         <hash>4134989a33eaff419bb169d94fd18b8dabf03c555c6ff5ab65c47893e73eec03</hash>
+         <hash>3fe50f8ca7b6c3d73af1e235683c05aabd958f7f522a20f5145b751ab4f1dbc0</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\spi0.h</file>
-         <hash>c4f92bf7529fd7ec5b306fb97ebb544a11f9d65dcafda589bc696f8509be7a4e</hash>
+         <hash>3da6985439bb7fd31aefaf5c9c6f9b0ccf0492e4502118992ee1ef5d6ffc41fb</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\spi1.h</file>
-         <hash>0cff4d94d52f7fb027cbce405879fe34d0b763b81c023c47c3044cb15365f564</hash>
+         <hash>1dec0fd084f4214e8650cf03b3c5f7afbcc82c59b3df92a5aa76e94a3552070c</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\ssc.h</file>
-         <hash>4a07b46af343a12bab36fa2c984783c0b410d57276f9f724db304d5bc62858c6</hash>
+         <hash>79cd0bf5dc9690de83b32dd677aea1fffb26fae26d30b4b497b86b3e851646ac</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\supc.h</file>
-         <hash>1014ec0f56b75458bf08882445478899a28d3846e4ddf739498f37d27885da2e</hash>
+         <hash>f1f4e9a656d0b6b2baedb0ec31983ed9166aef3440d19a8f526ffa4550884858</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\tc0.h</file>
-         <hash>15c4ff7d9213959d7fbf9123c906aed0bd432e47327865932a9d25b286c749a5</hash>
+         <hash>77364a843080c9c9c1a2516b66ed5ea6ede835f48301ec7b1912dc0813b4021a</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\tc1.h</file>
-         <hash>0092e8e80def945732eda69e73ec9f553aea6bbc79d219fe052f70b667b409fd</hash>
+         <hash>2182dac24e645dcb7640e86d133b15bba995ee907ae6d1808e056e3a6556a94a</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\tc2.h</file>
-         <hash>ea43298dd726c6f396063d1e8577954ea430df27e2fa7661261078600d01f26a</hash>
+         <hash>391d4cfc373b8ede6336c686c1390a234b9365dfacab2b3d03881c426c568d4b</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\tc3.h</file>
-         <hash>daeb1f96d471f78e5e1ce125e0bd509e7276b71b72c50538d936c24fc3f50cb3</hash>
+         <hash>fb72d5cb61b9c040ca39ea46a92ed012e73e42c13650ad1ab037363de43c60f3</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\trng.h</file>
-         <hash>96080620426ae228c6b9f958e18e37c31abaa2cc41ea56c347a5ebd459d6b644</hash>
+         <hash>83d0dd108224a7d630a64e5e144c11e51e6ddeb8d985a6f2c74da527cf8ccad6</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\twihs0.h</file>
-         <hash>7729407946766fd687d0627fee621b462b35e311131ee5809ff9bff2abfb5da2</hash>
+         <hash>280b92bf7d97d1c251ea0bd687a8d99be5adf679e03826ac1394d6aa04e4306d</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\twihs1.h</file>
-         <hash>49287a8a2c6d788f0c102a29d2f852a35fbc51e5e3b9025da8a814bd7e8acf08</hash>
+         <hash>5ab94aa909d1e4c9991d39dc83b6739267c208669cefbc5c5f0c8d1b08d58977</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\twihs2.h</file>
-         <hash>607e56398adc9c8e0f1217999bd58ae5a9f079e13ebdd01452e06a76dc3bc409</hash>
+         <hash>b1ab97e025742015fb2d54948fec0f7b495d484484f51a6bb0fa53ce13dd80c2</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\uart0.h</file>
-         <hash>0ec50166ed8f6bff84a9beeecad1d1208118f5725ddbbed7e0e2628937bbdbd3</hash>
+         <hash>a8f224984ca528a54d897143cbb635b66a982070c84c8c89ecc9091b50faf03b</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\uart1.h</file>
-         <hash>f22ca4ddeb407b526071cd4a06dda54c6b182232e51ac167d0ab9f3ed24c0556</hash>
+         <hash>054090bf20203ebf236d7e4cff346294a75e79b843b1d3dd7475001a66868196</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\uart2.h</file>
-         <hash>a848e6e705b233469ce927e10f1d964a0d158eb43a36df77028db2a8e436fc1e</hash>
+         <hash>604fec466b8f6e7e3f135cb1fe758a136c169aeef4697e9eb84351d5c0989224</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\uart3.h</file>
-         <hash>42df507d84a89e899becf1f871cabea870453eec1e0b9e4235bc2320b93a1a4e</hash>
+         <hash>48cce97eff1edd35e2db877c86808195865b53f093fa620ec81a471706e88723</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\uart4.h</file>
-         <hash>f63e4d44d788b77c10493d944737199d13829a8aa2e9f5ef8884733da850f641</hash>
+         <hash>b6d6932e00fd72cba5a94ec24ccc694ddb49e58e32dc40bcb8cca0f3da08fd56</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\usart0.h</file>
-         <hash>5165c979199b5e58724f99515056e1fa121893597c8dab3f036300230dfc45d6</hash>
+         <hash>2926988603194d39d33c441489177e8615cfd6a752ae7124d42da1760fb98c03</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\usart1.h</file>
-         <hash>90ebf57d554a37e18d976274bcd0d496385677d3a21fb43c3070e1036d4a8ecc</hash>
+         <hash>9f6da15f260dc4347c6c86d443b2d6052a964d910853f841f1cf0161b8a454df</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\usart2.h</file>
-         <hash>50cdcf5fea33d1549d45ed5bc478e93b9408000603aad460c5e0b7a0d406c613</hash>
+         <hash>7efd0700cc4755531d85754e13a3077d6b95563fe2cb2fbb903d504af75fa33a</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\usbhs.h</file>
-         <hash>e6bbe5ddc427b80599ead5d7df87feea352159785a0cb3926da93a0581dcca19</hash>
+         <hash>ccefb158154c3808543ba077b949987fd2ae7ef3d48744ccd9d2f5943675ac2e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\utmi.h</file>
-         <hash>4de91ac5630e21519fe7c21b1935c9e6caba673a59e7160de4355b1543f79892</hash>
+         <hash>78de4541664303d859afd15f615ae2dc373151bef8a9a5e8ff1f3ef12aeb9252</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\wdt.h</file>
-         <hash>c0ea1d2a087bac78aff619d4ba8795c9a1c3bb77d37d5430ac91c6209f95feae</hash>
+         <hash>33b4440acf9c0b502f14367ffacf0441ceb0e6132fa2fcf5c9602f0e0372cf02</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\instance\xdmac.h</file>
-         <hash>dad159c4c2b3c53cfab171a7326462f4c3a888867916893bba04d7efc0a15057</hash>
+         <hash>da840f00dc72431f7fc018d03efa27b44496de3dcd9651b16ad2a81f755699cb</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\pic32cz2051ca70144.h</file>
-         <hash>e0ed9fbc6d9328adcb886f74168f375206264c9cab7b0e2a2356117d071a744d</hash>
+         <hash>6faf5b1ddd57fcad45c583fdd4fc740b6ebd98391c1d4b8a5787f28c5957b1eb</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CZ2051CA70144_DFP\pio\pic32cz2051ca70144.h</file>
-         <hash>294d273dc139ce6b2c1f5d70554cec7ca890416326e67f903c46b31521ffe258</hash>
+         <hash>6334d053939b0f3d472e0ae92d72ce42206bb80175b289ac16a2c70fad11aa0e</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>
