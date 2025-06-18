@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2013-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2013-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -40,8 +40,8 @@ Microchip or any third party.
 
 //DOM-IGNORE-END
 
-#ifndef _DRV_ETHPHY_LOCAL_H
-#define _DRV_ETHPHY_LOCAL_H
+#ifndef H_DRV_ETHPHY_LOCAL_H
+#define H_DRV_ETHPHY_LOCAL_H
 
 
 // *****************************************************************************
@@ -95,15 +95,15 @@ Microchip or any third party.
 
 typedef enum
 {
-    DRV_ETHPHY_CLIENT_OP_TYPE_NONE = 0,         // no operation currently in progress
-    DRV_ETHPHY_CLIENT_OP_TYPE_SETUP,            // set up operation
-    DRV_ETHPHY_CLIENT_OP_TYPE_LINK_STAT,        // link status get operation
-    DRV_ETHPHY_CLIENT_OP_TYPE_NEG_COMPLETE,     // wait negotiation complete operation
-    DRV_ETHPHY_CLIENT_OP_TYPE_NEG_RESULT,       // get negotiation result operation
-    DRV_ETHPHY_CLIENT_OP_TYPE_NEG_RESTART,      // ask for a negotiation restart
-    DRV_ETHPHY_CLIENT_OP_TYPE_RESET,            // ask for a PHY reset
-    DRV_ETHPHY_CLIENT_OP_SMI_READ,              // SMI read operation scheduled
-    DRV_ETHPHY_CLIENT_OP_SMI_WRITE,             // SMI write operation scheduled
+    PHY_CLIENT_OP_TYPE_NONE = 0,         // no operation currently in progress
+    PHY_CLIENT_OP_TYPE_SETUP,            // set up operation
+    PHY_CLIENT_OP_TYPE_LINK_STAT,        // link status get operation
+    PHY_CLIENT_OP_TYPE_NEG_COMPLETE,     // wait negotiation complete operation
+    PHY_CLIENT_OP_TYPE_NEG_RESULT,       // get negotiation result operation
+    PHY_CLIENT_OP_TYPE_NEG_RESTART,      // ask for a negotiation restart
+    PHY_CLIENT_OP_TYPE_RESET,            // ask for a PHY reset
+    PHY_CLIENT_OP_SMI_READ,              // SMI read operation scheduled
+    PHY_CLIENT_OP_SMI_WRITE,             // SMI write operation scheduled
 } DRV_ETHPHY_CLIENT_OP_TYPE;
 
 
@@ -125,6 +125,7 @@ typedef enum
 {
     DRV_ETHPHY_SETUP_PHASE_IDLE = 0,
     DRV_ETHPHY_SETUP_PHASE_DETECT,
+    DRV_ETHPHY_SETUP_PHASE_READ_ID,        
     DRV_ETHPHY_SETUP_PHASE_RESET,
     DRV_ETHPHY_SETUP_PHASE_NEGOTIATE,
     DRV_ETHPHY_SETUP_PHASE_DONE,
@@ -169,13 +170,13 @@ typedef enum
 
 typedef enum
 {
-    DRV_ETHPHY_NEG_COMPLETE_PHASE_IDLE = 0,
-    DRV_ETHPHY_NEG_COMPLETE_PHASE_READ1,
-    DRV_ETHPHY_NEG_COMPLETE_PHASE_READ2,
-    DRV_ETHPHY_NEG_COMPLETE_PHASE_RESULT_NOWAIT,
-    DRV_ETHPHY_NEG_COMPLETE_PHASE_AN_RESTART,
-    DRV_ETHPHY_NEG_COMPLETE_PHASE_AN_COMPLETE,
-    DRV_ETHPHY_NEG_COMPLETE_PHASE_ERROR,       // failed
+    PHY_NEG_COMPLETE_PHASE_IDLE = 0,
+    PHY_NEG_COMPLETE_PHASE_READ1,
+    PHY_NEG_COMPLETE_PHASE_READ2,
+    PHY_NEG_COMPLETE_PHASE_RESULT_NOWAIT,
+    PHY_NEG_COMPLETE_PHASE_AN_RESTART,
+    PHY_NEG_COMPLETE_PHASE_AN_COMPLETE,
+    PHY_NEG_COMPLETE_PHASE_ERROR,       // failed
 
 } DRV_ETHPHY_NEG_COMPLETE_PHASE;
 
@@ -194,15 +195,15 @@ typedef enum
 
 typedef enum
 {
-    DRV_ETHPHY_NEG_RESULT_PHASE_IDLE = 0,
-    DRV_ETHPHY_NEG_RESULT_PHASE_BMSTAT,
-    DRV_ETHPHY_NEG_RESULT_PHASE_EXTSTAT,
-    DRV_ETHPHY_NEG_RESULT_PHASE_1000BASECTRL,
-    DRV_ETHPHY_NEG_RESULT_PHASE_1000BASESTAT,
-    DRV_ETHPHY_NEG_RESULT_PHASE_ANEXP,
-    DRV_ETHPHY_NEG_RESULT_PHASE_ANLPAD,
-    DRV_ETHPHY_NEG_RESULT_PHASE_ANAD,
-    DRV_ETHPHY_NEG_RESULT_PHASE_ERROR,       // failed
+    PHY_NEG_RESULT_PHASE_IDLE = 0,
+    PHY_NEG_RESULT_PHASE_BMSTAT,
+    PHY_NEG_RESULT_PHASE_EXTSTAT,
+    PHY_NEG_RESULT_PHASE_1000BASECTRL,
+    PHY_NEG_RESULT_PHASE_1000BASESTAT,
+    PHY_NEG_RESULT_PHASE_ANEXP,
+    PHY_NEG_RESULT_PHASE_ANLPAD,
+    PHY_NEG_RESULT_PHASE_ANAD,
+    PHY_NEG_RESULT_PHASE_ERROR,       // failed
 
 } DRV_ETHPHY_NEG_RESULT_PHASE;
 
@@ -222,10 +223,10 @@ typedef enum
 
 typedef enum
 {
-    DRV_ETHPHY_NEG_RESTART_PHASE_IDLE = 0,
-    DRV_ETHPHY_NEG_RESTART_PHASE_READ,
-    DRV_ETHPHY_NEG_RESTART_PHASE_WRITE,
-    DRV_ETHPHY_NEG_RESTART_PHASE_ERROR,       // failed
+    PHY_NEG_RESTART_PHASE_IDLE = 0,
+    PHY_NEG_RESTART_PHASE_READ,
+    PHY_NEG_RESTART_PHASE_WRITE,
+    PHY_NEG_RESTART_PHASE_ERROR,       // failed
 
 } DRV_ETHPHY_NEG_RESTART_PHASE;
 
@@ -339,7 +340,7 @@ typedef struct
     int16_t                     status;         // Client Status: DRV_ETHPHY_CLIENT_STATUS value
 
     uintptr_t                   ethphyId;       // The peripheral Id associated with the object
-    struct _DRV_ETHPHY_INSTANCE* hDriver;       // Handle of driver that owns the client
+    struct S_DRV_ETHPHY_INSTANCE* hDriver;       // Handle of driver that owns the client
     const DRV_MIIM_OBJECT_BASE* pMiimBase;      // MIIM driver base object to use   
     DRV_HANDLE                  miimHandle;     // MMIM client handle
     DRV_MIIM_OPERATION_HANDLE   miimOpHandle;   // current MIIM op in progress; 
@@ -367,7 +368,10 @@ typedef struct
     uint16_t                    detectMask;     // the pPhyObj->bmconDetectMask value 
     uint16_t                    capabMask;      // the pPhyObj->bmstatCpblMask value 
     uintptr_t                   vendorData;
-    DRV_ETHPHY_VENDOR_DETECT    vendorDetect;
+    DRV_ETHPHY_VENDOR_DETECT    vendorDetect;    
+        
+    uint16_t                    phyId_1;        // PHYY Identifier 1 register value
+    uint16_t                    phyId_2;        // PHYY Identifier 2 register value
 
 } DRV_ETHPHY_CLIENT_OBJ;
 
@@ -385,7 +389,7 @@ typedef struct
     None.
 */
 
-typedef struct _DRV_ETHPHY_INSTANCE
+typedef struct S_DRV_ETHPHY_INSTANCE
 {
     uint8_t                     objInUse;       // True if in use
     uint8_t                     macPauseType;   // TCPIP_ETH_PAUSE_TYPE: MAC supported pause type
@@ -395,6 +399,8 @@ typedef struct _DRV_ETHPHY_INSTANCE
     uint16_t                    miimIndex;      // SYS_MODULE_INDEX: MIIM object index 
     uint16_t                    iModule;        // SYS_MODULE_INDEX: Module instance number
     uint16_t                    configFlags;    // DRV_ETHPHY_CONFIG_FLAGS: ETHPHY MII/RMII configuration flags
+
+    
     uintptr_t                   ethphyId;       // The peripheral Id associated with the object
     uint32_t                    openFlags;      // TCPIP_ETH_OPEN_FLAGS: flags required at open time
     const DRV_ETHPHY_OBJECT*    pPhyObj;        // PHY object, vendor specific functions    
@@ -409,37 +415,37 @@ typedef struct _DRV_ETHPHY_INSTANCE
 // driver functions that could be used by derived objects
 
 // return an DRV PHY instance from a handle
-DRV_ETHPHY_INSTANCE* _DRV_ETHPHY_HandleToInst(void * handle);
+DRV_ETHPHY_INSTANCE* F_ETHPHY_HandleToInst(void * handle);
 
 // starts a driver operations and sets the right state
-void _DRV_ETHPHY_SetOperStart(DRV_ETHPHY_CLIENT_OBJ * hClientObj, DRV_ETHPHY_CLIENT_OP_TYPE opType, DRV_ETHPHY_RESULT res);
+void F_ETHPHY_SetOperStart(DRV_ETHPHY_CLIENT_OBJ * hClientObj, DRV_ETHPHY_CLIENT_OP_TYPE opType, DRV_ETHPHY_RESULT res);
 
 
 // sets an operation completion state and result
-void _DRV_ETHPHY_SetOperDoneResult(DRV_ETHPHY_CLIENT_OBJ * hClientObj, DRV_ETHPHY_RESULT res);
+void F_ETHPHY_SetOperDoneResult(DRV_ETHPHY_CLIENT_OBJ * hClientObj, DRV_ETHPHY_RESULT res);
 
 // debug support
 #if ((DRV_PHY_DEBUG_LEVEL & DRV_PHY_DEBUG_MASK_BASIC) != 0)
-void _DRV_ETHPHY_AssertCond(bool cond, const char* message, int lineNo);
+void F_ETHPHY_AssertCond(bool cond, const char* message, int lineNo);
 #else
-#define _DRV_ETHPHY_AssertCond(cond, message, lineNo)
+#define F_ETHPHY_AssertCond(cond, message, lineNo)
 #endif  // (DRV_PHY_DEBUG_LEVEL & DRV_PHY_DEBUG_MASK_BASIC)
 
 #if ((DRV_PHY_DEBUG_LEVEL & DRV_PHY_DEBUG_MASK_DETECT_PHASE) != 0)
-void _DRV_ETHPHY_Dbg_DetectPhase(uint16_t detectPhase);
+void F_ETHPHY_Dbg_DetectPhase(uint16_t detectPhase);
 #else
-#define _DRV_ETHPHY_Dbg_DetectPhase(detectPhase)
+#define F_ETHPHY_Dbg_DetectPhase(detectPhase)
 #endif  // (DRV_PHY_DEBUG_LEVEL & DRV_PHY_DEBUG_MASK_DETECT_PHASE)
 
 #if ((DRV_PHY_DEBUG_LEVEL & DRV_PHY_DEBUG_MASK_DETECT_VALUES) != 0)
-void _DRV_ETHPHY_Dbg_DetectWriteValue(int rIx, uint16_t rVal);
-void _DRV_ETHPHY_Dbg_DetectReadValue(int rIx, uint16_t rVal, uint16_t valMask, uint16_t chkMask);
+void F_ETHPHY_Dbg_DetectWriteValue(int rIx, uint16_t rVal);
+void F_ETHPHY_Dbg_DetectReadValue(int rIx, uint16_t rVal, uint16_t valMask, uint16_t chkMask);
 #else
-#define _DRV_ETHPHY_Dbg_DetectWriteValue(rIx, rVal)
-#define _DRV_ETHPHY_Dbg_DetectReadValue(rIx, rVal, valMask, chkMask)
+#define F_ETHPHY_Dbg_DetectWriteValue(rIx, rVal)
+#define F_ETHPHY_Dbg_DetectReadValue(rIx, rVal, valMask, chkMask)
 #endif  // (DRV_PHY_DEBUG_LEVEL & DRV_PHY_DEBUG_MASK_DETECT_VALUES)
 
-#endif //#ifndef _DRV_ETHPHY_LOCAL_H
+#endif //#ifndef H_DRV_ETHPHY_LOCAL_H
 
 /*******************************************************************************
  End of File

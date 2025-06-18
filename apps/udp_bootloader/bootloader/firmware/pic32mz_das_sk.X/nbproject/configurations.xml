@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <configurationDescriptor version="65">
   <logicalFolder name="root" displayName="root" projectFiles="true">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
+    <logicalFolder name="HeaderFiles" displayName="Header Files" projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="pic32mz_das_sk" projectFiles="true">
           <logicalFolder name="f1" displayName="bootloader" projectFiles="true">
@@ -21,9 +19,9 @@
             <logicalFolder name="f1" displayName="ethmac" projectFiles="true">
               <logicalFolder name="f1" displayName="src" projectFiles="true">
                 <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32mz_das_sk/driver/ethmac/src/dynamic/_eth_dcpt_lists.h</itemPath>
                   <itemPath>../src/config/pic32mz_das_sk/driver/ethmac/src/dynamic/drv_ethmac_lib.h</itemPath>
                   <itemPath>../src/config/pic32mz_das_sk/driver/ethmac/src/dynamic/drv_eth_pic32_lib.h</itemPath>
+                  <itemPath>../src/config/pic32mz_das_sk/driver/ethmac/src/dynamic/drv_ethmac_lists.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32mz_das_sk/driver/ethmac/src/drv_ethmac_local.h</itemPath>
               </logicalFolder>
@@ -33,11 +31,12 @@
               <logicalFolder name="f1" displayName="src" projectFiles="true">
                 <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
                   <itemPath>../src/config/pic32mz_das_sk/driver/ethphy/src/dynamic/drv_extphy_regs.h</itemPath>
-                  <itemPath>../src/config/pic32mz_das_sk/driver/ethphy/src/dynamic/drv_extphy_lan8740.h</itemPath>
+                  <itemPath>../src/config/pic32mz_das_sk/driver/ethphy/src/dynamic/drv_extphy_lan8740_priv.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32mz_das_sk/driver/ethphy/src/drv_ethphy_local.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32mz_das_sk/driver/ethphy/drv_ethphy.h</itemPath>
+              <itemPath>../src/config/pic32mz_das_sk/driver/ethphy/drv_extphy_lan8740.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="miim" projectFiles="true">
               <logicalFolder name="f1" displayName="src" projectFiles="true">
@@ -91,10 +90,7 @@
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/nbns_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/ddns_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/telnet_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/smtp_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/sntp_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/http_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/http_private.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/http_net_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/http_net_private.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/snmp_manager.h</itemPath>
@@ -125,13 +121,12 @@
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/berkeley_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/dhcpv6_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/dhcpv6_private.h</itemPath>
-                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/lldp_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/lldp_private.h</itemPath>
-                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/lldp_tlv.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/dhcp_server_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/wsc_private.h</itemPath>
+                <itemPath>../src/config/pic32mz_das_sk/library/tcpip/src/wsc_manager.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/tcpip_common_ports.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/tcpip_mac.h</itemPath>
@@ -160,14 +155,11 @@
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/nbns.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/ddns.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/telnet.h</itemPath>
-              <itemPath>../src/config/pic32mz_das_sk/library/tcpip/smtp.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/sntp.h</itemPath>
-              <itemPath>../src/config/pic32mz_das_sk/library/tcpip/http.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/http_net.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/snmp.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/snmpv3.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/tcpip_announce.h</itemPath>
-              <itemPath>../src/config/pic32mz_das_sk/library/tcpip/lldp.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/smtpc.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/igmp.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/tftpc.h</itemPath>
@@ -179,6 +171,7 @@
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/tcpip_ethernet.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/tcpip_mac_bridge.h</itemPath>
               <itemPath>../src/config/pic32mz_das_sk/library/tcpip/dhcp_server.h</itemPath>
+              <itemPath>../src/config/pic32mz_das_sk/library/tcpip/wsc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f5" displayName="net_pres" projectFiles="true">
@@ -242,21 +235,15 @@
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="true">
+    <logicalFolder name="ExternalFiles" displayName="Important Files" projectFiles="true">
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/pic32mz_das_sk/harmony-manifest-success.yml</itemPath>
       <itemPath>udp_bootloader_pic32mz_das_sk.mc3</itemPath>
     </logicalFolder>
-    <logicalFolder name="LinkerScript"
-                   displayName="Linker Files"
-                   projectFiles="true">
+    <logicalFolder name="LinkerScript" displayName="Linker Files" projectFiles="true">
       <itemPath>../src/config/pic32mz_das_sk/btl.ld</itemPath>
     </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
-                   projectFiles="true">
+    <logicalFolder name="SourceFiles" displayName="Source Files" projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="pic32mz_das_sk" projectFiles="true">
           <logicalFolder name="f1" displayName="bootloader" projectFiles="true">
@@ -368,15 +355,15 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC32MZ2064DAS169</targetDevice>
-        <targetHeader></targetHeader>
-        <targetPluginBoard></targetPluginBoard>
+        <targetHeader/>
+        <targetPluginBoard/>
         <platformTool>PKOBSKDEPlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.35</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.4.118"/>
+        <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.5.231"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -390,7 +377,7 @@
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <parseOnProdLoad>false</parseOnProdLoad>
-          <alternateLoadableFile></alternateLoadableFile>
+          <alternateLoadableFile/>
         </loading>
         <subordinates>
         </subordinates>
@@ -398,9 +385,9 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPreStep/>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
-        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPostStep/>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
@@ -414,8 +401,7 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="../src;../src/config/pic32mz_das_sk;../src/config/pic32mz_das_sk/library;../src/config/pic32mz_das_sk/library/tcpip/src;../src/config/pic32mz_das_sk/library/tcpip/src/common"/>
+        <property key="extra-include-directories" value="../src;../src/config/pic32mz_das_sk;../src/config/pic32mz_das_sk/library;../src/config/pic32mz_das_sk/library/tcpip/src;../src/config/pic32mz_das_sk/library/tcpip/src/common"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -514,8 +500,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="../src;../src/config/pic32mz_das_sk"/>
+        <property key="extra-include-directories" value="../src;../src/config/pic32mz_das_sk"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -577,8 +562,7 @@
         <property key="TIMER3" value="true"/>
         <property key="TIMER4" value="true"/>
         <property key="TIMER5" value="true"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareFilePath" value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
@@ -610,8 +594,7 @@
       <PKOBSKDEPlatformTool>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareFilePath" value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>
@@ -625,8 +608,7 @@
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges" value=""/>
         <property key="programoptions.preserveeeprom" value="false"/>
-        <property key="programoptions.preserveeeprom.ranges"
-                  value="${memories.eedata.default}"/>
+        <property key="programoptions.preserveeeprom.ranges" value="${memories.eedata.default}"/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
@@ -635,8 +617,7 @@
       <Tool>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareFilePath" value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>
@@ -650,8 +631,7 @@
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges" value=""/>
         <property key="programoptions.preserveeeprom" value="false"/>
-        <property key="programoptions.preserveeeprom.ranges"
-                  value="${memories.eedata.default}"/>
+        <property key="programoptions.preserveeeprom.ranges" value="${memories.eedata.default}"/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
