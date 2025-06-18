@@ -4,17 +4,17 @@
 
 
 project: switcher
-creation_date: 2025-05-14T15:40:55.753+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
-operating_system: Windows 11
-mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.5.2
+creation_date: 2025-06-18T11:56:42.245+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+operating_system: Windows 10
+mcc_mode: Headless            # [IDE|Standalone|Headless]
+mcc_version: v5.5.1
 mcc_core_version: v5.7.1
-mplabx_version: v6.25        # if MPLAB X plugin only
-harmony_version: v1.5.3
-compiler: XC32 4.35
+mplabx_version: NA        # if MPLAB X plugin only
+harmony_version: v1.5.5
+compiler: NA
 
 modules:
-    - {name: "csp", version: "misrac_fix"}
+    - {name: "csp", version: "v3.22.4-43-g0654a05"}
 
 packs:
     - {name: "PIC32MZ-EF_DFP", version: "1.4.168"}
