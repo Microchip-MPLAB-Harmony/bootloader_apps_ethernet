@@ -55,6 +55,8 @@
 #include "bsp/bsp.h"
 #include "driver/ethmac/drv_ethmac.h"
 #include "driver/miim/drv_miim.h"
+#include "driver/ethphy/drv_ethphy.h"
+#include "driver/ethphy/drv_extphy_lan8740.h"
 #include "peripheral/nvm/plib_nvm.h"
 #include "system/time/sys_time.h"
 #include "peripheral/coretimer/plib_coretimer.h"
@@ -202,6 +204,7 @@ typedef struct
     SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ  tcpip;
+
 
 } SYSTEM_OBJECTS;
 
