@@ -188,11 +188,13 @@ const DRV_ETHPHY_INIT tcpipPhyInitData_LAN8740 =
     .phyAddress             = DRV_LAN8740_PHY_ADDRESS,
     .phyFlags               = DRV_LAN8740_PHY_CONFIG_FLAGS,
     .pPhyObject             = &DRV_ETHPHY_OBJECT_LAN8740,
-    .resetFunction          = 0,
     .ethphyTmo              = &drvlan8740Tmo,
     .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
     .pMiimInit              = &drvMiimInitData_0,
     .miimIndex              = 0,
+
+
+    .resetFunction          = 0,
 };
 
 
@@ -248,7 +250,6 @@ const TCPIP_UDP_MODULE_CONFIG tcpipUDPInitData =
 
 
 
-
 /*** IPv4 Initialization Data ***/
 
 
@@ -262,9 +263,10 @@ const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData =
 
 
 
+
 TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
 {
-    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL_HEAP,
+    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL,
     .heapFlags = TCPIP_STACK_HEAP_USE_FLAGS,
     .heapUsage = TCPIP_STACK_HEAP_USAGE_CONFIG,
     .malloc_fnc = TCPIP_STACK_MALLOC_FUNC,
@@ -335,13 +337,14 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 {
     TCPIP_STACK_INIT    tcpipInit;
 
+    (void)memset(&tcpipInit, 0, sizeof(tcpipInit));
     tcpipInit.pNetConf = TCPIP_HOSTS_CONFIGURATION;
     tcpipInit.nNets = TCPIP_HOSTS_CONFIGURATION_SIZE;
     tcpipInit.pModConfig = TCPIP_STACK_MODULE_CONFIG_TBL;
     tcpipInit.nModules = TCPIP_STACK_MODULE_CONFIG_TBL_SIZE;
-    tcpipInit.initCback = 0;
+    tcpipInit.initCback = NULL;
 
-    return TCPIP_STACK_Initialize(0, &tcpipInit.moduleInit);
+    return TCPIP_STACK_Initialize(0, &tcpipInit);
 }
 // </editor-fold>
 
@@ -429,7 +432,7 @@ void SYS_Initialize ( void* data )
     /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
    /* Initialize the MIIM Driver Instance 0*/
-   sysObj.drvMiim_0 = DRV_MIIM_OBJECT_BASE_Default.DRV_MIIM_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
+   sysObj.drvMiim_0 = DRV_MIIM_OBJECT_BASE_Default.miim_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
 
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  

@@ -19,9 +19,9 @@
             <logicalFolder name="f1" displayName="ethmac" projectFiles="true">
               <logicalFolder name="f1" displayName="src" projectFiles="true">
                 <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32mz_ef_sk/driver/ethmac/src/dynamic/_eth_dcpt_lists.h</itemPath>
                   <itemPath>../src/config/pic32mz_ef_sk/driver/ethmac/src/dynamic/drv_ethmac_lib.h</itemPath>
                   <itemPath>../src/config/pic32mz_ef_sk/driver/ethmac/src/dynamic/drv_eth_pic32_lib.h</itemPath>
+                  <itemPath>../src/config/pic32mz_ef_sk/driver/ethmac/src/dynamic/drv_ethmac_lists.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32mz_ef_sk/driver/ethmac/src/drv_ethmac_local.h</itemPath>
               </logicalFolder>
@@ -31,11 +31,12 @@
               <logicalFolder name="f1" displayName="src" projectFiles="true">
                 <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
                   <itemPath>../src/config/pic32mz_ef_sk/driver/ethphy/src/dynamic/drv_extphy_regs.h</itemPath>
-                  <itemPath>../src/config/pic32mz_ef_sk/driver/ethphy/src/dynamic/drv_extphy_lan8740.h</itemPath>
+                  <itemPath>../src/config/pic32mz_ef_sk/driver/ethphy/src/dynamic/drv_extphy_lan8740_priv.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32mz_ef_sk/driver/ethphy/src/drv_ethphy_local.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32mz_ef_sk/driver/ethphy/drv_ethphy.h</itemPath>
+              <itemPath>../src/config/pic32mz_ef_sk/driver/ethphy/drv_extphy_lan8740.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="miim" projectFiles="true">
               <logicalFolder name="f1" displayName="src" projectFiles="true">
@@ -89,10 +90,7 @@
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/nbns_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/ddns_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/telnet_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/smtp_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/sntp_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/http_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/http_private.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/http_net_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/http_net_private.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/snmp_manager.h</itemPath>
@@ -123,13 +121,12 @@
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/berkeley_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/dhcpv6_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/dhcpv6_private.h</itemPath>
-                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/lldp_manager.h</itemPath>
-                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/lldp_private.h</itemPath>
-                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/lldp_tlv.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/dhcp_server_manager.h</itemPath>
                 <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/wsc_private.h</itemPath>
+                <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/src/wsc_manager.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_common_ports.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_mac.h</itemPath>
@@ -158,14 +155,11 @@
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/nbns.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/ddns.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/telnet.h</itemPath>
-              <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/smtp.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/sntp.h</itemPath>
-              <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/http.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/http_net.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/snmp.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/snmpv3.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_announce.h</itemPath>
-              <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/lldp.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/smtpc.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/igmp.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tftpc.h</itemPath>
@@ -177,6 +171,7 @@
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_ethernet.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/tcpip_mac_bridge.h</itemPath>
               <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/dhcp_server.h</itemPath>
+              <itemPath>../src/config/pic32mz_ef_sk/library/tcpip/wsc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f5" displayName="net_pres" projectFiles="true">
@@ -364,11 +359,11 @@
         <targetPluginBoard/>
         <platformTool>PKOBSKDEPlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.35</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.3.58"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.4.168"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
