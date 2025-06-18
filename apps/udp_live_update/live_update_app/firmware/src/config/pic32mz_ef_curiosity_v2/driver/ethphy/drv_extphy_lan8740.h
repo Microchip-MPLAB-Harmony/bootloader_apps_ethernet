@@ -1,21 +1,21 @@
 /*******************************************************************************
-  SMTP client Header file
+  LAN8740 public definitions
 
   Company:
     Microchip Technology Inc.
     
   File Name:
-    smtp_manager.h
+    drv_extphy_lan8740.h
 
   Summary:
-    SMTP manager interface file
+    LAN8740 public definitions
 
   Description:
-    This source file contains the stack internal SMTP manager API
+    This file provides the LAN8740 public definitions.
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -37,27 +37,15 @@ implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
 
-
-
-
-
-
-
-
 // DOM-IGNORE-END
 
-#ifndef _SMTP_MANAGER_H_
-#define _SMTP_MANAGER_H_
+#ifndef H_LAN_8740_H_
+
+#define H_LAN_8740_H_
 
 
-// stack private module API
+// the PHY object
+extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN8740;
 
-bool        TCPIP_SMTP_ClientInitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_SMTP_CLIENT_MODULE_CONFIG* pSmtpConfig);
-
-
-void        TCPIP_SMTP_ClientDeinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
-
-
-
-#endif  // _SMTP_MANAGER_H_
+#endif  // H_LAN_8740_H_
 

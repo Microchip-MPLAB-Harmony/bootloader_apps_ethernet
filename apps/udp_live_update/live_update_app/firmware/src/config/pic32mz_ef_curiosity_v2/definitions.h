@@ -52,8 +52,8 @@
 #include "driver/ethmac/drv_ethmac.h"
 #include "bsp/bsp.h"
 #include "system/time/sys_time.h"
-#include "peripheral/nvm/plib_nvm.h"
 #include "peripheral/uart/plib_uart6.h"
+#include "peripheral/nvm/plib_nvm.h"
 #include "peripheral/coretimer/plib_coretimer.h"
 #include "bootloader/bootloader_udp.h"
 #include "library/tcpip/tcpip.h"
@@ -66,6 +66,8 @@
 #include "peripheral/gpio/plib_gpio.h"
 #include "peripheral/evic/plib_evic.h"
 #include "driver/miim/drv_miim.h"
+#include "driver/ethphy/drv_ethphy.h"
+#include "driver/ethphy/drv_extphy_lan8740.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "app_mips.h"
@@ -202,6 +204,7 @@ typedef struct
     SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ  tcpip;
+
    SYS_MODULE_OBJ  drvMiim_0;
 
 
