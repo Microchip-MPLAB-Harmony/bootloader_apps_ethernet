@@ -65,17 +65,17 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
 #  define ROM_ORIGIN 0x400000
 #endif
 #ifndef ROM_LENGTH
-#  define ROM_LENGTH 0x400000
-#elif (ROM_LENGTH > 0x400000)
-#  error ROM_LENGTH is greater than the max size of 0x400000
+#  define ROM_LENGTH 0x200000
+#elif (ROM_LENGTH > 0x200000)
+#  error ROM_LENGTH is greater than the max size of 0x200000
 #endif
 #ifndef RAM_ORIGIN
 #  define RAM_ORIGIN 0x20400000
 #endif
 #ifndef RAM_LENGTH
-#  define RAM_LENGTH 0x800000
-#elif (RAM_LENGTH > 0x800000)
-#  error RAM_LENGTH is greater than the max size of 0x800000
+#  define RAM_LENGTH 0x80000
+#elif (RAM_LENGTH > 0x80000)
+#  error RAM_LENGTH is greater than the max size of 0x80000
 #endif
 #ifndef ITCM_ORIGIN
 #  define ITCM_ORIGIN 0x0

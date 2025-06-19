@@ -258,8 +258,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
-        <pack name="PIC32CZ-CA70_DFP" vendor="Microchip" version="1.2.31"/>
+        <pack name="PIC32CZ-CA70_DFP" vendor="Microchip" version="1.2.32"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -404,7 +404,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros"
-                  value="ROM_LENGTH=0x3f2000;ROM_ORIGIN=0x40e000"/>
+                  value="ROM_LENGTH=0x1f2000;ROM_ORIGIN=0x40e000"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>

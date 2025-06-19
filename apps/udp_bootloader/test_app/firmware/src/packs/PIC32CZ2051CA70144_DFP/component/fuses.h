@@ -19,7 +19,7 @@
  *
  */
 
-/*  file generated from device description file (ATDF) version 2025-02-24T06:19:11Z  */
+/*  file generated from device description file (ATDF) version 2025-04-15T17:35:01Z  */
 #ifndef _PIC32CZCA70_FUSES_COMPONENT_H_
 #define _PIC32CZCA70_FUSES_COMPONENT_H_
 
