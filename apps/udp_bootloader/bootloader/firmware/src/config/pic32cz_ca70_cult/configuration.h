@@ -207,7 +207,7 @@ extern "C" {
 #define DRV_GMAC_NUMBER_OF_QUEUES               6
 #define DRV_GMAC_RMII_MODE                      0
 
-#define DRV_GMAC_DESCRIPTOR_ADDRESS                0x20bff000
+#define DRV_GMAC_DESCRIPTOR_ADDRESS                0x2047f000
 
 
 

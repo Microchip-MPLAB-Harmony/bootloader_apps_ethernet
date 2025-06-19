@@ -19,7 +19,7 @@
  *
  */
 
-/* File generated from device description file (ATDF) version 2025-02-24T06:19:11Z */
+/* File generated from device description file (ATDF) version 2025-04-15T17:35:01Z */
 #ifndef _PIC32CZ2051CA70144_H_
 #define _PIC32CZ2051CA70144_H_
 
@@ -675,21 +675,21 @@ void GMAC_Q5_Handler               ( void );
 /*             MEMORY MAPPING DEFINITIONS FOR PIC32CZ2051CA70144              */
 /* ************************************************************************** */
 #define PERIPHERALS_SIZE               _UINT32_(0x20000000)    /* 524288kB Memory segment type: io */
-#define SYSTEM_SIZE                    _UINT32_(0x1fffffff)    /* 524287kB Memory segment type: io */
+#define SYSTEM_SIZE                    _UINT32_(0x10000000)    /* 262144kB Memory segment type: io */
 #define QSPIMEM_SIZE                   _UINT32_(0x20000000)    /* 524288kB Memory segment type: other */
 #define AXIMX_SIZE                     _UINT32_(0x00100000)    /* 1024kB Memory segment type: other */
-#define ITCM_SIZE                      _UINT32_(0x00400000)    /* 4096kB Memory segment type: other */
-#define IFLASH_SIZE                    _UINT32_(0x00400000)    /* 4096kB Memory segment type: flash */
+#define ITCM_SIZE                      _UINT32_(0x00020000)    /*  128kB Memory segment type: other */
+#define IFLASH_SIZE                    _UINT32_(0x00200000)    /* 2048kB Memory segment type: flash */
 #define IFLASH_PAGE_SIZE               _UINT32_(       512)
-#define IFLASH_NB_OF_PAGES             _UINT32_(      8192)
+#define IFLASH_NB_OF_PAGES             _UINT32_(      4096)
 
-#define IROM_SIZE                      _UINT32_(0x00400000)    /* 4096kB Memory segment type: rom */
-#define DTCM_SIZE                      _UINT32_(0x00400000)    /* 4096kB Memory segment type: other */
-#define IRAM_SIZE                      _UINT32_(0x00800000)    /* 8192kB Memory segment type: ram */
+#define IROM_SIZE                      _UINT32_(0x00004000)    /*   16kB Memory segment type: rom */
+#define DTCM_SIZE                      _UINT32_(0x00020000)    /*  128kB Memory segment type: other */
+#define IRAM_SIZE                      _UINT32_(0x00080000)    /*  512kB Memory segment type: ram */
 #define EBI_CS0_SIZE                   _UINT32_(0x01000000)    /* 16384kB Memory segment type: other */
 #define EBI_CS1_SIZE                   _UINT32_(0x01000000)    /* 16384kB Memory segment type: other */
 #define EBI_CS2_SIZE                   _UINT32_(0x01000000)    /* 16384kB Memory segment type: other */
-#define EBI_CS3_SIZE                   _UINT32_(0x0d000000)    /* 212992kB Memory segment type: other */
+#define EBI_CS3_SIZE                   _UINT32_(0x01000000)    /* 16384kB Memory segment type: other */
 
 #define PERIPHERALS_ADDR               _UINT32_(0x40000000)    /* PERIPHERALS base address (type: io)*/
 #define SYSTEM_ADDR                    _UINT32_(0xe0000000)    /* SYSTEM base address (type: io)*/
