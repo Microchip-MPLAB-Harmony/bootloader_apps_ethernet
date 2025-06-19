@@ -6,14 +6,14 @@
 
   Description:
     This library provides a low-level abstraction of the Ethernet module
-    on Microchip PIC32MX family microcontrollers with a convenient C language
+    on Microchip SAME7x / SAMV7x / PIC32CZ CA7 family microcontrollers with a convenient C language
     interface.  It can be used to simplify low-level access to the module
     without the necessity of interacting directly with the module's registers,
     thus hiding differences from one microcontroller variant to another.
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2008-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2008-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -269,6 +269,7 @@ void DRV_PIC32CGMAC_LibMACOpen(DRV_GMAC_DRIVER * pMACDrv, TCPIP_ETH_OPEN_FLAGS o
 {
     gmac_registers_t *  pGmacRegs = (gmac_registers_t *) pMACDrv->sGmacData.gmacConfig.ethModuleId;
     uint32_t ncfgr;
+    GMAC_QUE_LIST queueIdx; 
 
     pGmacRegs->GMAC_NCR &= ~GMAC_NCR_TXEN_Msk;
     pGmacRegs->GMAC_NCR &= ~GMAC_NCR_RXEN_Msk;
@@ -314,7 +315,13 @@ void DRV_PIC32CGMAC_LibMACOpen(DRV_GMAC_DRIVER * pMACDrv, TCPIP_ETH_OPEN_FLAGS o
         //Configure in MII mode
         pGmacRegs->GMAC_UR = GMAC_UR_RMII(1);
     }
-
+    // Reset Tx Indexes. After TXEN reset, the Transmit Queue Pointer will point to the start of the
+    // transmit descriptor list.
+    for(queueIdx = GMAC_QUE_0; queueIdx < pMACDrv->sGmacData.gmacConfig.macQueNum; queueIdx++)
+    {
+        // Reset Transmit Indexes
+        DRV_PIC32CGMAC_LibClearTxIndex(pMACDrv, queueIdx);
+    }
     pGmacRegs->GMAC_NCR |= GMAC_NCR_RXEN_Msk;
     pGmacRegs->GMAC_NCR |= GMAC_NCR_TXEN_Msk;
 
@@ -1500,7 +1507,7 @@ static void _MacRxPacketAck(TCPIP_MAC_PACKET* pPkt,  const void* param)
         {
             pDSegNext = pPkt->pDSeg->next;
             pPkt->pDSeg->next = 0;
-
+            pPkt->pktPriority = 0;
             // for dynamic packets(non-sticky):
             // always free if NO_SMART_ALLOC flag is set
             // free if RX packets greater than the defined threshold
@@ -1879,6 +1886,17 @@ void DRV_PIC32CGMAC_LibTxEnable(DRV_GMAC_DRIVER* pMACDrv, bool enable)
     }
 }
 
+/****************************************************************************
+ * Function:    DRV_PIC32CGMAC_LibClearTxIndex
+ * Summary:     Reset Transmit Processing Indexes
+ *****************************************************************************/
+void  DRV_PIC32CGMAC_LibClearTxIndex(DRV_GMAC_DRIVER* pMACDrv, GMAC_QUE_LIST queueIdx)
+{
+    // Reset Transmit processing indexes. Because, after TXEN reset, the Transmit  
+    // Queue Pointer will point to the start of the transmit descriptor list.
+    pMACDrv->sGmacData.gmac_queue[queueIdx].nTxDescHead = 0;
+    pMACDrv->sGmacData.gmac_queue[queueIdx].nTxDescTail = 0;
+}
 /****************************************************************************
  * Function:        _GetPktSegCount
  * Summary: Counts no. of packet segments in MAC packet

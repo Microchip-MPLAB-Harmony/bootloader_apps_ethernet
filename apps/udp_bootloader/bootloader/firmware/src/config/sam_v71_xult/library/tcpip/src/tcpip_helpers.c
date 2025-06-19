@@ -143,7 +143,7 @@ bool TCPIP_Helper_StringToIPAddress(const char* str, IPV4_ADDR* addr)
 
     if(str == 0 || strlen(str) == 0)
     {
-        return true;
+        return false;
     }
 
     charLen = 0;
@@ -285,10 +285,16 @@ bool TCPIP_Helper_StringToIPv6Address(const char * addStr, IPV6_ADDR * addr)
         memset(addr, 0, sizeof(*addr));
     }
 
-    if(addStr == 0 || (len = strlen(addStr)) == 0)
+    if(addStr == 0)
     {
-        return true;
+        return false;
     }
+    len = strlen(addStr);
+    if(len == 0)
+    {
+        return false;
+    }
+
 
     memset(convAddr.v, 0, sizeof(convAddr));
 
@@ -962,7 +968,14 @@ uint16_t TCPIP_Helper_CalcIPChecksum(const uint8_t* buffer, uint16_t count, uint
     // Return the resulting checksum
     return ~sum.w[0];
 }
-#if defined(__CORTEX_A) ||  defined(__CORTEX_M)
+// This version of  TCPIP_Helper_Memcpy (without standard library memcpy) 
+// is tested on Cortex-A7, Cortex-A5, Cortex-M4, Cortex-M7, Cortex-M33.
+// This is a lightweight routine with higher performance.But devices that do not
+// support/disabled unaligned memory access must not use this version.
+#if (!defined(UNALIGNED_SUPPORT_DISABLE))  &&  \
+    ((defined(__CORTEX_A) && ((__CORTEX_A == 5U) || (__CORTEX_A == 7U))) ||  \
+     (defined(__CORTEX_M) && ((__CORTEX_M == 4U) || (__CORTEX_M == 7U) || \
+     (__CORTEX_M == 33U))))
 void TCPIP_Helper_Memcpy (void *dst, const void *src, size_t len)
 {
 #define WORD_ALIGN_MASK 0x00000003
@@ -1276,6 +1289,22 @@ void  TCPIP_Helper_SingleListMidAdd(SINGLE_LIST* pL, SGL_LIST_NODE* pN, SGL_LIST
     pL->nNodes++; 
 }
 
+// insertion at head, at tail or in the middle
+void  TCPIP_Helper_SingleListAdd(SINGLE_LIST* pL, SGL_LIST_NODE* pN, SGL_LIST_NODE* after)
+{
+    if(after == NULL)
+    {
+        TCPIP_Helper_SingleListHeadAdd(pL, pN);
+    }
+    else if(after == pL->tail)
+    {
+        TCPIP_Helper_SingleListTailAdd(pL, pN);
+    }
+    else
+    {   // node somewhere in the middle; search
+        TCPIP_Helper_SingleListMidAdd(pL, pN, after);
+    }
+}
 
 SGL_LIST_NODE*  TCPIP_Helper_SingleListHeadRemove(SINGLE_LIST* pL)
 {
@@ -1453,6 +1482,22 @@ void  TCPIP_Helper_ProtectedSingleListMidAdd(PROTECTED_SINGLE_LIST* pL, SGL_LIST
         }
     }
 }
+void TCPIP_Helper_ProtectedSingleListAdd(PROTECTED_SINGLE_LIST* pL, SGL_LIST_NODE* pN, SGL_LIST_NODE* after)
+{
+    if(pL->semValid)
+    {
+        if (OSAL_SEM_Pend(&pL->semaphore, OSAL_WAIT_FOREVER) != OSAL_RESULT_SUCCESS)
+        {
+            //SYS_DEBUG LOG
+        }
+        TCPIP_Helper_SingleListAdd(&pL->list, pN, after);
+        if (OSAL_SEM_Post(&pL->semaphore) != OSAL_RESULT_SUCCESS)
+        {
+            //SYS_DEBUG LOG
+        }
+    }
+}
+
 
 // removes the head node
 SGL_LIST_NODE*  TCPIP_Helper_ProtectedSingleListHeadRemove(PROTECTED_SINGLE_LIST* pL)
@@ -1634,6 +1679,22 @@ void  TCPIP_Helper_DoubleListMidAdd(DOUBLE_LIST* pL, DBL_LIST_NODE* pN, DBL_LIST
     pL->nNodes++;
 }
 
+void  TCPIP_Helper_DoubleListAdd(DOUBLE_LIST* pL, DBL_LIST_NODE* pN, DBL_LIST_NODE* after)
+{
+    if(after == NULL)
+    {
+        TCPIP_Helper_DoubleListHeadAdd(pL, pN);
+    }
+    else if(after == pL->tail)
+    {
+        TCPIP_Helper_DoubleListTailAdd(pL, pN);
+    }
+    else
+    {   // node somewhere in the middle; search
+        TCPIP_Helper_DoubleListMidAdd(pL, pN, after);
+    }
+}
+
 DBL_LIST_NODE*  TCPIP_Helper_DoubleListHeadRemove(DOUBLE_LIST* pL)
 {
     DBL_LIST_NODE* pN = pL->head;
@@ -1783,6 +1844,23 @@ void  TCPIP_Helper_ProtectedDoubleListMidAdd(PROTECTED_DOUBLE_LIST* pL, DBL_LIST
         }
     }
 }
+
+void  TCPIP_Helper_ProtectedDoubleListAdd(PROTECTED_DOUBLE_LIST* pL, DBL_LIST_NODE* pN, DBL_LIST_NODE* after)
+{
+    if(pL->semValid)
+    {
+        if (OSAL_SEM_Pend(&pL->semaphore, OSAL_WAIT_FOREVER) != OSAL_RESULT_SUCCESS)
+        {
+            //SYS_DEBUG LOG
+        }
+        TCPIP_Helper_DoubleListAdd(&pL->list, pN, after);
+        if (OSAL_SEM_Post(&pL->semaphore) != OSAL_RESULT_SUCCESS)
+        {
+            //SYS_DEBUG LOG
+        }
+    }
+}
+
 
 // removes the head node
 DBL_LIST_NODE*  TCPIP_Helper_ProtectedDoubleListHeadRemove(PROTECTED_DOUBLE_LIST* pL)
