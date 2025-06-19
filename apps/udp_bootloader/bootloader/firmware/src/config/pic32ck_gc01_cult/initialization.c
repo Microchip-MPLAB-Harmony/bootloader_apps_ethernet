@@ -416,11 +416,13 @@ const DRV_ETHPHY_INIT tcpipPhyInitData_KSZ8091 =
     .phyAddress             = DRV_KSZ8091_PHY_ADDRESS,
     .phyFlags               = DRV_KSZ8091_PHY_CONFIG_FLAGS,
     .pPhyObject             = &DRV_ETHPHY_OBJECT_KSZ8091,
-    .resetFunction          = 0,
     .ethphyTmo              = &drvksz8091Tmo,
     .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
     .pMiimInit              = &drvMiimInitData_0,
     .miimIndex              = 0,
+
+
+    .resetFunction          = 0,
 };
 
 
@@ -622,7 +624,7 @@ void SYS_Initialize ( void* data )
 {
     /* MISRAC 2012 deviation block start */
     /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
-    FCW_Initialize();
+        FCW_Initialize();
 
 
     PORT_Initialize();

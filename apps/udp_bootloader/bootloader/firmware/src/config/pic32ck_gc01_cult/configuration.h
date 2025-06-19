@@ -145,7 +145,7 @@ extern "C" {
                                                         TCPIP_ETH_OPEN_100 |\
                                                         TCPIP_ETH_OPEN_10 |\
                                                         TCPIP_ETH_OPEN_MDIX_AUTO |\
-                                                        TCPIP_ETH_OPEN_RMII |\
+                                                            TCPIP_ETH_OPEN_RMII |\
                                                         0
 
 #define TCPIP_ETH_MODULE_ID                       ETH_BASE_ADDRESS
