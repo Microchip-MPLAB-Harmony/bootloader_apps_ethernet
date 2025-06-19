@@ -1,54 +1,54 @@
 Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,Open Drain,Slew Rate Control
-A2,PD10,,Available,,,,,,No,FAST
-A3,PD08,,Available,,,,,,No,FAST
-A4,PD06,,Available,,,,,,No,FAST
-A5,PD19,,Available,,,,,,No,FAST
-A6,PD04,,Available,,,,,,No,FAST
-A7,PD16,,Available,,,,,,No,FAST
+A2,PD10,,ETH_RXD1,Digital,High Impedance,n/a,No,No,No,FAST
+A3,PD08,,ETH_COL,Digital,High Impedance,n/a,No,No,No,FAST
+A4,PD06,,ETH_RXD3,Digital,High Impedance,n/a,No,No,No,FAST
+A5,PD19,,ETH_RXD6,Digital,High Impedance,n/a,No,No,No,FAST
+A6,PD04,,ETH_TXD2,Digital,High Impedance,n/a,No,No,No,FAST
+A7,PD16,,ETH_TXD5,Digital,High Impedance,n/a,No,No,No,FAST
 A8,PD27,,Available,,,,,,No,FAST
-A9,PD03,,Available,,,,,,No,FAST
-A10,PD14,,Available,,,,,,No,FAST
+A9,PD03,,ETH_TXD3,Digital,High Impedance,n/a,No,No,No,FAST
+A10,PD14,,ETH_TXD7,Digital,High Impedance,n/a,No,No,No,FAST
 A11,PD01,,Available,,,,,,No,FAST
 A12,PD00,,Available,,,,,,No,FAST
-B1,PD12,,Available,,,,,,No,FAST
-B2,PD11,,Available,,,,,,No,FAST
-B3,PD09,,Available,,,,,,No,FAST
-B4,PD20,,Available,,,,,,No,FAST
-B5,PD05,,Available,,,,,,No,FAST
-B6,PD18,,Available,,,,,,No,FAST
-B7,PD17,,Available,,,,,,No,FAST
+B1,PD12,,ETH_RX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
+B2,PD11,,ETH_RXD0,Digital,High Impedance,n/a,No,No,No,FAST
+B3,PD09,,ETH_CRS,Digital,High Impedance,n/a,No,No,No,FAST
+B4,PD20,,ETH_RXD4,Digital,High Impedance,n/a,No,No,No,FAST
+B5,PD05,,ETH_GTX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
+B6,PD18,,ETH_RXD7,Digital,High Impedance,n/a,No,No,No,FAST
+B7,PD17,,ETH_TXD4,Digital,High Impedance,n/a,No,No,No,FAST
 B8,PD28,,Available,,,,,,No,FAST
 B9,PD26,,Available,,,,,,No,FAST
-B10,PD02,,Available,,,,,,No,FAST
+B10,PD02,,ETH_TXER,Digital,High Impedance,n/a,No,No,No,FAST
 B11,PD13,,Available,,,,,,No,FAST
-C1,PA02,,Available,,,,,,No,FAST
-C2,PA01,,Available,,,,,,No,FAST
+C1,PA02,,ETH_TXEN,Digital,High Impedance,n/a,No,No,No,FAST
+C2,PA01,,ETH_TXD0,Digital,High Impedance,n/a,No,No,No,FAST
 C17,PC19,,Available,,,,,,No,FAST
 C18,PC18,,Available,,,,,,No,FAST
-D1,PA04,,Available,,,,,,No,FAST
-D2,PA03,,Available,,,,,,No,FAST
+D1,PA04,,ETH_MDIO,Digital,High Impedance,n/a,No,No,No,FAST
+D2,PA03,,ETH_MDC,Digital,High Impedance,n/a,No,No,No,FAST
 D5,PD25,,Available,,,,,,No,FAST
-D6,PD21,,Available,,,,,,No,FAST
-D8,PD15,,Available,,,,,,No,FAST
+D6,PD21,,ETH_RXD5,Digital,High Impedance,n/a,No,No,No,FAST
+D8,PD15,,ETH_TXD6,Digital,High Impedance,n/a,No,No,No,FAST
 D9,PD29,,Available,,,,,,No,FAST
 D10,PD23,,Available,,,,,,No,FAST
 D11,PD24,,Available,,,,,,No,FAST
 D14,PC20,,Available,,,,,,No,FAST
 D17,PC17,,Available,,,,,,No,FAST
-E1,PA06,,Available,,,,,,No,FAST
-E2,PA05,,Available,,,,,,No,FAST
-E4,PA00,,Available,,,,,,No,FAST
+E1,PA06,,ETH_RXER,Digital,High Impedance,n/a,No,No,No,FAST
+E2,PA05,,ETH_RXDV,Digital,High Impedance,n/a,No,No,No,FAST
+E4,PA00,,ETH_TXD1,Digital,High Impedance,n/a,No,No,No,FAST
 E17,PC14,,Available,,,,,,No,FAST
 E18,PC29,,Available,,,,,,No,FAST
-F1,PA21,,Available,,,,,,No,FAST
+F1,PA21,,ETH_TX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
 F2,PA30,,Available,,,,,,No,FAST
 F4,PE04,,Available,,,,,,No,FAST
-F7,PD07,,Available,,,,,,No,FAST
+F7,PD07,,ETH_RXD2,Digital,High Impedance,n/a,No,No,No,FAST
 F17,PC13,,Available,,,,,,No,FAST
 F18,PC12,,Available,,,,,,No,FAST
 G1,PA23,,Available,,,,,,No,FAST
 G2,PA31,,Available,,,,,,No,FAST
-G4,PA22,GPIO_PB23,GPIO,Digital,Out,Low,,,No,FAST
+G4,PA22,,Available,,,,,,No,FAST
 G6,PE05,,Available,,,,,,No,FAST
 G11,PG11,,Available,,,,,,No,FAST
 G12,PC15,,Available,,,,,,No,FAST
@@ -100,7 +100,7 @@ N7,PB01,,Available,,,,,,No,FAST
 N12,PB17,,Available,,,,,,No,FAST
 N15,PC05,,Available,,,,,,No,FAST
 N17,PC06,,Available,,,,,,No,FAST
-N18,PC07,,Available,,,,,,No,FAST
+N18,PC07,,SERCOM1_PAD3,Digital,High Impedance,n/a,No,No,No,FAST
 P1,PA11,,Available,,,,,,No,FAST
 P2,PA12,,Available,,,,,,No,FAST
 P4,PA20,,Available,,,,,,No,FAST
@@ -117,7 +117,7 @@ R11,PB26,,Available,,,,,,No,FAST
 R13,PB12,,Available,,,,,,No,FAST
 R14,PG04,,Available,,,,,,No,FAST
 R17,PC03,,Available,,,,,,No,FAST
-R18,PC04,,Available,,,,,,No,FAST
+R18,PC04,,SERCOM1_PAD0,Digital,High Impedance,n/a,No,No,No,FAST
 T1,PA28,,Available,,,,,,No,FAST
 T2,PA29,,Available,,,,,,No,FAST
 T17,PC01,,Available,,,,,,No,FAST
@@ -129,7 +129,7 @@ U4,PB03,,Available,,,,,,No,FAST
 U5,PB19,,Available,,,,,,No,FAST
 U6,PB04,,Available,,,,,,No,FAST
 U7,PF00,,Available,,,,,,No,FAST
-U8,PB23,,Available,,,,,,No,FAST
+U8,PB23,GPIO_PB23,GPIO,Digital,Out,Low,,,No,FAST
 U9,PB08,,Available,,,,,,No,FAST
 U10,PF04,,Available,,,,,,No,FAST
 U11,PB28,,Available,,,,,,No,FAST
@@ -147,7 +147,7 @@ V5,PB05,,Available,,,,,,No,FAST
 V6,PB21,LED0,LED_AL,Digital,Out,High,,,No,FAST
 V7,PB06,,Available,,,,,,No,FAST
 V8,PB22,LED1,LED_AL,Digital,Out,High,,,No,FAST
-V9,PB07,,Available,,,,,Yes,No,FAST
+V9,PB07,,Available,,,,,,No,FAST
 V10,PB27,,Available,,,,,,No,FAST
 V11,PF03,,Available,,,,,,No,FAST
 V12,PF05,,Available,,,,,,No,FAST
