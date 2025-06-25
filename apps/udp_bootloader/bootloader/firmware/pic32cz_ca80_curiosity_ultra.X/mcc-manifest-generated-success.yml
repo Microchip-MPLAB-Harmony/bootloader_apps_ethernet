@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: udp_bootloader_pic32cz_ca80_curiosity_ultra
-creation_date: 2025-06-19T19:20:57.193+05:30[Asia/Calcutta]
+creation_date: 2025-06-25T15:43:41.446+05:30[Asia/Calcutta]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -21,6 +21,6 @@ modules:
 - {name: csp, type: HARMONY, version: v3.22.4-43-g0654a05}
 - {name: core, type: HARMONY, version: v3.15.2}
 - {name: CMSIS_5, type: HARMONY, version: 5.8.0}
-- {name: bootloader, type: HARMONY, version: v3.8.0-rc.1-44-gb732541}
-- {name: net, type: HARMONY, version: v3.13.0}
+- {name: bootloader, type: HARMONY, version: dev}
+- {name: net, type: HARMONY, version: v3.14.1}
 - {name: bsp, type: HARMONY, version: v3.22.0}

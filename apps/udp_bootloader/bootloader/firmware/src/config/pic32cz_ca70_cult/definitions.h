@@ -55,9 +55,11 @@
 #include "peripheral/mpu/plib_mpu.h"
 #include "peripheral/efc/plib_efc.h"
 #include "driver/miim/drv_miim.h"
-#include "peripheral/tc/plib_tc0.h"
 #include "bsp/bsp.h"
+#include "peripheral/tc/plib_tc0.h"
 #include "system/time/sys_time.h"
+#include "driver/ethphy/drv_ethphy.h"
+#include "driver/ethphy/drv_extphy_lan8720.h"
 #include "bootloader/bootloader_udp.h"
 #include "library/tcpip/tcpip.h"
 #include "system/sys_time_h2_adapter.h"
@@ -202,6 +204,7 @@ typedef struct
     SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ  tcpip;
+
 
 } SYSTEM_OBJECTS;
 

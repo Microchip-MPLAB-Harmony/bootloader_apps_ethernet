@@ -121,6 +121,7 @@ extern "C" {
 #define TCPIP_GMAC_RX_DESCRIPTORS_COUNT_DUMMY    1
 #define TCPIP_GMAC_RX_BUFF_SIZE_DUMMY            64
 #define TCPIP_GMAC_TX_BUFF_SIZE_DUMMY            64
+#define TCPIP_GMAC_QUEUE_0                                  true  
 /*** QUEUE 0 TX Configuration ***/
 #define TCPIP_GMAC_TX_DESCRIPTORS_COUNT_QUE0            8
 #define TCPIP_GMAC_MAX_TX_PKT_SIZE_QUE0                 1536

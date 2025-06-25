@@ -25,11 +25,12 @@
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
                   <itemPath>../src/config/pic32cz_ca70_cult/driver/ethphy/src/dynamic/drv_extphy_regs.h</itemPath>
-                  <itemPath>../src/config/pic32cz_ca70_cult/driver/ethphy/src/dynamic/drv_extphy_lan8720.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca70_cult/driver/ethphy/src/dynamic/drv_extphy_lan8720_priv.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32cz_ca70_cult/driver/ethphy/src/drv_ethphy_local.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32cz_ca70_cult/driver/ethphy/drv_ethphy.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca70_cult/driver/ethphy/drv_extphy_lan8720.h</itemPath>
             </logicalFolder>
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -71,18 +72,15 @@
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcpip_commands_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/smtpc_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/icmp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/http_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/ndp_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/nbns_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/arp_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcpip_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/lldp_tlv.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tftps_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcp_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/dhcpv6_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tftps_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/lldp_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/telnet_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/dhcpv6_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/ipv4_private.h</itemPath>
@@ -101,7 +99,6 @@
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tftpc_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcpip_packet.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/ipv6_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/http_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/zero_conf_helper.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/sntp_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcpip_helpers_private.h</itemPath>
@@ -121,7 +118,6 @@
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/dnss_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcpip_notify.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/dnss_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/lldp_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/dhcp_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/http_net_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/udp_manager.h</itemPath>
@@ -133,14 +129,14 @@
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/hash_fnv.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/snmpv3_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/berkeley_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/smtp_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/tcpip_module_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/wsc_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/src/wsc_private.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/sntp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/igmp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/ftp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/zero_conf_link_local.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/smtp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/smtpc.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/zero_conf_multicast_dns.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/tftpc.h</itemPath>
@@ -148,7 +144,6 @@
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/tcpip_heap.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/ipv6.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/tcpip_helpers.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/lldp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/icmp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/ndp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/ftpc.h</itemPath>
@@ -177,11 +172,11 @@
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/udp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/tcpip_commands.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/icmpv6.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/http.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/snmpv3.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/tcpip_mac_bridge.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/tcpip_mac_object.h</itemPath>
               <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/berkeley_api.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca70_cult/library/tcpip/wsc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
@@ -428,8 +423,12 @@
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
+                  <logicalFolder name="drv_gmac_lib_same7x_v7x.c"
+                                 displayName="drv_gmac_lib_same7x_v7x.c"
+                                 projectFiles="true">
+                    <itemPath>../src/config/pic32cz_ca70_cult/driver/gmac/src/dynamic/drv_gmac_lib_samE7x_V7x.c</itemPath>
+                  </logicalFolder>
                   <itemPath>../src/config/pic32cz_ca70_cult/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
-                  <itemPath>../src/config/pic32cz_ca70_cult/driver/gmac/src/dynamic/drv_gmac_lib_samE7x_V7x.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -559,6 +558,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -637,6 +637,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -683,6 +684,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -711,6 +713,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

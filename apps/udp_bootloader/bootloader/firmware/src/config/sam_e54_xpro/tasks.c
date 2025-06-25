@@ -76,7 +76,7 @@ void SYS_Tasks ( void )
     
 
     /* Maintain Device Drivers */
-       DRV_MIIM_OBJECT_BASE_Default.DRV_MIIM_Tasks(sysObj.drvMiim_0);
+       DRV_MIIM_OBJECT_BASE_Default.miim_Tasks(sysObj.drvMiim_0);
 
 
     bootloader_UDP_Tasks();
