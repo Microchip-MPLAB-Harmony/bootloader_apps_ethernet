@@ -2,13 +2,13 @@
 
 manifest_file_version: 1.0.0
 project: udp_bootloader_pic32mx_eth_sk2
-creation_date: 2025-06-19T14:55:36.821+05:30[Asia/Calcutta]
+creation_date: 2025-06-27T14:50:50.499+05:30[Asia/Calcutta]
 operating_system: Windows 10
 mcc_mode: IDE
-mcc_mode_version: v6.20
+mcc_mode_version: v6.25
 device_name: PIC32MX795F512L
 compiler: XC32 4.60
-mcc_version: 5.5.1
+mcc_version: 5.5.2
 mcc_core_version: 5.7.1
 content_manager_version: 5.0.1
 is_mcc_offline: false
@@ -18,8 +18,8 @@ device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name:
     V3, version: 1.5.5}
 packs: {name: PIC32MX_DFP, version: 1.6.369}
 modules:
-- {name: csp, type: HARMONY, version: v3.22.4-43-g0654a05}
-- {name: core, type: HARMONY, version: v3.15.2}
-- {name: bootloader, type: HARMONY, version: dev}
-- {name: net, type: HARMONY, version: v3.12.3}
+- {name: bootloader, type: HARMONY, version: v3.8.0}
 - {name: bsp, type: HARMONY, version: v3.22.0}
+- {name: core, type: HARMONY, version: v3.15.2}
+- {name: csp, type: HARMONY, version: v3.22.5}
+- {name: net, type: HARMONY, version: v3.14.1}
