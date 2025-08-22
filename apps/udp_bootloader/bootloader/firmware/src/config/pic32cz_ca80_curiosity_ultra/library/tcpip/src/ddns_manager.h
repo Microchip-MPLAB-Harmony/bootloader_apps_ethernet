@@ -16,7 +16,7 @@
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -47,8 +47,8 @@ Microchip or any third party.
 
 // DOM-IGNORE-END
 
-#ifndef H_DYN_DNS_MANAGER_H
-#define H_DYN_DNS_MANAGER_H
+#ifndef __DYN_DNS_MANAGER_H
+#define __DYN_DNS_MANAGER_H
 
 
 
@@ -59,7 +59,7 @@ Microchip or any third party.
 
 /****************************************************************************
   Function:
-    bool TCPIP_DDNS_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData);
+    void TCPIP_DDNS_Initialize(void)
 
   Summary:
     Initializes the Dynamic DNS module.
@@ -82,7 +82,7 @@ Microchip or any third party.
   Remarks:
     This function is called only one during lifetime of the application.
   ***************************************************************************/
-bool TCPIP_DDNS_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData);
+bool TCPIP_DDNS_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const DDNS_MODULE_CONFIG* ddnsData);
 
 
 /****************************************************************************
@@ -111,6 +111,6 @@ bool TCPIP_DDNS_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const
 void TCPIP_DDNS_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData);
 
 
-#endif  // H_DYN_DNS_MANAGER_H
+#endif  // __DYN_DNS_MANAGER_H
 
 

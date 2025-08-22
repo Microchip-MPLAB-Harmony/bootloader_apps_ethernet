@@ -1,7 +1,7 @@
 Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,Open Drain,Slew Rate Control
-A2,PD10,,ETH_RXD1,Digital,High Impedance,n/a,No,No,No,FAST
+A2,PD10,,ETH_RXD1,Digital,High Impedance,n/a,No,Yes,No,FAST
 A3,PD08,,ETH_COL,Digital,High Impedance,n/a,No,No,No,FAST
-A4,PD06,,ETH_RXD3,Digital,High Impedance,n/a,No,No,No,FAST
+A4,PD06,,ETH_RXD3,Digital,High Impedance,n/a,No,Yes,No,FAST
 A5,PD19,,ETH_RXD6,Digital,High Impedance,n/a,No,No,No,FAST
 A6,PD04,,ETH_TXD2,Digital,High Impedance,n/a,No,No,No,FAST
 A7,PD16,,ETH_TXD5,Digital,High Impedance,n/a,No,No,No,FAST
@@ -10,8 +10,8 @@ A9,PD03,,ETH_TXD3,Digital,High Impedance,n/a,No,No,No,FAST
 A10,PD14,,ETH_TXD7,Digital,High Impedance,n/a,No,No,No,FAST
 A11,PD01,,Available,,,,,,No,FAST
 A12,PD00,,Available,,,,,,No,FAST
-B1,PD12,,ETH_RX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
-B2,PD11,,ETH_RXD0,Digital,High Impedance,n/a,No,No,No,FAST
+B1,PD12,,ETH_RX_CLK,Digital,High Impedance,n/a,No,Yes,No,FAST
+B2,PD11,,ETH_RXD0,Digital,High Impedance,n/a,Yes,No,No,FAST
 B3,PD09,,ETH_CRS,Digital,High Impedance,n/a,No,No,No,FAST
 B4,PD20,,ETH_RXD4,Digital,High Impedance,n/a,No,No,No,FAST
 B5,PD05,,ETH_GTX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
@@ -43,7 +43,7 @@ E18,PC29,,Available,,,,,,No,FAST
 F1,PA21,,ETH_TX_CLK,Digital,High Impedance,n/a,No,No,No,FAST
 F2,PA30,,Available,,,,,,No,FAST
 F4,PE04,,Available,,,,,,No,FAST
-F7,PD07,,ETH_RXD2,Digital,High Impedance,n/a,No,No,No,FAST
+F7,PD07,,ETH_RXD2,Digital,High Impedance,n/a,No,Yes,No,FAST
 F17,PC13,,Available,,,,,,No,FAST
 F18,PC12,,Available,,,,,,No,FAST
 G1,PA23,,Available,,,,,,No,FAST

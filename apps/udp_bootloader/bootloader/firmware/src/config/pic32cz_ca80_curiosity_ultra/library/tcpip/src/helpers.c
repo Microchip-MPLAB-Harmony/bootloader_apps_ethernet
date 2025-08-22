@@ -9,7 +9,7 @@
 *******************************************************************************/
 
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -33,12 +33,32 @@ Microchip or any third party.
 
 
 
+
+
+
+
+
+
+
+
 #include <ctype.h>
 #include <stdarg.h>
 #include <string.h>
 
 #include "helpers.h"
-#include "tcpip_types.h"
+
+typedef union 
+{
+    uint16_t Val;
+    uint8_t v[2];
+} MCHP_UINT16_VAL;
+
+typedef union
+{
+    uint32_t Val;
+    uint16_t w[2] __attribute__((packed));
+    uint8_t  v[4];
+} MCHP_UINT32_VAL;
 
 /*****************************************************************************
   Function:
@@ -60,41 +80,25 @@ Microchip or any third party.
   Returns:
     None
   ***************************************************************************/
-void uitoa(uint16_t Value, char* Buffer)
+void uitoa(uint16_t Value, uint8_t* Buffer)
 {
-    int ix;
+    uint8_t i;
+    uint16_t Digit;
     uint16_t Divisor;
     bool Printed = false;
 
-    union
+    if(Value)
     {
-        uint16_t    val16;
-        uint8_t     val8[2];
-        char        ch[2];
-    }Digit;
-
-    union
-    {
-        uint8_t     val8;
-        char        ch;
-    }U_CH_U8;
-
-
-    if(Value != 0U)
-    {
-        Divisor = 10000;
-        for(ix = 0; ix < 5; ix++)
+        for(i = 0, Divisor = 10000; i < 5u; i++)
         {
-            Digit.val16 = Value / Divisor;
-            if(Digit.val16 != 0U || Printed)
+            Digit = Value/Divisor;
+            if(Digit || Printed)
             {
-                U_CH_U8.ch = '0';
-                U_CH_U8.val8 += Digit.val8[0];
-                *Buffer++ = U_CH_U8.ch;     // '0' + Digit.ch[0];
-                Value -= Digit.val16 * Divisor;
+                *Buffer++ = '0' + Digit;
+                Value -= Digit*Divisor;
                 Printed = true;
             }
-            Divisor /= 10U;
+            Divisor /= 10;
         }
     }
     else
@@ -129,46 +133,28 @@ void uitoa(uint16_t Value, char* Buffer)
   ***************************************************************************/
 uint8_t hexatob(uint16_t AsciiVal)
 {
-    union
-    {
-        uint16_t    val16;
-        uint8_t     val8[2];
-        char        ch[2];
-    }AsciiChars;
-
-    AsciiChars.val16 = AsciiVal;
+    MCHP_UINT16_VAL AsciiChars;
+    AsciiChars.Val = AsciiVal;
 
     // Convert lowercase to uppercase
-    if(AsciiChars.ch[1] > 'F')
-    {
-        AsciiChars.ch[1] -= 'a'-'A';
-    }
-    if(AsciiChars.ch[0] > 'F')
-    {
-        AsciiChars.ch[0] -= 'a'-'A';
-    }
+    if(AsciiChars.v[1] > 'F')
+        AsciiChars.v[1] -= 'a'-'A';
+    if(AsciiChars.v[0] > 'F')
+        AsciiChars.v[0] -= 'a'-'A';
 
     // Convert 0-9, A-F to 0x0-0xF
-    if(AsciiChars.ch[1] > '9')
-    {
-        AsciiChars.ch[1] -= 'A' - '\n';   // lf == '\n' == 10
-    }
+    if(AsciiChars.v[1] > '9')
+        AsciiChars.v[1] -= 'A' - 10;
     else
-    {
-        AsciiChars.ch[1] -= '0';
-    }
+        AsciiChars.v[1] -= '0';
 
-    if(AsciiChars.ch[0] > '9')
-    {
-        AsciiChars.ch[0] -= 'A' - '\n';
-    }
+    if(AsciiChars.v[0] > '9')
+        AsciiChars.v[0] -= 'A' - 10;
     else
-    {
-        AsciiChars.ch[0] -= '0';
-    }
+        AsciiChars.v[0] -= '0';
 
     // Concatenate
-    return (AsciiChars.val8[1] << 4) |  AsciiChars.val8[0];
+    return (AsciiChars.v[1]<<4) |  AsciiChars.v[0];
 }
 
 /*****************************************************************************
@@ -194,7 +180,7 @@ uint8_t hexatob(uint16_t AsciiVal)
 uint8_t btohexa_high(uint8_t b)
 {
     b >>= 4;
-    return (b > 0x9u) ? b + 0x61U - 10U : b + 0x30U;    // 0x61 == 'a'; 0x30 == '0'
+    return (b>0x9u) ? b+'a'-10:b+'0';
 }
 
 /*****************************************************************************
@@ -219,14 +205,10 @@ uint8_t btohexa_high(uint8_t b)
   ***************************************************************************/
 uint8_t btohexa_low(uint8_t b)
 {
-    b &= 0x0FU;
-    return (b > 9u) ? b + 0x61U - 10U : b + 0x30U;    // 0x61 == 'a'; 0x30 == '0'
+    b &= 0x0F;
+    return (b>9u) ? b+'a'-10:b+'0';
 }
 
-/* MISRA C-2012 Rule 17.1 deviated:4 Deviation record ID -  H3_MISRAC_2012_R_17_1_NET_DR_2 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:4 "MISRA C-2012 Rule 17.1" "H3_MISRAC_2012_R_17_1_NET_DR_2" 
 /*****************************************************************************
   Function:
     char* strncpy_m(char* destStr, size_t destSize, int nStrings, ...)
@@ -260,7 +242,7 @@ uint8_t btohexa_low(uint8_t b)
   ***************************************************************************/
 size_t strncpy_m(char* destStr, size_t destSize, int nStrings, ...)
 {
-    va_list     args = {NULL};
+    va_list     args = {0};
     const char* str;
     char*       end;
     size_t      len;
@@ -272,16 +254,16 @@ size_t strncpy_m(char* destStr, size_t destSize, int nStrings, ...)
     
     va_start( args, nStrings );
     
-    while(nStrings-- != 0)
+    while(nStrings--)
     {
-        if(*end != '\0')
+        if(*end)
         {   // if already full don't calculate strlen outside the string area
             len = destSize;
             break;
         }
         
         str = va_arg(args, const char*);
-        (void)strncpy(destStr + len, str, destSize - len);
+        strncpy(destStr + len, str, destSize - len);
         len += strlen(str);
     }
 
@@ -289,35 +271,23 @@ size_t strncpy_m(char* destStr, size_t destSize, int nStrings, ...)
     
     return len;
 }
-#pragma coverity compliance end_block "MISRA C-2012 Rule 17.1"
-#pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
 
-/* MISRA C-2012 Rule 21.13 deviated:2 Deviation record ID -  H3_MISRAC_2012_R_21_13_NET_DR_5 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 21.13" "H3_MISRAC_2012_R_21_13_NET_DR_5" 
-int stricmp(const char *cs1, const char *cs2)
+int stricmp(const char *s1, const char *s2)
 {
-    if (cs1 == NULL || cs2 == NULL)
+    if (s1 == 0 || s2 == 0)
     {
-        return cs1 == NULL ? cs2 == NULL ? 0 : -(int)(*cs2) : (int)*cs1;
+        return s1 == 0 ? s2 == 0 ? 0 : -(*s2) : *s1;
     }
 
     int c1, c2;
     do
     {
-        c1 = (int)*cs1++;
-        c2 = (int)*cs2++;
-        c1 = tolower(c1);
-        c2 = tolower(c2);
+        c1 = tolower((uint8_t)*s1++);
+        c2 = tolower((uint8_t)*s2++);
     }while(c1 != 0 && c1 == c2);
 
     return (c1 - c2); 
 }
-#pragma coverity compliance end_block "MISRA C-2012 Rule 21.13"
-#pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
 
 
 

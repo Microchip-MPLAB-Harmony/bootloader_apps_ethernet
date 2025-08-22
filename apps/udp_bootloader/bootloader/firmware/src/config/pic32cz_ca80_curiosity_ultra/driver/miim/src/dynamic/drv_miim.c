@@ -20,7 +20,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2013-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2013-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -66,313 +66,223 @@ static DRV_MIIM_OBJ              gDrvMIIMObj[DRV_MIIM_INSTANCES_NUMBER];
 // local prototypes
 // debug
 #if ((DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_BASIC) != 0)
-static volatile int V_MIIMStayAssertLoop = 0; 
-static void F_MIIMAssertCond(bool cond, const char* message, int lineNo)
+volatile int _MIIMStayAssertLoop = 0; 
+static void _MIIMAssertCond(bool cond, const char* message, int lineNo)
 {
     if(cond == false)
     {
         SYS_CONSOLE_PRINT("dMIIM Assert: %s, in line: %d, \r\n", message, lineNo);
-        while(V_MIIMStayAssertLoop != 0){}
+        while(_MIIMStayAssertLoop != 0);
     }
 }
 
 // a debug condition, not really assertion
-static volatile int V_MIIMStayCondLoop = 0;
-static void F_MIIMDebugCond(bool cond, const char* message, int lineNo)
+volatile int _MIIMStayCondLoop = 0;
+static void _MIIMDebugCond(bool cond, const char* message, int lineNo)
 {
     if(cond == false)
     {
         SYS_CONSOLE_PRINT("dMIIM Cond: %s, in line: %d, \r\n", message, lineNo);
-        while(V_MIIMStayCondLoop != 0){}
+        while(_MIIMStayCondLoop != 0);
     }
 }
 
 #else
-#define F_MIIMAssertCond(cond, message, lineNo)
-#define F_MIIMDebugCond(cond, message, lineNo)
+#define _MIIMAssertCond(cond, message, lineNo)
+#define _MIIMDebugCond(cond, message, lineNo)
 #endif  // (DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_BASIC)
 
 
 #if ((DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_OPER) != 0)
-static void F_MIIM_Debug_Oper(DRV_MIIM_OP_DCPT* pOpDcpt, const char* msg)
+static void _MIIM_Debug_Oper(DRV_MIIM_OP_DCPT* pOpDcpt, const char* msg)
 {
     SYS_CONSOLE_PRINT("dMIIM oper %s - opType: %d, reg: %d, stat: %d, data: 0x%04x\r\n", msg, pOpDcpt->opType,  pOpDcpt->regIx, pOpDcpt->txferStat, pOpDcpt->opData);
 }
 
 #else
-#define F_MIIM_Debug_Oper(pOpDcpt, msg)
+#define _MIIM_Debug_Oper(pOpDcpt, msg)
 #endif  // ((DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_OPER) != 0)
 
 #if ((DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_RW) != 0)
-static void F_MIIM_Debug_Write(DRV_MIIM_OP_DCPT* pOpDcpt)
+static void _MIIM_Debug_Write(DRV_MIIM_OP_DCPT* pOpDcpt)
 {
     SYS_CONSOLE_PRINT("dMIIM write - reg: %d, add: 0x%04x, wdata: 0x%04x\r\n", pOpDcpt->regIx, pOpDcpt->phyAdd, pOpDcpt->opData);
 }
 
-static void F_MIIM_Debug_Read(DRV_MIIM_OP_DCPT* pOpDcpt)
+static void _MIIM_Debug_Read(DRV_MIIM_OP_DCPT* pOpDcpt)
 {
     SYS_CONSOLE_PRINT("dMIIM read - op reg: %d, add: 0x%04x\r\n", pOpDcpt->regIx, pOpDcpt->phyAdd);
 }
 
-static void F_MIIM_Debug_ReadData(DRV_MIIM_OP_DCPT* pOpDcpt)
+static void _MIIM_Debug_ReadData(DRV_MIIM_OP_DCPT* pOpDcpt)
 {
     SYS_CONSOLE_PRINT("dMIIM read data - op reg: %d, data: 0x%04x\r\n", pOpDcpt->regIx, pOpDcpt->opData);
 }
 
 #else
-#define F_MIIM_Debug_Write(pOpDcpt)
-#define F_MIIM_Debug_Read(pOpDcpt)
-#define F_MIIM_Debug_ReadData(pOpDcpt)
+#define _MIIM_Debug_Write(pOpDcpt)
+#define _MIIM_Debug_Read(pOpDcpt)
+#define _MIIM_Debug_ReadData(pOpDcpt)
 #endif  // ((DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_RW) != 0)
 
 #if ((DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_EXT_SMI_RW) != 0)
-static void F_MIIM_Debug_ExtSMIWrite(DRV_MIIM_OP_DCPT* pOpDcpt, uint16_t phyAdd, uint16_t regVal, uint16_t wData, int seq)
+static void _MIIM_Debug_ExtSMIWrite(DRV_MIIM_OP_DCPT* pOpDcpt, uint8_t phyAdd, uint8_t regVal, uint16_t wData, int seq)
 {
     SYS_CONSOLE_PRINT("dMIIM Ext-SMI write - op reg: 0x%04x, add: 0x%04x, reg: 0x%04x, wdata: 0x%04x, seq: %d\r\n", pOpDcpt->regIx, phyAdd, regVal, wData, seq);
 }
 
-static void F_MIIM_Debug_ExtSMIRead(DRV_MIIM_OP_DCPT* pOpDcpt, uint16_t phyAdd, uint16_t regVal, int seq)
+static void _MIIM_Debug_ExtSMIRead(DRV_MIIM_OP_DCPT* pOpDcpt, uint8_t phyAdd, uint8_t regVal, int seq)
 {
     SYS_CONSOLE_PRINT("dMIIM Ext-SMI read - op reg: 0x%04x, add: 0x%04x, reg: 0x%04x, seq: %d\r\n", pOpDcpt->regIx, phyAdd, regVal, seq);
 }
 
-static void F_MIIM_Debug_ExtSMIReadData(DRV_MIIM_OP_DCPT* pOpDcpt, int seq, uint16_t rdData)
+static void _MIIM_Debug_ExtSMIReadData(DRV_MIIM_OP_DCPT* pOpDcpt, int seq, uint16_t rdData)
 {
     SYS_CONSOLE_PRINT("dMIIM Ext-SMI read data (%s): 0x%04x\r\n", seq == 0 ? "low" : "high", rdData);
 }
 
 #else
-#define F_MIIM_Debug_ExtSMIWrite(pOpDcpt, phyAdd, regVal, wData, seq)
-#define F_MIIM_Debug_ExtSMIRead(pOpDcpt, phyAdd, regVal, seq)
-#define F_MIIM_Debug_ExtSMIReadData(pOpDcpt, seq, rdData)
+#define _MIIM_Debug_ExtSMIWrite(pOpDcpt, phyAdd, regVal, wData, seq)
+#define _MIIM_Debug_ExtSMIRead(pOpDcpt, phyAdd, regVal, seq)
+#define _MIIM_Debug_ExtSMIReadData(pOpDcpt, seq, rdData)
 #endif  // ((DRV_MIIM_DEBUG_LEVEL & DRV_MIIM_DEBUG_MASK_EXT_SMI_RW) != 0)
 
-// conversion functions/helpers
-//
-static __inline__ MIIM_SGL_LIST_NODE*  __attribute__((always_inline)) FC_OpDcpt2SglNode(DRV_MIIM_OP_DCPT* pOpDcpt)
-{
-    union
-    {
-        DRV_MIIM_OP_DCPT* pOpDcpt;
-        MIIM_SGL_LIST_NODE*  node;
-    }U_OP_DCPT_SGL_NODE;
 
-    U_OP_DCPT_SGL_NODE.pOpDcpt = pOpDcpt;
-    return U_OP_DCPT_SGL_NODE.node;
-}
+static DRV_MIIM_OPERATION_HANDLE _DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16_t regIx, uint16_t phyAdd, uint32_t opData, DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult, DRV_MIIM_OP_TYPE opType);
 
-static __inline__ DRV_MIIM_OP_DCPT*  __attribute__((always_inline)) FC_SglNode2OpDcpt(MIIM_SGL_LIST_NODE* node)
-{
-    union
-    {
-        MIIM_SGL_LIST_NODE*  node;
-        DRV_MIIM_OP_DCPT* pOpDcpt;
-    }U_SGL_NODE_OP_DCPT;
+static void _DRV_MIIM_ProcessOp( DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt);
 
-    U_SGL_NODE_OP_DCPT.node = node;
-    return U_SGL_NODE_OP_DCPT.pOpDcpt;
-}
+static DRV_MIIM_REPORT_ACT _DRV_MIIM_ReportOp(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt);
 
-static __inline__ DRV_MIIM_CALLBACK_HANDLE  __attribute__((always_inline)) FC_OpCback2CbHandle(DRV_MIIM_OPERATION_CALLBACK opCback)
-{
-    union
-    {
-        DRV_MIIM_OPERATION_CALLBACK opCback;
-        DRV_MIIM_CALLBACK_HANDLE  cbHandle;
-    }U_CB_CBACK_OP_HANDLE;
+static DRV_MIIM_RESULT _DRV_MIIM_OpResult(DRV_MIIM_OP_DCPT* pOpDcpt, bool scanAck);
 
-    U_CB_CBACK_OP_HANDLE.opCback = opCback;
-    return U_CB_CBACK_OP_HANDLE.cbHandle;
-}
+static DRV_MIIM_OP_DCPT* _DRV_MIIM_GetOpDcpt(DRV_MIIM_CLIENT_DCPT* pClient, DRV_MIIM_OPERATION_HANDLE opHandle);
 
-#if (DRV_MIIM_CLIENT_OP_PROTECTION)
-static __inline__ MIIM_SGL_LIST_NODE*  __attribute__((always_inline)) FC_CliStamp2SglNode(DRV_MIIM_CLI_OP_STAMP* pCliStamp)
-{
-    union
-    {
-        DRV_MIIM_CLI_OP_STAMP* pCliStamp;
-        MIIM_SGL_LIST_NODE*  node;
-    }U_CLI_STAMP_SGL_NODE;
+static void _DRV_MIIM_ReleaseOpDcpt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, SINGLE_LIST* pRemList, DRV_MIIM_QUEUE_TYPE qType);
 
-    U_CLI_STAMP_SGL_NODE.pCliStamp = pCliStamp;
-    return U_CLI_STAMP_SGL_NODE.node;
-}
+static DRV_MIIM_CLIENT_DCPT* _DRV_MIIM_ClientAllocate( DRV_MIIM_OBJ* pMiimObj, int* pCliIx);
 
-static __inline__ DRV_MIIM_CLI_OP_STAMP*  __attribute__((always_inline)) FC_SglNode2CliStamp(MIIM_SGL_LIST_NODE* node)
-{
-    union
-    {
-        MIIM_SGL_LIST_NODE*  node;
-        DRV_MIIM_CLI_OP_STAMP* pStamp;
-    }U_SGL_NODE_CLI_STAMP;
+static void _DRV_MIIM_ClientDeallocate( DRV_MIIM_CLIENT_DCPT* pClient);
 
-    U_SGL_NODE_CLI_STAMP.node = node;
-    return U_SGL_NODE_CLI_STAMP.pStamp;
-}
+static void _DRV_MIIM_ReadStartExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq);
 
-static __inline__ DRV_MIIM_CLI_OP_STAMP*  __attribute__((always_inline)) FC_OpHandle2CliStamp(DRV_MIIM_OPERATION_HANDLE opHandle)
-{
-    union
-    {
-        DRV_MIIM_OPERATION_HANDLE  opHandle;
-        DRV_MIIM_CLI_OP_STAMP* pCliStamp;
-    }U_OP_HANDLE_CLI_STAMP;
-
-    U_OP_HANDLE_CLI_STAMP.opHandle = opHandle;
-    return U_OP_HANDLE_CLI_STAMP.pCliStamp;
-}
+static void _DRV_MIIM_WriteDataExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq);
 
 
-#else
-static __inline__ DRV_MIIM_OP_DCPT*  __attribute__((always_inline)) FC_OpHandle2OpDcpt(DRV_MIIM_OPERATION_HANDLE opHandle)
-{
-    union
-    {
-        DRV_MIIM_OPERATION_HANDLE  opHandle;
-        DRV_MIIM_OP_DCPT* pOpDcpt;
-    }U_OP_HANDLE_OP_DCPT;
-
-    U_OP_HANDLE_OP_DCPT.opHandle = opHandle;
-    return U_OP_HANDLE_OP_DCPT.pOpDcpt;
-}
-
-#endif  // (DRV_MIIM_CLIENT_OP_PROTECTION)
-
-static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16_t regIx, uint16_t phyAdd, uint32_t opData, DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult, DRV_MIIM_OP_TYPE opType);
-
-static void F_DRV_MIIM_ProcessOp( DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt);
-
-static DRV_MIIM_REPORT_ACT F_DRV_MIIM_ReportOp(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt);
-
-static DRV_MIIM_RESULT F_DRV_MIIM_OpResult(DRV_MIIM_OP_DCPT* pOpDcpt, bool scanAck);
-
-static DRV_MIIM_OP_DCPT* F_DRV_MIIM_GetOpDcpt(DRV_MIIM_CLIENT_DCPT* pClient, DRV_MIIM_OPERATION_HANDLE opHandle);
-
-static void F_DRV_MIIM_ReleaseOpDcpt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, MIIM_SINGLE_LIST* pRemList, DRV_MIIM_QUEUE_TYPE qType);
-
-static DRV_MIIM_CLIENT_DCPT* F_DRV_MIIM_ClientAllocate( DRV_MIIM_OBJ* pMiimObj, size_t* pCliIx);
-
-static void F_DRV_MIIM_ClientDeallocate( DRV_MIIM_CLIENT_DCPT* pClient);
-
-static void F_DRV_MIIM_ReadStartExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq);
-
-static void F_DRV_MIIM_WriteDataExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq);
-
-
-static void F_DRV_MIIM_PurgeClientOp(DRV_MIIM_CLIENT_DCPT* pClient);
+static void _DRV_MIIM_PurgeClientOp(DRV_MIIM_CLIENT_DCPT* pClient);
 
 // locks access to object lists and resources
 // between user threads and task thread
-static __inline__ void __attribute__((always_inline)) F_DRV_MIIM_ObjLock(DRV_MIIM_OBJ* pMiimObj)
+static __inline__ void __attribute__((always_inline)) _DRV_MIIM_ObjLock(DRV_MIIM_OBJ* pMiimObj)
 {
     (void)OSAL_SEM_Pend(&pMiimObj->objSem, OSAL_WAIT_FOREVER);
 }
 
 // unlocks access to object lists and resources
-static __inline__ void __attribute__((always_inline)) F_DRV_MIIM_ObjUnlock(DRV_MIIM_OBJ* pMiimObj)
+static __inline__ void __attribute__((always_inline)) _DRV_MIIM_ObjUnlock(DRV_MIIM_OBJ* pMiimObj)
 {
     (void)OSAL_SEM_Post(&pMiimObj->objSem);
 }
 
 
 // returns a MIIM object from a SYS_MODULE_OBJ
-static __inline__ DRV_MIIM_OBJ* __attribute__((always_inline)) F_DRV_MIIM_GetObject(SYS_MODULE_OBJ object)
+static __inline__ DRV_MIIM_OBJ* __attribute__((always_inline)) _DRV_MIIM_GetObject(SYS_MODULE_OBJ object)
 {
     DRV_MIIM_OBJ* pMiimObj;
 
     pMiimObj = (DRV_MIIM_OBJ*)object;
     
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
-        if(pMiimObj->objStatus == SYS_STATUS_READY && (pMiimObj->objFlags & (uint16_t)DRV_MIIM_OBJ_FLAG_IN_USE) != 0U)
+        if(pMiimObj->objStatus == SYS_STATUS_READY && (pMiimObj->objFlags & DRV_MIIM_OBJ_FLAG_IN_USE) != 0)
         {   // minimal sanity check
             return pMiimObj;
         }
     }
 
-    return NULL;
+    return 0;
 }
 
 // returns a MIIM object from a SYS_MODULE_OBJ
 // and locks the object
-static DRV_MIIM_OBJ* F_DRV_MIIM_GetObjectAndLock(SYS_MODULE_OBJ object)
+static DRV_MIIM_OBJ* _DRV_MIIM_GetObjectAndLock(SYS_MODULE_OBJ object)
 {
-    DRV_MIIM_OBJ* pMiimObj = F_DRV_MIIM_GetObject(object);
+    DRV_MIIM_OBJ* pMiimObj = _DRV_MIIM_GetObject(object);
 
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
-        F_DRV_MIIM_ObjLock(pMiimObj);
+        _DRV_MIIM_ObjLock(pMiimObj);
         return pMiimObj;
     }
 
-    return NULL;
+    return 0;
 }
 
 // returns a client descriptor from DRV_HANDLE
 // locks the corresponding parent object
-static DRV_MIIM_CLIENT_DCPT* F_DRV_MIIM_GetClientAndLock(DRV_HANDLE handle, bool lock)
+static DRV_MIIM_CLIENT_DCPT* _DRV_MIIM_GetClientAndLock(DRV_HANDLE handle, bool lock)
 {
     DRV_MIIM_OBJ* pMiimObj;
     DRV_MIIM_CLIENT_DCPT* pClient = (DRV_MIIM_CLIENT_DCPT*)handle;
 
-    if(pClient != NULL)
+    if(pClient != 0)
     {
-        if(pClient->clientInUse != 0U && pClient->cliStatus == DRV_MIIM_CLIENT_STATUS_READY)
+        if(pClient->clientInUse != 0 && pClient->cliStatus == DRV_MIIM_CLIENT_STATUS_READY)
         {
             if(lock)
             {
-                pMiimObj = F_DRV_MIIM_GetObjectAndLock((SYS_MODULE_OBJ)pClient->parentObj);
+                pMiimObj = _DRV_MIIM_GetObjectAndLock((SYS_MODULE_OBJ)pClient->parentObj);
             }
             else
             {
-                pMiimObj = F_DRV_MIIM_GetObject((SYS_MODULE_OBJ)pClient->parentObj);
+                pMiimObj = _DRV_MIIM_GetObject((SYS_MODULE_OBJ)pClient->parentObj);
             }
 
-            if(pMiimObj != NULL)
+            if(pMiimObj != 0)
             {
                 return pClient;
             }
         }
     }
-    return NULL;
+    return 0;
 }
 
 
-static __inline__ void __attribute__((always_inline)) F_DRV_MIIM_OpListAdd(MIIM_SINGLE_LIST* pL, DRV_MIIM_OP_DCPT* pOpDcpt, DRV_MIIM_QUEUE_TYPE qType)
+static __inline__ void __attribute__((always_inline)) _DRV_MIIM_OpListAdd(SINGLE_LIST* pL, DRV_MIIM_OP_DCPT* pOpDcpt, DRV_MIIM_QUEUE_TYPE qType)
 {
-    Helper_SingleListTailAdd(pL, FC_OpDcpt2SglNode(pOpDcpt));
-    pOpDcpt->qType = (uint8_t)qType;
+    Helper_SingleListTailAdd(pL, (SGL_LIST_NODE*)pOpDcpt);
+    pOpDcpt->qType = qType;
 }
 
-static __inline__ DRV_MIIM_OP_DCPT* __attribute__((always_inline)) F_DRV_MIIM_OpListRemove(MIIM_SINGLE_LIST* pL, DRV_MIIM_QUEUE_TYPE qType)
+static __inline__ DRV_MIIM_OP_DCPT* __attribute__((always_inline)) _DRV_MIIM_OpListRemove(SINGLE_LIST* pL, DRV_MIIM_QUEUE_TYPE qType)
 {
-    DRV_MIIM_OP_DCPT* pOpDcpt = FC_SglNode2OpDcpt(Helper_SingleListHeadRemove(pL));
-    if(pOpDcpt != NULL)
+    DRV_MIIM_OP_DCPT* pOpDcpt = (DRV_MIIM_OP_DCPT*)Helper_SingleListHeadRemove(pL);
+    if(pOpDcpt)
     {
-        F_MIIMAssertCond(pOpDcpt->qType == (uint8_t)qType, __func__, __LINE__);
+        _MIIMAssertCond(pOpDcpt->qType == qType, __func__, __LINE__);
     }
     return pOpDcpt;
 }
 
 // Extended SMI address from a register value
-static __inline__ uint16_t __attribute__((always_inline)) F_ExtSMI_Address(uint16_t regVal)
+static __inline__ uint16_t __attribute__((always_inline)) _ExtSMI_Address(uint16_t regVal)
 {
-    return ((regVal >> 6) & 0x0fU) | 0x10U;
+    return ((regVal >> 6) & 0x0f) | 0x10;
 }
 
 // Extended SMI register from a register value
-static __inline__ uint16_t __attribute__((always_inline)) F_ExtSMI_Register(uint16_t regVal, int seq)
+static __inline__ uint16_t __attribute__((always_inline)) _ExtSMI_Register(uint16_t regVal, int seq)
 {
-    uint16_t reg = (regVal >> 1) & 0x1fU;
+    uint16_t reg = (regVal >> 1) & 0x1f;
     if(seq != 0)
     {
-        reg |= 0x01U;
+        reg |= 0x01;
     }
     return reg;
 }
 
 // Extended SMI 16 bit data from 32 bit data
-static __inline__ uint16_t __attribute__((always_inline)) F_ExtSMI_Data(uint32_t opData, int seq)
+static __inline__ uint16_t __attribute__((always_inline)) _ExtSMI_Data(uint32_t opData, int seq)
 {
     uint16_t wData;
     if(seq == 0)
@@ -396,12 +306,14 @@ static void MIIM_Process_WriteExt(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOp
 // table with operations processing functions
 static const DRV_MIIM_PROCESS_OP_FNC miim_process_op_tbl[] =
 {
-    &MIIM_Process_Read,      // DRV_MIIM_OP_READ
-    &MIIM_Process_Write,     // DRV_MIIM_OP_WRITE
-    &MIIM_Process_Scan,      // DRV_MIIM_OP_SCAN
-    &MIIM_Process_ReadExt,   // DRV_MIIM_OP_READ_EXT
-    &MIIM_Process_WriteExt,  // DRV_MIIM_OP_WRITE_EXT
+    MIIM_Process_Read,      // DRV_MIIM_OP_READ
+    MIIM_Process_Write,     // DRV_MIIM_OP_WRITE
+    MIIM_Process_Scan,      // DRV_MIIM_OP_SCAN
+    MIIM_Process_ReadExt,   // DRV_MIIM_OP_READ_EXT
+    MIIM_Process_WriteExt,  // DRV_MIIM_OP_WRITE_EXT
 };
+
+
 
 
 // *****************************************************************************
@@ -415,89 +327,81 @@ static const DRV_MIIM_PROCESS_OP_FNC miim_process_op_tbl[] =
 const DRV_MIIM_OBJECT_BASE  DRV_MIIM_OBJECT_BASE_Default = 
 {
     // system level object functions
-    .miim_Initialize = &DRV_MIIM_Initialize,
-    .miim_Reinitialize = &DRV_MIIM_Reinitialize,
-    .miim_Deinitialize = &DRV_MIIM_Deinitialize,
-    .miim_Status = &DRV_MIIM_Status,
-    .miim_Tasks = &DRV_MIIM_Tasks,
-    .miim_Open = &DRV_MIIM_Open,
+    .DRV_MIIM_Initialize = DRV_MIIM_Initialize,
+    .DRV_MIIM_Reinitialize = DRV_MIIM_Reinitialize,
+    .DRV_MIIM_Deinitialize = DRV_MIIM_Deinitialize,
+    .DRV_MIIM_Status = DRV_MIIM_Status,
+    .DRV_MIIM_Tasks = DRV_MIIM_Tasks,
+    .DRV_MIIM_Open = DRV_MIIM_Open,
     // client specific functions
-    .miim_Setup = &DRV_MIIM_Setup,
-    .miim_Close = &DRV_MIIM_Close,
-    .miim_ClientStatus = &DRV_MIIM_ClientStatus,
-    .miim_RegisterCallback = &DRV_MIIM_RegisterCallback,
-    .miim_DeregisterCallback = &DRV_MIIM_DeregisterCallback,
+    .DRV_MIIM_Setup = DRV_MIIM_Setup,
+    .DRV_MIIM_Close = DRV_MIIM_Close,
+    .DRV_MIIM_ClientStatus = DRV_MIIM_ClientStatus,
+    .DRV_MIIM_RegisterCallback = DRV_MIIM_RegisterCallback,
+    .DRV_MIIM_DeregisterCallback = DRV_MIIM_DeregisterCallback,
     // client operation functions
-    .miim_Read = &DRV_MIIM_Read,
-    .miim_Write = &DRV_MIIM_Write,
-    .miim_Scan = &DRV_MIIM_Scan,
-    .miim_OperationResult = &DRV_MIIM_OperationResult,
-    .miim_OperationAbort = &DRV_MIIM_OperationAbort,
-    .miim_WriteExt = &DRV_MIIM_WriteExt,
-    .miim_ReadExt = &DRV_MIIM_ReadExt,
+    .DRV_MIIM_Read = DRV_MIIM_Read,
+    .DRV_MIIM_Write = DRV_MIIM_Write,
+    .DRV_MIIM_Scan = DRV_MIIM_Scan,
+    .DRV_MIIM_OperationResult = DRV_MIIM_OperationResult,
+    .DRV_MIIM_OperationAbort = DRV_MIIM_OperationAbort,
+    .DRV_MIIM_WriteExt = DRV_MIIM_WriteExt,
+    .DRV_MIIM_ReadExt = DRV_MIIM_ReadExt,
 };
 
 
-SYS_MODULE_OBJ DRV_MIIM_Initialize (const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init )
+SYS_MODULE_OBJ DRV_MIIM_Initialize(const SYS_MODULE_INDEX iModule, const SYS_MODULE_INIT* const init )
 {
-    size_t ix;
+    int ix;
     DRV_MIIM_OBJ* pMiimObj;
+    DRV_MIIM_INIT* miimInit = 0;
 
-    F_MIIMDebugCond(true, __func__, __LINE__);   // hush compiler warning
+    _MIIMDebugCond(true, __func__, __LINE__);   // hush compiler warning
 
-    if(index >= (uint16_t)DRV_MIIM_INSTANCES_NUMBER)
+    if(iModule >= DRV_MIIM_INSTANCES_NUMBER)
     {
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    pMiimObj = F_DRV_MIIM_GetObject((SYS_MODULE_OBJ)(gDrvMIIMObj + index));
-    if(pMiimObj != NULL)
+    pMiimObj = _DRV_MIIM_GetObject((SYS_MODULE_OBJ)(gDrvMIIMObj + iModule));
+    if(pMiimObj != 0)
     {   // already in use
         return (SYS_MODULE_OBJ)pMiimObj ;
     }
 
-    pMiimObj = gDrvMIIMObj + index;
-    (void)memset(pMiimObj, 0, sizeof(*pMiimObj));
+    pMiimObj = gDrvMIIMObj + iModule;
+    memset(pMiimObj, 0, sizeof(*pMiimObj));
 
     /* Assign to the local pointer the init data passed */
-    union
-    {
-        const SYS_MODULE_INIT* init;
-        const DRV_MIIM_INIT* miimInit;
-    }U_SYS_INIT_MIIM_INIT;
-
-    U_SYS_INIT_MIIM_INIT.init = init;
-    if(U_SYS_INIT_MIIM_INIT.miimInit == NULL)
+    if((miimInit = (DRV_MIIM_INIT*) init) == 0)
     {   // cannot do with no init data
         return SYS_MODULE_OBJ_INVALID;
     }
 
     // create synchronization object
-    if(OSAL_SEM_Create(&pMiimObj->objSem, OSAL_SEM_TYPE_BINARY, 1, 1) != OSAL_RESULT_SUCCESS)
+    if(OSAL_SEM_Create(&pMiimObj->objSem, OSAL_SEM_TYPE_BINARY, 1, 1) != OSAL_RESULT_TRUE)
     {   // failed
         return SYS_MODULE_OBJ_INVALID;
     }
 
-    pMiimObj->objFlags = (uint16_t)DRV_MIIM_OBJ_FLAG_IN_USE;      // Set object to be in use
+    pMiimObj->objFlags = DRV_MIIM_OBJ_FLAG_IN_USE;      // Set object to be in use
     pMiimObj->objStatus = SYS_STATUS_READY; // Set module state
-    pMiimObj->iModule  = index;  // Store driver instance
-    pMiimObj->miimId = U_SYS_INIT_MIIM_INIT.miimInit->miimId; // Store PLIB ID
+    pMiimObj->iModule  = iModule;  // Store driver instance
+    pMiimObj->miimId = miimInit->miimId; // Store PLIB ID
 
     // initialize the operation lists
     DRV_MIIM_OP_DCPT* pOpDcpt = pMiimObj->opPool;
-    for(ix = 0; ix < sizeof(pMiimObj->opPool) / sizeof(*pMiimObj->opPool); ix++)
+    for(ix = 0; ix < sizeof(pMiimObj->opPool) / sizeof(*pMiimObj->opPool); ix++, pOpDcpt++)
     {
-        pOpDcpt->qType = (uint8_t)DRV_MIIM_QTYPE_FREE;
-        Helper_SingleListTailAdd(&pMiimObj->freeOpList, FC_OpDcpt2SglNode(pOpDcpt));
-        pOpDcpt++;
+        pOpDcpt->qType = DRV_MIIM_QTYPE_FREE;
+        Helper_SingleListTailAdd(&pMiimObj->freeOpList, (SGL_LIST_NODE*)pOpDcpt);
     }
 
 #if (DRV_MIIM_CLIENT_OP_PROTECTION)
     DRV_MIIM_CLI_OP_STAMP* pCliStamp = pMiimObj->stampPool;
-    for(ix = 0; ix < sizeof(pMiimObj->stampPool) / sizeof(*pMiimObj->stampPool); ix++)
+    for(ix = 0; ix < sizeof(pMiimObj->stampPool) / sizeof(*pMiimObj->stampPool); ix++, pCliStamp++)
     {
-        Helper_SingleListTailAdd(&pMiimObj->freeStampList, FC_CliStamp2SglNode(pCliStamp));
-        pCliStamp++;
+        Helper_SingleListTailAdd(&pMiimObj->freeStampList, (SGL_LIST_NODE*)pCliStamp);
     }
 
 #endif  // (DRV_MIIM_CLIENT_OP_PROTECTION)
@@ -514,42 +418,41 @@ void DRV_MIIM_Reinitialize(SYS_MODULE_OBJ object, const SYS_MODULE_INIT* const i
     // Currently NOT implemented
 }
 
-void DRV_MIIM_Deinitialize (SYS_MODULE_OBJ object)
+void DRV_MIIM_Deinitialize( SYS_MODULE_OBJ hSysObj )
 {
-    size_t ix;
+    int ix;
     DRV_MIIM_CLIENT_DCPT* pClient;
 
     // avoid another open or client operation now
-    DRV_MIIM_OBJ* pMiimObj = F_DRV_MIIM_GetObjectAndLock(object);
+    DRV_MIIM_OBJ* pMiimObj = _DRV_MIIM_GetObjectAndLock(hSysObj);
 
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
         // purge all clients
         pClient = pMiimObj->objClients;
-        for(ix = 0; ix < sizeof(pMiimObj->objClients) / sizeof(*pMiimObj->objClients); ix++)
+        for(ix = 0; ix < sizeof(pMiimObj->objClients) / sizeof(*pMiimObj->objClients); ix++, pClient++)
         {
-            if(pClient->clientInUse != 0U)
+            if(pClient->clientInUse != 0)
             {   // in use client
-                F_DRV_MIIM_ClientDeallocate(pClient);
+                _DRV_MIIM_ClientDeallocate(pClient);
             }
-            pClient++;
         }
 
-        (void)OSAL_SEM_Delete(&pMiimObj->objSem);
+        OSAL_SEM_Delete(&pMiimObj->objSem);
         
-        (void)memset(pMiimObj, 0, sizeof(*pMiimObj));
+        memset(pMiimObj, 0, sizeof(*pMiimObj));
         /* Set the Device Status */
         pMiimObj->objStatus  = SYS_STATUS_UNINITIALIZED;
     }
 } 
 
 
-SYS_STATUS DRV_MIIM_Status (SYS_MODULE_OBJ object)
+SYS_STATUS DRV_MIIM_Status( SYS_MODULE_OBJ hSysObj )
 {
-    DRV_MIIM_OBJ* pMiimObj = F_DRV_MIIM_GetObject(object);
+    DRV_MIIM_OBJ* pMiimObj = _DRV_MIIM_GetObject(hSysObj);
 
     /* Check for the valid driver object passed */
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
         /* Return the status associated with the driver handle */
         return( pMiimObj->objStatus ) ;
@@ -567,47 +470,47 @@ SYS_STATUS DRV_MIIM_Status (SYS_MODULE_OBJ object)
 // *****************************************************************************
 // *****************************************************************************
 
-DRV_HANDLE DRV_MIIM_Open(const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT intent)
+DRV_HANDLE  DRV_MIIM_Open (const SYS_MODULE_INDEX iModule, const DRV_IO_INTENT ioIntent)
 {
     DRV_MIIM_CLIENT_DCPT * pClient;
-    size_t  clientIx;
+    int  clientIx;
     DRV_HANDLE drvHandle = DRV_HANDLE_INVALID;
-    DRV_MIIM_OBJ * pMiimObj = NULL;
+    DRV_MIIM_OBJ * pMiimObj = 0;
 
     while(true)
     {
-        if(drvIndex >= (uint16_t)DRV_MIIM_INSTANCES_NUMBER)
+        if(iModule >= DRV_MIIM_INSTANCES_NUMBER)
         {
             break;
         }
 
-        pMiimObj = F_DRV_MIIM_GetObjectAndLock((SYS_MODULE_OBJ)(gDrvMIIMObj + drvIndex));
-        if(pMiimObj == NULL)
+        pMiimObj = _DRV_MIIM_GetObjectAndLock((SYS_MODULE_OBJ)(gDrvMIIMObj + iModule));
+        if(pMiimObj == 0)
         {
             break;
         }
 
-        if(((uint32_t)intent & (uint32_t)DRV_IO_INTENT_EXCLUSIVE) != 0U)
+        if((ioIntent & DRV_IO_INTENT_EXCLUSIVE) != 0)
         {
-            if(pMiimObj->numClients > 0U)
+            if(pMiimObj->numClients > 0)
             {   // already existing clients
                 break;
             }
         }
 
         /* Allocate the client object and set the flag as in use */
-        pClient = F_DRV_MIIM_ClientAllocate(pMiimObj, &clientIx) ;
-        if(pClient != NULL)
+        pClient = _DRV_MIIM_ClientAllocate(pMiimObj, &clientIx) ;
+        if(pClient)
         {
-            (void)memset(pClient, 0, sizeof(*pClient));
-            pClient->clientInUse = 1U;
-            pClient->clientIx = (uint16_t)clientIx;
+            memset(pClient, 0, sizeof(*pClient));
+            pClient->clientInUse = true;
+            pClient->clientIx = clientIx;
             pClient->parentObj  = pMiimObj;
             pClient->cliStatus = DRV_MIIM_CLIENT_STATUS_READY;
 
-            if(((uint32_t)intent & (uint32_t)DRV_IO_INTENT_EXCLUSIVE) != 0U)
+            if((ioIntent & DRV_IO_INTENT_EXCLUSIVE) != 0)
             {
-                pMiimObj->objFlags |= (uint16_t)DRV_MIIM_OBJ_FLAG_EXCLUSIVE;
+                pMiimObj->objFlags |= DRV_MIIM_OBJ_FLAG_EXCLUSIVE;
             }
 
             pMiimObj->numClients++;
@@ -617,9 +520,9 @@ DRV_HANDLE DRV_MIIM_Open(const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT in
         break;
     }
 
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
-        F_DRV_MIIM_ObjUnlock(pMiimObj);
+        _DRV_MIIM_ObjUnlock(pMiimObj);
     }
 
     return drvHandle;
@@ -627,12 +530,12 @@ DRV_HANDLE DRV_MIIM_Open(const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT in
 
 void DRV_MIIM_Close( DRV_HANDLE handle )
 {
-    DRV_MIIM_CLIENT_DCPT * pClient = F_DRV_MIIM_GetClientAndLock(handle, true);
+    DRV_MIIM_CLIENT_DCPT * pClient = _DRV_MIIM_GetClientAndLock(handle, true);
 
-    if(pClient != NULL)
+    if(pClient != 0)
     {
-        F_DRV_MIIM_ClientDeallocate(pClient);
-        F_DRV_MIIM_ObjUnlock(pClient->parentObj);
+        _DRV_MIIM_ClientDeallocate(pClient);
+        _DRV_MIIM_ObjUnlock(pClient->parentObj);
     }
 }
 
@@ -644,12 +547,12 @@ DRV_MIIM_RESULT DRV_MIIM_Setup(DRV_HANDLE  handle, const DRV_MIIM_SETUP* pSetUp)
     DRV_MIIM_RESULT res;
 
     // basic sanity check
-    if(pSetUp == NULL)
+    if(pSetUp == 0)
     {
         return DRV_MIIM_RES_PARAMETER_ERR;
     }
 
-    if((pClient = F_DRV_MIIM_GetClientAndLock(handle, true)) == NULL)
+    if((pClient = _DRV_MIIM_GetClientAndLock(handle, true)) == 0)
     {
         return DRV_MIIM_RES_HANDLE_ERR;
     }
@@ -659,46 +562,42 @@ DRV_MIIM_RESULT DRV_MIIM_Setup(DRV_HANDLE  handle, const DRV_MIIM_SETUP* pSetUp)
     // setup the device
     res = DRV_MIIM_DeviceSetup(pMiimObj->miimId, pSetUp);
     
-    pMiimObj->objFlags |= (uint16_t)DRV_MIIM_OBJ_FLAG_SETUP_DONE;
+    pMiimObj->objFlags |= DRV_MIIM_OBJ_FLAG_SETUP_DONE;
 
-    F_DRV_MIIM_ObjUnlock(pMiimObj);
+    _DRV_MIIM_ObjUnlock(pMiimObj);
     return res;
 }
 
-void DRV_MIIM_Tasks(SYS_MODULE_OBJ object)
+void DRV_MIIM_Tasks( SYS_MODULE_OBJ hSysObj )
 {
     DRV_MIIM_OP_DCPT *pOpDcpt, *pHead;
     DRV_MIIM_REPORT_ACT repAct;
-    DRV_MIIM_OBJ * pMiimObj = F_DRV_MIIM_GetObjectAndLock(object);
+    DRV_MIIM_OBJ * pMiimObj = _DRV_MIIM_GetObjectAndLock(hSysObj);
 
-    if(pMiimObj == NULL)
+    if(pMiimObj == 0)
     {   // minimal sanity check
         return;
     }
 
     // process the scheduled operations    
-    while((pOpDcpt = FC_SglNode2OpDcpt(pMiimObj->busyOpList.head)) != NULL)
+    while((pOpDcpt = (DRV_MIIM_OP_DCPT*)pMiimObj->busyOpList.head) != 0)
     {
-        F_DRV_MIIM_ProcessOp(pMiimObj, pOpDcpt);
-        if(pOpDcpt->txferStat >= (uint8_t)DRV_MIIM_TXFER_REPORT_STATE)
+        _DRV_MIIM_ProcessOp(pMiimObj, pOpDcpt);
+        if(pOpDcpt->txferStat >= DRV_MIIM_TXFER_REPORT_STATE)
         {   // somehow complete
-            repAct = F_DRV_MIIM_ReportOp(pMiimObj, pOpDcpt);
+            repAct = _DRV_MIIM_ReportOp(pMiimObj, pOpDcpt);
             if(repAct == DRV_MIIM_REPORT_ACT_DELETE)
             {   // we're done
-                F_DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, &pMiimObj->busyOpList, DRV_MIIM_QTYPE_BUSY);
+                _DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, &pMiimObj->busyOpList, DRV_MIIM_QTYPE_BUSY);
                 continue;
             }
             else if(repAct == DRV_MIIM_REPORT_ACT_WAIT_COMPLETE)
             {   // keep it around for a while
                 // remove from queue
-                pHead = F_DRV_MIIM_OpListRemove(&pMiimObj->busyOpList, DRV_MIIM_QTYPE_BUSY);
-                F_MIIMAssertCond(pOpDcpt == pHead, __func__, __LINE__);
-                F_DRV_MIIM_OpListAdd(&pMiimObj->completeOpList, pHead, DRV_MIIM_QTYPE_COMPLETE);
+                pHead = _DRV_MIIM_OpListRemove(&pMiimObj->busyOpList, DRV_MIIM_QTYPE_BUSY);
+                _MIIMAssertCond(pOpDcpt == pHead, __func__, __LINE__);
+                _DRV_MIIM_OpListAdd(&pMiimObj->completeOpList, pHead, DRV_MIIM_QTYPE_COMPLETE);
                 continue;
-            }
-            else
-            {
-                // do nothing
             }
         }
 
@@ -706,32 +605,32 @@ void DRV_MIIM_Tasks(SYS_MODULE_OBJ object)
         break;
     }
 
-    F_DRV_MIIM_ObjUnlock(pMiimObj);
+    _DRV_MIIM_ObjUnlock(pMiimObj);
 } 
 
 DRV_MIIM_OPERATION_HANDLE DRV_MIIM_Read(DRV_HANDLE handle, uint16_t rIx, uint16_t phyAdd, DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult)
 {
-    return F_DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, 0, opFlags, pOpResult, DRV_MIIM_OP_READ);
+    return _DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, 0, opFlags, pOpResult, DRV_MIIM_OP_READ);
 }
 
 DRV_MIIM_OPERATION_HANDLE DRV_MIIM_Write(DRV_HANDLE handle, uint16_t rIx, uint16_t phyAdd, uint16_t wData, DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult)
 {
-    return F_DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, wData, opFlags, pOpResult, DRV_MIIM_OP_WRITE);
+    return _DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, wData, opFlags, pOpResult, DRV_MIIM_OP_WRITE);
 }
 
 DRV_MIIM_OPERATION_HANDLE DRV_MIIM_Scan(DRV_HANDLE handle, uint16_t rIx, uint16_t phyAdd, DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult)
 {
-    return F_DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, 0, opFlags, pOpResult, DRV_MIIM_OP_SCAN);
+    return _DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, 0, opFlags, pOpResult, DRV_MIIM_OP_SCAN);
 }
 
 DRV_MIIM_OPERATION_HANDLE DRV_MIIM_ReadExt(DRV_HANDLE handle, uint16_t rIx, uint16_t phyAdd, DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult)
 {
-    return F_DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, 0, opFlags, pOpResult, DRV_MIIM_OP_READ_EXT);
+    return _DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, 0, opFlags, pOpResult, DRV_MIIM_OP_READ_EXT);
 }
 
 DRV_MIIM_OPERATION_HANDLE DRV_MIIM_WriteExt(DRV_HANDLE handle, uint16_t rIx, uint16_t phyAdd, uint32_t wData, DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult)
 {
-    return F_DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, wData, opFlags, pOpResult, DRV_MIIM_OP_WRITE_EXT);
+    return _DRV_MIIM_ScheduleOp(handle, rIx, phyAdd, wData, opFlags, pOpResult, DRV_MIIM_OP_WRITE_EXT);
 }
 
 DRV_MIIM_RESULT DRV_MIIM_OperationResult(DRV_HANDLE handle, DRV_MIIM_OPERATION_HANDLE opHandle, uint32_t* pOpData)
@@ -739,11 +638,11 @@ DRV_MIIM_RESULT DRV_MIIM_OperationResult(DRV_HANDLE handle, DRV_MIIM_OPERATION_H
     DRV_MIIM_CLIENT_DCPT* pClient;
     DRV_MIIM_OP_DCPT* pOpDcpt;
     DRV_MIIM_RESULT miimRes;
-    DRV_MIIM_OBJ*   pMiimObj = NULL;
+    DRV_MIIM_OBJ*   pMiimObj = 0;
 
     while(true)
     {
-        if((pClient = F_DRV_MIIM_GetClientAndLock(handle, true)) == NULL)
+        if((pClient = _DRV_MIIM_GetClientAndLock(handle, true)) == 0)
         {
             miimRes = DRV_MIIM_RES_HANDLE_ERR;
             break;
@@ -751,7 +650,7 @@ DRV_MIIM_RESULT DRV_MIIM_OperationResult(DRV_HANDLE handle, DRV_MIIM_OPERATION_H
 
         pMiimObj = pClient->parentObj;
 
-        if((pOpDcpt = F_DRV_MIIM_GetOpDcpt(pClient, opHandle)) == NULL)
+        if((pOpDcpt = _DRV_MIIM_GetOpDcpt(pClient, opHandle)) == 0)
         {
             miimRes = DRV_MIIM_RES_OP_HANDLE_ERR;
             break;
@@ -759,28 +658,28 @@ DRV_MIIM_RESULT DRV_MIIM_OperationResult(DRV_HANDLE handle, DRV_MIIM_OPERATION_H
 
 
         // now this is either an ongoing operation or a completed one with no signal handler
-        if(pOpData != NULL)
+        if(pOpData != 0)
         {   // when scanning, we update the user data even if stale
-            if((uint8_t)DRV_MIIM_TXFER_SCAN_STALE <= pOpDcpt->txferStat &&  pOpDcpt->txferStat <= (uint8_t)DRV_MIIM_TXFER_DONE)
+            if(DRV_MIIM_TXFER_SCAN_STALE <= pOpDcpt->txferStat &&  pOpDcpt->txferStat <= DRV_MIIM_TXFER_DONE)
             {
                 *pOpData = pOpDcpt->opData;
             }
         }
 
-        miimRes = F_DRV_MIIM_OpResult(pOpDcpt, true);
+        miimRes = _DRV_MIIM_OpResult(pOpDcpt, true);
 
-        if(pOpDcpt->txferStat >= (uint8_t)DRV_MIIM_TXFER_DONE)
+        if(pOpDcpt->txferStat >= DRV_MIIM_TXFER_DONE)
         {   // this should be in the complete list
-            F_MIIM_Debug_Oper(pOpDcpt, "release");
-            F_DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt,  &pClient->parentObj->completeOpList, DRV_MIIM_QTYPE_COMPLETE);
+            _MIIM_Debug_Oper(pOpDcpt, "release");
+            _DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt,  &pClient->parentObj->completeOpList, DRV_MIIM_QTYPE_COMPLETE);
         }
 
         break;
     }
 
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
-        F_DRV_MIIM_ObjUnlock(pMiimObj);
+        _DRV_MIIM_ObjUnlock(pMiimObj);
     }
 
     return miimRes;
@@ -791,15 +690,15 @@ DRV_MIIM_RESULT DRV_MIIM_OperationAbort(DRV_HANDLE handle, DRV_MIIM_OPERATION_HA
 {
     DRV_MIIM_CLIENT_DCPT* pClient;
     DRV_MIIM_OP_DCPT* pOpDcpt;
-    MIIM_SINGLE_LIST* pList;
+    SINGLE_LIST* pList;
     DRV_MIIM_QUEUE_TYPE qType;
     DRV_MIIM_RESULT miimRes;
-    DRV_MIIM_OBJ*   pMiimObj = NULL;
+    DRV_MIIM_OBJ*   pMiimObj = 0;
 
     while(true)
     {
 
-        if((pClient = F_DRV_MIIM_GetClientAndLock(handle, true)) == NULL)
+        if((pClient = _DRV_MIIM_GetClientAndLock(handle, true)) == 0)
         {
             miimRes = DRV_MIIM_RES_HANDLE_ERR;
             break;
@@ -807,14 +706,14 @@ DRV_MIIM_RESULT DRV_MIIM_OperationAbort(DRV_HANDLE handle, DRV_MIIM_OPERATION_HA
 
         pMiimObj = pClient->parentObj;
 
-        if((pOpDcpt = F_DRV_MIIM_GetOpDcpt(pClient, opHandle)) == NULL)
+        if((pOpDcpt = _DRV_MIIM_GetOpDcpt(pClient, opHandle)) == 0)
         {
             miimRes = DRV_MIIM_RES_OP_HANDLE_ERR;
             break;
         }
 
         // now this is either an ongoing operation or a completed one with no signal handler
-        if(pOpDcpt->txferStat >= (uint8_t)DRV_MIIM_TXFER_DONE)
+        if(pOpDcpt->txferStat >= DRV_MIIM_TXFER_DONE)
         {
             pList = &pMiimObj->completeOpList;
             qType = DRV_MIIM_QTYPE_COMPLETE;
@@ -825,15 +724,15 @@ DRV_MIIM_RESULT DRV_MIIM_OperationAbort(DRV_HANDLE handle, DRV_MIIM_OPERATION_HA
             qType = DRV_MIIM_QTYPE_BUSY;
         }
 
-        F_DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, pList, qType);
+        _DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, pList, qType);
         miimRes = DRV_MIIM_RES_OK;
 
         break;
     }
 
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
-        F_DRV_MIIM_ObjUnlock(pMiimObj);
+        _DRV_MIIM_ObjUnlock(pMiimObj);
     }
 
     return miimRes;
@@ -841,9 +740,9 @@ DRV_MIIM_RESULT DRV_MIIM_OperationAbort(DRV_HANDLE handle, DRV_MIIM_OPERATION_HA
 
 DRV_MIIM_CLIENT_STATUS DRV_MIIM_ClientStatus( DRV_HANDLE handle )
 {
-    DRV_MIIM_CLIENT_DCPT * pClient = F_DRV_MIIM_GetClientAndLock(handle, false);
+    DRV_MIIM_CLIENT_DCPT * pClient = _DRV_MIIM_GetClientAndLock(handle, false);
 
-    if(pClient == NULL)
+    if(pClient == 0)
     {
         return DRV_MIIM_CLIENT_STATUS_ERROR;
     }
@@ -855,18 +754,18 @@ DRV_MIIM_CLIENT_STATUS DRV_MIIM_ClientStatus( DRV_HANDLE handle )
 DRV_MIIM_CALLBACK_HANDLE DRV_MIIM_RegisterCallback(DRV_HANDLE handle, DRV_MIIM_OPERATION_CALLBACK cbFunction, DRV_MIIM_RESULT* pRegResult )
 {
     DRV_MIIM_RESULT miimRes;
-    DRV_MIIM_CALLBACK_HANDLE cbHandle = NULL;
-    DRV_MIIM_CLIENT_DCPT* pClient = NULL;
+    DRV_MIIM_CALLBACK_HANDLE cbHandle = 0;
+    DRV_MIIM_CLIENT_DCPT* pClient = 0;
 
     while(true)
     {
-        if(cbFunction == NULL)
+        if(cbFunction == 0)
         {
             miimRes = DRV_MIIM_RES_CALLBACK_HANDLE_ERR; 
             break;
         }
 
-        if((pClient = F_DRV_MIIM_GetClientAndLock(handle, true)) == NULL)
+        if((pClient = _DRV_MIIM_GetClientAndLock(handle, true)) == 0)
         {
             miimRes = DRV_MIIM_RES_HANDLE_ERR;
             break;
@@ -874,19 +773,19 @@ DRV_MIIM_CALLBACK_HANDLE DRV_MIIM_RegisterCallback(DRV_HANDLE handle, DRV_MIIM_O
 
         pClient->cbackHandler = cbFunction;
         miimRes = DRV_MIIM_RES_OK;
-        cbHandle = FC_OpCback2CbHandle(cbFunction);
+        cbHandle = (DRV_MIIM_CALLBACK_HANDLE)cbFunction;
 
         break;
     }
 
-    if(pRegResult != NULL)
+    if(pRegResult)
     {
         *pRegResult = miimRes;
     }
 
-    if(pClient != NULL)
+    if(pClient != 0)
     {
-        F_DRV_MIIM_ObjUnlock(pClient->parentObj);
+        _DRV_MIIM_ObjUnlock(pClient->parentObj);
     }
 
     return cbHandle;
@@ -900,27 +799,27 @@ DRV_MIIM_RESULT DRV_MIIM_DeregisterCallback(DRV_HANDLE handle, DRV_MIIM_CALLBACK
     while(true)
     {
 
-        if((pClient = F_DRV_MIIM_GetClientAndLock(handle, true)) == NULL)
+        if((pClient = _DRV_MIIM_GetClientAndLock(handle, true)) == 0)
         {
             res = DRV_MIIM_RES_HANDLE_ERR;
             break;
         }
 
-        if(FC_OpCback2CbHandle(pClient->cbackHandler) != cbHandle)
+        if(pClient->cbackHandler != (DRV_MIIM_OPERATION_CALLBACK)cbHandle)
         {
             res = DRV_MIIM_RES_CALLBACK_HANDLE_ERR;
             break;
         }
 
-        pClient->cbackHandler = NULL;
+        pClient->cbackHandler = 0;
         res = DRV_MIIM_RES_OK;
 
         break;
     }
 
-    if(pClient != NULL)
+    if(pClient != 0)
     {
-        F_DRV_MIIM_ObjUnlock(pClient->parentObj);
+        _DRV_MIIM_ObjUnlock(pClient->parentObj);
     }
 
     return res;
@@ -931,26 +830,26 @@ DRV_MIIM_RESULT DRV_MIIM_DeregisterCallback(DRV_HANDLE handle, DRV_MIIM_CALLBACK
 
 // checks and schedules an operation
 // returns DRV_MIIM_RES_OK if success
-static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16_t regIx, uint16_t phyAdd, uint32_t opData,
+static DRV_MIIM_OPERATION_HANDLE _DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16_t regIx, uint16_t phyAdd, uint32_t opData,
                                                    DRV_MIIM_OPERATION_FLAGS opFlags, DRV_MIIM_RESULT* pOpResult, DRV_MIIM_OP_TYPE opType)
 {
     DRV_MIIM_RESULT res;
-    DRV_MIIM_OPERATION_HANDLE opHandle = NULL;
+    DRV_MIIM_OPERATION_HANDLE opHandle = 0;
     DRV_MIIM_CLIENT_DCPT* pClient;
-    DRV_MIIM_OBJ* pMiimObj = NULL;
+    DRV_MIIM_OBJ* pMiimObj = 0;
 
     while(true)
     {
         // sanity check
         if(opType != DRV_MIIM_OP_READ_EXT && opType != DRV_MIIM_OP_WRITE_EXT)
         {
-           if(regIx > (uint16_t)DRV_MIIM_MAX_REG_INDEX_VALUE)
+           if(regIx > DRV_MIIM_MAX_REG_INDEX_VALUE)
            {
                res = DRV_MIIM_RES_REGISTER_ERR;
                break;
            }
 
-           if(phyAdd > (uint16_t)DRV_MIIM_MAX_ADDRESS_VALUE)
+           if(phyAdd > DRV_MIIM_MAX_ADDRESS_VALUE)
            {
                res = DRV_MIIM_RES_ADDRESS_ERR;
                break;
@@ -958,7 +857,7 @@ static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16
         }
 
         // get client for this operation
-        if((pClient = F_DRV_MIIM_GetClientAndLock(handle, true)) == NULL)
+        if((pClient = _DRV_MIIM_GetClientAndLock(handle, true)) == 0)
         {
             res = DRV_MIIM_RES_HANDLE_ERR;
             break;
@@ -967,22 +866,22 @@ static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16
         // get MIIM object
         pMiimObj = pClient->parentObj;
 
-        if((pMiimObj->objFlags & (uint16_t)DRV_MIIM_OBJ_FLAG_SETUP_DONE) == 0U)
+        if((pMiimObj->objFlags & DRV_MIIM_OBJ_FLAG_SETUP_DONE) == 0)
         {
             res = DRV_MIIM_RES_SETUP_ERR;
             break;
         }
 
-        if((pMiimObj->objFlags & (uint16_t)DRV_MIIM_OBJ_FLAG_IS_SCANNING) != 0U)
+        if((pMiimObj->objFlags & DRV_MIIM_OBJ_FLAG_IS_SCANNING) != 0)
         {
             res = DRV_MIIM_RES_OP_SCAN_ERR;
             break;
         }
         
         // get an operation descriptor
-        DRV_MIIM_OP_DCPT* pOpDcpt = F_DRV_MIIM_OpListRemove(&pMiimObj->freeOpList, DRV_MIIM_QTYPE_FREE);
+        DRV_MIIM_OP_DCPT* pOpDcpt = _DRV_MIIM_OpListRemove(&pMiimObj->freeOpList, DRV_MIIM_QTYPE_FREE);
 
-        if(pOpDcpt == NULL)
+        if(pOpDcpt == 0)
         {
             res = DRV_MIIM_RES_BUSY;
             break;
@@ -990,12 +889,12 @@ static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16
 
 #if (DRV_MIIM_CLIENT_OP_PROTECTION)
         // get client operation stamp
-        DRV_MIIM_CLI_OP_STAMP* pCliStamp = FC_SglNode2CliStamp(Helper_SingleListHeadRemove(&pMiimObj->freeStampList));
+        DRV_MIIM_CLI_OP_STAMP* pCliStamp = (DRV_MIIM_CLI_OP_STAMP*)Helper_SingleListHeadRemove(&pMiimObj->freeStampList);
 
-        if(pCliStamp == NULL)
+        if(pCliStamp == 0)
         {   // should not happen - stamps should be in sync with operations!; release
-            F_MIIMAssertCond(false, __func__, __LINE__);
-            Helper_SingleListTailAdd(&pMiimObj->freeOpList, FC_OpDcpt2SglNode(pOpDcpt));
+            _MIIMAssertCond(pCliStamp != 0, __func__, __LINE__);
+            Helper_SingleListTailAdd(&pMiimObj->freeOpList, (SGL_LIST_NODE*)pOpDcpt);
             res = DRV_MIIM_RES_BUSY;
             break;
         }
@@ -1003,12 +902,12 @@ static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16
 
         // all good
         // populate the operation to schedule
-        pOpDcpt->opType = (uint8_t)opType;
+        pOpDcpt->opType = opType;
         pOpDcpt->regIx = regIx;
         pOpDcpt->phyAdd = phyAdd;
-        pOpDcpt->opFlags = (uint8_t)opFlags;
+        pOpDcpt->opFlags = opFlags;
         pOpDcpt->opData = opData;
-        pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_START;
+        pOpDcpt->txferStat = DRV_MIIM_TXFER_START;
         pOpDcpt->pOwner = pClient;
 
 #if (DRV_MIIM_CLIENT_OP_PROTECTION)
@@ -1019,29 +918,29 @@ static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16
         pOpDcpt->pCliStamp = pCliStamp;
         pOpDcpt->tStamp = pCliStamp->tStamp;
 
-        Helper_SingleListTailAdd(&pMiimObj->busyStampList, FC_CliStamp2SglNode(pCliStamp));
+        Helper_SingleListTailAdd(&pMiimObj->busyStampList, (SGL_LIST_NODE*)pCliStamp);
         opHandle = pCliStamp;
 #else
         opHandle = pOpDcpt;
 #endif  // (DRV_MIIM_CLIENT_OP_PROTECTION)
 
         // schedule operation
-        if(pOpDcpt->opType == (uint8_t)DRV_MIIM_OP_SCAN)
+        if(pOpDcpt->opType == DRV_MIIM_OP_SCAN)
         {   // only one op could be in progress; scan is a continuous one
-            pMiimObj->objFlags |= (uint16_t)DRV_MIIM_OBJ_FLAG_IS_SCANNING;
+            pMiimObj->objFlags |= DRV_MIIM_OBJ_FLAG_IS_SCANNING;
         }
-        F_DRV_MIIM_OpListAdd(&pMiimObj->busyOpList, pOpDcpt, DRV_MIIM_QTYPE_BUSY);
+        _DRV_MIIM_OpListAdd(&pMiimObj->busyOpList, pOpDcpt, DRV_MIIM_QTYPE_BUSY);
 
         res = DRV_MIIM_RES_OK;
         break;
     }
 
-    if(pMiimObj != NULL)
+    if(pMiimObj != 0)
     {
-        F_DRV_MIIM_ObjUnlock(pMiimObj);
+        _DRV_MIIM_ObjUnlock(pMiimObj);
     }
     
-    if(pOpResult != NULL)
+    if(pOpResult)
     {
         *pOpResult = res;
     }
@@ -1049,31 +948,31 @@ static DRV_MIIM_OPERATION_HANDLE F_DRV_MIIM_ScheduleOp(DRV_HANDLE handle, uint16
 }
 
 // Process SMI bus operations. One at a time!
-static void F_DRV_MIIM_ProcessOp( DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt)
+static void _DRV_MIIM_ProcessOp( DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt)
 {
 
-    F_MIIMAssertCond(pOpDcpt->pOwner->parentObj == pMiimObj, __func__, __LINE__);
-    F_MIIMAssertCond(pOpDcpt->qType == (uint8_t)DRV_MIIM_QTYPE_BUSY, __func__, __LINE__);
+    _MIIMAssertCond(pOpDcpt->pOwner->parentObj == pMiimObj, __func__, __LINE__);
+    _MIIMAssertCond(pOpDcpt->qType == DRV_MIIM_QTYPE_BUSY, __func__, __LINE__);
 
-    if(pOpDcpt->opType > (uint8_t)DRV_MIIM_OP_NONE && (size_t)pOpDcpt->opType < sizeof(miim_process_op_tbl) / sizeof(*miim_process_op_tbl) + 1U)
+    if(pOpDcpt->opType > DRV_MIIM_OP_NONE && pOpDcpt->opType < sizeof(miim_process_op_tbl) / sizeof(*miim_process_op_tbl) + 1)
     {   // process operation
-        if(pOpDcpt->txferStat == (uint8_t)DRV_MIIM_TXFER_START)
+        if(pOpDcpt->txferStat == DRV_MIIM_TXFER_START)
         {
             DRV_MIIM_PortEnable(pMiimObj->miimId);
         }
-        miim_process_op_tbl[pOpDcpt->opType - 1U](pMiimObj, pOpDcpt);
+        miim_process_op_tbl[pOpDcpt->opType - 1](pMiimObj, pOpDcpt);
     }
     else
     {
-        F_MIIMAssertCond(false, __func__, __LINE__);
-        pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_ERROR;
+        _MIIMAssertCond(false, __func__, __LINE__);
+        pOpDcpt->txferStat = DRV_MIIM_TXFER_ERROR;
     }
 
-    if(pOpDcpt->txferStat >= (uint8_t)DRV_MIIM_TXFER_DONE)
+    if(pOpDcpt->txferStat >= DRV_MIIM_TXFER_DONE)
     {
         DRV_MIIM_PortDisable(pMiimObj->miimId);
     }
-    F_MIIM_Debug_Oper(pOpDcpt, "proc");
+    _MIIM_Debug_Oper(pOpDcpt, "proc");
 }
 
 // operation processing functions
@@ -1081,35 +980,35 @@ static void MIIM_Process_Read(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt
 {
     switch(pOpDcpt->txferStat)
     {
-        case (uint8_t)DRV_MIIM_TXFER_START:
+        case DRV_MIIM_TXFER_START:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // some previous operation; wait
                 break;
             }
 
             // start read
-            F_MIIM_Debug_Oper(pOpDcpt, "start");
-            F_MIIM_Debug_Read(pOpDcpt);
+            _MIIM_Debug_Oper(pOpDcpt, "start");
+            _MIIM_Debug_Read(pOpDcpt);
             DRV_MIIM_ReadStart(pMiimObj->miimId, pOpDcpt->phyAdd, pOpDcpt->regIx);
 
             // for read/write operations
-            pOpDcpt->txferStat = ((pOpDcpt->opFlags & (uint8_t)DRV_MIIM_OPERATION_FLAG_DISCARD) == 0U) ? (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : (uint8_t)DRV_MIIM_TXFER_DONE;
+            pOpDcpt->txferStat = ((pOpDcpt->opFlags & DRV_MIIM_OPERATION_FLAG_DISCARD) == 0) ? DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : DRV_MIIM_TXFER_DONE;
             break;
 
-        case (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
+        case DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // wait op to complete
                 break;
             }
 
             pOpDcpt->opData = DRV_MIIM_ReadDataGet(pMiimObj->miimId); // get the read register
-            F_MIIM_Debug_ReadData(pOpDcpt);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_DONE;
+            _MIIM_Debug_ReadData(pOpDcpt);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_DONE;
             break;
 
         default:
-            F_MIIMAssertCond(false, __func__, __LINE__);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_ERROR;
+            _MIIMAssertCond(false, __func__, __LINE__);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_ERROR;
             break;
     }
 }
@@ -1118,31 +1017,31 @@ static void MIIM_Process_Write(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcp
 {
     switch(pOpDcpt->txferStat)
     {
-        case (uint8_t)DRV_MIIM_TXFER_START:
+        case DRV_MIIM_TXFER_START:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // some previous operation; wait
                 break;
             }
 
-            F_MIIM_Debug_Write(pOpDcpt);
-            DRV_MIIM_WriteData(pMiimObj->miimId, pOpDcpt->phyAdd, pOpDcpt->regIx, (uint16_t)pOpDcpt->opData);
+            _MIIM_Debug_Write(pOpDcpt);
+            DRV_MIIM_WriteData(pMiimObj->miimId, pOpDcpt->phyAdd, pOpDcpt->regIx, pOpDcpt->opData);
 
-            pOpDcpt->txferStat = ((pOpDcpt->opFlags & (uint8_t)DRV_MIIM_OPERATION_FLAG_DISCARD) == 0U) ? (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : (uint8_t)DRV_MIIM_TXFER_DONE;
+            pOpDcpt->txferStat = ((pOpDcpt->opFlags & DRV_MIIM_OPERATION_FLAG_DISCARD) == 0) ? DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : DRV_MIIM_TXFER_DONE;
             break;
 
-        case (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
+        case DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // wait op to complete
                 break;
             }
 
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_DONE;
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_DONE;
             break;
 
 
         default:
-            F_MIIMAssertCond(false, __func__, __LINE__);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_ERROR;
+            _MIIMAssertCond(false, __func__, __LINE__);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_ERROR;
             break;
     }
 }
@@ -1151,27 +1050,27 @@ static void MIIM_Process_Scan(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt
 {
     switch(pOpDcpt->txferStat)
     {
-        case (uint8_t)DRV_MIIM_TXFER_START:
+        case DRV_MIIM_TXFER_START:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // some previous operation; wait
                 break;
             }
 
             // scan
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_ScanEnable(pMiimObj->miimId, pOpDcpt->phyAdd, pOpDcpt->regIx);
+            pOpDcpt->txferStat = DRV_MIIM_ScanEnable(pMiimObj->miimId, pOpDcpt->phyAdd, pOpDcpt->regIx);
             break;
 
-        case (uint8_t)DRV_MIIM_TXFER_SCAN_STALE:
-        case (uint8_t)DRV_MIIM_TXFER_SCAN_VALID:           
+        case DRV_MIIM_TXFER_SCAN_STALE:
+        case DRV_MIIM_TXFER_SCAN_VALID:           
             if(DRV_MIIM_GetScanData(pMiimObj->miimId, &pOpDcpt->opData))
             {
-                pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_SCAN_VALID;
+                pOpDcpt->txferStat = DRV_MIIM_TXFER_SCAN_VALID;
             }
             break;
 
         default:
-            F_MIIMAssertCond(false, __func__, __LINE__);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_ERROR;
+            _MIIMAssertCond(false, __func__, __LINE__);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_ERROR;
             break;
     }
 }
@@ -1182,50 +1081,50 @@ static void MIIM_Process_ReadExt(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpD
 
     switch(pOpDcpt->txferStat)
     {
-        case (uint8_t)DRV_MIIM_TXFER_START:
+        case DRV_MIIM_TXFER_START:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // some previous operation; wait
                 break;
             }
 
             // read 1st part of the extended frame: low 16 bits
-            F_DRV_MIIM_ReadStartExt(pMiimObj, pOpDcpt, 0);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_EXT_WAIT_PHASE1;
+            _DRV_MIIM_ReadStartExt(pMiimObj, pOpDcpt, 0);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_EXT_WAIT_PHASE1;
             
             break;
 
-        case (uint8_t)DRV_MIIM_TXFER_EXT_WAIT_PHASE1:
+        case DRV_MIIM_TXFER_EXT_WAIT_PHASE1:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // wait op to complete
                 break;
             }
 
             rdData = DRV_MIIM_ReadDataGet(pMiimObj->miimId); // get the read register low 16 bits
-            F_MIIM_Debug_ExtSMIReadData(pOpDcpt, 0, rdData);
+            _MIIM_Debug_ExtSMIReadData(pOpDcpt, 0, rdData);
             pOpDcpt->opData = rdData;
 
             // read 2nd part of the extended frame: high 16 bits
-            F_DRV_MIIM_ReadStartExt(pMiimObj, pOpDcpt, 1);
-            pOpDcpt->txferStat = ((pOpDcpt->opFlags & (uint8_t)DRV_MIIM_OPERATION_FLAG_DISCARD) == 0U) ? (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : (uint8_t)DRV_MIIM_TXFER_DONE;
+            _DRV_MIIM_ReadStartExt(pMiimObj, pOpDcpt, 1);
+            pOpDcpt->txferStat = ((pOpDcpt->opFlags & DRV_MIIM_OPERATION_FLAG_DISCARD) == 0) ? DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : DRV_MIIM_TXFER_DONE;
 
             break;
 
-        case (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
+        case DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // wait op to complete
                 break;
             }
 
             rdData = DRV_MIIM_ReadDataGet(pMiimObj->miimId); // get the read register high 16 bits
-            F_MIIM_Debug_ExtSMIReadData(pOpDcpt, 1, rdData);
+            _MIIM_Debug_ExtSMIReadData(pOpDcpt, 1, rdData);
             pOpDcpt->opData |= (uint32_t)rdData << 16;
 
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_DONE;
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_DONE;
             break;
 
         default:
-            F_MIIMAssertCond(false, __func__, __LINE__);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_ERROR;
+            _MIIMAssertCond(false, __func__, __LINE__);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_ERROR;
             break;
     }
 }
@@ -1234,56 +1133,56 @@ static void MIIM_Process_WriteExt(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOp
 {
     switch(pOpDcpt->txferStat)
     {
-        case (uint8_t)DRV_MIIM_TXFER_START:
+        case DRV_MIIM_TXFER_START:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // some previous operation; wait
                 break;
             }
 
             // write 1st part of the extended frame: low 16 bits
-            F_DRV_MIIM_WriteDataExt(pMiimObj, pOpDcpt, 0);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_EXT_WAIT_PHASE1;
+            _DRV_MIIM_WriteDataExt(pMiimObj, pOpDcpt, 0);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_EXT_WAIT_PHASE1;
             break;
 
-        case (uint8_t)DRV_MIIM_TXFER_EXT_WAIT_PHASE1:
+        case DRV_MIIM_TXFER_EXT_WAIT_PHASE1:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // wait op to complete
                 break;
             }
 
             // write 2nd part of the extended frame: high 16 bits
-            F_DRV_MIIM_WriteDataExt(pMiimObj, pOpDcpt, 1);
+            _DRV_MIIM_WriteDataExt(pMiimObj, pOpDcpt, 1);
 
-            pOpDcpt->txferStat = ((pOpDcpt->opFlags & (uint8_t)DRV_MIIM_OPERATION_FLAG_DISCARD) == 0U) ? (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : (uint8_t)DRV_MIIM_TXFER_DONE;
+            pOpDcpt->txferStat = ((pOpDcpt->opFlags & DRV_MIIM_OPERATION_FLAG_DISCARD) == 0) ? DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE : DRV_MIIM_TXFER_DONE;
             break;
 
 
-        case (uint8_t)DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
+        case DRV_MIIM_TXFER_RDWR_WAIT_COMPLETE:
             if( DRV_MIIM_PortBusy(pMiimObj->miimId) )
             {   // wait op to complete
                 break;
             }
 
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_DONE;
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_DONE;
             break;
 
 
         default:
-            F_MIIMAssertCond(false, __func__, __LINE__);
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_ERROR;
+            _MIIMAssertCond(false, __func__, __LINE__);
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_ERROR;
             break;
     }
 }
 
 // seq == 0 means low 16 bits
 // seq == 1 means high 16 bits
-static void F_DRV_MIIM_WriteDataExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq)
+static void _DRV_MIIM_WriteDataExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq)
 {
     // construct the SMI frame
-    uint16_t phyAdd = F_ExtSMI_Address(pOpDcpt->regIx);
-    uint16_t regIx = F_ExtSMI_Register(pOpDcpt->regIx, seq);
-    uint16_t wData = F_ExtSMI_Data(pOpDcpt->opData, seq);
-    F_MIIM_Debug_ExtSMIWrite(pOpDcpt, phyAdd, regIx, wData, seq);
+    uint16_t phyAdd = _ExtSMI_Address(pOpDcpt->regIx);
+    uint16_t regIx = _ExtSMI_Register(pOpDcpt->regIx, seq);
+    uint16_t wData = _ExtSMI_Data(pOpDcpt->opData, seq);
+    _MIIM_Debug_ExtSMIWrite(pOpDcpt, phyAdd, regIx, wData, seq);
 
     DRV_MIIM_WriteData(pMiimObj->miimId, phyAdd, regIx, wData);
 }
@@ -1291,12 +1190,12 @@ static void F_DRV_MIIM_WriteDataExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pO
     
 // seq == 0 means low 16 bits
 // seq == 1 means high 16 bits
-static void F_DRV_MIIM_ReadStartExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq)
+static void _DRV_MIIM_ReadStartExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, int seq)
 {
     // construct the SMI frame
-    uint16_t phyAdd = F_ExtSMI_Address(pOpDcpt->regIx);
-    uint16_t regIx = F_ExtSMI_Register(pOpDcpt->regIx, seq);
-    F_MIIM_Debug_ExtSMIRead(pOpDcpt, phyAdd, regIx, seq);
+    uint16_t phyAdd = _ExtSMI_Address(pOpDcpt->regIx);
+    uint16_t regIx = _ExtSMI_Register(pOpDcpt->regIx, seq);
+    _MIIM_Debug_ExtSMIRead(pOpDcpt, phyAdd, regIx, seq);
 
     DRV_MIIM_ReadStart(pMiimObj->miimId, phyAdd, regIx);
 }
@@ -1304,21 +1203,21 @@ static void F_DRV_MIIM_ReadStartExt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pO
 // reports the result of an operation
 // returns the action needded to be taken:
 //  - delete, complete, no action
-static DRV_MIIM_REPORT_ACT F_DRV_MIIM_ReportOp(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt)
+static DRV_MIIM_REPORT_ACT _DRV_MIIM_ReportOp(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt)
 {
     DRV_MIIM_REPORT_ACT repAct;
     bool isReported = false;
     DRV_MIIM_CLIENT_DCPT* pClient = pOpDcpt->pOwner;
 
-    F_MIIMAssertCond(pClient->parentObj == pMiimObj, __func__, __LINE__);
+    _MIIMAssertCond(pClient->parentObj == pMiimObj, __func__, __LINE__);
 
     while(true)
     {
-        if((pOpDcpt->opFlags & (uint8_t)DRV_MIIM_OPERATION_FLAG_DISCARD) == 0U)
+        if((pOpDcpt->opFlags & DRV_MIIM_OPERATION_FLAG_DISCARD) == 0)
         {   // need to signal to client that we're done...
-            if(pClient->cbackHandler != NULL)
+            if(pClient->cbackHandler != 0)
             {   // notify the client
-                DRV_MIIM_RESULT opResult = F_DRV_MIIM_OpResult(pOpDcpt, true);
+                DRV_MIIM_RESULT opResult = _DRV_MIIM_OpResult(pOpDcpt, true);
 #if (DRV_MIIM_CLIENT_OP_PROTECTION)
                 (*pClient->cbackHandler)((DRV_HANDLE)pClient, pOpDcpt->pCliStamp, opResult, pOpDcpt->opData);
 #else
@@ -1332,7 +1231,7 @@ static DRV_MIIM_REPORT_ACT F_DRV_MIIM_ReportOp(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM
             isReported = true;
         }
 
-        if(pOpDcpt->opType == (uint8_t)DRV_MIIM_OP_SCAN)
+        if(pOpDcpt->opType == DRV_MIIM_OP_SCAN)
         {   // a scan operation will remain active until aborted
             repAct = DRV_MIIM_REPORT_ACT_NONE;
         }
@@ -1349,40 +1248,37 @@ static DRV_MIIM_REPORT_ACT F_DRV_MIIM_ReportOp(DRV_MIIM_OBJ * pMiimObj, DRV_MIIM
 
 // translate an operation current txferStat to a client DRV_MIIM_RESULT
 // object should be locked
-static DRV_MIIM_RESULT F_DRV_MIIM_OpResult(DRV_MIIM_OP_DCPT* pOpDcpt, bool scanAck)
+static DRV_MIIM_RESULT _DRV_MIIM_OpResult(DRV_MIIM_OP_DCPT* pOpDcpt, bool scanAck)
 {
-    if((uint8_t)DRV_MIIM_TXFER_START <= pOpDcpt->txferStat &&  pOpDcpt->txferStat < (uint8_t)DRV_MIIM_TXFER_SCAN_VALID)
+    if(DRV_MIIM_TXFER_START <= pOpDcpt->txferStat &&  pOpDcpt->txferStat < DRV_MIIM_TXFER_SCAN_VALID)
     {
         return DRV_MIIM_RES_PENDING;
     }
-    else if(pOpDcpt->txferStat <= (uint8_t)DRV_MIIM_TXFER_DONE)
+    else if(pOpDcpt->txferStat <= DRV_MIIM_TXFER_DONE)
     {
-        if(scanAck && pOpDcpt->txferStat == (uint8_t)DRV_MIIM_TXFER_SCAN_VALID)
+        if(scanAck && pOpDcpt->txferStat == DRV_MIIM_TXFER_SCAN_VALID)
         {
-            pOpDcpt->txferStat = (uint8_t)DRV_MIIM_TXFER_SCAN_STALE;
+            pOpDcpt->txferStat = DRV_MIIM_TXFER_SCAN_STALE;
         }
         return DRV_MIIM_RES_OK;
     }
-    else
-    {
-        // should not happen
-    }
 
-    F_MIIMAssertCond(false, __func__, __LINE__);
+    // should not happen
+    _MIIMAssertCond(false, __func__, __LINE__);
     return DRV_MIIM_RES_OP_INTERNAL_ERR;
 }
 
 // returns a operation descriptor from DRV_MIIM_OPERATION_HANDLE
-static DRV_MIIM_OP_DCPT* F_DRV_MIIM_GetOpDcpt(DRV_MIIM_CLIENT_DCPT* pClient, DRV_MIIM_OPERATION_HANDLE opHandle)
+static DRV_MIIM_OP_DCPT* _DRV_MIIM_GetOpDcpt(DRV_MIIM_CLIENT_DCPT* pClient, DRV_MIIM_OPERATION_HANDLE opHandle)
 {
     DRV_MIIM_OP_DCPT* pOpDcpt;
 
 #if (DRV_MIIM_CLIENT_OP_PROTECTION)
     // check that ths client has rights for this operation
-    DRV_MIIM_CLI_OP_STAMP* pCliStamp = FC_OpHandle2CliStamp(opHandle);
+    DRV_MIIM_CLI_OP_STAMP* pCliStamp = (DRV_MIIM_CLI_OP_STAMP*)opHandle;
 
-    pOpDcpt = NULL;
-    if(pCliStamp != NULL && pCliStamp->pClientDcpt == pClient)
+    pOpDcpt = 0;
+    if(pCliStamp != 0 && pCliStamp->pClientDcpt == pClient)
     {
         if(pCliStamp->pOpDcpt->pCliStamp == pCliStamp)
         {   // finally check the time stamps
@@ -1393,28 +1289,28 @@ static DRV_MIIM_OP_DCPT* F_DRV_MIIM_GetOpDcpt(DRV_MIIM_CLIENT_DCPT* pClient, DRV
         }
     }
 #else
-    pOpDcpt = FC_OpHandle2OpDcpt(opHandle);
+    pOpDcpt = (DRV_MIIM_OP_DCPT*)opHandle;
 #endif  // (DRV_MIIM_CLIENT_OP_PROTECTION)
 
-    if(pOpDcpt != NULL && (pOpDcpt->qType == (uint8_t)DRV_MIIM_QTYPE_BUSY || pOpDcpt->qType == (uint8_t)DRV_MIIM_QTYPE_COMPLETE))
+    if(pOpDcpt != 0 && (pOpDcpt->qType == DRV_MIIM_QTYPE_BUSY || pOpDcpt->qType == DRV_MIIM_QTYPE_COMPLETE))
     {
-        if(pOpDcpt->txferStat < (uint8_t)DRV_MIIM_TXFER_DONE)
+        if(pOpDcpt->txferStat < DRV_MIIM_TXFER_DONE)
         {
-            F_MIIMAssertCond(pOpDcpt->qType == (uint8_t)DRV_MIIM_QTYPE_BUSY, __func__, __LINE__);
+            _MIIMAssertCond(pOpDcpt->qType == DRV_MIIM_QTYPE_BUSY, __func__, __LINE__);
         }
         else
         {
-            F_MIIMAssertCond(pOpDcpt->qType == (uint8_t)DRV_MIIM_QTYPE_COMPLETE, __func__, __LINE__);
+            _MIIMAssertCond(pOpDcpt->qType == DRV_MIIM_QTYPE_COMPLETE, __func__, __LINE__);
         }
 
         return pOpDcpt;
     }
 
-    return NULL;
+    return 0;
 }
 
 
-static void F_DRV_MIIM_ReleaseOpDcpt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, MIIM_SINGLE_LIST* pRemList, DRV_MIIM_QUEUE_TYPE qType)
+static void _DRV_MIIM_ReleaseOpDcpt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* pOpDcpt, SINGLE_LIST* pRemList, DRV_MIIM_QUEUE_TYPE qType)
 {
     DRV_MIIM_OP_DCPT* pRemNode;
 #if (DRV_MIIM_CLIENT_OP_PROTECTION)
@@ -1423,38 +1319,38 @@ static void F_DRV_MIIM_ReleaseOpDcpt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* p
 #endif  // (DRV_MIIM_CLIENT_OP_PROTECTION)
     bool wasScan = false;
 
-    F_MIIMAssertCond(pOpDcpt->qType == (uint8_t)qType, __func__, __LINE__);
-    pRemNode =  FC_SglNode2OpDcpt(Helper_SingleListNodeRemove(pRemList, FC_OpDcpt2SglNode(pOpDcpt)));
+    _MIIMAssertCond(pOpDcpt->qType == qType, __func__, __LINE__);
+    pRemNode =  (DRV_MIIM_OP_DCPT*)Helper_SingleListNodeRemove(pRemList, (SGL_LIST_NODE*)pOpDcpt);
 
     // make sure we could remove it!
     if(pRemNode == pOpDcpt)
     {
-        wasScan = pOpDcpt->opType == (uint8_t)DRV_MIIM_OP_SCAN; 
-        (void)memset(pOpDcpt, 0, sizeof(*pOpDcpt));
-        F_DRV_MIIM_OpListAdd(&pMiimObj->freeOpList, pOpDcpt, DRV_MIIM_QTYPE_FREE);
+        wasScan = pOpDcpt->opType == DRV_MIIM_OP_SCAN; 
+        memset(pOpDcpt, 0, sizeof(*pOpDcpt));
+        _DRV_MIIM_OpListAdd(&pMiimObj->freeOpList, pOpDcpt, DRV_MIIM_QTYPE_FREE);
     }
     else
     {
-        F_MIIMAssertCond(false, __func__, __LINE__);
+        _MIIMAssertCond(false, __func__, __LINE__);
     }
 #if (DRV_MIIM_CLIENT_OP_PROTECTION)
-    pRemStamp = FC_SglNode2CliStamp(Helper_SingleListNodeRemove(&pMiimObj->busyStampList, FC_CliStamp2SglNode(pCliStamp)));
+    pRemStamp = (DRV_MIIM_CLI_OP_STAMP*)Helper_SingleListNodeRemove(&pMiimObj->busyStampList, (SGL_LIST_NODE*)pCliStamp);
     if(pRemStamp == pCliStamp)
     {
-        F_MIIMAssertCond(pCliStamp->pOpDcpt == pOpDcpt, __func__, __LINE__);
-        (void)memset(pCliStamp, 0, sizeof(*pCliStamp));
-        Helper_SingleListTailAdd(&pMiimObj->freeStampList, FC_CliStamp2SglNode(pRemStamp));
+        _MIIMAssertCond(pCliStamp->pOpDcpt == pOpDcpt, __func__, __LINE__);
+        memset(pCliStamp, 0, sizeof(*pCliStamp));
+        Helper_SingleListTailAdd(&pMiimObj->freeStampList, (SGL_LIST_NODE*)pRemStamp);
     }
     else
     {
-        F_MIIMAssertCond(false, __func__, __LINE__);
+        _MIIMAssertCond(false, __func__, __LINE__);
     }
 #endif  // (DRV_MIIM_CLIENT_OP_PROTECTION)
 
     if(wasScan)
     {        
         DRV_MIIM_ScanDisable(pMiimObj->miimId);
-        pMiimObj->objFlags &= ~(uint16_t)DRV_MIIM_OBJ_FLAG_IS_SCANNING;
+        pMiimObj->objFlags &= ~DRV_MIIM_OBJ_FLAG_IS_SCANNING;
     }
     
     if(qType == DRV_MIIM_QTYPE_BUSY)
@@ -1463,43 +1359,42 @@ static void F_DRV_MIIM_ReleaseOpDcpt(DRV_MIIM_OBJ* pMiimObj, DRV_MIIM_OP_DCPT* p
     }
 }
 
-static DRV_MIIM_CLIENT_DCPT* F_DRV_MIIM_ClientAllocate( DRV_MIIM_OBJ* pMiimObj, size_t* pCliIx )
+static DRV_MIIM_CLIENT_DCPT* _DRV_MIIM_ClientAllocate( DRV_MIIM_OBJ* pMiimObj, int* pCliIx )
 {
-    size_t ix;
+    int ix;
 
     DRV_MIIM_CLIENT_DCPT* pClient = pMiimObj->objClients;
-    for(ix = 0; ix < sizeof(pMiimObj->objClients) / sizeof(*pMiimObj->objClients); ix++)
+    for(ix = 0; ix < sizeof(pMiimObj->objClients) / sizeof(*pMiimObj->objClients); ix++, pClient++)
     {
-        if(pClient->clientInUse == 0U)
+        if(pClient->clientInUse == 0)
         {   // available client
             *pCliIx = ix;
             return pClient;
         }
-        pClient++;
     }
 
-    return NULL;
+    return 0;
 }
 
 
 // de-allocates a client
 // MIIM object should be locked
-static void F_DRV_MIIM_ClientDeallocate( DRV_MIIM_CLIENT_DCPT* pClient)
+static void _DRV_MIIM_ClientDeallocate( DRV_MIIM_CLIENT_DCPT* pClient)
 {
-    F_DRV_MIIM_PurgeClientOp(pClient);
-    pClient->clientInUse = 0U ;
-    pClient->cliStatus = DRV_MIIM_CLIENT_STATUS_ERROR;
+    _DRV_MIIM_PurgeClientOp(pClient);
+    pClient->clientInUse = false ;
+    pClient->cliStatus = DRV_CLIENT_STATUS_ERROR;
     pClient->parentObj->numClients--;
-    pClient->parentObj->objFlags &= ~(uint16_t)DRV_MIIM_OBJ_FLAG_EXCLUSIVE;
+    pClient->parentObj->objFlags &= ~DRV_MIIM_OBJ_FLAG_EXCLUSIVE;
 }
 
 
 // search the busy and complete lists and remove
 // all operations owned by this client
-static void F_DRV_MIIM_PurgeClientOp(DRV_MIIM_CLIENT_DCPT* pClient)
+static void _DRV_MIIM_PurgeClientOp(DRV_MIIM_CLIENT_DCPT* pClient)
 {
     DRV_MIIM_OP_DCPT* pOpDcpt;
-    MIIM_SINGLE_LIST delList, busyList, completeList;
+    SINGLE_LIST delList, busyList, completeList;
     DRV_MIIM_OBJ* pMiimObj = pClient->parentObj;
 
     Helper_SingleListInitialize(&delList);
@@ -1507,57 +1402,57 @@ static void F_DRV_MIIM_PurgeClientOp(DRV_MIIM_CLIENT_DCPT* pClient)
     Helper_SingleListInitialize(&completeList);
 
     // check the ongoing operations
-    while((pOpDcpt = F_DRV_MIIM_OpListRemove(&pMiimObj->busyOpList, DRV_MIIM_QTYPE_BUSY)) != NULL)
+    while((pOpDcpt = _DRV_MIIM_OpListRemove(&pMiimObj->busyOpList, DRV_MIIM_QTYPE_BUSY)) != 0)
     {
         if(pOpDcpt->pOwner == pClient)
         {
-            Helper_SingleListTailAdd(&delList, FC_OpDcpt2SglNode(pOpDcpt));
+            Helper_SingleListTailAdd(&delList, (SGL_LIST_NODE*)pOpDcpt);
         }
         else
         {
-            Helper_SingleListTailAdd(&busyList, FC_OpDcpt2SglNode(pOpDcpt));
+            Helper_SingleListTailAdd(&busyList, (SGL_LIST_NODE*)pOpDcpt);
         }
     }
 
     pMiimObj->busyOpList = busyList;
 
-    while((pOpDcpt = FC_SglNode2OpDcpt(delList.head)) != NULL)
+    while((pOpDcpt = (DRV_MIIM_OP_DCPT*)delList.head) != 0)
     {
-        F_DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, &delList, DRV_MIIM_QTYPE_BUSY);
+        _DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, &delList, DRV_MIIM_QTYPE_BUSY);
     }
 
     // same for completed operations
-    while((pOpDcpt = F_DRV_MIIM_OpListRemove(&pMiimObj->completeOpList, DRV_MIIM_QTYPE_COMPLETE)) != NULL)
+    while((pOpDcpt = _DRV_MIIM_OpListRemove(&pMiimObj->completeOpList, DRV_MIIM_QTYPE_COMPLETE)) != 0)
     {
         if(pOpDcpt->pOwner == pClient)
         {
-            Helper_SingleListTailAdd(&delList, FC_OpDcpt2SglNode(pOpDcpt));
+            Helper_SingleListTailAdd(&delList, (SGL_LIST_NODE*)pOpDcpt);
         }
         else
         {
-            Helper_SingleListTailAdd(&completeList, FC_OpDcpt2SglNode(pOpDcpt));
+            Helper_SingleListTailAdd(&completeList, (SGL_LIST_NODE*)pOpDcpt);
         }
     }
 
     pMiimObj->completeOpList = completeList;
 
-    while((pOpDcpt = FC_SglNode2OpDcpt(delList.head)) != NULL)
+    while((pOpDcpt = (DRV_MIIM_OP_DCPT*)delList.head) != 0)
     {
-        F_DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, &delList, DRV_MIIM_QTYPE_COMPLETE);
+        _DRV_MIIM_ReleaseOpDcpt(pMiimObj, pOpDcpt, &delList, DRV_MIIM_QTYPE_COMPLETE);
     }
 
 }
 
-void  Helper_SingleListInitialize(MIIM_SINGLE_LIST* pL)
+void  Helper_SingleListInitialize(SINGLE_LIST* pL)
 {
-    pL->head = pL->tail = NULL;
+    pL->head = pL->tail = 0;
     pL->nNodes = 0;
 }
 
-void  Helper_SingleListTailAdd(MIIM_SINGLE_LIST* pL, MIIM_SGL_LIST_NODE* pN)
+void  Helper_SingleListTailAdd(SINGLE_LIST* pL, SGL_LIST_NODE* pN)
 {
-    pN->next = NULL;
-    if(pL->tail == NULL)
+    pN->next = 0;
+    if(pL->tail == 0)
     {
         pL->head = pL->tail = pN;
     }
@@ -1570,14 +1465,14 @@ void  Helper_SingleListTailAdd(MIIM_SINGLE_LIST* pL, MIIM_SGL_LIST_NODE* pN)
 }
 
 
-MIIM_SGL_LIST_NODE*  Helper_SingleListHeadRemove(MIIM_SINGLE_LIST* pL)
+SGL_LIST_NODE*  Helper_SingleListHeadRemove(SINGLE_LIST* pL)
 {
-    MIIM_SGL_LIST_NODE* pN = pL->head;
-    if(pN != NULL)
+    SGL_LIST_NODE* pN = pL->head;
+    if(pN)
     {
         if(pL->head == pL->tail)
         {
-            pL->head = pL->tail = NULL;
+            pL->head = pL->tail = 0;
         }
         else
         {
@@ -1595,7 +1490,7 @@ MIIM_SGL_LIST_NODE*  Helper_SingleListHeadRemove(MIIM_SINGLE_LIST* pL)
 
 
 
-MIIM_SGL_LIST_NODE*  Helper_SingleListNodeRemove(MIIM_SINGLE_LIST* pL, MIIM_SGL_LIST_NODE* pN)
+SGL_LIST_NODE*  Helper_SingleListNodeRemove(SINGLE_LIST* pL, SGL_LIST_NODE* pN)
 {
     if(pN == pL->head)
     {
@@ -1603,13 +1498,11 @@ MIIM_SGL_LIST_NODE*  Helper_SingleListNodeRemove(MIIM_SINGLE_LIST* pL, MIIM_SGL_
     }
     else
     {
-        MIIM_SGL_LIST_NODE* prev;
-        for(prev = pL->head; prev != NULL && prev->next != pN; prev = prev->next)
-        {
-        }
-        if(prev == NULL)
+        SGL_LIST_NODE* prev;
+        for(prev = pL->head; prev != 0 && prev->next != pN; prev = prev->next);
+        if(prev == 0)
         {   // no such node
-            return NULL;
+            return 0;
         }
         // found it
         prev->next = pN->next;

@@ -19,7 +19,7 @@
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2016-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2016-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -50,8 +50,8 @@ Microchip or any third party.
 
 //DOM-IGNORE-END
 
-#ifndef H_SMTPC_H_
-#define H_SMTPC_H_
+#ifndef __SMTPC_H
+#define __SMTPC_H
 #include "net_pres/pres/net_pres.h"
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -148,12 +148,9 @@ typedef enum
 
   Remarks:
     Multiple warnings could be set during a mail transmission
-
-    16 bit values only
 */
 typedef enum
 {
-    TCPIP_SMTPC_WARN_NONE                   = 0x0000,       // no warning
     TCPIP_SMTPC_WARN_REPLY_BUFFER_SMALL     = 0x0001,       // the reply buffer allocated for the server replies is too small
                                                             // server reply exceeded the size of the buffer
                                                             // it should be increased
@@ -189,10 +186,6 @@ typedef enum
 typedef const void* TCPIP_SMTPC_MESSAGE_HANDLE;
 
 
-/* MISRA C-2012 Rule 5.2 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_5_2_NET_DR_6 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:1 "MISRA C-2012 Rule 5.2" "H3_MISRAC_2012_R_5_2_NET_DR_6" 
 // *****************************************************************************
 /*
   Enumeration:
@@ -242,9 +235,6 @@ typedef enum
     // waiting for a retry
     TCPIP_SMTPC_MESSAGE_STAT_WAIT_RETRY,
 }TCPIP_SMTPC_MESSAGE_STATUS;
-#pragma coverity compliance end_block "MISRA C-2012 Rule 5.2"
-#pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
 
 // *****************************************************************************
 /*
@@ -271,7 +261,7 @@ typedef struct
     TCPIP_SMTPC_MESSAGE_STATUS  errorStat;      // the mail message status in which the error occurred, if any
                                                 // Else the TCPIP_SMTPC_MESSAGE_STAT_NONE will be used
     TCPIP_SMTPC_MESSAGE_WARNING messageWarn;    // warnings encountered during the message transmission, if any
-    uint16_t                    leftRetries;    // the number of retries that will still be attempted
+    int                         leftRetries;    // the number of retries that will still be attempted
                                                 // if error was a transient, not fatal
 }TCPIP_SMTPC_MESSAGE_REPORT;
 
@@ -359,8 +349,6 @@ typedef void (*TCPIP_SMTPC_SERVER_REPLY_CALLBACK)(TCPIP_SMTPC_MESSAGE_HANDLE mes
 
   Remarks:
     Only one attachment type should be set at a time.
-
-    16 bit values only.
 */
 
 typedef enum
@@ -493,7 +481,7 @@ typedef struct
 
     Multiple flags can be set
 
-    Only 16 bit flags supported!
+    Only 16 bit flags supported
 
     If no flags are set, then the default settings are used for the mail message.
 
@@ -567,7 +555,7 @@ typedef struct
 {
     TCPIP_SMTPC_MESSAGE_STATUS  messageStat;    // the current status of the mail message
     TCPIP_SMTPC_MESSAGE_WARNING messageWarn;    // the current warnings encountered during the message transmission
-    uint16_t                    messageRetries; // the current number of retries left for this message
+    int                         messageRetries; // the current number of retries left for this message
     NET_PRES_SKT_HANDLE_T       messageSkt;     // the socket associated with this message
 }TCPIP_SMTPC_MESSAGE_QUERY;
 
@@ -635,12 +623,12 @@ typedef struct
     // Mail Attachments
     //
     // number of attached buffers
-    uint16_t                            nBuffers;
+    int                                 nBuffers;
     // array of buffer attachments
     const TCPIP_SMTPC_ATTACH_BUFFER*    attachBuffers;
 
     // number of attached files
-    uint16_t                            nFiles;
+    int                                 nFiles;
     // array of file attachments
     const TCPIP_SMTPC_ATTACH_FILE*      attachFiles;
 
@@ -663,7 +651,7 @@ typedef struct
     uint16_t                            serverPort;
 
     // Additional message flags
-    uint16_t                            messageFlags;   // TCPIP_SMTPC_MAIL_FLAGS value
+    TCPIP_SMTPC_MAIL_FLAGS              messageFlags;
 
     // Mail Notifications
     //
@@ -697,7 +685,7 @@ typedef struct
 */
 typedef struct
 {
-    size_t      nMailConnections;   // number of mail connections to be created
+    int         nMailConnections;   // number of mail connections to be created
                                     // each mail message to be sent requires a mail connection
                                     // adjust based on the number of simultaneous 
                                     // mail messages in transit
@@ -710,7 +698,7 @@ typedef struct
     uint32_t    tlsHandshakeTmo;    // secure connection establishment timeout, seconds
                                     // usually few seconds
 
-    size_t      nMailRetries;       // how many times to retry sending a failed mail message
+    int         nMailRetries;       // how many times to retry sending a failed mail message
                                     // Retries occur only for server reported transient errors
                                     // Could be 0 if only one mail send is to be attempted, without retries
     uint32_t    serverRetryTmo;     // The retry interval because of a server transient error, in seconds.
@@ -837,5 +825,5 @@ void  TCPIP_SMTPC_Task(void);
 #endif
 //DOM-IGNORE-END
 
-#endif  // H_SMTPC_H_
+#endif  // __SMTPC_H
 

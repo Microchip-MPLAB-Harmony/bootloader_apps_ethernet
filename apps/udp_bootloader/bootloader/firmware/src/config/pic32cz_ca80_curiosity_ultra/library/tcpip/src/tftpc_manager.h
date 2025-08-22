@@ -7,7 +7,7 @@
 *******************************************************************************/
 
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -37,13 +37,14 @@ Microchip or any third party.
 
 
 
-#ifndef H_TFTPC_MANAGER_H_
-#define H_TFTPC_MANAGER_H_
+#ifndef __TFTPC_MANAGER_H_
+#define __TFTPC_MANAGER_H_
 
 
-bool        TCPIP_TFTPC_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData);
+bool        TCPIP_TFTPC_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData,
+                const TCPIP_TFTPC_MODULE_CONFIG* sslData);
 void        TCPIP_TFTPC_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData);
 
 
-#endif  // H_TFTPC_MANAGER_H_
+#endif  // __TFTPC_MANAGER_H_
 

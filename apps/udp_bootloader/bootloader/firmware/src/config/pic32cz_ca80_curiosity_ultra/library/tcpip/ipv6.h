@@ -19,7 +19,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -50,8 +50,8 @@ Microchip or any third party.
 
 //DOM-IGNORE-END
 
-#ifndef H_IPV6_H_
-#define H_IPV6_H_
+#ifndef __IPV6_H_
+#define __IPV6_H_
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -178,10 +178,6 @@ typedef enum
 } IPV6_ADDRESS_PREFERENCE;
 
 
-/* MISRA C-2012 Rule 5.2 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_5_2_NET_DR_6 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:1 "MISRA C-2012 Rule 5.2" "H3_MISRAC_2012_R_5_2_NET_DR_6" 
 // *****************************************************************************
 /* 
   Enumeration: 
@@ -211,9 +207,6 @@ typedef enum
     TYPE_IPV6_BEGINNING_OF_WRITABLE_PART,
     TYPE_IPV6_END_OF_LIST
 } IPV6_SEGMENT_TYPE;
-#pragma coverity compliance end_block "MISRA C-2012 Rule 5.2"
-#pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
 
 //DOM-IGNORE-BEGIN
 extern const IPV6_ADDR IPV6_FIXED_ADDR_UNSPECIFIED;
@@ -223,10 +216,6 @@ extern const IPV6_ADDR IPV6_SOLICITED_NODE_MULTICAST;
 extern const TCPIP_MAC_ADDR  IPV6_MULTICAST_MAC_ADDRESS;
 //DOM-IGNORE-END
 
-/* MISRA C-2012 Rule 5.5 deviated:2 Deviation record ID -  H3_MISRAC_2012_R_5_5_NET_DR_8 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 5.5" "H3_MISRAC_2012_R_5_5_NET_DR_8" 
 // *****************************************************************************
 /* 
   Type:
@@ -251,15 +240,8 @@ typedef union
         unsigned unrecognizedAction : 2;
     } bits;
 } IPV6_TLV_OPTION_TYPE;
-#pragma coverity compliance end_block "MISRA C-2012 Rule 5.5"
-#pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
 
 
-/* MISRA C-2012 Rule 5.6 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_5_6_NET_DR_14 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:1 "MISRA C-2012 Rule 5.6" "H3_MISRAC_2012_R_5_6_NET_DR_14" 
 // *****************************************************************************
 /* 
   Type:
@@ -284,9 +266,6 @@ typedef union
         unsigned type : 2;
     } bits;
 } IPV6_ADDRESS_TYPE;
-#pragma coverity compliance end_block "MISRA C-2012 Rule 5.6"
-#pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
 
 
 // *****************************************************************************
@@ -314,12 +293,12 @@ typedef union
     
   Example -
     const IPV6_ADDRESS_POLICY gPolicyTable[] = {
-    {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01}}, 128, 50,  0},          - Loopback address
-    {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},   0, 40,  1},          - Unspecified address
-    {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00}},  96, 35,  4},          - IPv4-mapped address
-    {{{0x20, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  16, 30,  2},          - 2002::/15 - 6to4
-    {{{0x20, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  32,  5,  5},          - 2001::/32 - Teredo tunneling
-    {{{0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},   7,  3, 13},          - ULA
+    {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01}}, 128, 50,  0},          // Loopback address
+    {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},   0, 40,  1},            // Unspecified address
+    {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00}},  96, 35,  4},           // IPv4-mapped address
+    {{{0x20, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  16, 30,  2},           // 2002::/15 - 6to4
+    {{{0x20, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  32,  5,  5},            // 2001::/32 - Teredo tunneling
+    {{{0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},   7,  3, 13},            // ULA
     };
   
   Remarks:
@@ -348,15 +327,15 @@ typedef struct
   Remarks:
     None.
  */
-typedef struct S_IPV6_DATA_SEGMENT_HEADER
+typedef struct _IPV6_DATA_SEGMENT_HEADER
 {
     uint8_t* dataLocation; // Location of the data to transmit
     unsigned short segmentSize; // Size of this data segment
     unsigned short segmentLen; // Number of bytes of data in this segment
     unsigned char memory; // Type: IPV6_DATA_NONE, IPV6_DATA_DYNAMIC_BUFFER, IPV6_DATA_NETWORK_FIFO, IPV6_DATA_PIC_RAM
     unsigned char segmentType; // Type of segment contents
-    struct S_IPV6_DATA_SEGMENT_HEADER * nextSegment; // Pointer to the next data segment
-    // void * data[];  // Optional buffer space
+    struct _IPV6_DATA_SEGMENT_HEADER * nextSegment; // Pointer to the next data segment
+    void * data[];  // Optional buffer space
 } IPV6_DATA_SEGMENT_HEADER;
 
 
@@ -378,9 +357,8 @@ typedef struct S_IPV6_DATA_SEGMENT_HEADER
   Remarks:
     None.
  */
-typedef struct S_IPV6_RX_FRAGMENT_BUFFER
-{
-    struct S_IPV6_RX_FRAGMENT_BUFFER * next; // Next fragmented packet    
+typedef struct _IPV6_RX_FRAGMENT_BUFFER {
+    struct _IPV6_RX_FRAGMENT_BUFFER * next; // Next fragmented packet    
     uint8_t *ptrPacket; // Packet information
     uint32_t identification; // Fragment id
     uint16_t bytesInPacket; // Number of bytes written to packet
@@ -416,9 +394,9 @@ typedef struct __attribute__((__packed__))
     {
         struct __attribute__((__packed__))
         {
-            unsigned m : 1;
-            unsigned reserved2 : 2;
-            unsigned fragmentOffset : 13;
+            uint16_t m : 1;
+            uint16_t reserved2 : 2;
+            uint16_t fragmentOffset : 13;
         }
         bits;
         uint16_t w;
@@ -457,51 +435,6 @@ typedef struct
     IPV6_ADDR SourceAddress; // 128 bit address of originator
     IPV6_ADDR DestAddress; // 128 bit address of intended recipient
 } IPV6_HEADER;
-
-
-// *****************************************************************************
-/* IPv6 Differentiated Services Code Point (DSCP)
-
-  Summary:
-    Enumeration describing the DSCP Class Selector values for an IPv6 packet
-
-  Description:
-    This is a enumeration pf the possible values for the DSCP Class Selector values of an IPv6 packet
-    The DSCP field is part of the 'Traffic Class' header member.
-    It is a 6 bit value.
-
-  Remarks:
-    The DSCP specifies a mechanism for classifying and managing network traffic and providing quality of service
-    in an IPv6 packet.
-
-    There is backward compatibility with the IPv4 TOS values.
-    A DSCP value divided by 8 will result in an IPv4 TOS value.
-
-    Default value is 0, i.e. standard service class, default forwarding (DF).
-
-    Currently only 6 bit values are supported!
-
-    The Class Selector values are just some predefined/standard values.
-    Full range of 6 bit values is supported.
-
- */
-
-typedef enum __attribute__ ((__packed__))
-{
-    TCPIP_IPV6_DSCP_CS0     = 0,
-    TCPIP_IPV6_DSCP_CS1     = 8,
-    TCPIP_IPV6_DSCP_CS2     = 16,
-    TCPIP_IPV6_DSCP_CS3     = 24,
-    TCPIP_IPV6_DSCP_CS4     = 32,
-    TCPIP_IPV6_DSCP_CS5     = 40,
-    TCPIP_IPV6_DSCP_CS6     = 48,
-    TCPIP_IPV6_DSCP_CS7     = 56,
-
-    //
-    TCPIP_IPV6_DSCP_MAX    = ((1U << 6) - 1U),    // maximum value, 6 bits 
-}TCPIP_IPV6_DSCP_CS;
-
-
 
 
 // *****************************************************************************
@@ -729,8 +662,9 @@ typedef enum
  */
 typedef struct
 {
-    uint16_t        rxfragmentBufSize;      // RX fragmented buffer size
-    uint16_t        fragmentPktRxTimeout;   // fragmented packet time out value
+    uint32_t                    rxfragmentBufSize;      // RX fragmented buffer size
+    uint32_t                    fragmentPktRxTimeout;   // fragmented packet time out value
+
     // members used only if TCPIP_IPV6_RANDOM_INTERFACE_ID_ENABLE != 0 ! 
     IPV6_RIID_PR_FNC            pRiidFnc;   // Random Interface ID generation function pointer
                                             // See the notes from the IPV6_RIID_PR_FNC definition.
@@ -797,9 +731,9 @@ typedef void (*IPV6_EVENT_HANDLER)(TCPIP_NET_HANDLE hNet, IPV6_EVENT_TYPE evType
     Packet allocation and deallocation acknowledgment callback function.
      
   Parameters:
-    IPV6_PACKET * - Pointer to the packet that was transmitted
-    res - True if the packet was sent, false otherwise
-    param - callback parameter
+    void * - Pointer to the packet that was transmitted
+    bool - True if the packet was sent, false otherwise
+    const void* - 0
     
   Returns:
     None
@@ -807,7 +741,7 @@ typedef void (*IPV6_EVENT_HANDLER)(TCPIP_NET_HANDLE hNet, IPV6_EVENT_TYPE evType
   Remarks:
     None.
 */
-typedef void (*IPV6_PACKET_ACK_FNC)(void* pkt, bool success, const void * param);
+typedef void (*IPV6_PACKET_ACK_FNC)(void*, bool, const void*);
 
 //*****************************************************************************
 /* 
@@ -826,9 +760,9 @@ typedef void (*IPV6_PACKET_ACK_FNC)(void* pkt, bool success, const void * param)
     The queue is processed separately by the NDP.IPV6_PACKET_ACK_FNC is called after the 
     successful removal and inclusion of the packet.
 */
-typedef struct S_IPV6_PACKET
+typedef struct _IPV6_PACKET
 {
-    struct S_IPV6_PACKET * next;                 // Next packet in a queue
+    struct _IPV6_PACKET * next;                 // Next packet in a queue
     unsigned short payloadLen;                  // Amount of data in payload buffer
     unsigned short headerLen;                   // Total header length (IP header + IPv6 Extension headers)
     unsigned short upperLayerHeaderLen;         // Total length of the upper layer header
@@ -836,15 +770,15 @@ typedef struct S_IPV6_PACKET
     unsigned char upperLayerHeaderType;         // Type definition for the upper-layer header type
     union
     {
-        struct __attribute__((packed))
+        struct
         {
-            unsigned reserved :         3;
-            unsigned useUnspecAddr :    1; // This packet should use the unspecified address
-            unsigned sourceSpecified :  1; // The upper layer or application layer specified a source address
-            unsigned queued :           1; // Packet has been queued
-            unsigned addressType :      2; // IP_ADDRESS_TYPE_IPV6 or IP_ADDRESS_TYPE_IPV4
+            unsigned char reserved :         3;
+            unsigned char useUnspecAddr :    1; // This packet should use the unspecified address
+            unsigned char sourceSpecified :  1; // The upper layer or application layer specified a source address
+            unsigned char queued :           1; // Packet has been queued
+            unsigned char addressType :      2; // IP_ADDRESS_TYPE_IPV6 or IP_ADDRESS_TYPE_IPV4
         };
-        uint8_t val;
+        unsigned char val;
     } flags;
     TCPIP_MAC_ADDR remoteMACAddr;               // The packet's remote MAC address
     IPV6_PACKET_ACK_FNC ack6Fnc;                // function to be called when IPv6 done with the packet
@@ -908,7 +842,6 @@ typedef enum
     IPV6_ULA_RES_IF_ERR             = -2,   // interface non existent
     IPV6_ULA_RES_NTP_ACCESS_ERR     = -3,   // NTP module could not be accessed
     IPV6_ULA_RES_NTP_TSTAMP_ERR     = -4,   // wrong NTP time stamp received
-    IPV6_ULA_RES_NOT_SUPPORTED      = -5,   // wrong call/unsupported
 
 } IPV6_ULA_RESULT;
 
@@ -938,7 +871,6 @@ typedef enum
     TCPIP_IPV6_RES_ALLOC_ERR        = -4,   // memory allocation failed
     TCPIP_IPV6_RES_ADDRESS_ERR      = -5,   // no such address found, address error
     TCPIP_IPV6_RES_BAD_IF           = -6,   // bad interface selected for the operation
-    TCPIP_IPV6_RES_OPER_ERR         = -7,   // operation error, not supported
 
     // other error codes will be added
     TCPIP_IPV6_RES_INTERNAL_ERR     = -20,   // internal/unexpected error; should not happen
@@ -992,7 +924,7 @@ typedef const void* TCPIP_IPV6_PROCESS_HANDLE;
 /* IPv6 packet handler Pointer
 
   Function:
-    bool <FunctionName> (TCPIP_NET_HANDLE hNet, TCPIP_MAC_PACKET* rxPkt, const void* hParam);
+    bool <FunctionName> (TCPIP_NET_HANDLE hNet, struct _tag_TCPIP_MAC_PACKET* rxPkt, const void* hParam);
 
   Summary:
     Pointer to a function(handler) that will get called to process an incoming IPv6 packet.
@@ -1037,7 +969,7 @@ typedef const void* TCPIP_IPV6_PROCESS_HANDLE;
     See the tcpip_mac.h for details.
     
  */
-typedef bool(*TCPIP_IPV6_PACKET_HANDLER)(TCPIP_NET_HANDLE hNet, TCPIP_MAC_PACKET* rxPkt, const void* hParam);
+typedef bool(*TCPIP_IPV6_PACKET_HANDLER)(TCPIP_NET_HANDLE hNet, struct _tag_TCPIP_MAC_PACKET* rxPkt, const void* hParam);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -1178,7 +1110,7 @@ IPV6_PACKET * TCPIP_IPV6_TxPacketAllocate(TCPIP_NET_HANDLE netH, IPV6_PACKET_ACK
   Remarks:
     None.
  */
-unsigned short TCPIP_IPV6_TxIsPutReady(IPV6_PACKET * ptrPacket, unsigned short count);
+unsigned short TCPIP_IPV6_TxIsPutReady(IPV6_PACKET * pkt, unsigned short count);
 
 
 //*****************************************************************************
@@ -1205,7 +1137,7 @@ unsigned short TCPIP_IPV6_TxIsPutReady(IPV6_PACKET * ptrPacket, unsigned short c
   Remarks:
     None.
  */
-void TCPIP_IPV6_PacketFree(IPV6_PACKET * ptrPacket);
+void TCPIP_IPV6_PacketFree(IPV6_PACKET * pkt);
 
 
 //*****************************************************************************
@@ -1266,7 +1198,7 @@ bool TCPIP_IPV6_Put(IPV6_PACKET * pkt, unsigned char v);
   Remarks:
     None.
   */
-unsigned short TCPIP_IPV6_ArrayPutHelper(IPV6_PACKET * ptrPacket, const void * dataSource, uint8_t dataType, unsigned short len);
+unsigned short TCPIP_IPV6_ArrayPutHelper(IPV6_PACKET * pkt, const void * dataSource, uint8_t dataType, unsigned short len);
 
 
 //******************************************************************************
@@ -1333,7 +1265,7 @@ unsigned short TCPIP_IPV6_ArrayPutHelper(IPV6_PACKET * ptrPacket, const void * d
     This function is useful for adding payloads to outgoing packets without
     copying them if the data is in another pre-existing buffer (i.e., TCP).
 */
-unsigned short TCPIP_IPV6_PayloadSet(IPV6_PACKET * ptrPacket, uint8_t* payload, unsigned short len);
+unsigned short TCPIP_IPV6_PayloadSet(IPV6_PACKET * pkt, uint8_t* payload, unsigned short len);
 
 
 //*****************************************************************************
@@ -1363,7 +1295,7 @@ unsigned short TCPIP_IPV6_PayloadSet(IPV6_PACKET * ptrPacket, uint8_t* payload, 
   Remarks:
     None.
 */
-int TCPIP_IPV6_Flush(IPV6_PACKET * ptrPacket);
+int TCPIP_IPV6_Flush(IPV6_PACKET * pkt);
 
 
 //******************************************************************************
@@ -1544,7 +1476,7 @@ IPV6_ADDR *  TCPIP_IPV6_SourceAddressGet(IPV6_PACKET * p);
 /*
   Function:
     IPV6_ADDR_STRUCT * TCPIP_IPV6_UnicastAddressAdd (TCPIP_NET_HANDLE netH, 
-                const IPV6_ADDR * address, uint8_t prefixLen, uint8_t skipProcessing)
+                const IPV6_ADDR * address, int prefixLen, uint8_t skipProcessing)
 
   Summary:
     Adds a unicast address to a specified interface
@@ -1578,7 +1510,7 @@ IPV6_ADDR *  TCPIP_IPV6_SourceAddressGet(IPV6_PACKET * p);
 
 */
 IPV6_ADDR_STRUCT * TCPIP_IPV6_UnicastAddressAdd(TCPIP_NET_HANDLE netH, 
-            const IPV6_ADDR * address, uint8_t prefixLen, uint8_t skipProcessing);
+            const IPV6_ADDR * address, int prefixLen, uint8_t skipProcessing);
 
 
 //*****************************************************************************
@@ -1888,7 +1820,7 @@ bool TCPIP_IPV6_HandlerDeregister(IPV6_HANDLE hIpv6);
 // *****************************************************************************
 /*
   Function:
-    uint16_t TCPIP_IPV6_MaxDatagramDataSizeGet(TCPIP_NET_HANDLE netH);
+    int TCPIP_IPV6_MaxDatagramDataSizeGet(TCPIP_NET_HANDLE netH);
 
   Summary:
     Helper to get the maximum datagream data size (MDDS) on a specific interface.
@@ -1912,7 +1844,7 @@ bool TCPIP_IPV6_HandlerDeregister(IPV6_HANDLE hIpv6);
     None
 
  */
-uint16_t TCPIP_IPV6_MaxDatagramDataSizeGet(TCPIP_NET_HANDLE netH);
+int TCPIP_IPV6_MaxDatagramDataSizeGet(TCPIP_NET_HANDLE netH);
 
 // *****************************************************************************
 /*
@@ -2011,8 +1943,8 @@ TCPIP_IPV6_PROCESS_HANDLE     TCPIP_IPV6_PacketHandlerRegister(TCPIP_IPV6_PACKET
   Example:
     <code>
     TCPIP_IPV6_PROCESS_HANDLE myHandle = TCPIP_IPV6_PacketHandlerRegister(myPacketHandler, myParam );
-    - process incoming packets
-    - now we're done with it
+    // process incoming packets
+    // now we're done with it
     TCPIP_IPV6_PacketHandlerDeregister(myHandle);
     </code>
 
@@ -2127,118 +2059,6 @@ TCPIP_IPV6_RESULT TCPIP_IPV6_NeighborAddressDelete(TCPIP_NET_HANDLE netH, const 
 TCPIP_IPV6_RESULT TCPIP_IPV6_G3PLC_PanIdSet(TCPIP_NET_HANDLE netH, uint16_t panId);
 
 // *****************************************************************************
-/* IPv6 packet TX priority handler
-
-  Function:
-    uint8_t <FunctionName> (TCPIP_NET_HANDLE hNet, uint8_t dscp);
-
-  Summary:
-    Pointer to a function(handler) that will get called to calculate the priority queue of an outgoing IPv6 packet.
-
-  Description:
-    Pointer to a function that will be called by the IPv6 module
-    when a packet needs to be transmitted.
-
-  Precondition:
-    None
-
-  Parameters:
-    hNet - network handle on which the packet will be transmitted
-    dscp - the packet IPv6 header Differentiated Service Field (dscp) value
-
-  Returns:
-    An 8 bit value specifying the MAC priority queue with which the packet is to be transmitted.
-    For MACs that support priority queues (GMAC), the packets will be transmitted with different priorities.
-    This function allows an IPv6 user to select the desired priority.
-
-
-  Remarks:
-   The IPv6 header IPV6_HEADER::ds value is set using:
-        - TCPIP_UDP_OptionsSet(skt, UDP_OPTION_DSCP, ...) for UDP
-        - TCPIP_TCP_OptionsSet(skt, TCP_OPTION_DSCP, ...) for TCP
-
-   The number of MAC supported priority queues is available using TCPIP_STACK_MacTxPriGet(hNet)
-
-   The returned value should NOT exceed the maximum MAC supported priority queue - 1!
-
-   Registration of a function to calculate the packet priority is optional.
-   By default an internal calculation is performed if no such function is registered.
-   The calculation is as follows:
-        - Q == the number of MAC supported priority queues
-        - M == the maximum IPv6 dscp value == TCPIP_IPV6_DSCP_MAX (63)
-        - d == the current value of the IPv6 header ds (dscp)
-        - q == the MAC priority queue:
-        q = (d x Q) / M - 1;
-
- */
-typedef uint8_t(*TCPIP_IPV6_TX_PRI_HANDLER)(TCPIP_NET_HANDLE hNet, uint8_t dscp);
-
-//*******************************************************************************
-/*
-  Function:
-    bool    TCPIP_IPV6_TxPriHandlerRegister(TCPIP_IPV6_TX_PRI_HANDLER priHandler);
-
-  Summary:
-    Registers a packet TX priority queue handler
-
-  Description:
-    This function registers a new packet TX priority handler.
-    The handler will be called when the IPv6 module needs to transmit a packet 
-    and the packet MAC priority queue needs to be calculated.
-
-
-  Precondition:
-    IPv6 properly initialized
-
-  Parameters:
-    priHandler      - the packet priority handler which will be called for an outgoing packet
-
-  Returns:
-    - true - if the operation succeeded
-    - false - if the operation failed
-                i.e. another handler is already registered
-
-  Remarks:
-    Currently only one packet TX priority handler is supported for the IPv6 module.
-    The call will fail if a handler is already registered.
-    Use TCPIP_IPV6_TxPriHandlerDeregister first
-
-    The registration of an handler is optional.
-    See the TCPIP_IPV6_TX_PRI_HANDLER for the default priority queues calculation.
-  */
-bool    TCPIP_IPV6_TxPriHandlerRegister(TCPIP_IPV6_TX_PRI_HANDLER priHandler);
-
-//*******************************************************************************
-/*
-  Function:
-    bool    TCPIP_IPV6_TxPriHandlerDeregister(TCPIP_IPV6_TX_PRI_HANDLER priHandler);
-
-  Summary:
-    Deregisters a packet TX priority queue handler
-
-  Description:
-    This function deregisters a previously registered packet TX priority handler.
-
-  Precondition:
-    IPv6 properly initialized
-
-  Parameters:
-    priHandler      - the packet priority handler which has been previously registered
-
-  Returns:
-    - true - if the operation succeeded
-    - false - if the operation failed
-                i.e. no such handler is registered
-
-  Remarks:
-    Currently only one packet TX priority handler is supported for the IPv6 module.
-    TCPIP_IPV6_TxPriHandlerDeregister should be called before registering another handler.
-
-  */
-bool    TCPIP_IPV6_TxPriHandlerDeregister(TCPIP_IPV6_TX_PRI_HANDLER priHandler);
-
-
-// *****************************************************************************
 /*
   Function:
     void  TCPIP_IPV6_Task(void)
@@ -2269,4 +2089,4 @@ void  TCPIP_IPV6_Task(void);
 #endif
 //DOM-IGNORE-END
 
-#endif // H_IPV6_H_
+#endif // __IPV6_H_

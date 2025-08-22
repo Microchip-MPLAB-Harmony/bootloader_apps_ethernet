@@ -11,7 +11,7 @@
 *******************************************************************************/
 
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -60,12 +60,12 @@ Microchip or any third party.
 #define TCPIP_STACK_HDR_MESSAGE   "TCP/IP Stack: "
 
 // MAC events enabled by the stack manager
-#define TCPIP_STACK_MAC_ALL_EVENTS          ((uint32_t)TCPIP_MAC_EV_RX_DONE | (uint32_t)TCPIP_MAC_EV_TX_DONE | (uint32_t)TCPIP_MAC_EV_RXTX_ERRORS)
+#define TCPIP_STACK_MAC_ALL_EVENTS          (TCPIP_MAC_EV_RX_DONE | TCPIP_MAC_EV_TX_DONE | TCPIP_MAC_EV_RXTX_ERRORS)
 
 // MAC events used by the stack manager to detect that
 // there are active RX events that need processing
 // always subset of TCPIP_STACK_MAC_ALL_EVENTS
-#define TCPIP_STACK_MAC_ACTIVE_RX_EVENTS    ((uint32_t)TCPIP_MAC_EV_RX_DONE | (uint32_t)TCPIP_MAC_EV_RX_OVFLOW | (uint32_t)TCPIP_MAC_EV_RX_BUFNA)
+#define TCPIP_STACK_MAC_ACTIVE_RX_EVENTS    (TCPIP_MAC_EV_RX_DONE | TCPIP_MAC_EV_RX_OVFLOW | TCPIP_MAC_EV_RX_BUFNA)
 
 
 // constant data
@@ -87,34 +87,34 @@ static const char* TCPIP_STACK_IF_ALIAS_NAME_TBL[TCPIP_MAC_TYPES] =
 // Since the modules that need connection notification is
 // known to the stack manager no dynamic approach is taken.
 // But simply a call table is maintained.
-#if (M_TCPIP_STACK_RUN_TIME_INIT == 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT == 0)
 static const tcpipModuleConnHandler  TCPIP_STACK_CONN_EVENT_TBL [] =
 {
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_DHCP_CLIENT)
-    &TCPIP_DHCP_ConnectionHandler,
+    TCPIP_DHCP_ConnectionHandler,
 #endif  // defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_DHCP_CLIENT)
 
 #if defined(TCPIP_STACK_USE_IPV6) && defined(TCPIP_STACK_USE_DHCPV6_CLIENT)
-    &TCPIP_DHCPV6_ConnectionHandler,
+    TCPIP_DHCPV6_ConnectionHandler,
 #endif  // defined(TCPIP_STACK_USE_IPV6) && defined(TCPIP_STACK_USE_DHCPV6_CLIENT)
 
     // add other needed handlers here
 };
 #else
-static void F_TCPIP_DHCP_RunConnectionHandler(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT connEvent)
+static void _TCPIP_DHCP_RunConnectionHandler(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT connEvent)
 {
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_DHCP_CLIENT)
-    if(TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCP_CLIENT))
+    if(_TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCP_CLIENT))
     {
         TCPIP_DHCP_ConnectionHandler(pNetIf, connEvent);
     }   
 #endif  // defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_DHCP_CLIENT)
 }
 
-static void F_TCPIP_DHCPV6_RunConnectionHandler(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT connEvent)
+static void _TCPIP_DHCPV6_RunConnectionHandler(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT connEvent)
 {
 #if defined(TCPIP_STACK_USE_IPV6) && defined(TCPIP_STACK_USE_DHCPV6_CLIENT)
-    if(TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCPV6_CLIENT))
+    if(_TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCPV6_CLIENT))
     {
         TCPIP_DHCPV6_ConnectionHandler(pNetIf, connEvent);
     }   
@@ -123,17 +123,17 @@ static void F_TCPIP_DHCPV6_RunConnectionHandler(TCPIP_NET_IF* pNetIf, TCPIP_MAC_
 
 static const tcpipModuleConnHandler  TCPIP_STACK_CONN_EVENT_TBL [] =
 {
-    &F_TCPIP_DHCP_RunConnectionHandler,
-    &F_TCPIP_DHCPV6_RunConnectionHandler,
+    _TCPIP_DHCP_RunConnectionHandler,
+    _TCPIP_DHCPV6_RunConnectionHandler,
 
     // add other needed handlers here
 };
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT == 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT == 0)
 
 
 // variables
 
-static TCPIP_NET_IF* tcpipNetIf = NULL;       // dynamically allocated
+static TCPIP_NET_IF* tcpipNetIf = 0;       // dynamically allocated
 
 // Main default interfaces
 typedef struct
@@ -147,15 +147,15 @@ typedef struct
 
 static TCPIPDefaultIF tcpipDefIf = { 0 };
 
-static volatile int32_t    totTcpipEventsCnt = 0;
-static volatile int32_t    newTcpipTickAvlbl = 0;
+static volatile int    totTcpipEventsCnt = 0;
+static volatile int    newTcpipTickAvlbl = 0;
 
-static volatile int32_t    newTcpipErrorEventCnt = 0;
-static volatile int32_t    newTcpipStackEventCnt = 0;
+static volatile int    newTcpipErrorEventCnt = 0;
+static volatile int    newTcpipStackEventCnt = 0;
 
 
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
-static void    F_TCPIP_MacEventCB(TCPIP_MAC_EVENT event, const void* hParam);
+static void    _TCPIP_MacEventCB(TCPIP_MAC_EVENT event, const void* hParam);
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 
 static TCPIP_STACK_MODULE_CTRL  tcpip_stack_ctrl_data = {0};
@@ -166,10 +166,7 @@ static TCPIP_STACK_INIT     tcpip_init_data = { {0} };
 //
 static SYS_TMR_HANDLE       tcpip_stack_tickH = SYS_TMR_HANDLE_INVALID;      // tick handle
 
-static uint32_t             sysTmrFreq;        // current sys time frequency
-
 static uint32_t             stackTaskRate;  // actual task running rate, ms
-                                            // should be safely cast to int16_t, so maximum value is 32767!
 static int32_t              stackLinkTmo;   // timeout for checking the link status, ms
 
 static uint32_t             stackAsyncSignalCount;   // global counter of the number of times the modules requested a TCPIP_MODULE_SIGNAL_ASYNC
@@ -214,26 +211,26 @@ static SINGLE_LIST      TCPIP_MODULES_QUEUE_TBL [TCPIP_MODULE_LAYER3] =
 
 
 // table keeping track of the currently running modules
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
 static TCPIP_MODULE_RUN_DCPT TCPIP_MODULES_RUN_TBL[TCPIP_MODULES_NUMBER] = { {0}}; 
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
 
-#if (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
-// table containing the recipients of the TCPIP_MODULE_SIGNAL_IF_CHANGE signal
+#if (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+// table containing the recipients of the TCPIP_MODULE_SIGNAL_INTERFACE_CHANGE signal
 // keep it short, as most of the modules do not need notifications
 // just the socket ones and ARP (just to be gracious on the net) 
 static const uint16_t TCPIP_STACK_MODULE_SIGNAL_CHANGE_TBL[] = 
 {
-    (uint16_t)TCPIP_MODULE_ARP, (uint16_t)TCPIP_MODULE_UDP, (uint16_t)TCPIP_MODULE_TCP
+    TCPIP_MODULE_ARP, TCPIP_MODULE_UDP, TCPIP_MODULE_TCP
 };
-// table containing the recipients of the TCPIP_MODULE_SIGNAL_IF_CONFIG signal
+// table containing the recipients of the TCPIP_MODULE_SIGNAL_INTERFACE_CONFIG signal
 // keep it short, as only the socket clients need it
 // not used internally
 static const uint16_t TCPIP_STACK_MODULE_SIGNAL_CONFIG_TBL[] = 
 {
-    (uint16_t)TCPIP_MODULE_UDP, (uint16_t)TCPIP_MODULE_TCP
+    TCPIP_MODULE_UDP, TCPIP_MODULE_TCP
 };
-#endif  // (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+#endif  // (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
 
 // table containing the layer 1 frames processed by this stack
 static const TCPIP_FRAME_PROCESS_ENTRY TCPIP_FRAME_PROCESS_TBL [] = 
@@ -241,27 +238,27 @@ static const TCPIP_FRAME_PROCESS_ENTRY TCPIP_FRAME_PROCESS_TBL [] =
     // frameType                                 // moduleId                        // pktTypeFlags         
     // 1st layer handling                                                                 
 #if defined(TCPIP_STACK_USE_IPV4)                                                         
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_ARP,       .moduleId = (uint16_t)TCPIP_MODULE_ARP,     .pktTypeFlags = (uint32_t)TCPIP_MAC_PKT_FLAG_ARP},  // ARP entry
+    {.frameType = TCPIP_ETHER_TYPE_ARP,         .moduleId = TCPIP_MODULE_ARP,       .pktTypeFlags = TCPIP_MAC_PKT_FLAG_ARP},  // ARP entry
 #else                                                                               
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_UNKNOWN,   .moduleId = (uint16_t)TCPIP_MODULE_ARP,     .pktTypeFlags = 0U},                       // ARP not processed
+    {.frameType = TCPIP_ETHER_TYPE_UNKNOWN,     .moduleId = TCPIP_MODULE_ARP,      .pktTypeFlags = 0},                       // ARP not processed
 #endif  // defined(TCPIP_STACK_USE_IPV4)                                            
                                                                                     
 #if defined(TCPIP_STACK_USE_IPV4)                                                   
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_IPV4,      .moduleId = (uint16_t)TCPIP_MODULE_IPV4,    .pktTypeFlags = (uint32_t)TCPIP_MAC_PKT_FLAG_IPV4}, // IPv4 entry
+    {.frameType = TCPIP_ETHER_TYPE_IPV4,        .moduleId = TCPIP_MODULE_IPV4,     .pktTypeFlags = TCPIP_MAC_PKT_FLAG_IPV4}, // IPv4 entry
 #else                                                                               
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_UNKNOWN,   .moduleId = (uint16_t)TCPIP_MODULE_IPV4,    .pktTypeFlags = 0U},                       // IPv4 not processed
+    {.frameType = TCPIP_ETHER_TYPE_UNKNOWN,     .moduleId = TCPIP_MODULE_IPV4,     .pktTypeFlags = 0},                       // IPv4 not processed
 #endif  // defined(TCPIP_STACK_USE_IPV4)                                            
                                                                                     
 #if defined(TCPIP_STACK_USE_IPV6)                                                   
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_IPV6,      .moduleId = (uint16_t)TCPIP_MODULE_IPV6,    .pktTypeFlags = (uint32_t)TCPIP_MAC_PKT_FLAG_IPV6}, // IPv6 entry
+    {.frameType = TCPIP_ETHER_TYPE_IPV6,        .moduleId = TCPIP_MODULE_IPV6,     .pktTypeFlags = TCPIP_MAC_PKT_FLAG_IPV6}, // IPv6 entry
 #else                                                                               
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_UNKNOWN,   .moduleId = (uint16_t)TCPIP_MODULE_IPV6,    .pktTypeFlags = 0U},                       // IPv6 not processed
+    {.frameType = TCPIP_ETHER_TYPE_UNKNOWN,     .moduleId = TCPIP_MODULE_IPV6,     .pktTypeFlags = 0},                       // IPv6 not processed
 #endif // defined(TCPIP_STACK_USE_IPV6)                                             
                                                                                     
-#if 0   // defined(TCPIP_STACK_USE_LLDP) - no LLDP support
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_LLDP,      .moduleId = (uint16_t)TCPIP_MODULE_LLDP,    .pktTypeFlags = (uint32_t)TCPIP_MAC_PKT_FLAG_LLDP}, // LLDP entry
+#if defined(TCPIP_STACK_USE_LLDP)                                                   
+    {.frameType = TCPIP_ETHER_TYPE_LLDP,        .moduleId = TCPIP_MODULE_LLDP,     .pktTypeFlags = TCPIP_MAC_PKT_FLAG_LLDP}, // LLDP entry
 #else                                                                               
-    {.frameType = (uint16_t)TCPIP_ETHER_TYPE_UNKNOWN,   .moduleId = (uint16_t)TCPIP_MODULE_LLDP,    .pktTypeFlags = 0U},                       // LLDP not processed
+    {.frameType = TCPIP_ETHER_TYPE_UNKNOWN,     .moduleId = TCPIP_MODULE_LLDP,     .pktTypeFlags = 0},                       // LLDP not processed
 #endif  // defined(TCPIP_STACK_USE_LLDP)
 
     // add other types of supported frames here
@@ -275,9 +272,9 @@ static TCPIP_STACK_INIT_CALLBACK tcpip_stack_init_cb;    // callback to be calle
 
 static TCPIP_STACK_HEAP_CONFIG  tcpip_heap_config = { 0 };      // copy of the heap that the stack uses
 
-static uint32_t tcpip_SecCount;            // current second value
-static uint32_t tcpip_MsecCount;           // current millisecond value
-static void F_TCPIP_SecondCountSet(void);    // local time keeping
+static uint32_t _tcpip_SecCount;            // current second value
+static uint32_t _tcpip_MsecCount;           // current millisecond value
+static void _TCPIP_SecondCountSet(void);    // local time keeping
 
 #if defined(TCPIP_STACK_TIME_MEASUREMENT)
 static uint64_t         tcpip_stack_time = 0;
@@ -285,29 +282,29 @@ static bool             tcpip_stack_timeEnable = 0;
 extern void             TCPIP_Commands_ExecTimeUpdate(void);
 #endif // defined(TCPIP_STACK_TIME_MEASUREMENT)
 
-static bool F_TCPIPStackIsRunState(void);
+static bool _TCPIPStackIsRunState(void);
 
-static void F_TCPIP_STACK_TickHandler(uintptr_t context, uint32_t currTick);        // stack tick handler
+static void _TCPIP_STACK_TickHandler(uintptr_t context, uint32_t currTick);        // stack tick handler
 
-static void F_TCPIP_ProcessTickEvent(void);
-static int  F_TCPIPExtractMacRxPackets(TCPIP_NET_IF* pNetIf);
+static void _TCPIP_ProcessTickEvent(void);
+static int  _TCPIPExtractMacRxPackets(TCPIP_NET_IF* pNetIf);
 
-static uint32_t F_TCPIPProcessMacPackets(bool signal_t);
+static uint32_t _TCPIPProcessMacPackets(bool signal);
 
-static void F_TCPIP_ProcessMACErrorEvents(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT activeEvent);
+static void _TCPIP_ProcessMACErrorEvents(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT activeEvent);
 
-static bool F_InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, size_t nNets);
-static bool F_LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET_IF* pNetIf, bool restartIf);
+static bool _InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, int nNets);
+static bool _LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET_IF* pNetIf, bool restartIf);
 
-static const TCPIP_STACK_MODULE_CONFIG* F_TCPIP_STACK_FindModuleData(TCPIP_STACK_MODULE moduleId, const TCPIP_STACK_MODULE_CONFIG* pModConfig, size_t nModules);
+static const TCPIP_STACK_MODULE_CONFIG* _TCPIP_STACK_FindModuleData(TCPIP_STACK_MODULE moduleId, const TCPIP_STACK_MODULE_CONFIG* pModConfig, int nModules);
 
 static void  TCPIP_STACK_BringNetDown(TCPIP_STACK_MODULE_CTRL* stackCtrlData, TCPIP_NET_IF* pNetIf, TCPIP_STACK_ACTION action, TCPIP_MAC_POWER_MODE powerMode);
-static bool  TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const TCPIP_NETWORK_CONFIG* pNetConf, const TCPIP_STACK_MODULE_CONFIG* pModConfig, size_t nModules);
+static bool  TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const TCPIP_NETWORK_CONFIG* pNetConf, const TCPIP_STACK_MODULE_CONFIG* pModConfig, int nModules);
 
-static void F_TCPIPStackSetIpAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAddress, const IPV4_ADDR* mask, const IPV4_ADDR* gw, bool setDefault);
+static void _TCPIPStackSetIpAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAddress, const IPV4_ADDR* mask, const IPV4_ADDR* gw, bool setDefault);
 
 #if (TCPIP_STACK_CONFIGURATION_SAVE_RESTORE != 0)
-static void* F_NetConfigStringToBuffer(void** ppDstBuff, void* pSrcBuff, size_t* pDstSize, size_t* pNeedLen, size_t* pActLen);
+static void* _NetConfigStringToBuffer(void** ppDstBuff, void* pSrcBuff, size_t* pDstSize, size_t* pNeedLen, size_t* pActLen);
 #endif  // (TCPIP_STACK_DOWN_OPERATION != 0)
 
 static TCPIP_MAC_ACTION TCPIP_STACK_StackToMacAction(TCPIP_STACK_ACTION action);
@@ -316,52 +313,52 @@ static void TCPIP_STACK_StacktoMacCtrl(TCPIP_MAC_MODULE_CTRL* pMacCtrl, TCPIP_ST
 
 static bool TCPIP_STACK_CheckEventsPending(void);
 
-static void F_TCPIP_NetIfEvent(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT event, bool isrProtect);
+static void _TCPIP_NetIfEvent(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT event, bool isrProtect);
 
-static TCPIP_MODULE_SIGNAL  F_TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL clrMask);
+static TCPIP_MODULE_SIGNAL  _TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL clrMask);
 
 static void     TCPIP_STACK_KillStack(void);
 
-static bool     F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init);
+static bool     _TCPIP_DoInitialize(const TCPIP_STACK_INIT * init);
 
-static void     F_TCPIP_InitCallback(TCPIP_STACK_INIT_CALLBACK cback);
+static void     _TCPIP_InitCallback(TCPIP_STACK_INIT_CALLBACK cback);
 
 #if !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
-static void F_TCPIPStackExecuteModules(void);
+static void _TCPIPStackExecuteModules(void);
 #endif  // !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
 
-static void F_TCPIPStackSignalTmo(void);
+static void _TCPIPStackSignalTmo(void);
 
-static bool F_TCPIPStackCreateTimer(void);
+static bool _TCPIPStackCreateTimer(void);
 
-static bool F_TCPIPStack_AdjustTimeouts(void);
+static bool _TCPIPStack_AdjustTimeouts(void);
 
-static void F_TCPIP_SelectDefaultNet(TCPIP_NET_IF* pDownIf);
+static void _TCPIP_SelectDefaultNet(TCPIP_NET_IF* pDownIf);
 
-static void F_TCPIPStackSetIfNumberName(void);
+static void _TCPIPStackSetIfNumberName(void);
 
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-static void F_TCPIPCopyMacAliasIf(TCPIP_NET_IF* pAliasIf, TCPIP_NET_IF* pPriIf);
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+static void _TCPIPCopyMacAliasIf(TCPIP_NET_IF* pAliasIf, TCPIP_NET_IF* pPriIf);
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
-#if (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
-static void F_TCPIPStackSetConfig(TCPIP_NET_IF* pNetIf, bool config);
+#if (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+static void _TCPIPStackSetConfig(TCPIP_NET_IF* pNetIf, bool config);
 #else
-static __inline__ void __attribute__((always_inline)) F_TCPIPStackSetConfig(TCPIP_NET_IF* pNetIf, bool config)
+static __inline__ void __attribute__((always_inline)) _TCPIPStackSetConfig(TCPIP_NET_IF* pNetIf, bool config)
 {
-    pNetIf->Flags.bInConfig = (uint8_t)config;
+    pNetIf->Flags.bInConfig = config;
 }
-#endif  // (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+#endif  // (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
 
-static __inline__ void __attribute__((always_inline)) F_TCPIPInsertMacRxPacket(const TCPIP_NET_IF* pNetIf, TCPIP_MAC_PACKET* pRxPkt)
+static __inline__ void __attribute__((always_inline)) _TCPIPInsertMacRxPacket(TCPIP_NET_IF* pNetIf, TCPIP_MAC_PACKET* pRxPkt)
 {
     pRxPkt->pktIf = pNetIf;
     // insertion into the manager queue should always succeed - manager is always running
-    (void) TCPIPStackModuleRxInsert(TCPIP_MODULE_MANAGER, pRxPkt, 0);
+    _TCPIPStackModuleRxInsert(TCPIP_MODULE_MANAGER, pRxPkt, 0);
 }
 
 // protection against MAC ISR
-static __inline__ OSAL_CRITSECT_DATA_TYPE __attribute__((always_inline)) F_TCPIPMacIsrSuspend(TCPIP_NET_IF* pNetIf)
+static __inline__ uint32_t __attribute__((always_inline)) _TCPIPMacIsrSuspend(TCPIP_NET_IF* pNetIf)
 {
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
     return OSAL_CRIT_Enter(OSAL_CRIT_TYPE_HIGH);
@@ -370,43 +367,43 @@ static __inline__ OSAL_CRITSECT_DATA_TYPE __attribute__((always_inline)) F_TCPIP
 #endif // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 }
 
-static __inline__ void __attribute__((always_inline)) F_TCPIPMacIsrResume(TCPIP_NET_IF* pNetIf, OSAL_CRITSECT_DATA_TYPE suspLevel)
+static __inline__ void __attribute__((always_inline)) _TCPIPMacIsrResume(TCPIP_NET_IF* pNetIf, uint32_t suspLevel)
 {
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_HIGH, suspLevel);
 #endif // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 }
 
-static void F_TCPIPSignalEntrySetNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signals, uint32_t sigParam);
+static void _TCPIPSignalEntrySetNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signals, uint32_t sigParam);
 
-static  void* F_TCPIPSignalEntrySet(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal_t);
+static  void* _TCPIPSignalEntrySet(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal);
 
-static __inline__ TCPIP_MODULE_SIGNAL_ENTRY* __attribute__((always_inline)) F_TCPIPModuleToSignalEntry(TCPIP_STACK_MODULE modId)
+static __inline__ TCPIP_MODULE_SIGNAL_ENTRY* __attribute__((always_inline)) _TCPIPModuleToSignalEntry(TCPIP_STACK_MODULE modId)
 {
-    return TCPIP_STACK_MODULE_SIGNAL_TBL + (uint16_t)modId;
+    return TCPIP_STACK_MODULE_SIGNAL_TBL + modId;
 }
 
-static void     F_TCPIPSignalEntryNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal_t, uint32_t sigParam);
+static void     _TCPIPSignalEntryNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal, uint32_t sigParam);
 
 // sets module signals and calls user notification
-static __inline__ void __attribute__((always_inline)) F_TCPIPModuleSignalSetNotify(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL signals)
+static __inline__ void __attribute__((always_inline)) _TCPIPModuleSignalSetNotify(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL signals)
 {
-    F_TCPIPSignalEntrySetNotify(F_TCPIPModuleToSignalEntry(modId), signals, 0);
+    _TCPIPSignalEntrySetNotify(_TCPIPModuleToSignalEntry(modId), signals, 0);
 }
 
-static __inline__ void __attribute__((always_inline)) F_TCPIP_ClearMacEvent(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT event)
+static __inline__ void __attribute__((always_inline)) _TCPIP_ClearMacEvent(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT event)
 {
-    OSAL_CRITSECT_DATA_TYPE suspLvl = F_TCPIPMacIsrSuspend(pNetIf);
+    uint32_t suspLvl = _TCPIPMacIsrSuspend(pNetIf);
 
-    pNetIf->activeEvents &= ~(uint16_t)event;
+    pNetIf->activeEvents &= ~event;
 
-    F_TCPIPMacIsrResume(pNetIf, suspLvl);
+    _TCPIPMacIsrResume(pNetIf, suspLvl);
 }
 
-static __inline__ void __attribute__((always_inline)) F_TCPIPAsyncSignalInc(void)
+static __inline__ void __attribute__((always_inline)) _TCPIPAsyncSignalInc(void)
 {
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    stackAsyncSignalCount += 1U; 
+    stackAsyncSignalCount += 1; 
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
 }
 
@@ -417,156 +414,13 @@ static __inline__ TCPIP_EVENT __attribute__((always_inline)) TCPIP_STACK_Mac2Tcp
 }
 
 // restores the Default DNS settings
-static __inline__ void __attribute__((always_inline)) F_TCPIP_StackSetDefaultDns(TCPIP_NET_IF* pNetIf)
+static __inline__ void __attribute__((always_inline)) _TCPIP_StackSetDefaultDns(TCPIP_NET_IF* pNetIf)
 {
     pNetIf->dnsServer[0].Val = pNetIf->DefaultDNSServer[0].Val;
     pNetIf->dnsServer[1].Val = pNetIf->DefaultDNSServer[1].Val;
 }
 
-static bool    F_TCPIP_StackSyncFunction(void* synchHandle, TCPIP_MAC_SYNCH_REQUEST req);
-
-// conversion functions/helpers
-//
-#if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION) && (TCPIP_STACK_USER_NOTIFICATION != 0)
-static __inline__ TCPIP_EVENT_LIST_NODE* __attribute__((always_inline)) FC_ListNode2EventNode(SGL_LIST_NODE* node)
-{
-    union
-    {
-        SGL_LIST_NODE * node;
-        TCPIP_EVENT_LIST_NODE * evNode;
-    }U_SGL_NODE_EVENT_NODE;
-
-    U_SGL_NODE_EVENT_NODE.node = node;
-    return U_SGL_NODE_EVENT_NODE.evNode;
-}
-
-static __inline__ SGL_LIST_NODE* __attribute__((always_inline)) FC_EvHndl2ListNode(TCPIP_EVENT_HANDLE evHandle)
-{
-    union
-    {
-        TCPIP_EVENT_HANDLE  evHandle;
-        SGL_LIST_NODE*      node;
-    }U_EVENT_HNDL_LIST_NODE;
-
-    U_EVENT_HNDL_LIST_NODE.evHandle = evHandle;
-    return U_EVENT_HNDL_LIST_NODE.node;
-}
-#endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION) && (TCPIP_STACK_USER_NOTIFICATION != 0)   
-
-#if defined(TCPIP_STACK_DRAM_DEBUG_ENABLE) 
-static __inline__ TCPIP_MAC_HEAP_MallocF __attribute__((always_inline)) FC_MallocDbg2Malloc(TCPIP_MAC_HEAP_MallocFDbg dbgF)
-{
-    union
-    {
-        TCPIP_MAC_HEAP_MallocFDbg dbgF;
-        TCPIP_MAC_HEAP_MallocF  mallocF;
-    }U_DBG_MALLOC_F;
-
-    U_DBG_MALLOC_F.dbgF = dbgF;
-    return U_DBG_MALLOC_F.mallocF;
-}
-
-static __inline__ TCPIP_MAC_HEAP_CallocF __attribute__((always_inline)) FC_CallocDbg2Calloc(TCPIP_MAC_HEAP_CallocFDbg dbgF)
-{
-    union
-    {
-        TCPIP_MAC_HEAP_CallocFDbg dbgF;
-        TCPIP_MAC_HEAP_CallocF  callocF;
-    }U_DBG_CALLOC_F;
-
-    U_DBG_CALLOC_F.dbgF = dbgF;
-    return U_DBG_CALLOC_F.callocF;
-}
-
-static __inline__ TCPIP_MAC_HEAP_FreeF __attribute__((always_inline)) FC_FreeDbg2Free(TCPIP_MAC_HEAP_FreeFDbg dbgF)
-{
-    union
-    {
-        TCPIP_MAC_HEAP_FreeFDbg dbgF;
-        TCPIP_MAC_HEAP_FreeF  freeF;
-    }U_DBG_FREE_F;
-
-    U_DBG_FREE_F.dbgF = dbgF;
-    return U_DBG_FREE_F.freeF;
-}
-#endif  // defined(TCPIP_STACK_DRAM_DEBUG_ENABLE) 
-
-#if defined(TCPIP_PACKET_ALLOCATION_TRACE_ENABLE)
-static __inline__ TCPIP_MAC_PKT_AllocF __attribute__((always_inline)) FC_PktAllocDbg2PktAlloc(TCPIP_PKT_ALLOC_FNC_DBG dbgAllocF)
-{
-    union
-    {
-        TCPIP_PKT_ALLOC_FNC_DBG dbgAllocF;
-        TCPIP_MAC_PKT_AllocF  pktAllocFnc;
-    }U_PKT_DBG_ALLOC_F;
-
-    U_PKT_DBG_ALLOC_F.dbgAllocF = dbgAllocF;
-    return U_PKT_DBG_ALLOC_F.pktAllocFnc;
-}
-
-static __inline__ TCPIP_MAC_PKT_FreeF __attribute__((always_inline)) FC_PktFreeDbg2PktFree(TCPIP_PKT_FREE_FNC_DBG dbgFreeF)
-{
-    union
-    {
-        TCPIP_PKT_FREE_FNC_DBG dbgFreeF;
-        TCPIP_MAC_PKT_FreeF  pktFreeFnc;
-    }U_PKT_DBG_FREE_F;
-
-    U_PKT_DBG_FREE_F.dbgFreeF = dbgFreeF;
-    return U_PKT_DBG_FREE_F.pktFreeFnc;
-}
-
-static __inline__ TCPIP_MAC_PKT_AckF __attribute__((always_inline)) FC_PktAckDbg2PktAck(TCPIP_PKT_ACK_FNC_DBG dbgAckF)
-{
-    union
-    {
-        TCPIP_PKT_ACK_FNC_DBG dbgAckF;
-        TCPIP_MAC_PKT_AckF  pktAckFnc;
-    }U_PKT_DBG_ACK_F;
-
-    U_PKT_DBG_ACK_F.dbgAckF = dbgAckF;
-    return U_PKT_DBG_ACK_F.pktAckFnc;
-}
-
-
-#endif  // defined(TCPIP_PACKET_ALLOCATION_TRACE_ENABLE)
-
-
-static __inline__ TCPIP_MODULE_SIGNAL_ENTRY* __attribute__((always_inline)) FC_SigHndl2SigEntry(TCPIP_SIGNAL_HANDLE sigH)
-{
-    union
-    {
-        TCPIP_SIGNAL_HANDLE sigH;
-        TCPIP_MODULE_SIGNAL_ENTRY* sigEntry;
-    }U_SIG_HNDL_SIG_ENTRY;
-
-    U_SIG_HNDL_SIG_ENTRY.sigH = sigH;
-    return U_SIG_HNDL_SIG_ENTRY.sigEntry;
-}
-
-static __inline__ TCPIP_STACK_PROCESS_HANDLE __attribute__((always_inline)) FC_PktHndl2ProcHndl(TCPIP_STACK_PACKET_HANDLER pktHandler)
-{
-    union
-    {
-        TCPIP_STACK_PACKET_HANDLER  pktHandler;
-        TCPIP_STACK_PROCESS_HANDLE  procHandle;
-    }U_PKT_PROC_HANDLER;
-
-    U_PKT_PROC_HANDLER.pktHandler = pktHandler;
-   return U_PKT_PROC_HANDLER.procHandle; 
-}
-
-static __inline__ TCPIP_STACK_PACKET_HANDLER __attribute__((always_inline)) FC_ProcHndl2PktHndl(TCPIP_STACK_PROCESS_HANDLE procHandle)
-{
-    union
-    {
-        TCPIP_STACK_PROCESS_HANDLE  procHandle;
-        TCPIP_STACK_PACKET_HANDLER  pktHandler;
-    }U_PROC_PKT_HANDLER;
-
-    U_PROC_PKT_HANDLER.procHandle = procHandle;
-   return U_PROC_PKT_HANDLER.pktHandler; 
-}
+static bool    _TCPIP_StackSyncFunction(void* synchHandle, TCPIP_MAC_SYNCH_REQUEST req);
 
 // table with stack's modules
 static const TCPIP_STACK_MODULE_ENTRY TCPIP_STACK_MODULE_ENTRY_TBL [] =
@@ -574,106 +428,112 @@ static const TCPIP_STACK_MODULE_ENTRY TCPIP_STACK_MODULE_ENTRY_TBL [] =
 {
     // ModuleID                  // InitFunc                                        // DeInitFunc                
 #if defined(TCPIP_STACK_USE_IPV4)
-    {.moduleId = (uint16_t)TCPIP_MODULE_ARP,            .initFunc = &TCPIP_ARP_Initialize,      .deInitFunc = &TCPIP_ARP_Deinitialize},            // TCPIP_MODULE_ARP
-    {.moduleId = (uint16_t)TCPIP_MODULE_IPV4,           .initFunc = &TCPIP_IPV4_Initialize,     .deInitFunc = &TCPIP_IPV4_Deinitialize},           // TCPIP_MODULE_IPV4
+    {.moduleId = TCPIP_MODULE_ARP,           .initFunc = (tcpipModuleInitFunc)TCPIP_ARP_Initialize,         .deInitFunc = TCPIP_ARP_Deinitialize},            // TCPIP_MODULE_ARP
+    {.moduleId = TCPIP_MODULE_IPV4,          .initFunc = (tcpipModuleInitFunc)TCPIP_IPV4_Initialize,        .deInitFunc = TCPIP_IPV4_Deinitialize},           // TCPIP_MODULE_IPV4
 #endif
 #if defined(TCPIP_STACK_USE_IPV6)
-    {.moduleId = (uint16_t)TCPIP_MODULE_IPV6,           .initFunc = &TCPIP_IPV6_Initialize,     .deInitFunc = &TCPIP_IPV6_Deinitialize},           // TCPIP_MODULE_IPV6
-    {.moduleId = (uint16_t)TCPIP_MODULE_ICMPV6,         .initFunc = &TCPIP_ICMPV6_Initialize,   .deInitFunc = &TCPIP_ICMPV6_Deinitialize},         // TCPIP_MODULE_ICMPV6
-    {.moduleId = (uint16_t)TCPIP_MODULE_NDP,            .initFunc = &TCPIP_NDP_Initialize,      .deInitFunc = &TCPIP_NDP_Deinitialize},            // TCPIP_MODULE_NDP
+    {.moduleId = TCPIP_MODULE_IPV6,          .initFunc = (tcpipModuleInitFunc)TCPIP_IPV6_Initialize,        .deInitFunc = TCPIP_IPV6_Deinitialize},           // TCPIP_MODULE_IPV6
+    {.moduleId = TCPIP_MODULE_ICMPV6,        .initFunc = (tcpipModuleInitFunc)TCPIP_ICMPV6_Initialize,      .deInitFunc = TCPIP_ICMPV6_Deinitialize},         // TCPIP_MODULE_ICMPV6
+    {.moduleId = TCPIP_MODULE_NDP,           .initFunc = (tcpipModuleInitFunc)TCPIP_NDP_Initialize,         .deInitFunc = TCPIP_NDP_Deinitialize},            // TCPIP_MODULE_NDP
 #endif
+#if defined(TCPIP_STACK_USE_LLDP)
+    {.moduleId = TCPIP_MODULE_LLDP,          .initFunc = (tcpipModuleInitFunc)TCPIP_LLDP_Initialize,        .deInitFunc = TCPIP_LLDP_Deinitialize},           // TCPIP_MODULE_LLDP
+#endif    
 #if defined(TCPIP_STACK_USE_IPV4) && (defined(TCPIP_STACK_USE_ICMP_CLIENT) || defined(TCPIP_STACK_USE_ICMP_SERVER))
-    {.moduleId = (uint16_t)TCPIP_MODULE_ICMP,           .initFunc = &TCPIP_ICMP_Initialize,     .deInitFunc = &TCPIP_ICMP_Deinitialize},           // TCPIP_MODULE_ICMP
+    {.moduleId = TCPIP_MODULE_ICMP,          .initFunc = (tcpipModuleInitFunc)TCPIP_ICMP_Initialize,        .deInitFunc = TCPIP_ICMP_Deinitialize},           // TCPIP_MODULE_ICMP
 #endif
 #if defined(TCPIP_STACK_USE_UDP)
-    {.moduleId = (uint16_t)TCPIP_MODULE_UDP,            .initFunc = &TCPIP_UDP_Initialize,      .deInitFunc = &TCPIP_UDP_Deinitialize},            // TCPIP_MODULE_UDP
+    {.moduleId = TCPIP_MODULE_UDP,           .initFunc = (tcpipModuleInitFunc)TCPIP_UDP_Initialize,         .deInitFunc = TCPIP_UDP_Deinitialize},            // TCPIP_MODULE_UDP
 #endif
 #if defined(TCPIP_STACK_USE_TCP)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TCP,            .initFunc = &TCPIP_TCP_Initialize,      .deInitFunc = &TCPIP_TCP_Deinitialize},            //  TCPIP_MODULE_TCP
+    {.moduleId = TCPIP_MODULE_TCP,           .initFunc = (tcpipModuleInitFunc)TCPIP_TCP_Initialize,         .deInitFunc = TCPIP_TCP_Deinitialize},            //  TCPIP_MODULE_TCP
 #endif    
 #if defined(TCPIP_STACK_USE_IPV4)
 #if defined(TCPIP_STACK_USE_DHCP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DHCP_CLIENT,    .initFunc = &TCPIP_DHCP_Initialize,     .deInitFunc = &TCPIP_DHCP_Deinitialize},           // TCPIP_MODULE_DHCP_CLIENT
+    {.moduleId = TCPIP_MODULE_DHCP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_DHCP_Initialize,        .deInitFunc = TCPIP_DHCP_Deinitialize},           // TCPIP_MODULE_DHCP_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_DHCP_SERVER) || defined(TCPIP_STACK_USE_DHCP_SERVER_V2)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DHCP_SERVER,    .initFunc = &TCPIP_DHCPS_Initialize,    .deInitFunc = &TCPIP_DHCPS_Deinitialize},          // TCPIP_MODULE_DHCP_SERVER
+    {.moduleId = TCPIP_MODULE_DHCP_SERVER,   .initFunc = (tcpipModuleInitFunc)TCPIP_DHCPS_Initialize,       .deInitFunc = TCPIP_DHCPS_Deinitialize},          // TCPIP_MODULE_DHCP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_ANNOUNCE)
-    {.moduleId = (uint16_t)TCPIP_MODULE_ANNOUNCE,       .initFunc = &TCPIP_ANNOUNCE_Initialize, .deInitFunc = &TCPIP_ANNOUNCE_Deinitialize},       // TCPIP_MODULE_ANNOUNCE
+    {.moduleId = TCPIP_MODULE_ANNOUNCE,      .initFunc = (tcpipModuleInitFunc)TCPIP_ANNOUNCE_Initialize,    .deInitFunc = TCPIP_ANNOUNCE_Deinitialize},       // TCPIP_MODULE_ANNOUNCE
 #endif
 #if defined(TCPIP_STACK_USE_NBNS)
-    {.moduleId = (uint16_t)TCPIP_MODULE_NBNS,           .initFunc = &TCPIP_NBNS_Initialize,     .deInitFunc = &TCPIP_NBNS_Deinitialize},           // TCPIP_MODULE_NBNS
+    {.moduleId = TCPIP_MODULE_NBNS,          .initFunc = (tcpipModuleInitFunc)TCPIP_NBNS_Initialize,        .deInitFunc = TCPIP_NBNS_Deinitialize},           // TCPIP_MODULE_NBNS
 #endif
 #if defined(TCPIP_STACK_USE_FTP_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_FTP_SERVER,    .initFunc = &TCPIP_FTP_ServerInitialize, .deInitFunc = &TCPIP_FTP_ServerDeinitialize},      // TCPIP_MODULE_FTP_SERVER
+    {.moduleId = TCPIP_MODULE_FTP_SERVER,    .initFunc = (tcpipModuleInitFunc)TCPIP_FTP_ServerInitialize,   .deInitFunc = TCPIP_FTP_ServerDeinitialize},      // TCPIP_MODULE_FTP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_DYNAMICDNS_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DYNDNS_CLIENT, .initFunc = &TCPIP_DDNS_Initialize,      .deInitFunc = &TCPIP_DDNS_Deinitialize},           // TCPIP_MODULE_DYNDNS_CLIENT
+    {.moduleId = TCPIP_MODULE_DYNDNS_CLIENT, .initFunc = (tcpipModuleInitFunc)TCPIP_DDNS_Initialize,        .deInitFunc = TCPIP_DDNS_Deinitialize},           // TCPIP_MODULE_DYNDNS_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_REBOOT_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_REBOOT_SERVER, .initFunc = &TCPIP_REBOOT_Initialize,    .deInitFunc = &TCPIP_REBOOT_Deinitialize},         // TCPIP_MODULE_REBOOT_SERVER
+    {.moduleId = TCPIP_MODULE_REBOOT_SERVER, .initFunc = (tcpipModuleInitFunc)TCPIP_REBOOT_Initialize,      .deInitFunc = TCPIP_REBOOT_Deinitialize},         // TCPIP_MODULE_REBOOT_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-    {.moduleId = (uint16_t)TCPIP_MODULE_ZCLL,          .initFunc = &TCPIP_ZCLL_Initialize,      .deInitFunc = &TCPIP_ZCLL_Deinitialize},           // TCPIP_MODULE_ZCLL
+    {.moduleId = TCPIP_MODULE_ZCLL,          .initFunc = (tcpipModuleInitFunc)TCPIP_ZCLL_Initialize,        .deInitFunc = TCPIP_ZCLL_Deinitialize},           // TCPIP_MODULE_ZCLL
 #if defined(TCPIP_STACK_USE_ZEROCONF_MDNS_SD)
-    {.moduleId = (uint16_t)TCPIP_MODULE_MDNS,          .initFunc = &TCPIP_MDNS_Initialize,      .deInitFunc = &TCPIP_MDNS_Deinitialize},           // TCPIP_MODULE_MDNS
+    {.moduleId = TCPIP_MODULE_MDNS,          .initFunc = (tcpipModuleInitFunc)TCPIP_MDNS_Initialize,        .deInitFunc = TCPIP_MDNS_Deinitialize},           // TCPIP_MODULE_MDNS
 #endif
 #endif
 #if defined(TCPIP_STACK_USE_TFTP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TFTP_CLIENT,   .initFunc = &TCPIP_TFTPC_Initialize,     .deInitFunc = &TCPIP_TFTPC_Deinitialize},          // TCPIP_MODULE_TFTP_CLIENT
+    {.moduleId = TCPIP_MODULE_TFTP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_TFTPC_Initialize,       .deInitFunc = TCPIP_TFTPC_Deinitialize},          // TCPIP_MODULE_TFTP_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_IGMP)
-    {.moduleId = (uint16_t)TCPIP_MODULE_IGMP,          .initFunc = &TCPIP_IGMP_Initialize,      .deInitFunc = &TCPIP_IGMP_Deinitialize},          // TCPIP_MODULE_IGMP
+    {.moduleId = TCPIP_MODULE_IGMP,        .initFunc = (tcpipModuleInitFunc)TCPIP_IGMP_Initialize,        .deInitFunc = TCPIP_IGMP_Deinitialize},          // TCPIP_MODULE_IGMP
 #endif
 #endif  // defined(TCPIP_STACK_USE_IPV4)
+#if defined(TCPIP_STACK_USE_SMTP_CLIENT)
+    {.moduleId = TCPIP_MODULE_SMTP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_SMTP_ClientInitialize,  .deInitFunc = TCPIP_SMTP_ClientDeinitialize},     // TCPIP_MODULE_SMTP_CLIENT
+#endif
 #if defined(TCPIP_STACK_USE_SNTP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_SNTP,          .initFunc = &TCPIP_SNTP_Initialize,      .deInitFunc = &TCPIP_SNTP_Deinitialize},           // TCPIP_MODULE_SNTP
+    {.moduleId = TCPIP_MODULE_SNTP,          .initFunc = (tcpipModuleInitFunc)TCPIP_SNTP_Initialize,        .deInitFunc = TCPIP_SNTP_Deinitialize},           // TCPIP_MODULE_SNTP
 #endif
 #if defined(TCPIP_STACK_USE_DNS)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DNS_CLIENT,    .initFunc = &TCPIP_DNS_ClientInitialize, .deInitFunc = &TCPIP_DNS_ClientDeinitialize},      // TCPIP_MODULE_DNS_CLIENT
+    {.moduleId = TCPIP_MODULE_DNS_CLIENT,    .initFunc = (tcpipModuleInitFunc)TCPIP_DNS_ClientInitialize,   .deInitFunc = TCPIP_DNS_ClientDeinitialize},      // TCPIP_MODULE_DNS_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_BERKELEY_API)
-    {.moduleId = (uint16_t)TCPIP_MODULE_BERKELEY,      .initFunc = &BerkeleySocketInitialize,   .deInitFunc = &BerkeleySocketDeinitialize},       // TCPIP_MODULE_BERKELEY
+    {.moduleId = TCPIP_MODULE_BERKELEY,      .initFunc = (tcpipModuleInitFunc)BerkeleySocketInitialize,     .deInitFunc = BerkeleySocketDeinitialize},       // TCPIP_MODULE_BERKELEY
+#endif
+#if defined(TCPIP_STACK_USE_HTTP_SERVER)
+    {.moduleId = TCPIP_MODULE_HTTP_SERVER,   .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_Initialize,        .deInitFunc = TCPIP_HTTP_Deinitialize},           // TCPIP_MODULE_HTTP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_HTTP_NET_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_HTTP_NET_SERVER, .initFunc = &TCPIP_HTTP_NET_Initialize, .deInitFunc = &TCPIP_HTTP_NET_Deinitialize},      // TCPIP_MODULE_HTTP_NET_SERVER
+    {.moduleId = TCPIP_MODULE_HTTP_NET_SERVER, .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_NET_Initialize,  .deInitFunc = TCPIP_HTTP_NET_Deinitialize},      // TCPIP_MODULE_HTTP_NET_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_TELNET_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TELNET_SERVER, .initFunc = &TCPIP_TELNET_Initialize,    .deInitFunc = &TCPIP_TELNET_Deinitialize},         // TCPIP_MODULE_TELNET_SERVER
+    {.moduleId = TCPIP_MODULE_TELNET_SERVER, .initFunc = (tcpipModuleInitFunc)TCPIP_TELNET_Initialize,      .deInitFunc = TCPIP_TELNET_Deinitialize},         // TCPIP_MODULE_TELNET_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_SNMP_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_SNMP_SERVER,   .initFunc = &TCPIP_SNMP_Initialize,      .deInitFunc = &TCPIP_SNMP_Deinitialize},           // TCPIP_MODULE_SNMP_SERVER
+    {.moduleId = TCPIP_MODULE_SNMP_SERVER,   .initFunc = (tcpipModuleInitFunc)TCPIP_SNMP_Initialize,        .deInitFunc = TCPIP_SNMP_Deinitialize},           // TCPIP_MODULE_SNMP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_DNS_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DNS_SERVER,    .initFunc = &TCPIP_DNSS_Initialize,      .deInitFunc = &TCPIP_DNSS_Deinitialize},           // TCPIP_MODULE_DNS_SERVER
+    {.moduleId = TCPIP_MODULE_DNS_SERVER,    .initFunc = (tcpipModuleInitFunc)TCPIP_DNSS_Initialize,        .deInitFunc = TCPIP_DNSS_Deinitialize},           // TCPIP_MODULE_DNS_SERVER
 #endif
 #if defined(TCPIP_STACK_COMMAND_ENABLE)
-    {.moduleId = (uint16_t)TCPIP_MODULE_COMMAND,       .initFunc = &TCPIP_Commands_Initialize,  .deInitFunc = &TCPIP_Commands_Deinitialize},       // TCPIP_MODULE_COMMAND
+    {.moduleId = TCPIP_MODULE_COMMAND,       .initFunc = (tcpipModuleInitFunc)TCPIP_Commands_Initialize,    .deInitFunc = TCPIP_Commands_Deinitialize},       // TCPIP_MODULE_COMMAND
 #endif
 #if defined(TCPIP_STACK_USE_IPERF)
-    {.moduleId = (uint16_t)TCPIP_MODULE_IPERF,         .initFunc = &TCPIP_IPERF_Initialize,     .deInitFunc = &TCPIP_IPERF_Deinitialize},          // TCPIP_MODULE_IPERF
+    {.moduleId = TCPIP_MODULE_IPERF,         .initFunc = (tcpipModuleInitFunc)TCPIP_IPERF_Initialize,       .deInitFunc = TCPIP_IPERF_Deinitialize},          // TCPIP_MODULE_IPERF
 #endif
 #if defined(TCPIP_STACK_USE_IPV6) && defined(TCPIP_STACK_USE_DHCPV6_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DHCPV6_CLIENT, .initFunc = &TCPIP_DHCPV6_Initialize,    .deInitFunc = &TCPIP_DHCPV6_Deinitialize},          // TCPIP_MODULE_DHCPV6_CLIENT
+    {.moduleId = TCPIP_MODULE_DHCPV6_CLIENT, .initFunc = (tcpipModuleInitFunc)TCPIP_DHCPV6_Initialize,      .deInitFunc = TCPIP_DHCPV6_Deinitialize},          // TCPIP_MODULE_DHCPV6_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_SMTPC)
-    {.moduleId = (uint16_t)TCPIP_MODULE_SMTPC,          .initFunc = &TCPIP_SMTPC_Initialize,    .deInitFunc = &TCPIP_SMTPC_Deinitialize},          // TCPIP_MODULE_SMTPC
+    {.moduleId = TCPIP_MODULE_SMTPC,        .initFunc = (tcpipModuleInitFunc)TCPIP_SMTPC_Initialize,        .deInitFunc = TCPIP_SMTPC_Deinitialize},          // TCPIP_MODULE_SMTPC
 #endif
 #if defined(TCPIP_STACK_USE_TFTP_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TFTP_SERVER,    .initFunc = &TCPIP_TFTPS_Initialize,    .deInitFunc = &TCPIP_TFTPS_Deinitialize},          // TCPIP_MODULE_TFTP_SERVER
+    {.moduleId = TCPIP_MODULE_TFTP_SERVER,  .initFunc = (tcpipModuleInitFunc)TCPIP_TFTPS_Initialize,        .deInitFunc = TCPIP_TFTPS_Deinitialize},          // TCPIP_MODULE_TFTP_SERVER
 #endif   
 #if defined(TCPIP_STACK_USE_FTP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_FTP_CLIENT,     .initFunc = &TCPIP_FTPC_Initialize,     .deInitFunc = &TCPIP_FTPC_Deinitialize},          // TCPIP_MODULE_FTP_CLIENT
+    {.moduleId = TCPIP_MODULE_FTP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_FTPC_Initialize,        .deInitFunc = TCPIP_FTPC_Deinitialize},          // TCPIP_MODULE_FTP_CLIENT
 #endif 
 #if defined(TCPIP_STACK_USE_MAC_BRIDGE)
-    {.moduleId = (uint16_t)TCPIP_MODULE_MAC_BRIDGE,     .initFunc = &TCPIP_MAC_Bridge_Initialize,  .deInitFunc = &TCPIP_MAC_Bridge_Deinitialize},      // TCPIP_MODULE_MAC_BRIDGE
+    {.moduleId = TCPIP_MODULE_MAC_BRIDGE,   .initFunc = (tcpipModuleInitFunc)TCPIP_MAC_Bridge_Initialize,  .deInitFunc = TCPIP_MAC_Bridge_Deinitialize},      // TCPIP_MODULE_MAC_BRIDGE
 #endif 
 #if defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
-    {.moduleId = (uint16_t)TCPIP_MODULE_HTTP_SERVER_V2, .initFunc = &TCPIP_HTTP_Server_Initialize,  .deInitFunc = &TCPIP_HTTP_Server_Deinitialize},      // TCPIP_STACK_USE_HTTP_SERVER_V2
+    {.moduleId = TCPIP_MODULE_HTTP_SERVER_V2, .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_Server_Initialize,  .deInitFunc = TCPIP_HTTP_Server_Deinitialize},      // TCPIP_STACK_USE_HTTP_SERVER_V2
 #endif  // defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
-#if defined(TCPIP_STACK_USE_WS_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_WS_CLIENT,      .initFunc = &TCPIP_WSC_Initialize,  .deInitFunc = &TCPIP_WSC_Deinitialize},               // TCPIP_MODULE_WS_CLIENT
-#endif  // defined(TCPIP_STACK_USE_WS_CLIENT)
     // Add other stack modules here
      
 };
@@ -681,163 +541,123 @@ static const TCPIP_STACK_MODULE_ENTRY TCPIP_STACK_MODULE_ENTRY_TBL [] =
 {
     // ModuleID                  // InitFunc                                        
 #if defined(TCPIP_STACK_USE_IPV4)
-    {.moduleId = (uint16_t)TCPIP_MODULE_ARP,           .initFunc = &TCPIP_ARP_Initialize},            // TCPIP_MODULE_ARP
-    {.moduleId = (uint16_t)TCPIP_MODULE_IPV4,          .initFunc = &TCPIP_IPV4_Initialize},           // TCPIP_MODULE_IPV4
+    {.moduleId = TCPIP_MODULE_ARP,           .initFunc = (tcpipModuleInitFunc)TCPIP_ARP_Initialize},            // TCPIP_MODULE_ARP
+    {.moduleId = TCPIP_MODULE_IPV4,          .initFunc = (tcpipModuleInitFunc)TCPIP_IPV4_Initialize},           // TCPIP_MODULE_IPV4
 #endif
 #if defined(TCPIP_STACK_USE_IPV6)
-    {.moduleId = (uint16_t)TCPIP_MODULE_IPV6,          .initFunc = &TCPIP_IPV6_Initialize},           // TCPIP_MODULE_IPV6
-    {.moduleId = (uint16_t)TCPIP_MODULE_ICMPV6,        .initFunc = &TCPIP_ICMPV6_Initialize},         // TCPIP_MODULE_ICMPV6
-    {.moduleId = (uint16_t)TCPIP_MODULE_NDP,           .initFunc = &TCPIP_NDP_Initialize},            // TCPIP_MODULE_NDP
+    {.moduleId = TCPIP_MODULE_IPV6,          .initFunc = (tcpipModuleInitFunc)TCPIP_IPV6_Initialize},           // TCPIP_MODULE_IPV6
+    {.moduleId = TCPIP_MODULE_ICMPV6,        .initFunc = (tcpipModuleInitFunc)TCPIP_ICMPV6_Initialize},         // TCPIP_MODULE_ICMPV6
+    {.moduleId = TCPIP_MODULE_NDP,           .initFunc = (tcpipModuleInitFunc)TCPIP_NDP_Initialize},            // TCPIP_MODULE_NDP
 #endif
+#if defined(TCPIP_STACK_USE_LLDP)
+    {.moduleId = TCPIP_MODULE_LLDP,          .initFunc = (tcpipModuleInitFunc)TCPIP_LLDP_Initialize},           // TCPIP_MODULE_LLDP
+#endif    
 #if defined(TCPIP_STACK_USE_IPV4) && (defined(TCPIP_STACK_USE_ICMP_CLIENT) || defined(TCPIP_STACK_USE_ICMP_SERVER))
-    {.moduleId = (uint16_t)TCPIP_MODULE_ICMP,          .initFunc = &TCPIP_ICMP_Initialize},           // TCPIP_MODULE_ICMP
+    {.moduleId = TCPIP_MODULE_ICMP,          .initFunc = (tcpipModuleInitFunc)TCPIP_ICMP_Initialize},           // TCPIP_MODULE_ICMP
 #endif
 #if defined(TCPIP_STACK_USE_UDP)
-    {.moduleId = (uint16_t)TCPIP_MODULE_UDP,           .initFunc = &TCPIP_UDP_Initialize},            // TCPIP_MODULE_UDP
+    {.moduleId = TCPIP_MODULE_UDP,           .initFunc = (tcpipModuleInitFunc)TCPIP_UDP_Initialize},            // TCPIP_MODULE_UDP
 #endif
 #if defined(TCPIP_STACK_USE_TCP)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TCP,           .initFunc = &TCPIP_TCP_Initialize},            //  TCPIP_MODULE_TCP
+    {.moduleId = TCPIP_MODULE_TCP,           .initFunc = (tcpipModuleInitFunc)TCPIP_TCP_Initialize},            //  TCPIP_MODULE_TCP
 #endif    
 #if defined(TCPIP_STACK_USE_IPV4)
 #if defined(TCPIP_STACK_USE_DHCP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DHCP_CLIENT,   .initFunc = &TCPIP_DHCP_Initialize},           // TCPIP_MODULE_DHCP_CLIENT
+    {.moduleId = TCPIP_MODULE_DHCP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_DHCP_Initialize},           // TCPIP_MODULE_DHCP_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_DHCP_SERVER) || defined(TCPIP_STACK_USE_DHCP_SERVER_V2)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DHCP_SERVER,   .initFunc = &TCPIP_DHCPS_Initialize},          // TCPIP_MODULE_DHCP_SERVER
+    {.moduleId = TCPIP_MODULE_DHCP_SERVER,   .initFunc = (tcpipModuleInitFunc)TCPIP_DHCPS_Initialize},          // TCPIP_MODULE_DHCP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_ANNOUNCE)
-    {.moduleId = (uint16_t)TCPIP_MODULE_ANNOUNCE,      .initFunc = &TCPIP_ANNOUNCE_Initialize},       // TCPIP_MODULE_ANNOUNCE
+    {.moduleId = TCPIP_MODULE_ANNOUNCE,      .initFunc = (tcpipModuleInitFunc)TCPIP_ANNOUNCE_Initialize},       // TCPIP_MODULE_ANNOUNCE
 #endif
 #if defined(TCPIP_STACK_USE_NBNS)
-    {.moduleId = (uint16_t)TCPIP_MODULE_NBNS,          .initFunc = &TCPIP_NBNS_Initialize},           // TCPIP_MODULE_NBNS
+    {.moduleId = TCPIP_MODULE_NBNS,          .initFunc = (tcpipModuleInitFunc)TCPIP_NBNS_Initialize},           // TCPIP_MODULE_NBNS
 #endif
 #if defined(TCPIP_STACK_USE_FTP_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_FTP_SERVER,    .initFunc = &TCPIP_FTP_ServerInitialize},      // TCPIP_MODULE_FTP_SERVER
+    {.moduleId = TCPIP_MODULE_FTP_SERVER,    .initFunc = (tcpipModuleInitFunc)TCPIP_FTP_ServerInitialize},      // TCPIP_MODULE_FTP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_DYNAMICDNS_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DYNDNS_CLIENT, .initFunc = &TCPIP_DDNS_Initialize},           // TCPIP_MODULE_DYNDNS_CLIENT
+    {.moduleId = TCPIP_MODULE_DYNDNS_CLIENT, .initFunc = (tcpipModuleInitFunc)TCPIP_DDNS_Initialize},           // TCPIP_MODULE_DYNDNS_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_REBOOT_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_REBOOT_SERVER, .initFunc = &TCPIP_REBOOT_Initialize},         // TCPIP_MODULE_REBOOT_SERVER
+    {.moduleId = TCPIP_MODULE_REBOOT_SERVER, .initFunc = (tcpipModuleInitFunc)TCPIP_REBOOT_Initialize},         // TCPIP_MODULE_REBOOT_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-    {.moduleId = (uint16_t)TCPIP_MODULE_ZCLL,          .initFunc = &TCPIP_ZCLL_Initialize},           // TCPIP_MODULE_ZCLL
+    {.moduleId = TCPIP_MODULE_ZCLL,          .initFunc = (tcpipModuleInitFunc)TCPIP_ZCLL_Initialize},           // TCPIP_MODULE_ZCLL
 #if defined(TCPIP_STACK_USE_ZEROCONF_MDNS_SD)
-    {.moduleId = (uint16_t)TCPIP_MODULE_MDNS,          .initFunc = &TCPIP_MDNS_Initialize},           // TCPIP_MODULE_MDNS
+    {.moduleId = TCPIP_MODULE_MDNS,          .initFunc = (tcpipModuleInitFunc)TCPIP_MDNS_Initialize},           // TCPIP_MODULE_MDNS
 #endif
 #endif
 #if defined(TCPIP_STACK_USE_TFTP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TFTP_CLIENT,   .initFunc = &TCPIP_TFTPC_Initialize},          // TCPIP_MODULE_TFTP_CLIENT
+    {.moduleId = TCPIP_MODULE_TFTP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_TFTPC_Initialize},          // TCPIP_MODULE_TFTP_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_IGMP)
-    {.moduleId = (uint16_t)TCPIP_MODULE_IGMP,          .initFunc = &TCPIP_IGMP_Initialize},          // TCPIP_MODULE_IGMP
+    {.moduleId = TCPIP_MODULE_IGMP,          .initFunc = (tcpipModuleInitFunc)TCPIP_IGMP_Initialize},          // TCPIP_MODULE_IGMP
 #endif
 #endif  // defined(TCPIP_STACK_USE_IPV4)
+#if defined(TCPIP_STACK_USE_SMTP_CLIENT)
+    {.moduleId = TCPIP_MODULE_SMTP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_SMTP_ClientInitialize},     // TCPIP_MODULE_SMTP_CLIENT
+#endif
 #if defined(TCPIP_STACK_USE_SNTP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_SNTP,          .initFunc = &TCPIP_SNTP_Initialize},           // TCPIP_MODULE_SNTP
+    {.moduleId = TCPIP_MODULE_SNTP,          .initFunc = (tcpipModuleInitFunc)TCPIP_SNTP_Initialize},           // TCPIP_MODULE_SNTP
 #endif
 #if defined(TCPIP_STACK_USE_DNS)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DNS_CLIENT,    .initFunc = &TCPIP_DNS_ClientInitialize},      // TCPIP_MODULE_DNS_CLIENT
+    {.moduleId = TCPIP_MODULE_DNS_CLIENT,    .initFunc = (tcpipModuleInitFunc)TCPIP_DNS_ClientInitialize},      // TCPIP_MODULE_DNS_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_BERKELEY_API)
-    {.moduleId = (uint16_t)TCPIP_MODULE_BERKELEY,      .initFunc = &BerkeleySocketInitialize},        // TCPIP_MODULE_BERKELEY
+    {.moduleId = TCPIP_MODULE_BERKELEY,      .initFunc = (tcpipModuleInitFunc)BerkeleySocketInitialize},        // TCPIP_MODULE_BERKELEY
+#endif
+#if defined(TCPIP_STACK_USE_HTTP_SERVER)
+    {.moduleId = TCPIP_MODULE_HTTP_SERVER,   .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_Initialize},           // TCPIP_MODULE_HTTP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_HTTP_NET_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_HTTP_NET_SERVER, .initFunc = &TCPIP_HTTP_NET_Initialize},      // TCPIP_MODULE_HTTP_NET_SERVER
+    {.moduleId = TCPIP_MODULE_HTTP_NET_SERVER, .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_NET_Initialize},      // TCPIP_MODULE_HTTP_NET_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_TELNET_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TELNET_SERVER, .initFunc = &TCPIP_TELNET_Initialize},         // TCPIP_MODULE_TELNET_SERVER
+    {.moduleId = TCPIP_MODULE_TELNET_SERVER, .initFunc = (tcpipModuleInitFunc)TCPIP_TELNET_Initialize},         // TCPIP_MODULE_TELNET_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_SNMP_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_SNMP_SERVER,   .initFunc = &TCPIP_SNMP_Initialize},           // TCPIP_MODULE_SNMP_SERVER
+    {.moduleId = TCPIP_MODULE_SNMP_SERVER,   .initFunc = (tcpipModuleInitFunc)TCPIP_SNMP_Initialize},           // TCPIP_MODULE_SNMP_SERVER
 #endif
 #if defined(TCPIP_STACK_USE_DNS_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DNS_SERVER,    .initFunc = &TCPIP_DNSS_Initialize},           // TCPIP_MODULE_DNS_SERVER
+    {.moduleId = TCPIP_MODULE_DNS_SERVER,    .initFunc = (tcpipModuleInitFunc)TCPIP_DNSS_Initialize},           // TCPIP_MODULE_DNS_SERVER
 #endif
 #if defined(TCPIP_STACK_COMMAND_ENABLE)
-    {.moduleId = (uint16_t)TCPIP_MODULE_COMMAND,       .initFunc = &TCPIP_Commands_Initialize},       // TCPIP_MODULE_COMMAND
+    {.moduleId = TCPIP_MODULE_COMMAND,       .initFunc = (tcpipModuleInitFunc)TCPIP_Commands_Initialize},       // TCPIP_MODULE_COMMAND
 #endif
 #if defined(TCPIP_STACK_USE_IPERF)
-    {.moduleId = (uint16_t)TCPIP_MODULE_IPERF,         .initFunc = &TCPIP_IPERF_Initialize},          // TCPIP_MODULE_IPERF
+    {.moduleId = TCPIP_MODULE_IPERF,         .initFunc = (tcpipModuleInitFunc)TCPIP_IPERF_Initialize},          // TCPIP_MODULE_IPERF
 #endif
 #if defined(TCPIP_STACK_USE_IPV6) && defined(TCPIP_STACK_USE_DHCPV6_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_DHCPV6_CLIENT, .initFunc = &TCPIP_DHCPV6_Initialize},          // TCPIP_MODULE_DHCPV6_CLIENT
+    {.moduleId = TCPIP_MODULE_DHCPV6_CLIENT, .initFunc = (tcpipModuleInitFunc)TCPIP_DHCPV6_Initialize},          // TCPIP_MODULE_DHCPV6_CLIENT
 #endif
 #if defined(TCPIP_STACK_USE_SMTPC)
-    {.moduleId = (uint16_t)TCPIP_MODULE_SMTPC,        .initFunc = &TCPIP_SMTPC_Initialize},          // TCPIP_MODULE_SMTPC
+    {.moduleId = TCPIP_MODULE_SMTPC,        .initFunc = (tcpipModuleInitFunc)TCPIP_SMTPC_Initialize},          // TCPIP_MODULE_SMTPC
 #endif
 #if defined(TCPIP_STACK_USE_TFTP_SERVER)
-    {.moduleId = (uint16_t)TCPIP_MODULE_TFTP_SERVER,  .initFunc = &TCPIP_TFTPS_Initialize},          // TCPIP_MODULE_TFTP_SERVER
+    {.moduleId = TCPIP_MODULE_TFTP_SERVER,  .initFunc = (tcpipModuleInitFunc)TCPIP_TFTPS_Initialize},          // TCPIP_MODULE_TFTP_SERVER
 #endif   
 #if defined(TCPIP_STACK_USE_FTP_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_FTP_CLIENT,   .initFunc = &TCPIP_FTPC_Initialize},          // TCPIP_MODULE_FTP_CLIENT
-#endif 
-#if defined(TCPIP_STACK_USE_MAC_BRIDGE)
-    {.moduleId = (uint16_t)TCPIP_MODULE_MAC_BRIDGE,   .initFunc = &TCPIP_MAC_Bridge_Initialize},      // TCPIP_MODULE_MAC_BRIDGE
+    {.moduleId = TCPIP_MODULE_FTP_CLIENT,   .initFunc = (tcpipModuleInitFunc)TCPIP_FTPC_Initialize},          // TCPIP_MODULE_FTP_CLIENT
 #endif 
 #if defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
-    {.moduleId = (uint16_t)TCPIP_MODULE_HTTP_SERVER_V2, .initFunc = &TCPIP_HTTP_Server_Initialize},   // TCPIP_STACK_USE_HTTP_SERVER_V2
+    {.moduleId = TCPIP_MODULE_HTTP_SERVER_V2, .initFunc = (tcpipModuleInitFunc)TCPIP_HTTP_Server_Initialize},   // TCPIP_STACK_USE_HTTP_SERVER_V2
 #endif  // defined(TCPIP_STACK_USE_HTTP_SERVER_V2)
-#if defined(TCPIP_STACK_USE_WS_CLIENT)
-    {.moduleId = (uint16_t)TCPIP_MODULE_WS_CLIENT,      .initFunc = &TCPIP_WSC_Initialize},               // TCPIP_MODULE_WS_CLIENT
-#endif  // defined(TCPIP_STACK_USE_WS_CLIENT)
     // Add other stack modules here
      
 };
 #endif  // (TCPIP_STACK_DOWN_OPERATION != 0)
 
-#if ((M_TCPIP_STACK_DEBUG_LEVEL & M_TCPIP_STACK_DEBUG_MASK_BASIC) != 0)
-#if (M_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
-volatile int TCPIP_Stack_LeaveAssertLoop = 0;
-#endif  // (M_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
-void TCPIPStack_Assert(bool cond, const char* fileName, const char* funcName, int lineNo)
+SYS_MODULE_OBJ TCPIP_STACK_Initialize(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init)
 {
-    if(cond == false)
-    {
-        // remove the path from the fileName
-        const char* lastPath = strrchr(fileName, (int)'/');
-        if(lastPath == NULL)
-        {   // try windows style
-            lastPath = strrchr(fileName, (int)'\\');
-        }
-        if(lastPath != NULL)
-        {
-            lastPath++;
-        }
-        else
-        {   // no luck
-            lastPath = fileName;
-        }
-        SYS_CONSOLE_PRINT("TCPIP Stack Assert: in file: %s, func: %s, line: %d, \r\n", lastPath, funcName, lineNo);
-#if (M_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
-        while(TCPIP_Stack_LeaveAssertLoop == 0);
-#endif  // (M_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
-    }
-}
 
-#if (M_TCPIP_STACK_ENABLE_COND_LOOP != 0)
-volatile int TCPIP_Stack_LeaveCondLoop = 0;
-#endif  // (M_TCPIP_STACK_ENABLE_COND_LOOP != 0)
-void TCPIPStack_Condition(bool cond, const char* fileName, const char* funcName, int lineNo)
-{
-    if(cond == false)
-    {
-        SYS_CONSOLE_PRINT("TCPIP Stack Cond: in file: %s, func: %s, line: %d, \r\n", fileName, funcName, lineNo);
-#if (M_TCPIP_STACK_ENABLE_COND_LOOP != 0)
-        while(TCPIP_Stack_LeaveCondLoop == 0);
-#endif // (M_TCPIP_STACK_ENABLE_COND_LOOP != 0)
-    }
-}
-#endif  // ((M_TCPIP_STACK_DEBUG_LEVEL & M_TCPIP_STACK_DEBUG_MASK_BASIC) != 0)
-
-SYS_MODULE_OBJ TCPIP_STACK_Initialize(const SYS_MODULE_INDEX index, const struct TCPIP_STACK_INIT * const init)
-{
-    if(tcpipNetIf != NULL)
+    if(tcpipNetIf != 0)
     {   // already up and running
         return (SYS_MODULE_OBJ)&tcpip_stack_ctrl_data;
     }
 
-    if(init == NULL)
+    if(init == 0)
     {   // no initialization data passed
         return SYS_MODULE_OBJ_INVALID;
     }
@@ -848,20 +668,16 @@ SYS_MODULE_OBJ TCPIP_STACK_Initialize(const SYS_MODULE_INDEX index, const struct
     newTcpipErrorEventCnt = 0;
     newTcpipStackEventCnt = 0;
     newTcpipTickAvlbl = 0;
-    stackTaskRate = 0U;
-    stackLinkTmo = 0;
+    stackTaskRate = stackLinkTmo = 0;
 
-    (void) memset(&tcpip_stack_ctrl_data, 0, sizeof(tcpip_stack_ctrl_data));
+    memset(&tcpip_stack_ctrl_data, 0, sizeof(tcpip_stack_ctrl_data));
 
     SYS_CONSOLE_MESSAGE(TCPIP_STACK_HDR_MESSAGE "Initialization Started \r\n");
 
-    const TCPIP_STACK_INIT*  cStackInit = init;
-    tcpip_stack_init_cb = cStackInit->initCback;
-
     tcpip_stack_status = SYS_STATUS_BUSY;
-    if(tcpip_stack_init_cb == NULL)
+    if((tcpip_stack_init_cb = ((TCPIP_STACK_INIT*)init)->initCback) == 0)
     {   // perform the immediate initialization
-        bool init_res = F_TCPIP_DoInitialize(cStackInit);
+        bool init_res = _TCPIP_DoInitialize((const TCPIP_STACK_INIT*)init);
         return init_res ? (SYS_MODULE_OBJ)&tcpip_stack_ctrl_data : SYS_MODULE_OBJ_INVALID;
     }
 
@@ -872,7 +688,7 @@ SYS_MODULE_OBJ TCPIP_STACK_Initialize(const SYS_MODULE_INDEX index, const struct
 
 // calls the user initialization callback
 // as part of the stack initialization
-static void F_TCPIP_InitCallback(TCPIP_STACK_INIT_CALLBACK cback)
+static void _TCPIP_InitCallback(TCPIP_STACK_INIT_CALLBACK cback)
 {
     const TCPIP_STACK_INIT* pInit;
 
@@ -883,9 +699,9 @@ static void F_TCPIP_InitCallback(TCPIP_STACK_INIT_CALLBACK cback)
         return;
     }
 
-    if (cRes == 0 && pInit != NULL)
+    if (cRes == 0 && pInit != 0)
     {   // we're good to go
-        (void) F_TCPIP_DoInitialize(pInit);
+        _TCPIP_DoInitialize(pInit);
     }
     else
     {   // some error has occurred
@@ -893,18 +709,17 @@ static void F_TCPIP_InitCallback(TCPIP_STACK_INIT_CALLBACK cback)
     }
 }
 
-
 // performs the stack initialization
 // returns true if succesful
 // false otherwise
-static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
+static bool _TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
 {
-    size_t                      netIx, ix;
-    size_t                      nNets, nModules;
-    int32_t                     initFail;
+    int                     netIx, ix;
+    int                     initFail;
     TCPIP_STACK_HEAP_HANDLE heapH;
     TCPIP_NET_IF           *pIf, *pScanIf;
     TCPIP_MAC_POWER_MODE    powerMode;
+    int                     nNets, nModules;
     const TCPIP_NETWORK_CONFIG* pUsrConfig;
     const TCPIP_STACK_MODULE_CONFIG* pModConfig;
     const TCPIP_STACK_HEAP_CONFIG* heapData;
@@ -914,12 +729,12 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
 
 
     pUsrConfig = init->pNetConf;
-    nNets = (size_t)init->nNets;
+    nNets = init->nNets;
     pModConfig = init->pModConfig;
-    nModules = (size_t)init->nModules;
+    nModules = init->nModules;
 
     // minimum sanity check
-    if((nNets == 0U) || (pUsrConfig == NULL) || (pUsrConfig->pMacObject == NULL) || (pModConfig == NULL) || (nModules == 0U))
+    if(nNets == 0 || pUsrConfig == 0 || pUsrConfig->pMacObject == 0 || pModConfig == 0 || nModules == 0)
     {   // cannot run with no interface/init data
         return false;
     }
@@ -931,63 +746,60 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
     {
         initFail = 0;
 
-        sysTmrFreq = SYS_TIME_FrequencyGet();
 
         // find the heap settings
-        pHeapConfig = F_TCPIP_STACK_FindModuleData(TCPIP_MODULE_MANAGER, pModConfig, nModules);
-        heapData = (pHeapConfig != NULL) ? (const TCPIP_STACK_HEAP_CONFIG*)pHeapConfig->configData : NULL;
+        pHeapConfig = _TCPIP_STACK_FindModuleData(TCPIP_MODULE_MANAGER, pModConfig, nModules);
+        heapData = (pHeapConfig != 0) ? (const TCPIP_STACK_HEAP_CONFIG*)pHeapConfig->configData : 0;
         // create the heap and get a handle to the heap memory
-        heapH = TCPIP_HEAP_Create(heapData, NULL);
+        heapH = TCPIP_HEAP_Create(heapData, 0);
 
-        tcpip_stack_ctrl_data.memH = heapH;
-        if( tcpip_stack_ctrl_data.memH == NULL)
+        if((tcpip_stack_ctrl_data.memH = heapH) == 0)
         {   // cannot instantiate a heap
-            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Heap creation failed, type: %d\r\n", (heapData != NULL) ? heapData->heapType : TCPIP_STACK_HEAP_TYPE_NONE);
+            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Heap creation failed, type: %d\r\n", heapData ? heapData->heapType : TCPIP_STACK_HEAP_TYPE_NONE);
             initFail = 1;
             break;
         }
         tcpip_stack_ctrl_data.heapType = heapData->heapType;
 
-        tcpipNetIf = (TCPIP_NET_IF*)TCPIP_HEAP_Calloc(heapH, (uint32_t)nNets, sizeof(TCPIP_NET_IF)); // allocate for each network interface
-        if(tcpipNetIf == NULL)
+        tcpipNetIf = (TCPIP_NET_IF*)TCPIP_HEAP_Calloc(heapH, nNets, sizeof(TCPIP_NET_IF)); // allocate for each network interface
+        if(tcpipNetIf == 0)
         {   // failed
-            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration allocation failed: %lu\r\n", (uint32_t)nNets * sizeof(TCPIP_NET_IF));
+            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration allocation failed: %lu\r\n", nNets * sizeof(TCPIP_NET_IF));
             initFail = 2;
             break;
         }
 
         if(TCPIP_PKT_Initialize(heapH, pUsrConfig, nNets) == false)
         {
-            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Packet initialization failed: 0x%x\r\n", heapH);
+            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Packet initialization failed: 0x%x\r\n", (uint32_t)heapH);
             initFail = 3;
             break;
         }
 
         // initialize the run time table
         // select the running modules
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
-        (void) memset(&TCPIP_MODULES_RUN_TBL, 0, sizeof(TCPIP_MODULES_RUN_TBL));
-        TCPIP_MODULES_RUN_TBL[TCPIP_MODULE_MANAGER].val = (uint8_t)TCPIP_MODULE_RUN_FLAG_IS_RUNNING; 
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
+        memset(&TCPIP_MODULES_RUN_TBL, 0, sizeof(TCPIP_MODULES_RUN_TBL));
+        TCPIP_MODULES_RUN_TBL[TCPIP_MODULE_MANAGER].val = TCPIP_MODULE_RUN_FLAG_IS_RUNNING; 
         TCPIP_MODULE_RUN_DCPT* pRDcpt;
         size_t modIx;
         const TCPIP_STACK_MODULE_ENTRY* pEntry = TCPIP_STACK_MODULE_ENTRY_TBL + 0;
 
-        for(modIx = 0; modIx < (sizeof(TCPIP_STACK_MODULE_ENTRY_TBL) / sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL)); modIx++)
+        for(modIx = 0; modIx < sizeof(TCPIP_STACK_MODULE_ENTRY_TBL) / sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL); modIx++, pEntry++)
         {
-            if(F_TCPIP_STACK_FindModuleData((TCPIP_STACK_MODULE)pEntry->moduleId, pModConfig, nModules) != NULL)
+            if(_TCPIP_STACK_FindModuleData(pEntry->moduleId, pModConfig, nModules) != 0)
             {
                 pRDcpt = TCPIP_MODULES_RUN_TBL + pEntry->moduleId;
                 pRDcpt->isRunning = 1;  // module should be started
             }
-            pEntry++;
         }
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
 
 
-        tcpip_stack_ctrl_data.nIfs = (uint16_t)nNets;
-        tcpip_stack_ctrl_data.nModules = (uint16_t)nModules;
+        tcpip_stack_ctrl_data.nIfs = nNets;
+        tcpip_stack_ctrl_data.nModules = nModules;
 
-        if(!F_InitNetConfig(pUsrConfig, nNets))
+        if(!_InitNetConfig(pUsrConfig, nNets))
         {
             SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration initialization failed: %d\r\n", nNets);
             initFail = 4;   // failed the initialization
@@ -995,18 +807,16 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
         }
 
         // detect the primary and alias interfaces
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
         TCPIP_NET_IF           *pPriIf;
 
-        pIf = tcpipNetIf;
-        for(netIx = 0; netIx < nNets; netIx++)
+        for(netIx = 0, pIf = tcpipNetIf; netIx < nNets; netIx++, pIf++)
         {
-            if(pIf->pPriIf == NULL)
+            if(pIf->pPriIf == 0)
             {   // new scanned interface, make it primary
                 pIf->pPriIf = pPriIf = pIf;
                 pPriMac = pPriIf->pMacObj;
-                pScanIf = pIf + 1;
-                for(ix = netIx + 1U; ix < nNets; ix++)
+                for(ix = netIx + 1, pScanIf = pIf + 1; ix < nNets; ix++, pScanIf++)
                 {
                     if(pScanIf->pMacObj == pPriMac)
                     {   // alias interface; insert it
@@ -1016,107 +826,90 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
                         // count it
                         tcpip_stack_ctrl_data.nAliases++;
                     }
-                    pScanIf++;
                 }
             }
-            pIf++;
         }
 #else
-        netIx = 0;
-        pIf = tcpipNetIf;
-        while(netIx < nNets)
+        for(netIx = 0, pIf = tcpipNetIf; netIx < nNets; netIx++, pIf++)
         {
             pPriMac = pIf->pMacObj;
-            pScanIf = pIf + 1;
-            for(ix = netIx + 1U; ix < nNets; ix++)
+            for(ix = netIx + 1, pScanIf = pIf + 1; ix < nNets; ix++, pScanIf++)
             {
                 if(pScanIf->pMacObj == pPriMac)
                 {   // alias interface; count it
                     tcpip_stack_ctrl_data.nAliases++;
                 }
-                pScanIf++;
             }
-            netIx++;
-            pIf++;
         }
 
-        if(tcpip_stack_ctrl_data.nAliases != 0U)
+        if(tcpip_stack_ctrl_data.nAliases != 0)
         {
             initFail = 5;
             SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration: Aliases not supported: %d\r\n", tcpip_stack_ctrl_data.nAliases);
             break;
         }
 
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
         // make sure that there's no 2 interfaces with identical IP address
         dupIpAddr.Val = 0;
-        netIx = 0;
-        pIf = tcpipNetIf; 
-        while((netIx < nNets) && (initFail == 0)) 
+        for(netIx = 0, pIf = tcpipNetIf; netIx < nNets && !initFail; netIx++, pIf++)
         {
-            dupIpAddr.Val = pIf->DefaultIPAddr.Val;
-            if(dupIpAddr.Val != 0U)
+            if((dupIpAddr.Val = pIf->DefaultIPAddr.Val) != 0)
             {   // IP address 0 does not count as duplicate
-                pScanIf = pIf + 1;
-                for(ix = netIx + 1U; ix < nNets; ix++)
+                for(ix = netIx + 1, pScanIf = pIf + 1; ix < nNets; ix++, pScanIf++)
                 {
                     if(pScanIf->DefaultIPAddr.Val == dupIpAddr.Val)
                     {
                         initFail = 6;
                         break;
                     }
-                    pScanIf++;
                 }
             }
-            netIx++;
-            pIf++;
         }
 
-        if(initFail != 0)
+        if(initFail)
         {
             SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration: invalid IP address: 0x%8x\r\n", dupIpAddr.Val);
             break;
         }
 
         // delete the old defaults
-        tcpipDefIf.defaultNet = NULL;
+        tcpipDefIf.defaultNet = 0;
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_IGMP)
-        tcpipDefIf.defaultMcastNet = NULL;
+        tcpipDefIf.defaultMcastNet = 0;
 #endif
 
-        F_TCPIPStackSetIfNumberName();
+        _TCPIPStackSetIfNumberName();
 
         // initialize the signal handlers
-        (void) memset(TCPIP_STACK_MODULE_SIGNAL_TBL, 0x0, sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL));
+        memset(TCPIP_STACK_MODULE_SIGNAL_TBL, 0x0, sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL));
         stackAsyncSignalCount = 0;
 
         // save the heap configuration
         tcpip_heap_config = *heapData; 
 
         // initialize the processed frames table
-        for(ix = 0; ix < (sizeof(TCPIP_MODULES_QUEUE_TBL) / sizeof(*TCPIP_MODULES_QUEUE_TBL)); ix++)
+        for(ix = 0; ix < sizeof(TCPIP_MODULES_QUEUE_TBL)/sizeof(*TCPIP_MODULES_QUEUE_TBL); ix++)
         {
             TCPIP_Helper_SingleListInitialize(TCPIP_MODULES_QUEUE_TBL + ix);
         }
 
         // start per interface initializing
-        tcpip_stack_ctrl_data.stackAction = (uint8_t)TCPIP_STACK_ACTION_INIT;
+        tcpip_stack_ctrl_data.stackAction = TCPIP_STACK_ACTION_INIT;
 
-        netIx = 0;
-        pIf = tcpipNetIf; 
-        while(netIx < nNets) 
+        for(netIx = 0, pIf = tcpipNetIf; netIx < nNets; netIx++, pIf++, pUsrConfig++)
         {
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-            if(!TCPIPStackNetIsPrimary(pIf))
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+            if(!_TCPIPStackNetIsPrimary(pIf))
             {   // first bring up the primary, then the aliases!
                 continue;
             }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
             // check the power mode
             powerMode = TCPIP_Helper_StringToPowerMode(pUsrConfig->powerMode);
-            if((powerMode != TCPIP_MAC_POWER_FULL) && (powerMode != TCPIP_MAC_POWER_DOWN))
+            if(powerMode != TCPIP_MAC_POWER_FULL && powerMode != TCPIP_MAC_POWER_DOWN)
             {   
                 SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Power Mode initialization fail: %d\r\n", powerMode);
                 initFail = 7;
@@ -1124,9 +917,9 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
             }
 
             // set transient data
-            tcpip_stack_ctrl_data.powerMode = (uint8_t)powerMode;
+            tcpip_stack_ctrl_data.powerMode = powerMode;
             tcpip_stack_ctrl_data.pNetIf = pIf;
-            tcpip_stack_ctrl_data.netIx = (uint16_t)netIx;
+            tcpip_stack_ctrl_data.netIx = netIx;
 
 
             if(!TCPIP_STACK_BringNetUp(&tcpip_stack_ctrl_data, pUsrConfig, pModConfig, nModules))
@@ -1134,29 +927,23 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
                 initFail = 8;
                 break;
             }
-            netIx++;
-            pIf++; 
-            pUsrConfig++;
 
             // interface success
         }
 
         // start the aliases, if any
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
         pUsrConfig = init->pNetConf;
-        pIf = tcpipNetIf;
-        if(initFail == 0)
+        for(netIx = 0, pIf = tcpipNetIf; netIx < nNets && !initFail; netIx++, pIf++, pUsrConfig++)
         {
-            for(netIx = 0; (netIx < nNets) ; netIx++)
-            {
-                if(TCPIPStackNetIsPrimary(pIf))
+            if(_TCPIPStackNetIsPrimary(pIf))
             {   // primaries should be up
                 continue;
             }
 
             // check the power mode
             powerMode = TCPIP_Helper_StringToPowerMode(pUsrConfig->powerMode);
-                if((powerMode != TCPIP_MAC_POWER_FULL) && (powerMode != TCPIP_MAC_POWER_DOWN))
+            if(powerMode != TCPIP_MAC_POWER_FULL && powerMode != TCPIP_MAC_POWER_DOWN)
             {   
                 SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Power Mode initialization fail: %d\r\n", powerMode);
                 initFail = 9;
@@ -1164,9 +951,9 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
             }
 
             // set transient data
-            tcpip_stack_ctrl_data.powerMode = (uint8_t)powerMode;
+            tcpip_stack_ctrl_data.powerMode = powerMode;
             tcpip_stack_ctrl_data.pNetIf = pIf;
-            tcpip_stack_ctrl_data.netIx = (uint16_t)netIx;
+            tcpip_stack_ctrl_data.netIx = netIx;
 
 
             if(!TCPIP_STACK_BringNetUp(&tcpip_stack_ctrl_data, pUsrConfig, pModConfig, nModules))
@@ -1174,25 +961,22 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
                 initFail = 10;
                 break;
             }
-                pIf++;
-                pUsrConfig++;
 
             // alias interface success
-            }
         }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
         break;
     }
 
     // initialization done
-    if(initFail == 0)
+    if(!initFail)
     {
 #if !defined (TCPIP_STACK_USE_EXTERNAL_HEAP)
         size_t heapLeft;
         // check the amount of heap left
         heapLeft = TCPIP_HEAP_FreeSize(heapH);
-        if(heapLeft < (size_t)TCPIP_STACK_DRAM_RUN_LIMIT)
+        if(heapLeft < TCPIP_STACK_DRAM_RUN_LIMIT)
         {
             SYS_ERROR_PRINT(SYS_ERROR_WARNING, TCPIP_STACK_HDR_MESSAGE "Dynamic memory is low: %lu\r\n", heapLeft);
         }
@@ -1209,7 +993,7 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
 
 
 /*********************************************************************
- * Function:        bool TCPIP_STACK_BringNetUp(TCPIP_NET_IF* pNetIf, const TCPIP_NETWORK_CONFIG* pNetConf, const TCPIP_STACK_MODULE_CONFIG* pModConfig, size_t nModules)
+ * Function:        bool TCPIP_STACK_BringNetUp(TCPIP_NET_IF* pNetIf, const TCPIP_NETWORK_CONFIG* pNetConf, const TCPIP_STACK_MODULE_CONFIG* pModConfig, int nModules)
  *
  * PreCondition:    None
  *
@@ -1223,7 +1007,7 @@ static bool F_TCPIP_DoInitialize(const TCPIP_STACK_INIT * init)
  *
  * Note:            None
  ********************************************************************/
-static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const TCPIP_NETWORK_CONFIG* pNetConf, const TCPIP_STACK_MODULE_CONFIG* pModConfig, size_t nModules)
+static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const TCPIP_NETWORK_CONFIG* pNetConf, const TCPIP_STACK_MODULE_CONFIG* pModConfig, int nModules)
 {
     TCPIP_NET_IF           *pNetIf;
     bool                    netUpFail;
@@ -1235,13 +1019,13 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
     netUpFail = false;
     pNetIf = stackCtrlData->pNetIf;
     // restore the dynamic interface data
-    pNetIf->netIfIx = (uint16_t)stackCtrlData->netIx;
+    pNetIf->netIfIx = stackCtrlData->netIx;
     pNetIf->Flags.powerMode = stackCtrlData->powerMode;
     pMacObj = pNetIf->pMacObj;
 
     while(true)
     {
-        if(TCPIPStackNetIsPrimary(pNetIf))
+        if(_TCPIPStackNetIsPrimary(pNetIf))
         {   // init primary interface
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION) && (TCPIP_STACK_USER_NOTIFICATION != 0)
             if(!TCPIP_Notification_Initialize(&pNetIf->registeredClients))
@@ -1254,17 +1038,16 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
             // start stack MAC modules initialization for primary interfaces
             // find MAC initialization data; use old if no new one
             macConfig = pNetIf->pMacConfig;
-            if (pModConfig != NULL)
+            if (pModConfig != 0)
             {
-                pConfig = F_TCPIP_STACK_FindModuleData((TCPIP_STACK_MODULE)pMacObj->macId, pModConfig, nModules);
-                if(pConfig != NULL)
+                pConfig = _TCPIP_STACK_FindModuleData(pMacObj->macId, pModConfig, nModules);
+                if(pConfig != 0)
                 {   // there's new MAC config data
-                    pNetIf->pMacConfig = pConfig->configData;
-                    macConfig = pConfig->configData;
+                    pNetIf->pMacConfig = macConfig = pConfig->configData;
                 }
             }
 
-            if(stackCtrlData->powerMode == (uint8_t)TCPIP_MAC_POWER_FULL)
+            if(stackCtrlData->powerMode == TCPIP_MAC_POWER_FULL)
             {   // init the MAC
                 TCPIP_STACK_StacktoMacCtrl(&macCtrl, stackCtrlData);
                 TCPIP_MAC_INIT macInit =
@@ -1274,7 +1057,7 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
                     macConfig,
                 };
 
-                pNetIf->macObjHandle = (*pMacObj->MAC_Initialize)(pMacObj->macId, &macInit.moduleInit);
+                pNetIf->macObjHandle = (*pMacObj->TCPIP_MAC_Initialize)(pMacObj->macId, &macInit.moduleInit);
 
                 if( pNetIf->macObjHandle == SYS_MODULE_OBJ_INVALID)
                 {
@@ -1285,7 +1068,7 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
                 }
 
                 // open the MAC
-                pNetIf->hIfMac = (*pMacObj->MAC_Open)(pMacObj->macId, DRV_IO_INTENT_READWRITE);
+                pNetIf->hIfMac = (*pMacObj->TCPIP_MAC_Open)(pMacObj->macId, DRV_IO_INTENT_READWRITE);
                 if(pNetIf->hIfMac == DRV_HANDLE_INVALID)
                 {
                     pNetIf->hIfMac = 0;
@@ -1298,54 +1081,54 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
         }
 
         // start stack initialization per module
-        // #if (M_TCPIP_STACK_RUN_TIME_INIT == 0)
+        // #if (_TCPIP_STACK_RUN_TIME_INIT == 0)
         //          then all modules from the build time TCPIP_STACK_MODULE_ENTRY_TBL will be initialized
-        // #if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+        // #if (_TCPIP_STACK_RUN_TIME_INIT != 0)
         //          then only modules that have initialization data will be started and initialized
         //          at stack start-up (pModConfig != 0) we determine the modules that need to run
         //          at interface up (pModConfig == 0) we call only the running modules
 
-        int32_t modIx;
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+        int modIx;
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
         const TCPIP_STACK_MODULE_ENTRY*  pEntry = TCPIP_STACK_MODULE_ENTRY_TBL + 0;
 
-        for(modIx = 0; modIx < ((int32_t)sizeof(TCPIP_STACK_MODULE_ENTRY_TBL) / (int32_t)sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL)); modIx++)
+        for(modIx = 0; modIx < sizeof(TCPIP_STACK_MODULE_ENTRY_TBL) / sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL); modIx++)
         {
-            configData = NULL;
-            if (pModConfig != NULL)
+            configData = 0;
+            if (pModConfig != 0)
             {
-                pConfig = F_TCPIP_STACK_FindModuleData((TCPIP_STACK_MODULE)pEntry->moduleId, pModConfig, nModules);
-                if(pConfig != NULL)
+                pConfig = _TCPIP_STACK_FindModuleData(pEntry->moduleId, pModConfig, nModules);
+                if(pConfig != 0)
                 {
                     configData = pConfig->configData;
                 }
             }
 
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
             TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + pEntry->moduleId;
-            if(pRDcpt->isRunning != 0U)
+            if(pRDcpt->isRunning)
             {
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
                 if(!pEntry->initFunc(stackCtrlData, configData))
                 {
                     SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Module no: %d Initialization failed\r\n", pEntry->moduleId);
                     netUpFail = 1;
                     break;
                 }
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
             }
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
             pEntry++;
         }
 
 
-        if((!netUpFail) && (pNetIf->hIfMac != 0U))
+        if(!netUpFail && pNetIf->hIfMac != 0)
         {
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
-            if(TCPIPStackNetIsPrimary(pNetIf))
+            if(_TCPIPStackNetIsPrimary(pNetIf))
             {
-                if(!(*pNetIf->pMacObj->MAC_EventMaskSet)(pNetIf->hIfMac, TCPIP_STACK_MAC_ALL_EVENTS, true))
+                if(!(*pNetIf->pMacObj->TCPIP_MAC_EventMaskSet)(pNetIf->hIfMac, TCPIP_STACK_MAC_ALL_EVENTS, true))
                 {
                     SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "%s MAC event notification setting failed\r\n", pNetIf->pMacObj->macName);
                     netUpFail = 1;
@@ -1355,8 +1138,8 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 
             // completed the MAC initialization
-            pNetIf->Flags.bMacInitialize = 1;
-            pNetIf->Flags.bMacInitDone = 0;
+            pNetIf->Flags.bMacInitialize = true;
+            pNetIf->Flags.bMacInitDone = false;
         }
 
         break;
@@ -1368,20 +1151,20 @@ static bool TCPIP_STACK_BringNetUp(TCPIP_STACK_MODULE_CTRL* stackCtrlData, const
     }
 
 
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     TCPIP_NET_IF* pPriIf;
-    if((pPriIf = TCPIPStackNetGetPrimary(pNetIf)) != pNetIf)
+    if((pPriIf = _TCPIPStackNetGetPrimary(pNetIf)) != pNetIf)
     {   // alias
-        if(pPriIf->Flags.bInterfaceEnabled != 0U)
+        if(pPriIf->Flags.bInterfaceEnabled != 0)
         {   // primary already enabled: enable alias too
-            F_TCPIPCopyMacAliasIf(pNetIf, pPriIf);
+            _TCPIPCopyMacAliasIf(pNetIf, pPriIf);
 
-            pNetIf->Flags.bInterfaceEnabled = 1;
-            pNetIf->Flags.bMacInitialize = 0;
-            pNetIf->Flags.bMacInitDone = 1;
+            pNetIf->Flags.bInterfaceEnabled = true;
+            pNetIf->Flags.bMacInitialize = false;
+            pNetIf->Flags.bMacInitDone = true;
         }
     }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
     return true;
 
@@ -1393,53 +1176,53 @@ bool TCPIP_STACK_NetUp(TCPIP_NET_HANDLE netH, const TCPIP_NETWORK_CONFIG* pUsrCo
     bool    success;
     TCPIP_MAC_POWER_MODE  powerMode;
 
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(netH);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(netH);
 
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
-        if((pNetIf->Flags.bInterfaceEnabled != 0U) || (pNetIf->Flags.bMacInitialize != 0U))
+        if(pNetIf->Flags.bInterfaceEnabled || pNetIf->Flags.bMacInitialize)
         {   // already up
             return true;
         }
 
-        if(pUsrConfig == NULL)
+        if(pUsrConfig == 0)
         {   // no configuration present
             return false;
         }
 
         // if this is a alias interface, the primary should be up and running!
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-        if(!TCPIPStackNetIsPrimary(pNetIf))
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+        if(!_TCPIPStackNetIsPrimary(pNetIf))
         {
-            TCPIP_NET_IF* pPriIf = TCPIPStackNetGetPrimary(pNetIf);
-            if((pPriIf->Flags.bInterfaceEnabled == 0U) && (pPriIf->Flags.bMacInitialize == 0U))
+            TCPIP_NET_IF* pPriIf = _TCPIPStackNetGetPrimary(pNetIf);
+            if(pPriIf->Flags.bInterfaceEnabled == 0 && pPriIf->Flags.bMacInitialize == 0)
             {
                 return false;
             }
         }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
         // Before we load the default config, we should save what used to be the netIfIx
         // set transient data
         tcpip_stack_ctrl_data.pNetIf = pNetIf;
         tcpip_stack_ctrl_data.netIx = pNetIf->netIfIx;
-        tcpip_stack_ctrl_data.stackAction = (uint8_t)TCPIP_STACK_ACTION_IF_UP;
+        tcpip_stack_ctrl_data.stackAction = TCPIP_STACK_ACTION_IF_UP;
 
-        if(!F_LoadNetworkConfig(pUsrConfig, pNetIf, true))
+        if(!_LoadNetworkConfig(pUsrConfig, pNetIf, true))
         {
             SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Network configuration load failed: %d\r\n", pNetIf->netIfIx);
             return false;
         }
 
         powerMode = TCPIP_Helper_StringToPowerMode(pUsrConfig->powerMode);
-        if((powerMode != TCPIP_MAC_POWER_FULL) && (powerMode != TCPIP_MAC_POWER_DOWN))
+        if(powerMode != TCPIP_MAC_POWER_FULL && powerMode != TCPIP_MAC_POWER_DOWN)
         {   
             SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Power Mode initialization fail: %d\r\n", powerMode);
             return false;
         }
 
-        tcpip_stack_ctrl_data.powerMode = (uint8_t)powerMode;
-        success = TCPIP_STACK_BringNetUp(&tcpip_stack_ctrl_data, pUsrConfig, NULL, 0U);
+        tcpip_stack_ctrl_data.powerMode = powerMode;
+        success = TCPIP_STACK_BringNetUp(&tcpip_stack_ctrl_data, pUsrConfig, 0, 0);
         if(!success)
         {   // don't let the MAC hanging because of a module failure
             TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pNetIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
@@ -1453,26 +1236,26 @@ bool TCPIP_STACK_NetUp(TCPIP_NET_HANDLE netH, const TCPIP_NETWORK_CONFIG* pUsrCo
 
 bool TCPIP_STACK_NetDown(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pDownIf = TCPIPStackHandleToNet(netH);
+    TCPIP_NET_IF* pDownIf = _TCPIPStackHandleToNet(netH);
 
-    if(pDownIf != NULL)
+    if(pDownIf)
     {
-        if((pDownIf->Flags.bInterfaceEnabled != 0U) || (pDownIf->Flags.bMacInitialize != 0U))
+        if(pDownIf->Flags.bInterfaceEnabled || pDownIf->Flags.bMacInitialize)
         {
             // kill interface
             // if this is primary, kill all its aliases
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-            if(TCPIPStackNetIsPrimary(pDownIf))
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+            if(_TCPIPStackNetIsPrimary(pDownIf))
             {
                 TCPIP_NET_IF *pIf;
-                for(pIf = TCPIPStackNetGetAlias(pDownIf); pIf != NULL; pIf = TCPIPStackNetGetAlias(pIf)) 
+                for(pIf = _TCPIPStackNetGetAlias(pDownIf); pIf != 0; pIf = _TCPIPStackNetGetAlias(pIf)) 
                 {
                     TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
                 }
             }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
             TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pDownIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
-            F_TCPIP_SelectDefaultNet(pDownIf);
+            _TCPIP_SelectDefaultNet(pDownIf);
         }
         return true;
     }
@@ -1486,7 +1269,7 @@ bool TCPIP_STACK_NetDown(TCPIP_NET_HANDLE netH)
 #if (TCPIP_STACK_DOWN_OPERATION != 0)
 void TCPIP_STACK_Deinitialize(SYS_MODULE_OBJ object)
 {
-    if((object != (SYS_MODULE_OBJ)&tcpip_stack_ctrl_data) || (tcpipNetIf == NULL))
+    if(object != (SYS_MODULE_OBJ)&tcpip_stack_ctrl_data || tcpipNetIf == 0)
     {   // invalid handle/already dead
         return;
     }
@@ -1498,7 +1281,7 @@ void TCPIP_STACK_Deinitialize(SYS_MODULE_OBJ object)
 // kills the stack
 static void TCPIP_STACK_KillStack(void)
 {
-    int32_t         netIx;
+    int         netIx;
     TCPIP_NET_IF* pNetIf;
 
 #if (TCPIP_STACK_DOWN_OPERATION != 0)
@@ -1510,14 +1293,13 @@ static void TCPIP_STACK_KillStack(void)
 #endif  // (TCPIP_STACK_DOWN_OPERATION != 0)
 
     // kill interfces
-    pNetIf = tcpipNetIf;
-    for(netIx = 0; netIx < (int32_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-        if(TCPIPStackNetIsPrimary(pNetIf))
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+        if(_TCPIPStackNetIsPrimary(pNetIf))
         {   // first kill the aliases!
             TCPIP_NET_IF* pAlias;
-            for(pAlias = TCPIPStackNetGetAlias(pNetIf); pAlias != NULL; pAlias = TCPIPStackNetGetAlias(pAlias)) 
+            for(pAlias = _TCPIPStackNetGetAlias(pNetIf); pAlias != 0; pAlias = _TCPIPStackNetGetAlias(pAlias)) 
             {
                 TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pAlias, TCPIP_STACK_ACTION_DEINIT, TCPIP_MAC_POWER_DOWN);
             }
@@ -1527,31 +1309,30 @@ static void TCPIP_STACK_KillStack(void)
 #else
         // kill primary interface
         TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pNetIf, TCPIP_STACK_ACTION_DEINIT, TCPIP_MAC_POWER_DOWN);
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-        pNetIf++;
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     }
 
 
 #if (TCPIP_STACK_DOWN_OPERATION != 0)
     TCPIP_PKT_Deinitialize();
-    if(tcpip_stack_ctrl_data.memH != NULL)
+    if(tcpip_stack_ctrl_data.memH != 0)
     {
-        (void) TCPIP_HEAP_Free(tcpip_stack_ctrl_data.memH, tcpipNetIf);
-        if((uint32_t)TCPIP_HEAP_Delete(tcpip_stack_ctrl_data.memH) < 0U)     // destroy the heap
+        TCPIP_HEAP_Free(tcpip_stack_ctrl_data.memH, tcpipNetIf);
+        if(TCPIP_HEAP_Delete(tcpip_stack_ctrl_data.memH) < 0)     // destroy the heap
         {
 #if defined(TCPIP_STACK_DRAM_DEBUG_ENABLE)    
-            int32_t     ix, nEntries, nTraces;
+            int     ix, nEntries, nTraces;
             TCPIP_HEAP_TRACE_ENTRY    tEntry;
 
             TCPIP_STACK_HEAP_HANDLE heapH = tcpip_stack_ctrl_data.memH;
-            nTraces = (int32_t)TCPIP_HEAP_TraceGetEntriesNo(heapH, true);
-            if(nTraces != 0)
+            nTraces = TCPIP_HEAP_TraceGetEntriesNo(heapH, true);
+            if(nTraces)
             {
                 SYS_CONSOLE_PRINT(TCPIP_STACK_HDR_MESSAGE "Heap Delete fail! Trace info: \r\n");
-                nEntries = (int32_t)TCPIP_HEAP_TraceGetEntriesNo(heapH, false);
+                nEntries = TCPIP_HEAP_TraceGetEntriesNo(heapH, false);
                 for(ix = 0; ix < nEntries; ix++)
                 {
-                    if(TCPIP_HEAP_TraceGetEntry(heapH, (uint32_t)ix, &tEntry))
+                    if(TCPIP_HEAP_TraceGetEntry(heapH, ix, &tEntry))
                     {
                         if(tEntry.currAllocated != 0)
                         {
@@ -1572,15 +1353,15 @@ static void TCPIP_STACK_KillStack(void)
     }
 #endif  // (TCPIP_STACK_DOWN_OPERATION != 0)
 
-    tcpip_stack_ctrl_data.memH = NULL;
-    tcpip_stack_ctrl_data.heapType = (TCPIP_STACK_HEAP_TYPE)0;
-    tcpipNetIf = NULL;
+    tcpip_stack_ctrl_data.memH = 0;
+    tcpip_stack_ctrl_data.heapType = 0;
+    tcpipNetIf = 0;
 
     tcpip_stack_ctrl_data.nIfs = 0;
     tcpip_stack_ctrl_data.nModules = 0;
     tcpip_stack_status = SYS_STATUS_UNINITIALIZED;
     stackAsyncSignalCount = 0;
-    (void) memset(&tcpip_heap_config, 0, sizeof(tcpip_heap_config));
+    memset(&tcpip_heap_config, 0, sizeof(tcpip_heap_config));
 }
 
 SYS_STATUS TCPIP_STACK_Status ( SYS_MODULE_OBJ object )
@@ -1600,7 +1381,7 @@ bool TCPIP_STACK_InitializeDataGet(SYS_MODULE_OBJ object, TCPIP_STACK_INIT* pSta
         return false;
     }
 
-    if(pStackInit != NULL)
+    if(pStackInit)
     {
         *pStackInit = tcpip_init_data;
     }
@@ -1617,11 +1398,11 @@ static void TCPIP_STACK_BringNetDown(TCPIP_STACK_MODULE_CTRL* stackCtrlData, TCP
 
     stackCtrlData->pNetIf = pNetIf;
     stackCtrlData->netIx = pNetIf->netIfIx;
-    stackCtrlData->stackAction = (uint8_t)action;
-    stackCtrlData->powerMode = (uint8_t)powerMode;
+    stackCtrlData->stackAction = action;
+    stackCtrlData->powerMode = powerMode;
 
     // Go to the last entry in the table
-    pEntry = TCPIP_STACK_MODULE_ENTRY_TBL + (sizeof(TCPIP_STACK_MODULE_ENTRY_TBL)/sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL));
+    pEntry = TCPIP_STACK_MODULE_ENTRY_TBL + sizeof(TCPIP_STACK_MODULE_ENTRY_TBL)/sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL);
     do
     {
         pEntry--;
@@ -1629,28 +1410,27 @@ static void TCPIP_STACK_BringNetDown(TCPIP_STACK_MODULE_CTRL* stackCtrlData, TCP
     }
     while (pEntry != TCPIP_STACK_MODULE_ENTRY_TBL);
 
-    TCPIPStackModuleRxPurge(TCPIP_MODULE_MANAGER, pNetIf);
-    if(TCPIPStackNetIsPrimary(pNetIf))
+    _TCPIPStackModuleRxPurge(TCPIP_MODULE_MANAGER, pNetIf);
+    if(_TCPIPStackNetIsPrimary(pNetIf))
     {   // primary interface
-        if(pNetIf->hIfMac != 0U)
+        if(pNetIf->hIfMac != 0)
         {
-            (*pNetIf->pMacObj->MAC_Close)(pNetIf->hIfMac);
+            (*pNetIf->pMacObj->TCPIP_MAC_Close)(pNetIf->hIfMac);
         }
 
-        if(pNetIf->macObjHandle != 0U)
+        if(pNetIf->macObjHandle != 0)
         {   // kill the MAC
-            (*pNetIf->pMacObj->MAC_Deinitialize)(pNetIf->macObjHandle);
+            (*pNetIf->pMacObj->TCPIP_MAC_Deinitialize)(pNetIf->macObjHandle);
         }
     }
 
     pNetIf->hIfMac = 0;
     pNetIf->macObjHandle = 0;
 
-    pNetIf->Flags.bInterfaceEnabled = 0;
-    pNetIf->Flags.bMacInitialize = 0;
+    pNetIf->Flags.bInterfaceEnabled = pNetIf->Flags.bMacInitialize = false;
 
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION) && (TCPIP_STACK_USER_NOTIFICATION != 0)
-    if(TCPIPStackNetIsPrimary(pNetIf))
+    if(_TCPIPStackNetIsPrimary(pNetIf))
     {
         TCPIP_Notification_Deinitialize(&pNetIf->registeredClients, tcpip_stack_ctrl_data.memH);
     }
@@ -1661,18 +1441,18 @@ static void TCPIP_STACK_BringNetDown(TCPIP_STACK_MODULE_CTRL* stackCtrlData, TCP
 static void TCPIP_STACK_BringNetDown(TCPIP_STACK_MODULE_CTRL* stackCtrlData, TCPIP_NET_IF* pNetIf, TCPIP_STACK_ACTION action, TCPIP_MAC_POWER_MODE powerMode)
 {
 
-    if(TCPIPStackNetIsPrimary(pNetIf))
+    if(_TCPIPStackNetIsPrimary(pNetIf))
     {   // primary interface
         // kill the MAC anyway
         if(pNetIf->hIfMac != 0)
         {
-            (*pNetIf->pMacObj->MAC_Close)(pNetIf->hIfMac);
+            (*pNetIf->pMacObj->TCPIP_MAC_Close)(pNetIf->hIfMac);
         }
 
         if(pNetIf->macObjHandle != 0)
         {   
 #if (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
-            (*pNetIf->pMacObj->MAC_Deinitialize)(pNetIf->macObjHandle);
+            (*pNetIf->pMacObj->TCPIP_MAC_Deinitialize)(pNetIf->macObjHandle);
 #endif  // (TCPIP_STACK_MAC_DOWN_OPERATION != 0)
         }
     }
@@ -1688,30 +1468,21 @@ static void TCPIP_STACK_BringNetDown(TCPIP_STACK_MODULE_CTRL* stackCtrlData, TCP
 
 
 // create the stack tick timer
-static bool F_TCPIPStackCreateTimer(void)
+static bool _TCPIPStackCreateTimer(void)
 {
     bool createRes = false;
 
-    tcpip_stack_tickH = SYS_TMR_CallbackPeriodic(TCPIP_STACK_TICK_RATE, 0, &F_TCPIP_STACK_TickHandler);
+    tcpip_stack_tickH = SYS_TMR_CallbackPeriodic(TCPIP_STACK_TICK_RATE, 0, _TCPIP_STACK_TickHandler);
     if(tcpip_stack_tickH != SYS_TMR_HANDLE_INVALID)
     {
         uint32_t sysRes = SYS_TMR_TickCounterFrequencyGet();
-        uint32_t rateMs = ((sysRes * (uint32_t)TCPIP_STACK_TICK_RATE) + 999U ) / 1000U;    // round up
-        stackTaskRate = (rateMs * 1000U) / sysRes;
-        // make sure the rate is no greater than max value for int16_t!
-        if(stackTaskRate < (((uint32_t)1U << 15) - 1U))
-        {
-            // adjust the link rate to be a multiple of the stack task rate
-            uint32_t linkTmo = ((((uint32_t)M_TCPIP_STACK_LINK_RATE + stackTaskRate - 1U) / stackTaskRate) * stackTaskRate); 
-            // check that it's a proper int32_t type
-            if(linkTmo < (((uint32_t)1U << 31) - 1U))
-            {
-                stackLinkTmo = (int32_t)linkTmo;
-                // SYS_TMR_CallbackPeriodicSetRate(tcpip_stack_tickH, rateMs);
-                // adjust module timeouts
-                createRes = F_TCPIPStack_AdjustTimeouts();
-            }
-        }
+        uint32_t rateMs = ((sysRes * TCPIP_STACK_TICK_RATE) + 999 )/1000;    // round up
+        stackTaskRate = (rateMs * 1000) / sysRes;
+        // SYS_TMR_CallbackPeriodicSetRate(tcpip_stack_tickH, rateMs);
+        // adjust module timeouts
+        createRes = _TCPIPStack_AdjustTimeouts();
+        // adjust the link rate to be a multiple of the stack task rate
+        stackLinkTmo = ((_TCPIP_STACK_LINK_RATE + stackTaskRate - 1) / stackTaskRate) * stackTaskRate; 
     }
 
     if(createRes == false)
@@ -1725,34 +1496,32 @@ static bool F_TCPIPStackCreateTimer(void)
 
 // makes sure that the modules have a proper timeout value
 // when the stackTaskRate is calculated
-static bool F_TCPIPStack_AdjustTimeouts(void)
+static bool _TCPIPStack_AdjustTimeouts(void)
 {
-    size_t     modIx;
+    int     modIx;
     TCPIP_MODULE_SIGNAL_ENTRY*  pSigEntry;
 
-    pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (uint32_t)TCPIP_MODULE_LAYER1;
-    for(modIx = (size_t)TCPIP_MODULE_LAYER1; modIx < (sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL)); modIx++)
+    pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + TCPIP_MODULE_LAYER1;
+    for(modIx = TCPIP_MODULE_LAYER1; modIx < sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL)/sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL); modIx++, pSigEntry++)
     {
-        if((pSigEntry->signalHandler != NULL) && (pSigEntry->asyncTmo != 0))
+        if(pSigEntry->signalHandler != 0 && pSigEntry->asyncTmo != 0)
         {
-            if(!TCPIPStackSignalHandlerSetParams((TCPIP_STACK_MODULE)modIx, pSigEntry, pSigEntry->asyncTmo))
+            if(!_TCPIPStackSignalHandlerSetParams((TCPIP_STACK_MODULE)modIx, pSigEntry, pSigEntry->asyncTmo))
             {   // should NOT happen
                 return false;
             }
         }
-        pSigEntry++;
     }
     return true;
 }
 
 void TCPIP_STACK_Task(SYS_MODULE_OBJ object)
 {
-    size_t              netIx, modIx;
-    TCPIP_NET_IF        *pNetIf, *pAliasIf;
+    int                 netIx, modIx;
+    TCPIP_NET_IF       *pNetIf, *pAliasIf;
     TCPIP_MAC_EVENT     activeEvents;
     bool                eventPending;
     bool                wasTickEvent;
-    uint32_t            events;
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION) && (TCPIP_STACK_USER_NOTIFICATION != 0)
     TCPIP_EVENT         tcpipEvent;
     TCPIP_EVENT_LIST_NODE* tNode;
@@ -1763,18 +1532,18 @@ void TCPIP_STACK_Task(SYS_MODULE_OBJ object)
         return;
     }
 
-    if((tcpip_stack_status != SYS_STATUS_BUSY) && (tcpip_stack_status != SYS_STATUS_READY))
+    if(tcpip_stack_status != SYS_STATUS_BUSY && tcpip_stack_status != SYS_STATUS_READY)
     {   // some error state
         return;
     }
 
-    if(tcpipNetIf == NULL)
+    if(tcpipNetIf == 0)
     {   // call the user callback...
-        F_TCPIP_InitCallback(tcpip_stack_init_cb);
+        _TCPIP_InitCallback(tcpip_stack_init_cb);
         return;
     }
 
-    if(!F_TCPIPStackIsRunState())
+    if(!_TCPIPStackIsRunState())
     {   // not properly initialized yet
         return;
     }
@@ -1789,11 +1558,11 @@ void TCPIP_STACK_Task(SYS_MODULE_OBJ object)
 #endif // defined(TCPIP_STACK_TIME_MEASUREMENT)
 
     // assign a default interface, if needed
-    F_TCPIP_SelectDefaultNet(NULL);
+    _TCPIP_SelectDefaultNet(0);
 
     // check stack signals
     eventPending = TCPIP_STACK_CheckEventsPending();
-    if((eventPending == false) && (stackAsyncSignalCount == 0U))
+    if(eventPending == 0 && stackAsyncSignalCount == 0)
     {   // process only when events are pending or modules need async attention
         return;
     }
@@ -1801,100 +1570,93 @@ void TCPIP_STACK_Task(SYS_MODULE_OBJ object)
     if(newTcpipTickAvlbl != 0)
     {
         wasTickEvent = true;
-        F_TCPIP_ProcessTickEvent();
+        _TCPIP_ProcessTickEvent();
     }
     else
     {
         wasTickEvent = false;
     }
 
-    if( totTcpipEventsCnt != 0)
+    if( totTcpipEventsCnt)
     {   // there are MAC events pending
         totTcpipEventsCnt = 0;
 
-        pNetIf = tcpipNetIf;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
         {
-            if ((pNetIf->Flags.bInterfaceEnabled == 0U) || !TCPIPStackNetIsPrimary(pNetIf))
+            if (!pNetIf->Flags.bInterfaceEnabled || !_TCPIPStackNetIsPrimary(pNetIf))
             {
                 continue;
             }
-            activeEvents =  (TCPIP_MAC_EVENT)pNetIf->activeEvents;
+            activeEvents =  pNetIf->activeEvents;
 
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
             // get a fresh copy
-            events = (uint32_t)activeEvents | (uint32_t)((*pNetIf->pMacObj->MAC_EventPendingGet)(pNetIf->hIfMac));
-            activeEvents = (TCPIP_MAC_EVENT)events;
+            activeEvents |= (*pNetIf->pMacObj->TCPIP_MAC_EventPendingGet)(pNetIf->hIfMac);
 #else
-            events = (uint32_t)activeEvents | (uint32_t) (TCPIP_MAC_EV_RX_DONE | TCPIP_MAC_EV_TX_DONE);    // just fake pending events
-            activeEvents = (TCPIP_MAC_EVENT)events;
+            activeEvents |= TCPIP_MAC_EV_RX_DONE|TCPIP_MAC_EV_TX_DONE;    // just fake pending events
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 
             // clear processed events
-            F_TCPIP_ClearMacEvent(pNetIf, activeEvents);
-            pNetIf->currEvents |= (uint16_t)activeEvents;     // store all the processed events
+            _TCPIP_ClearMacEvent(pNetIf, activeEvents);
+            pNetIf->currEvents |= activeEvents;     // store all the processed events
 
             // acknowledge MAC events
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
-            (void) (*pNetIf->pMacObj->MAC_EventAcknowledge)(pNetIf->hIfMac, activeEvents);
+            (*pNetIf->pMacObj->TCPIP_MAC_EventAcknowledge)(pNetIf->hIfMac, activeEvents);
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
-            if(((uint32_t)activeEvents & (TCPIP_STACK_MAC_ACTIVE_RX_EVENTS)) != 0U)
+            if((activeEvents & (TCPIP_STACK_MAC_ACTIVE_RX_EVENTS)) != 0)
             {
-                (void) F_TCPIPExtractMacRxPackets(pNetIf);
+                _TCPIPExtractMacRxPackets(pNetIf);
                 newTcpipStackEventCnt++;
             }
 
-            if(pNetIf->Flags.bMacProcessOnEvent != 0U)
+            if(pNetIf->Flags.bMacProcessOnEvent != 0)
             {   // normal MAC internal processing
-                (void) (*pNetIf->pMacObj->MAC_Process)(pNetIf->hIfMac);
+                (*pNetIf->pMacObj->TCPIP_MAC_Process)(pNetIf->hIfMac);
             }
-            pNetIf++;
         }
 
-        (void) F_TCPIPProcessMacPackets(true);
+        _TCPIPProcessMacPackets(true);
 
         // clear the pending RX signal so it's not reported
-        (void) F_TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL_RX_PENDING);
+        _TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL_RX_PENDING);
     }
 
     // process connection related and error events    
-    pNetIf = tcpipNetIf;    
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
-        if ((pNetIf->Flags.bInterfaceEnabled == 0U) || !TCPIPStackNetIsPrimary(pNetIf))
+        if (!pNetIf->Flags.bInterfaceEnabled || !_TCPIPStackNetIsPrimary(pNetIf))
         {
             continue;
         }
 
-        activeEvents = (TCPIP_MAC_EVENT)pNetIf->currEvents;
-        if(((uint32_t)activeEvents & (uint32_t)TCPIP_MAC_EV_RXTX_ERRORS) != 0U)
+        activeEvents = pNetIf->currEvents;
+        if((activeEvents & TCPIP_MAC_EV_RXTX_ERRORS) != 0)
         {    // some error has occurred
-            F_TCPIP_ProcessMACErrorEvents(pNetIf, activeEvents);
+            _TCPIP_ProcessMACErrorEvents(pNetIf, activeEvents);
         }
 
-        if(pNetIf->exFlags.connEvent != 0U)
+        if(pNetIf->exFlags.connEvent != 0)
         {   // connection related event
-            if(pNetIf->exFlags.connEventType != 0U)
+            if(pNetIf->exFlags.connEventType != 0)
             {
-                events = (uint32_t)activeEvents | (uint32_t)TCPIP_MAC_EV_CONN_ESTABLISHED;
-                activeEvents = (TCPIP_MAC_EVENT)events;
+                activeEvents |= TCPIP_MAC_EV_CONN_ESTABLISHED;
 #if defined(TCPIP_STACK_USE_PPP_INTERFACE)
-                if(TCPIPStack_NetMacType(pNetIf) == TCPIP_MAC_TYPE_PPP)
+                if(_TCPIPStack_NetMacType(pNetIf) == TCPIP_MAC_TYPE_PPP)
                 {   // for a PPP interface we set the IP address obtained from negotiation
                     IPV4_ADDR lclIpAddr;
                     lclIpAddr.Val = PPP_GetLocalIpv4Addr(pNetIf->hIfMac);
-                    F_TCPIPStackSetIpAddress(pNetIf, &lclIpAddr, NULL, NULL, false);
+                    _TCPIPStackSetIpAddress(pNetIf, &lclIpAddr, 0, 0, false);
                 }
 #endif  // defined(TCPIP_STACK_USE_PPP_INTERFACE)
             }
             else
             {
-                events = (uint32_t)activeEvents | (uint32_t)TCPIP_MAC_EV_CONN_LOST;
-                activeEvents = (TCPIP_MAC_EVENT)events;
+                activeEvents |= TCPIP_MAC_EV_CONN_LOST;
             } 
             pNetIf->exFlags.connEvent = 0;
 
-            for(pAliasIf = TCPIPStackNetGetPrimary(pNetIf); pAliasIf != NULL; pAliasIf = TCPIPStackNetGetAlias(pAliasIf))
+            for(pAliasIf = _TCPIPStackNetGetPrimary(pNetIf); pAliasIf != 0; pAliasIf = _TCPIPStackNetGetAlias(pAliasIf))
             {
                 for(modIx = 0; modIx < sizeof(TCPIP_STACK_CONN_EVENT_TBL)/sizeof(*TCPIP_STACK_CONN_EVENT_TBL); modIx++)
                 {
@@ -1908,38 +1670,34 @@ void TCPIP_STACK_Task(SYS_MODULE_OBJ object)
         if((tcpipEvent = TCPIP_STACK_Mac2TcpipEvent(activeEvents)) != TCPIP_EV_NONE)
         {
             TCPIP_Notification_Lock(&pNetIf->registeredClients);
-
-            tNode = FC_ListNode2EventNode(pNetIf->registeredClients.list.head); 
-            while(tNode != NULL)
+            for(tNode = (TCPIP_EVENT_LIST_NODE*)pNetIf->registeredClients.list.head; tNode != 0; tNode = tNode->next)
             {
-                if(((uint32_t)tNode->evMask & (uint32_t)tcpipEvent) != 0U)
+                if((tNode->evMask & tcpipEvent) != 0 )
                 {   // trigger event
                     (*tNode->handler)(pNetIf, tcpipEvent, tNode->hParam);
                 }
-                tNode = tNode->next;
             }
             TCPIP_Notification_Unlock(&pNetIf->registeredClients);
         }
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION) && (TCPIP_STACK_USER_NOTIFICATION != 0)
 
         pNetIf->currEvents = 0;
-        pNetIf++;
     }
 
     if(wasTickEvent)
     {   // send the timeout signals
-        F_TCPIPStackSignalTmo();
+        _TCPIPStackSignalTmo();
         // clear the TMO signal so it's not reported anymore
-        (void) F_TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL_TMO);
+        _TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL_TMO);
     }
 
 #if !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
     // execute the signal tasks here, instead of letting the app handle that
-    F_TCPIPStackExecuteModules();
-    if(stackAsyncSignalCount != 0U)
+    _TCPIPStackExecuteModules();
+    if(stackAsyncSignalCount != 0)
     {   // when executing the tasks internally
         // signal that attention is required
-        F_TCPIPSignalEntryNotify(F_TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER), TCPIP_MODULE_SIGNAL_ASYNC, 0);
+        _TCPIPSignalEntryNotify(_TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER), TCPIP_MODULE_SIGNAL_ASYNC, 0);
     }
 #endif  // !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
 
@@ -1952,16 +1710,17 @@ void TCPIP_STACK_Task(SYS_MODULE_OBJ object)
 
 }
 
-static bool F_TCPIPStackIsRunState(void)
+static bool _TCPIPStackIsRunState(void)
 {
-    size_t          netIx;
+    int             netIx;
     TCPIP_NET_IF   *pNetIf, *pPriIf;
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+    int             aliasIx;
     TCPIP_NET_IF   *pAliasIf;
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
     // check that we've created the needed timer
-    if((tcpip_stack_status == SYS_STATUS_BUSY) && (tcpip_stack_tickH == SYS_TMR_HANDLE_INVALID))
+    if(tcpip_stack_status == SYS_STATUS_BUSY && tcpip_stack_tickH == SYS_TMR_HANDLE_INVALID)
     {   // check that we can create a timer
         SYS_STATUS tmrStat = SYS_TMR_ModuleStatusGet(0);
         if(tmrStat == SYS_STATUS_BUSY)
@@ -1971,13 +1730,13 @@ static bool F_TCPIPStackIsRunState(void)
 
         if(tmrStat == SYS_STATUS_READY)
         {   // try to create the timer
-            if(F_TCPIPStackCreateTimer() == false)
+            if(_TCPIPStackCreateTimer() == false)
             {   // failed
                 tmrStat = SYS_STATUS_ERROR;
             }
         }
         
-        if(tmrStat <= (SYS_STATUS)0)
+        if(tmrStat <= 0)
         {   // something went wrong...
             TCPIP_STACK_KillStack();
             tcpip_stack_status = SYS_STATUS_ERROR;
@@ -1986,75 +1745,63 @@ static bool F_TCPIPStackIsRunState(void)
         }
     }
 
-    pNetIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
-        if((pNetIf->macObjHandle != 0U) && TCPIPStackNetIsPrimary(pNetIf))
+        if(pNetIf->macObjHandle != 0 && _TCPIPStackNetIsPrimary(pNetIf))
         {
             // process the underlying MAC module tasks
-            (*pNetIf->pMacObj->MAC_Tasks)(pNetIf->macObjHandle);
+            (*pNetIf->pMacObj->TCPIP_MAC_Tasks)(pNetIf->macObjHandle);
 
             // check if we're just starting up some interfaces
-            if(pNetIf->Flags.bMacInitialize != 0U)
+            if(pNetIf->Flags.bMacInitialize)
             {   // initializing
-                SYS_STATUS macStat = (*pNetIf->pMacObj->MAC_Status)(pNetIf->macObjHandle);
-                if(macStat < (SYS_STATUS)0)
+                SYS_STATUS macStat = (*pNetIf->pMacObj->TCPIP_MAC_Status)(pNetIf->macObjHandle);
+                if(macStat < 0)
                 {   // failed; kill the interface
                     TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pNetIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
-                    pNetIf->Flags.bMacInitDone = 1;
+                    pNetIf->Flags.bMacInitDone = true;
                 }
                 else if(macStat == SYS_STATUS_READY)
                 {   // get the MAC address and MAC processing flags
                     // set the default MTU; MAC driver will override if needed
                     TCPIP_MAC_PARAMETERS macParams = {{{0}}};
                     macParams.linkMtu = TCPIP_MAC_LINK_MTU_DEFAULT; 
-                    macParams.macTxPrioNum = 1U; 
-                    macParams.macRxPrioNum = 1U;    // se the default priority queue numbers 
-                    (void) (*pNetIf->pMacObj->MAC_ParametersGet)(pNetIf->hIfMac, &macParams);
-                    (void) memcpy(pNetIf->netMACAddr.v, macParams.ifPhyAddress.v, sizeof(pNetIf->netMACAddr));
-                    pNetIf->Flags.bMacProcessOnEvent = (uint8_t)(macParams.processFlags != TCPIP_MAC_PROCESS_FLAG_NONE);
-                    pNetIf->linkMtu = (uint16_t)macParams.linkMtu;
+                    (*pNetIf->pMacObj->TCPIP_MAC_ParametersGet)(pNetIf->hIfMac, &macParams);
+                    memcpy(pNetIf->netMACAddr.v, macParams.ifPhyAddress.v, sizeof(pNetIf->netMACAddr));
+                    pNetIf->Flags.bMacProcessOnEvent = macParams.processFlags != TCPIP_MAC_PROCESS_FLAG_NONE;
+                    pNetIf->linkMtu = macParams.linkMtu;
                     pNetIf->txOffload = (uint8_t)macParams.checksumOffloadTx;
                     pNetIf->rxOffload = (uint8_t)macParams.checksumOffloadRx;
-                    pNetIf->txPriNum = macParams.macTxPrioNum;
-                    pNetIf->rxPriNum = macParams.macRxPrioNum;
 
                     // enable this interface
-                    pNetIf->Flags.bInterfaceEnabled = 1;
-                    pNetIf->Flags.bMacInitialize = 0;
-                    pNetIf->Flags.bMacInitDone = 1;
+                    pNetIf->Flags.bInterfaceEnabled = true;
+                    pNetIf->Flags.bMacInitialize = false;
+                    pNetIf->Flags.bMacInitDone = true;
 
 #if defined(TCPIP_STACK_USE_PPP_INTERFACE)
-                    if(TCPIPStack_NetMacType(pNetIf) == TCPIP_MAC_TYPE_PPP)
+                    if(_TCPIPStack_NetMacType(pNetIf) == TCPIP_MAC_TYPE_PPP)
                     {   // for a PPP interface we set the IP address obtained from negotiation
                         IPV4_ADDR lclIpAddr;
                         lclIpAddr.Val = 0;
-                        F_TCPIPStackSetIpAddress(pNetIf, &lclIpAddr, NULL, NULL, true);
+                        _TCPIPStackSetIpAddress(pNetIf, &lclIpAddr, 0, 0, true);
                     }
 #endif  // defined(TCPIP_STACK_USE_PPP_INTERFACE)
 
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-                    pAliasIf = TCPIPStackNetGetAlias(pNetIf);
-                    while(pAliasIf != NULL)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+                    for(pAliasIf = _TCPIPStackNetGetAlias(pNetIf), aliasIx = 0; pAliasIf != 0; pAliasIf = _TCPIPStackNetGetAlias(pAliasIf), aliasIx++)
                     {
-                        F_TCPIPCopyMacAliasIf(pAliasIf, pNetIf);
-                        pAliasIf->Flags.bMacInitialize = 0;
-                        pAliasIf->Flags.bMacInitDone = 1;
-                        if(pAliasIf->Flags.powerMode == (uint16_t)TCPIP_MAC_POWER_FULL)
+                        _TCPIPCopyMacAliasIf(pAliasIf, pNetIf);
+                        pAliasIf->Flags.bMacInitialize = false;
+                        pAliasIf->Flags.bMacInitDone = true;
+                        if(pAliasIf->Flags.powerMode == TCPIP_MAC_POWER_FULL)
                         {   // enable the alias interface too;
-                            pAliasIf->Flags.bInterfaceEnabled = 1;
+                            pAliasIf->Flags.bInterfaceEnabled = true;
                         }
-                        pAliasIf = TCPIPStackNetGetAlias(pAliasIf);                        
                     }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-                }
-                else
-                {
-                    /* Do Nothing */
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
                 }
             }
         }
-        pNetIf++;
     }
 
     // check we're getting out of Initialize procedure
@@ -2062,52 +1809,43 @@ static bool F_TCPIPStackIsRunState(void)
     {
         uint32_t    ifUpMask = 0;   // masks of interfaces that are up;
         // max 32 interfaces are assumed for now!
-        netIx = 0; 
-        pNetIf = tcpipNetIf; 
-        while(netIx < (size_t)tcpip_stack_ctrl_data.nIfs) 
+        for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
         {
-            pPriIf = TCPIPStackNetGetPrimary(pNetIf);    // look at the primary initialization
+            pPriIf = _TCPIPStackNetGetPrimary(pNetIf);    // look at the primary initialization
 
-            if(pPriIf->Flags.powerMode == (uint16_t)TCPIP_MAC_POWER_FULL)
+            if(pPriIf->Flags.powerMode == TCPIP_MAC_POWER_FULL)
             {
-                if(pPriIf->Flags.bMacInitDone == 0U)
+                if(pPriIf->Flags.bMacInitDone == 0)
                 {
                     return false;  // not done
                 }
-                else if(pPriIf->Flags.bInterfaceEnabled != 0U)
+                else if(pPriIf->Flags.bInterfaceEnabled != 0)
                 {
-                    ifUpMask |= (1UL << netIx);
-                }
-                else
-                {
-                    /* Do Nothing */
+                    ifUpMask |= (1 << netIx);
                 }
             }
             else
             {   // done
-                ifUpMask |= (1UL << netIx);
+                ifUpMask |= (1 << netIx);
             }
-            netIx++;
-            pNetIf++;
         }
 
         // passed through all interfaces
-        if(ifUpMask == ((1UL << netIx) - 1U))
+        if(ifUpMask == ((1 << netIx) - 1))
         {   // all interfaces up
             tcpip_stack_status = SYS_STATUS_READY;
             SYS_CONSOLE_MESSAGE(TCPIP_STACK_HDR_MESSAGE "Initialization Ended - success \r\n");
         }
         else
         {   // failed initializing all interfaces;
-            pNetIf = tcpipNetIf;
-            for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+            for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
             {
-                if((pNetIf->Flags.bInterfaceEnabled != 0U) || (pNetIf->Flags.bMacInitialize != 0U))
+                if(pNetIf->Flags.bInterfaceEnabled || pNetIf->Flags.bMacInitialize)
                 {
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-                    if(TCPIPStackNetIsPrimary(pNetIf))
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+                    if(_TCPIPStackNetIsPrimary(pNetIf))
                     {
-                        for(pAliasIf = TCPIPStackNetGetAlias(pNetIf); pAliasIf != NULL; pAliasIf = TCPIPStackNetGetAlias(pAliasIf))
+                        for(pAliasIf = _TCPIPStackNetGetAlias(pNetIf), aliasIx = 0; pAliasIf != 0; pAliasIf = _TCPIPStackNetGetAlias(pAliasIf), aliasIx++)
                         {
                             TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pAliasIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
                         }
@@ -2116,9 +1854,8 @@ static bool F_TCPIPStackIsRunState(void)
                     }
 #else
                     TCPIP_STACK_BringNetDown(&tcpip_stack_ctrl_data, pNetIf, TCPIP_STACK_ACTION_IF_DOWN, TCPIP_MAC_POWER_DOWN);
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
                 }
-                pNetIf++;
             }
             tcpip_stack_status = SYS_STATUS_ERROR;
             SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Interface Initialization failed: 0x%x - Aborting! \r\n", ifUpMask);
@@ -2129,119 +1866,113 @@ static bool F_TCPIPStackIsRunState(void)
     return true;
 }
 
-static void F_TCPIPStackSetIfNumberName(void)
+static void _TCPIPStackSetIfNumberName(void)
 { 
-    size_t netIx;
+    int netIx;
     TCPIP_NET_IF* pNetIf;
     TCPIP_MAC_TYPE macType;
-    size_t ifNumber[TCPIP_MAC_TYPES];
+    int ifNumber[TCPIP_MAC_TYPES];
 
-    (void) memset(ifNumber, 0, sizeof(ifNumber));
+    memset(ifNumber, 0, sizeof(ifNumber));
 
-    pNetIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
         // set the interface number
-        pNetIf->netIfIx = (uint16_t)netIx;
+        pNetIf->netIfIx = netIx;
         // set the interfaces name
         // and update the alias interfaces
-        if(TCPIPStackNetIsPrimary(pNetIf))
+        if(_TCPIPStackNetIsPrimary(pNetIf))
         {
             macType = (TCPIP_MAC_TYPE)pNetIf->macType;
             const char* ifName = TCPIP_STACK_IF_ALIAS_NAME_TBL[macType]; 
-            (void) FC_sprintf(pNetIf->ifName, sizeof(pNetIf->ifName), "%s%zu", ifName, ifNumber[macType]);
-            pNetIf->ifName[sizeof(pNetIf->ifName) - 1U] = (char)0;
+            snprintf(pNetIf->ifName, sizeof(pNetIf->ifName), "%s%d", ifName, ifNumber[macType]);
+            pNetIf->ifName[sizeof(pNetIf->ifName) - 1] = 0;
             // update all its aliases
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
             int aliasIx;
             TCPIP_NET_IF* pAliasIf;
-            aliasIx = 0;
-            for(pAliasIf = TCPIPStackNetGetAlias(pNetIf); pAliasIf != NULL; pAliasIf = TCPIPStackNetGetAlias(pAliasIf))
+            for(pAliasIf = _TCPIPStackNetGetAlias(pNetIf), aliasIx = 0; pAliasIf != 0; pAliasIf = _TCPIPStackNetGetAlias(pAliasIf), aliasIx++)
             {
-                (void) FC_sprintf(pAliasIf->ifName, sizeof(pAliasIf->ifName), "%s%zu:%d", ifName, ifNumber[macType], aliasIx % 10);
-                pAliasIf->ifName[sizeof(pAliasIf->ifName) - 1U] = (char)0;
-                aliasIx++;
+                snprintf(pAliasIf->ifName, sizeof(pAliasIf->ifName), "%s%d:%d", ifName, ifNumber[macType], aliasIx % 10);
+                pAliasIf->ifName[sizeof(pAliasIf->ifName) - 1] = 0;
             }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
             ifNumber[macType]++;
         }
-        pNetIf++;
     }
 }
 
 #if !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
-static void F_TCPIPStackExecuteModules(void)
+static void _TCPIPStackExecuteModules(void)
 {
-    size_t      modIx;
+    int     modIx;
     TCPIP_MODULE_SIGNAL_ENTRY*  pSigEntry;
     tcpipModuleSignalHandler    signalHandler;
     uint16_t                    signalVal;
     OSAL_CRITSECT_DATA_TYPE     critSect;
 
-    pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (size_t)TCPIP_MODULE_LAYER1;
-    for(modIx = (size_t)TCPIP_MODULE_LAYER1; modIx < (sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL)); modIx++)
+    pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + TCPIP_MODULE_LAYER1;
+    for(modIx = TCPIP_MODULE_LAYER1; modIx < sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL)/sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL); modIx++, pSigEntry++)
     {
         critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
         signalHandler = pSigEntry->signalHandler;
         signalVal = pSigEntry->signalVal;
         OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
 
-        if((signalHandler != NULL) && (signalVal != 0U))
-        {   // used slot and pending signals
-            // pending signals; either TMO or RX related or ASYNC
-            // execute the handler-> module Task function
-            // Note: this can set signals for sibling modules!
-            (*signalHandler)();
+        if(signalHandler == 0 || signalVal == 0)
+        {   // unused slot or no pending signals
+            continue;
         }
-        pSigEntry++;
+        // pending signals; either TMO or RX related or ASYNC
+        // execute the handler-> module Task function
+        // Note: this can set signals for sibling modules!
+        (*signalHandler)();
     }
 }
 #endif  // !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
 
-static void F_TCPIP_ProcessTickEvent(void)
+static void _TCPIP_ProcessTickEvent(void)
 {
-    size_t      netIx;
-    bool        linkCurr, linkPrev;
+    int     netIx;
     TCPIP_NET_IF* pNetIf;
+    bool    linkCurr, linkPrev;
 
     newTcpipTickAvlbl = 0;
 
-    F_TCPIP_SecondCountSet();    // update time
-    stackLinkTmo -= (int32_t)stackTaskRate;
+    _TCPIP_SecondCountSet();    // update time
+    stackLinkTmo -= stackTaskRate;
     if(stackLinkTmo <= 0)
     {   // timeout exceeded 
-        stackLinkTmo += M_TCPIP_STACK_LINK_RATE; 
-        pNetIf = tcpipNetIf;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        stackLinkTmo += _TCPIP_STACK_LINK_RATE; 
+        for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
         {
-            if(pNetIf->Flags.bInterfaceEnabled != 0U)
+            if(pNetIf->Flags.bInterfaceEnabled)
             {
-                linkCurr = (*pNetIf->pMacObj->MAC_LinkCheck)(pNetIf->hIfMac);     // check link status
-                linkPrev = pNetIf->exFlags.linkPrev != 0U;
+                linkCurr = (*pNetIf->pMacObj->TCPIP_MAC_LinkCheck)(pNetIf->hIfMac);     // check link status
+                linkPrev = pNetIf->exFlags.linkPrev != 0;
                 if(linkPrev != linkCurr)
                 {   // link status changed
                     // just set directly the events, and do not involve the MAC notification mechanism
                     pNetIf->exFlags.connEvent = 1;
-                    pNetIf->exFlags.connEventType = linkCurr ? 1U : 0U ;
-                    pNetIf->exFlags.linkPrev = (uint8_t)linkCurr;
+                    pNetIf->exFlags.connEventType = linkCurr ? 1 : 0 ;
+                    pNetIf->exFlags.linkPrev = linkCurr;
                 }
             }
-            pNetIf++;
         }
     }
 
 }
 
-static int F_TCPIPExtractMacRxPackets(TCPIP_NET_IF* pNetIf)
+static int _TCPIPExtractMacRxPackets(TCPIP_NET_IF* pNetIf)
 {
     TCPIP_MAC_PACKET*       pRxPkt;
-    int32_t     nPackets = 0;
+    int     nPackets = 0;
 
     // get all the new MAC packets
-    while((pRxPkt = (*pNetIf->pMacObj->MAC_PacketRx)(pNetIf->hIfMac, NULL, NULL)) != NULL)
+    while((pRxPkt = (*pNetIf->pMacObj->TCPIP_MAC_PacketRx)(pNetIf->hIfMac, 0, 0)) != 0)
     {
-        F_TCPIPInsertMacRxPacket(pNetIf, pRxPkt);
-        TCPIP_PKT_FlightLogRx(pRxPkt, (TCPIP_STACK_MODULE)pNetIf->macId);
+        TCPIP_PKT_FlightLogRx(pRxPkt, pNetIf->macId);
+        _TCPIPInsertMacRxPacket(pNetIf, pRxPkt);
         nPackets++;
     }
 
@@ -2251,9 +1982,9 @@ static int F_TCPIPExtractMacRxPackets(TCPIP_NET_IF* pNetIf)
 // Process the queued RX packets
 // returns the mask of 1st layer frames that have been processed
 // signals the 1st layer modules if needed
-static uint32_t F_TCPIPProcessMacPackets(bool signal_t)
+static uint32_t _TCPIPProcessMacPackets(bool signal)
 {
-    size_t                      frameIx;
+    int                         frameIx;
     bool                        frameFound;
     uint16_t                    frameType;
     TCPIP_MAC_PACKET*           pRxPkt;
@@ -2261,26 +1992,20 @@ static uint32_t F_TCPIPProcessMacPackets(bool signal_t)
     const TCPIP_FRAME_PROCESS_ENTRY*  pFrameEntry;
     uint32_t                    procFrameMask = 0;
 
-    SINGLE_LIST* pPktQueue = (TCPIP_MODULES_QUEUE_TBL + (size_t)TCPIP_MODULE_MANAGER);
+    SINGLE_LIST*                pPktQueue = (TCPIP_MODULES_QUEUE_TBL + TCPIP_MODULE_MANAGER);
 
-    while(true)
+
+    while((pRxPkt = (TCPIP_MAC_PACKET*)TCPIP_Helper_SingleListHeadRemove(pPktQueue)))
     {
-        pRxPkt = FC_SglNode2MacPkt(TCPIP_Helper_SingleListHeadRemove(pPktQueue));
-        if(pRxPkt == NULL)
-        {   // done
-            break;
-        }
-
-        // process packet
         TCPIP_PKT_FlightLogRx(pRxPkt, TCPIP_THIS_MODULE_ID);
-        pMacHdr = FC_Uptr2MacEthHdr(pRxPkt->pMacLayer);
+        pMacHdr = (TCPIP_MAC_ETHERNET_HEADER*)pRxPkt->pMacLayer;
         // get the packet type
         frameType = TCPIP_Helper_ntohs(pMacHdr->Type);
 
 #if (TCPIP_STACK_EXTERN_PACKET_PROCESS != 0)
-        TCPIP_NET_IF* pNetIf = FC_Cvptr2NetIf(pRxPkt->pktIf);
+        TCPIP_NET_IF* pNetIf = (TCPIP_NET_IF*)pRxPkt->pktIf;
         TCPIP_STACK_PACKET_HANDLER pktHandler = pNetIf->pktHandler;
-        if(pktHandler != NULL)
+        if(pktHandler != 0)
         {
             bool was_processed = (*pktHandler)(pNetIf, pRxPkt, frameType, pNetIf->pktHandlerParam);
             if(was_processed)
@@ -2304,28 +2029,27 @@ static uint32_t F_TCPIPProcessMacPackets(bool signal_t)
 
         frameFound = false;
         pFrameEntry = TCPIP_FRAME_PROCESS_TBL;
-        for(frameIx = 0; frameIx < (sizeof(TCPIP_FRAME_PROCESS_TBL) / sizeof(*TCPIP_FRAME_PROCESS_TBL)); frameIx++)
+        for(frameIx = 0; frameIx < sizeof(TCPIP_FRAME_PROCESS_TBL) / sizeof(*TCPIP_FRAME_PROCESS_TBL); frameIx++, pFrameEntry++)
         {
             if(pFrameEntry->frameType == frameType)
             {   // found proper frame handler
-                pRxPkt->pktFlags &= ~(uint32_t)TCPIP_MAC_PKT_FLAG_TYPE_MASK;
+                pRxPkt->pktFlags &= ~TCPIP_MAC_PKT_FLAG_TYPE_MASK;
                 pRxPkt->pktFlags |= pFrameEntry->pktTypeFlags;
 
-                if(TCPIPStackModuleRxInsert((TCPIP_STACK_MODULE)pFrameEntry->moduleId, pRxPkt, 0))
+                if(_TCPIPStackModuleRxInsert(pFrameEntry->moduleId, pRxPkt, 0))
                 {
-                    if(signal_t)
+                    if(signal)
                     {   // signal to the module that RX is pending; if not already done so
-                        if((procFrameMask & (1UL << frameIx)) == 0U)
+                        if((procFrameMask & (1 << frameIx)) == 0)
                         {   // set the frame mask so we don't signal again
-                            procFrameMask |= 1UL << frameIx;
-                            F_TCPIPModuleSignalSetNotify((TCPIP_STACK_MODULE)pFrameEntry->moduleId, TCPIP_MODULE_SIGNAL_RX_PENDING);
+                            procFrameMask |= 1 << frameIx;
+                            _TCPIPModuleSignalSetNotify(pFrameEntry->moduleId, TCPIP_MODULE_SIGNAL_RX_PENDING);
                         }
                     }
                     frameFound = true;
                 }
                 break;
             }
-            pFrameEntry++;
         }
         if(!frameFound)
         {   // unknown packet type; discard
@@ -2338,49 +2062,48 @@ static uint32_t F_TCPIPProcessMacPackets(bool signal_t)
 
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 // MAC ISR call
-static void    F_TCPIP_MacEventCB(TCPIP_MAC_EVENT event, const void* hParam)
+static void    _TCPIP_MacEventCB(TCPIP_MAC_EVENT event, const void* hParam)
 {
-    TCPIP_NET_IF* pNetIf = FC_Cvptr2NetIf(hParam);
-    F_TCPIP_NetIfEvent(pNetIf, event, false);
+    _TCPIP_NetIfEvent((TCPIP_NET_IF*)hParam, event, false);
 }
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 
-static void F_TCPIP_NetIfEvent(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT event, bool isrProtect)
+static void _TCPIP_NetIfEvent(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT event, bool isrProtect)
 {
-    OSAL_CRITSECT_DATA_TYPE isrSuspLvl = 0;
+    uint32_t isrSuspLvl = 0;
 
     TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry;
-    pSigEntry = (((uint16_t)event & (uint16_t)TCPIP_STACK_MAC_ACTIVE_RX_EVENTS) != 0U) ? F_TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER) : NULL;
+    pSigEntry = ((event & (TCPIP_STACK_MAC_ACTIVE_RX_EVENTS)) != 0) ? _TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER) : 0;
    
 
     if(isrProtect)
     {
-        isrSuspLvl = F_TCPIPMacIsrSuspend(pNetIf);
+        isrSuspLvl = _TCPIPMacIsrSuspend(pNetIf);
     }
 
-    pNetIf->activeEvents |= (uint16_t)event;
+    pNetIf->activeEvents |= event;
     totTcpipEventsCnt++;
 
-    if(pSigEntry != NULL)
+    if(pSigEntry)
     {
-        pSigEntry->signalVal |= (uint16_t)TCPIP_MODULE_SIGNAL_RX_PENDING;
+        pSigEntry->signalVal |= TCPIP_MODULE_SIGNAL_RX_PENDING;
     }
 
     if(isrProtect)
     {
-        F_TCPIPMacIsrResume(pNetIf, isrSuspLvl);
+        _TCPIPMacIsrResume(pNetIf, isrSuspLvl);
     }
 
-    if(pSigEntry != NULL)
+    if(pSigEntry)
     {
-        F_TCPIPSignalEntryNotify(pSigEntry, TCPIP_MODULE_SIGNAL_RX_PENDING, 0);
+        _TCPIPSignalEntryNotify(pSigEntry, TCPIP_MODULE_SIGNAL_RX_PENDING, 0);
     }
 }
 
 
 /*******************************************************************************
   Function:
-    void    F_TCPIP_STACK_TickHandler(uintptr_t context, uint32_t currTick)
+    void    _TCPIP_STACK_TickHandler(uintptr_t context, uint32_t currTick)
 
   Summary:
     Stack tick handler.
@@ -2406,20 +2129,20 @@ static void F_TCPIP_NetIfEvent(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT event, bool
     or MAC ISR and TMR ISR
     the TMO signal is used on a different signal entry: TCPIP_MODULE_NONE!
 *****************************************************************************/
-static void F_TCPIP_STACK_TickHandler(uintptr_t context, uint32_t currTick)
+static void _TCPIP_STACK_TickHandler(uintptr_t context, uint32_t currTick)
 {
     newTcpipTickAvlbl++;
 
-    TCPIP_MODULE_SIGNAL_ENTRY* pTmoEntry = F_TCPIPModuleToSignalEntry(TCPIP_MODULE_NONE);
-    TCPIP_MODULE_SIGNAL_ENTRY* pMgrEntry = F_TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER);
+    TCPIP_MODULE_SIGNAL_ENTRY* pTmoEntry = _TCPIPModuleToSignalEntry(TCPIP_MODULE_NONE);
+    TCPIP_MODULE_SIGNAL_ENTRY* pMgrEntry = _TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER);
 
-    pTmoEntry->signalVal |= (uint16_t)TCPIP_MODULE_SIGNAL_TMO;
+    pTmoEntry->signalVal |= TCPIP_MODULE_SIGNAL_TMO;
 
-    F_TCPIPSignalEntryNotify(pMgrEntry, TCPIP_MODULE_SIGNAL_TMO, 0);
+    _TCPIPSignalEntryNotify(pMgrEntry, TCPIP_MODULE_SIGNAL_TMO, 0);
 
 }
 
-static void F_TCPIP_ProcessMACErrorEvents(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT activeEvent)
+static void _TCPIP_ProcessMACErrorEvents(TCPIP_NET_IF* pNetIf, TCPIP_MAC_EVENT activeEvent)
 {
     newTcpipErrorEventCnt++;
 }
@@ -2453,8 +2176,8 @@ TCPIP_NET_HANDLE TCPIP_STACK_NetDefaultGet(void)
 // false if failed (the old interface does not change)
 bool TCPIP_STACK_NetDefaultSet(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNewIf = TCPIPStackHandleToNetUp(netH);
-    if(pNewIf != NULL)
+    TCPIP_NET_IF* pNewIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNewIf)
     {
         tcpipDefIf.defaultNet = pNewIf;
         return true;
@@ -2467,88 +2190,78 @@ bool TCPIP_STACK_NetDefaultSet(TCPIP_NET_HANDLE netH)
 // the default interface could become 0 
 // when a network interface is going down, for example
 // if pDownIf != 0 specifies a going down interface
-static void F_TCPIP_SelectDefaultNet(TCPIP_NET_IF* pDownIf)
+static void _TCPIP_SelectDefaultNet(TCPIP_NET_IF* pDownIf)
 {
-    size_t  netIx;
+    int netIx;
     TCPIP_NET_IF *pIf, *pNewIf;
     bool searchDefault = false;
 
-    if(tcpipDefIf.defaultNet == NULL)
+    if(tcpipDefIf.defaultNet == 0)
     {   // need search
         searchDefault = true;
     }
     else if(tcpipDefIf.defaultNet == pDownIf)
     {   // interface is going down; replace
-        tcpipDefIf.defaultNet = NULL;
+        tcpipDefIf.defaultNet = 0;
         searchDefault = true;
     }
-    else if(pDownIf != NULL)
+    else if(pDownIf != 0)
     {
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-        if((TCPIPStackNetGetPrimary(tcpipDefIf.defaultNet) == TCPIPStackNetGetPrimary(pDownIf)))
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+        if((_TCPIPStackNetGetPrimary(tcpipDefIf.defaultNet) == _TCPIPStackNetGetPrimary(pDownIf)))
         {
-            tcpipDefIf.defaultNet = NULL;
+            tcpipDefIf.defaultNet = 0;
             searchDefault = true;
         }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-    }
-    else
-    {
-        /* Do Nothing */
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     }
 
     // repeat for the multicast interface
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_IGMP)
-    if(tcpipDefIf.defaultMcastNet == NULL)
+    if(tcpipDefIf.defaultMcastNet == 0)
     {   // need search
         searchDefault = true;
     }
     else if(tcpipDefIf.defaultMcastNet == pDownIf)
     {   // interface is going down; replace
-        tcpipDefIf.defaultMcastNet = NULL;
+        tcpipDefIf.defaultMcastNet = 0;
         searchDefault = true;
     }
-    else if(pDownIf != NULL)
+    else if(pDownIf != 0)
     {
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-        if((TCPIPStackNetGetPrimary(tcpipDefIf.defaultMcastNet) == TCPIPStackNetGetPrimary(pDownIf)))
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+        if((_TCPIPStackNetGetPrimary(tcpipDefIf.defaultMcastNet) == _TCPIPStackNetGetPrimary(pDownIf)))
         {
-            tcpipDefIf.defaultMcastNet = NULL;
+            tcpipDefIf.defaultMcastNet = 0;
             searchDefault = true;
         }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-    }
-    else
-    {
-        /* Do Nothing */
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     }
 #endif  // defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_IGMP)
 
 
     if(searchDefault)
     {
-        pNewIf = NULL;
-        pIf = tcpipNetIf;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        pNewIf = 0;
+        for(netIx = 0, pIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
         {
-            if(pIf->Flags.bInterfaceEnabled != 0U)
+            if(pIf->Flags.bInterfaceEnabled)
             {   // select this one
                 pNewIf = pIf;
                 break;
             }
-            pIf++;
         }
 
-        if(pNewIf != NULL)
+        if(pNewIf != 0)
         {   // favor a primary interface
-            pNewIf = TCPIPStackNetGetPrimary(pNewIf); 
+            pNewIf = _TCPIPStackNetGetPrimary(pNewIf); 
         }
-        if(tcpipDefIf.defaultNet == NULL)
+        if(tcpipDefIf.defaultNet == 0)
         {
             tcpipDefIf.defaultNet = pNewIf;
         }
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_IGMP)
-        if(tcpipDefIf.defaultMcastNet == NULL)
+        if(tcpipDefIf.defaultMcastNet == 0)
         {
             tcpipDefIf.defaultMcastNet = pNewIf;
         }
@@ -2562,15 +2275,15 @@ TCPIP_NET_HANDLE TCPIP_STACK_NetMulticastGet(void)
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_IGMP)
     return tcpipDefIf.defaultMcastNet;
 #else
-    return NULL;
+    return 0;
 #endif
 }
 
 bool TCPIP_STACK_NetMulticastSet(TCPIP_NET_HANDLE netH)
 {
 #if defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_IGMP)
-    TCPIP_NET_IF* pNewIf = TCPIPStackHandleToNetUp(netH);
-    if(pNewIf != NULL)
+    TCPIP_NET_IF* pNewIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNewIf)
     {
         tcpipDefIf.defaultMcastNet = pNewIf;
         return true;
@@ -2601,14 +2314,14 @@ bool TCPIP_STACK_NetMulticastSet(TCPIP_NET_HANDLE netH)
  ********************************************************************/
 TCPIP_NET_IF* TCPIP_STACK_IPAddToNet(IPV4_ADDR* pIpAddress, bool useDefault)
 {
-    TCPIP_NET_IF* pNetIf = NULL;
+    TCPIP_NET_IF* pNetIf = 0;
 
-    if((pIpAddress != NULL) && (pIpAddress->Val != 0U))
+    if(pIpAddress && pIpAddress->Val != 0)
     {
         pNetIf = TCPIP_STACK_NetByAddress(pIpAddress);
     }
 
-    if((pNetIf == NULL) && useDefault)
+    if(pNetIf == 0 && useDefault)
     {
         pNetIf = tcpipDefIf.defaultNet;
     }
@@ -2617,7 +2330,7 @@ TCPIP_NET_IF* TCPIP_STACK_IPAddToNet(IPV4_ADDR* pIpAddress, bool useDefault)
 }
 
 /*********************************************************************
- * Function:        TCPIPStackIpAddFromAnyNet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* pIpAddress)
+ * Function:        _TCPIPStackIpAddFromAnyNet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* pIpAddress)
  *
  * PreCondition:    TCPIP stack should have been initialized by
  *                    TCPIP_STACK_Initialize()
@@ -2633,31 +2346,29 @@ TCPIP_NET_IF* TCPIP_STACK_IPAddToNet(IPV4_ADDR* pIpAddress, bool useDefault)
  *
  * Note:            None
  ********************************************************************/
-TCPIP_NET_IF* TCPIPStackIpAddFromAnyNet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* pIpAddress)
+TCPIP_NET_IF* _TCPIPStackIpAddFromAnyNet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* pIpAddress)
 {
-    size_t  netIx;
+    int netIx;
     TCPIP_NET_IF* pIf;
 
-    if((pIpAddress != NULL) && (pIpAddress->Val != 0U))
+    if(pIpAddress && pIpAddress->Val != 0)
     {
-        pIf = tcpipNetIf;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        for(netIx = 0, pIf = tcpipNetIf ; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
         {
-            if((pNetIf == NULL) || (pIf == pNetIf))
+            if(pNetIf == 0 || pIf == pNetIf)
             {
-                if(pIf->Flags.bInterfaceEnabled != 0U)
+                if(pIf->Flags.bInterfaceEnabled)
                 {
-                    if(TCPIPStackIpAddFromLAN(pIf, pIpAddress))
+                    if(_TCPIPStackIpAddFromLAN(pIf, pIpAddress))
                     {
                         return pIf;
                     }
                 }
             }
-            pIf++;
         }
     }
 
-    return NULL;
+    return 0;
 }
 
 /*********************************************************************
@@ -2679,21 +2390,19 @@ TCPIP_NET_IF* TCPIPStackIpAddFromAnyNet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* pIpAddr
  ********************************************************************/
 TCPIP_NET_IF* TCPIP_STACK_MacToNet(TCPIP_MAC_HANDLE hMac)
 {
-    size_t  netIx;
+    int netIx;
     TCPIP_NET_IF* pNetIf;
 
-    pNetIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
         if(pNetIf->hIfMac == hMac)
         {
             return pNetIf;
         }
-        pNetIf++;
     }
 
 
-    return NULL;
+    return 0;
 }
 
 /*********************************************************************
@@ -2715,17 +2424,15 @@ TCPIP_NET_IF* TCPIP_STACK_MacToNet(TCPIP_MAC_HANDLE hMac)
  ********************************************************************/
 int TCPIP_STACK_MacToNetIndex(TCPIP_MAC_HANDLE hMac)
 {
-    int32_t netIx;
+    int netIx;
     TCPIP_NET_IF* pNetIf;
 
-    pNetIf = tcpipNetIf;
-    for(netIx = 0; netIx < (int32_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
         if(pNetIf->hIfMac == hMac)
         {
             return netIx;
         }
-        pNetIf++;
     }
 
 
@@ -2733,7 +2440,7 @@ int TCPIP_STACK_MacToNetIndex(TCPIP_MAC_HANDLE hMac)
 }
 
 /*********************************************************************
- * Function:        size_t TCPIP_STACK_NumberOfNetworksGet(void)
+ * Function:        int TCPIP_STACK_NumberOfNetworksGet(void)
  *
  * PreCondition:    TCPIP stack should have been initialized by TCPIP_STACK_Initialize()
  *
@@ -2745,13 +2452,13 @@ int TCPIP_STACK_MacToNetIndex(TCPIP_MAC_HANDLE hMac)
  *
  * Note:            None
  ********************************************************************/
-size_t TCPIP_STACK_NumberOfNetworksGet(void)
+int TCPIP_STACK_NumberOfNetworksGet(void)
 {
-    return (size_t)tcpip_stack_ctrl_data.nIfs;
+    return tcpip_stack_ctrl_data.nIfs;
 }
 
 /*********************************************************************
- * Function:        TCPIP_STACK_IndexToNet(size_t netIx)
+ * Function:        TCPIP_STACK_IndexToNet(int netIx)
  *
  * PreCondition:    TCPIP stack should have been initialized by
  *                    TCPIP_STACK_Initialize()
@@ -2765,19 +2472,19 @@ size_t TCPIP_STACK_NumberOfNetworksGet(void)
  *
  * Note:            The tcpipNetIf entries match 1 to 1 the network interfaces
  ********************************************************************/
-TCPIP_NET_HANDLE TCPIP_STACK_IndexToNet(size_t netIx)
+TCPIP_NET_HANDLE TCPIP_STACK_IndexToNet(int netIx)
 {
-    if(netIx < (size_t)tcpip_stack_ctrl_data.nIfs)
+    if(0 <= netIx && netIx < tcpip_stack_ctrl_data.nIfs)
     {
         return tcpipNetIf + netIx;
     }
 
-    return NULL;
+    return 0;
 }
 
 int  TCPIP_STACK_NetIndexGet(TCPIP_NET_HANDLE hNet)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(hNet);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(hNet);
     return TCPIP_STACK_NetIxGet(pNetIf);
 }
 
@@ -2785,13 +2492,13 @@ int  TCPIP_STACK_NetIndexGet(TCPIP_NET_HANDLE hNet)
 // more checking, for user passed handles
 TCPIP_NET_IF*  TCPIP_Stack_UserHandleToNet(TCPIP_NET_HANDLE hNet)
 {
-    if(tcpipNetIf != NULL)
+    if(tcpipNetIf != 0)
     {
-        TCPIP_NET_IF* pNetIf = FC_NetH2NetIf(hNet);
-        int32_t ix = pNetIf - tcpipNetIf;
-        if((0 <= ix) && (ix < (int32_t)tcpip_stack_ctrl_data.nIfs))
+        TCPIP_NET_IF* pNetIf = (TCPIP_NET_IF*)hNet;
+        int ix = pNetIf - tcpipNetIf;
+        if(0 <= ix && ix < tcpip_stack_ctrl_data.nIfs)
         {
-            if(pNetIf == (tcpipNetIf + ix))
+            if(pNetIf == tcpipNetIf + ix)
             {
                 return pNetIf;
             }
@@ -2799,7 +2506,7 @@ TCPIP_NET_IF*  TCPIP_Stack_UserHandleToNet(TCPIP_NET_HANDLE hNet)
 
     }
 
-    return NULL;
+    return 0;
 }
 
 /*********************************************************************
@@ -2827,20 +2534,18 @@ TCPIP_NET_IF* TCPIP_STACK_MACIdToNet(TCPIP_STACK_MODULE macId)
 
     if(macId != (TCPIP_STACK_MODULE)TCPIP_MODULE_MAC_NONE)
     {
-        size_t netIx;
-        pNetIf = tcpipNetIf;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        int netIx;
+        for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
         {
-            if(pNetIf->macId == (uint16_t)macId)
+            if(pNetIf->macId == macId)
             {
                 return pNetIf;
             }
-            pNetIf++;
         }
     }
 
 
-    return NULL;
+    return 0;
 
 }
 
@@ -2862,17 +2567,15 @@ TCPIP_NET_IF* TCPIP_STACK_MACIdToNet(TCPIP_STACK_MODULE macId)
 TCPIP_NET_HANDLE TCPIP_STACK_NetHandleGet(const char* interface)
 {
     // try first the aliases
-    size_t  netIx;
+    int netIx;
     TCPIP_NET_IF* pNetIf;
 
-    pNetIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
         if(strcmp(pNetIf->ifName, interface) == 0)
         {
             return (TCPIP_NET_HANDLE)pNetIf;
         }
-        pNetIf++;
     }
 
     // try the full interface name
@@ -2901,23 +2604,23 @@ TCPIP_NET_HANDLE TCPIP_STACK_NetHandleGet(const char* interface)
  ********************************************************************/
 const char* TCPIP_STACK_NetNameGet(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF*  pNetIf = TCPIPStackHandleToNet(netH);
+    TCPIP_NET_IF*  pNetIf = _TCPIPStackHandleToNet(netH);
 
-    if((pNetIf != NULL) && (pNetIf->pMacObj != NULL))
+    if(pNetIf != 0 && pNetIf->pMacObj != 0)
     {
         return pNetIf->pMacObj->macName;
     }
 
-    return NULL;
+    return 0;
 }
 
-size_t TCPIP_STACK_NetAliasNameGet(TCPIP_NET_HANDLE netH, char* nameBuffer, size_t buffSize)
+int TCPIP_STACK_NetAliasNameGet(TCPIP_NET_HANDLE netH, char* nameBuffer, int buffSize)
 {
-    size_t aliasSize;
-    TCPIP_NET_IF*  pNetIf = TCPIPStackHandleToNet(netH);
+    int aliasSize;
+    TCPIP_NET_IF*  pNetIf = _TCPIPStackHandleToNet(netH);
 
 
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         aliasSize = strlen(pNetIf->ifName);
     }
@@ -2926,16 +2629,16 @@ size_t TCPIP_STACK_NetAliasNameGet(TCPIP_NET_HANDLE netH, char* nameBuffer, size
         aliasSize = 0;
     }
 
-    if(nameBuffer != NULL && buffSize != 0U)
+    if(nameBuffer && buffSize)
     {   // valid buffer
-        if(aliasSize != 0U)
+        if(aliasSize)
         {
-            (void)strncpy(nameBuffer, pNetIf->ifName, buffSize - 1U);
-            nameBuffer[buffSize - 1U] = (char)0;
+            strncpy(nameBuffer, pNetIf->ifName, buffSize - 1);
+            nameBuffer[buffSize - 1] = 0;
         }
         else
         {
-            nameBuffer[0] = (char)0;
+            nameBuffer[0] = 0;
         }
     }
     return aliasSize;
@@ -2945,14 +2648,14 @@ size_t TCPIP_STACK_NetAliasNameGet(TCPIP_NET_HANDLE netH, char* nameBuffer, size
 const TCPIP_MAC_OBJECT* TCPIP_STACK_MACObjectGet(TCPIP_NET_HANDLE netH)
 {
 
-    TCPIP_NET_IF*  pNetIf = TCPIPStackHandleToNet(netH);
+    TCPIP_NET_IF*  pNetIf = _TCPIPStackHandleToNet(netH);
 
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         return pNetIf->pMacObj;
     }
 
-    return NULL;
+    return 0;
 }
 
 
@@ -2977,51 +2680,47 @@ const TCPIP_MAC_OBJECT* TCPIP_STACK_MACObjectGet(TCPIP_NET_HANDLE netH)
  ********************************************************************/
 TCPIP_NET_IF* TCPIP_STACK_NetByAddress(const IPV4_ADDR* pIpAddress)
 {
-    size_t netIx;
+    int netIx;
     TCPIP_NET_IF* pIf;
 
-    pIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pIf = tcpipNetIf ; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
     {
-        if((pIf->Flags.bInterfaceEnabled != 0U) && (pIf->netIPAddr.Val == pIpAddress->Val))
+        if(pIf->Flags.bInterfaceEnabled && pIf->netIPAddr.Val == pIpAddress->Val)
         {
             return pIf;
         }
-        pIf++;
     }
 
-    return NULL;
+    return 0;
 }
 
 // finds a network interface matching an IPv4 address
 // does NOT check for interface up/down!
-TCPIP_NET_IF* TCPIP_STACK_MatchNetAddress(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
+TCPIP_NET_IF* TCPIP_STACK_MatchNetAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
 {
-    size_t netIx;
+    int netIx;
     TCPIP_NET_IF* pIf;
 
-    if(pIpAdd->Val == 0x0100007fU /* || pNetIf->netIPAddr.Val == pIpAdd->Val*/)
+    if(pIpAdd->Val == 0x0100007f /* || pNetIf->netIPAddr.Val == pIpAdd->Val*/)
     {
-        return FC_CNetIf2NetIf(pNetIf);
+        return pNetIf;
     }
 
-    pIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pIf = tcpipNetIf ; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
     {
         if(pIf->netIPAddr.Val == pIpAdd->Val)
         {
             return pIf;
         }
-        pIf++;
     }
 
-    return NULL;
+    return 0;
 }
 
 #if defined(TCPIP_STACK_USE_IPV4)
 uint32_t TCPIP_STACK_NetAddress(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
     return TCPIP_STACK_NetAddressGet(pNetIf);
 }
 #endif  // defined(TCPIP_STACK_USE_IPV4)
@@ -3032,12 +2731,11 @@ IPV6_ADDR_HANDLE TCPIP_STACK_NetIPv6AddressGet(TCPIP_NET_HANDLE netH, IPV6_ADDR_
 {
     IPV6_ADDR_STRUCT * addrNode;
     IPV6_INTERFACE_CONFIG*  pIpv6Config;
-    uint8_t*           ptr;
 
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf == NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf == 0)
     {
-        return NULL;
+        return 0;
     }
 
 
@@ -3046,53 +2744,49 @@ IPV6_ADDR_HANDLE TCPIP_STACK_NetIPv6AddressGet(TCPIP_NET_HANDLE netH, IPV6_ADDR_
     // which is not currently stored in its own list!
 
     pIpv6Config = TCPIP_IPV6_InterfaceConfigGet(pNetIf);
-    if(addHandle == NULL)
+    if(addHandle == 0)
     {   // start iteration through the list
-        addrNode = FC_DblNode2AddStruct(pIpv6Config->listIpv6UnicastAddresses.head);
+        addrNode = (IPV6_ADDR_STRUCT *)pIpv6Config->listIpv6UnicastAddresses.head;
     }
     else
     {
-        addrNode = FC_AddHndl2Ipv6AddStruct(addHandle)->next;
+        addrNode = ((IPV6_ADDR_STRUCT*)addHandle)->next;
     }
 
     if(addType == IPV6_ADDR_TYPE_UNICAST)
     {
-        if((addrNode != NULL) && (pAddStruct != NULL))
+        if(addrNode && pAddStruct)
         {
-            (void) memcpy(pAddStruct, addrNode, sizeof(*addrNode));
-            pAddStruct->next = NULL;
-            pAddStruct->prev = NULL;
+            memcpy(pAddStruct, addrNode, sizeof(*addrNode));
+            pAddStruct->next = pAddStruct->prev = 0;
         }
         return addrNode;
     }
 
     if(addType == IPV6_ADDR_TYPE_MULTICAST)
     {
-        if(addrNode == NULL)
+        if(addrNode == 0)
         {
-            if((addHandle == NULL) || (FC_AddHndl2Ipv6AddStruct(addHandle)->flags.type == (uint32_t)IPV6_ADDR_TYPE_UNICAST))
+            if(addHandle == 0 || ((IPV6_ADDR_STRUCT*)addHandle)->flags.type == IPV6_ADDR_TYPE_UNICAST)
             {   // either the unicast list is empty or finished the unicast list
-                addrNode = FC_DblNode2AddStruct(pIpv6Config->listIpv6MulticastAddresses.head);
+                addrNode = (IPV6_ADDR_STRUCT *)pIpv6Config->listIpv6MulticastAddresses.head;
             }
         }
 
-        if((addrNode != NULL) && (addrNode->flags.type == (uint32_t)IPV6_ADDR_TYPE_UNICAST))
+        if(addrNode != 0 && addrNode->flags.type == IPV6_ADDR_TYPE_UNICAST)
         {   // do not report the same solicited node address multiple times
-            IPV6_ADDR_STRUCT * unicastHead = FC_DblNode2AddStruct(pIpv6Config->listIpv6UnicastAddresses.head);
+            IPV6_ADDR_STRUCT * unicastHead = (IPV6_ADDR_STRUCT *)pIpv6Config->listIpv6UnicastAddresses.head;
             IPV6_ADDR_STRUCT * currAddress = unicastHead;
             while(currAddress != addrNode)
             {
-                ptr = ((uint8_t*)addrNode + offsetof(struct S_IPV6_ADDR_STRUCT, address));
-                IPV6_ADDR* pAddNode = FC_U8Ptr2Ip6Add(ptr);
-
-                ptr = ((uint8_t*)currAddress + offsetof(struct S_IPV6_ADDR_STRUCT, address));
-                IPV6_ADDR* pAddCurr = FC_U8Ptr2Ip6Add(ptr);
-                if(memcmp(pAddNode->v + (sizeof (IPV6_ADDR) - 3U), pAddCurr->v + (sizeof (IPV6_ADDR) - 3U), 3U) == 0)
+                IPV6_ADDR* pAddNode = (IPV6_ADDR*)((uint8_t*)addrNode + offsetof(struct _IPV6_ADDR_STRUCT, address));
+                IPV6_ADDR* pAddCurr = (IPV6_ADDR*)((uint8_t*)currAddress + offsetof(struct _IPV6_ADDR_STRUCT, address));
+                if(memcmp(pAddNode->v + sizeof (IPV6_ADDR) - 3, pAddCurr->v + sizeof (IPV6_ADDR) - 3, 3) == 0)
                 {   // address match; skip this one
                     addrNode = addrNode->next;
-                    if(addrNode == NULL)
+                    if(addrNode == 0)
                     {   // end of list
-                        addrNode = FC_DblNode2AddStruct(pIpv6Config->listIpv6MulticastAddresses.head);
+                        addrNode = (IPV6_ADDR_STRUCT *)pIpv6Config->listIpv6MulticastAddresses.head;
                         break;
                     }
                     else
@@ -3108,17 +2802,15 @@ IPV6_ADDR_HANDLE TCPIP_STACK_NetIPv6AddressGet(TCPIP_NET_HANDLE netH, IPV6_ADDR_
         }
 
 
-        if((addrNode != NULL) && (pAddStruct != NULL))
+        if(addrNode && pAddStruct)
         {
-            (void) memcpy(pAddStruct, addrNode, sizeof(*addrNode));
-            pAddStruct->next = NULL;
-            pAddStruct->prev = NULL;
-            if(addrNode->flags.type == (uint32_t)IPV6_ADDR_TYPE_UNICAST)
+            memcpy(pAddStruct, addrNode, sizeof(*addrNode));
+            pAddStruct->next = pAddStruct->prev = 0;
+            if(addrNode->flags.type == IPV6_ADDR_TYPE_UNICAST)
             {   // construct the solicited node multicast address
-                ptr = ((uint8_t*)pAddStruct + offsetof(struct S_IPV6_ADDR_STRUCT, address));
-                IPV6_ADDR* pAddNode = FC_U8Ptr2Ip6Add(ptr);
-                (void) memcpy(pAddNode->v, IPV6_SOLICITED_NODE_MULTICAST.v, sizeof (IPV6_ADDR) - 3U);
-                pAddStruct->flags.type = (uint8_t)IPV6_ADDR_TYPE_MULTICAST;
+                IPV6_ADDR* pAddNode = (IPV6_ADDR*)((uint8_t*)pAddStruct + offsetof(struct _IPV6_ADDR_STRUCT, address));
+                memcpy(pAddNode->v, IPV6_SOLICITED_NODE_MULTICAST.v, sizeof (IPV6_ADDR) - 3);
+                pAddStruct->flags.type = IPV6_ADDR_TYPE_MULTICAST;
             }
         }
         return addrNode;
@@ -3126,22 +2818,22 @@ IPV6_ADDR_HANDLE TCPIP_STACK_NetIPv6AddressGet(TCPIP_NET_HANDLE netH, IPV6_ADDR_
 
 
     // no other address type supported
-    return NULL;
+    return 0;
 }
 
 // finds an interface that has the IPv6 address
-TCPIP_NET_IF* TCPIPStackIPv6AddToNet(IPV6_ADDR* pIPv6Address, IPV6_ADDR_TYPE addType, bool useDefault)
+TCPIP_NET_IF* _TCPIPStackIPv6AddToNet(IPV6_ADDR* pIPv6Address, IPV6_ADDR_TYPE addType, bool useDefault)
 {
-    size_t          netIx;
-    TCPIP_NET_IF*   pNetIf;
-    TCPIP_NET_IF*   pSrchIf = NULL;
+    TCPIP_NET_IF* pNetIf;
+    int           netIx;
+    TCPIP_NET_IF* pSrchIf = 0;
 
-    if(pIPv6Address != NULL)
+    if(pIPv6Address != 0)
     {
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        for(netIx = 0; netIx < tcpip_stack_ctrl_data.nIfs; netIx++)
         {
             pNetIf = tcpipNetIf + netIx;
-            if(TCPIP_IPV6_AddressFind(pNetIf, pIPv6Address, addType) != NULL)
+            if(TCPIP_IPV6_AddressFind(pNetIf, pIPv6Address, addType) != 0)
             {    // found interface
                 pSrchIf = pNetIf;
                 break;
@@ -3149,7 +2841,7 @@ TCPIP_NET_IF* TCPIPStackIPv6AddToNet(IPV6_ADDR* pIPv6Address, IPV6_ADDR_TYPE add
         }
     }
 
-    if((pSrchIf == NULL) && useDefault)
+    if(pSrchIf == 0 && useDefault)
     {
         pSrchIf = tcpipDefIf.defaultNet;
     }
@@ -3158,15 +2850,6 @@ TCPIP_NET_IF* TCPIPStackIPv6AddToNet(IPV6_ADDR* pIPv6Address, IPV6_ADDR_TYPE add
 }
 
 
-#else
-IPV6_ADDR_HANDLE TCPIP_STACK_NetIPv6AddressGet(TCPIP_NET_HANDLE netH, IPV6_ADDR_TYPE addType, IPV6_ADDR_STRUCT* pAddStruct, IPV6_ADDR_HANDLE addHandle)
-{
-    return NULL;
-}
-TCPIP_NET_IF* TCPIPStackIPv6AddToNet(IPV6_ADDR* pIPv6Address, IPV6_ADDR_TYPE addType, bool useDefault)
-{
-    return NULL;
-}
 
 #endif  // defined(TCPIP_STACK_USE_IPV6)
 
@@ -3177,25 +2860,25 @@ bool TCPIP_STACK_NetAddressSet(TCPIP_NET_HANDLE netH, IPV4_ADDR* ipAddress, IPV4
     bool success = false;
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
 
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if((pNetIf != NULL) && TCPIP_STACK_AddressServiceCanStart(pNetIf, TCPIP_STACK_ADDR_SRVC_NONE))
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf != 0 && TCPIP_STACK_AddressServiceCanStart(pNetIf, TCPIP_STACK_ADDRESS_SERVICE_NONE))
     {
-        F_TCPIPStackSetIpAddress(pNetIf, ipAddress, mask, NULL, setDefault);
+        _TCPIPStackSetIpAddress(pNetIf, ipAddress, mask, 0, setDefault);
         success = true;
     }
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
 
     if(success)
     {
-        F_TCPIPStackSetConfig(pNetIf, false);
+        _TCPIPStackSetConfig(pNetIf, false);
     }
     return success;
 }
 
 bool TCPIP_STACK_NetAddressGatewaySet(TCPIP_NET_HANDLE netH, IPV4_ADDR* ipAddress)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
         TCPIP_STACK_GatewayAddressSet(pNetIf, ipAddress);
         return true;
@@ -3206,9 +2889,9 @@ bool TCPIP_STACK_NetAddressGatewaySet(TCPIP_NET_HANDLE netH, IPV4_ADDR* ipAddres
 
 uint32_t TCPIP_STACK_NetAddressGateway(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
 
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         return pNetIf->netGateway.Val;
     }
@@ -3218,9 +2901,9 @@ uint32_t TCPIP_STACK_NetAddressGateway(TCPIP_NET_HANDLE netH)
 
 uint32_t TCPIP_STACK_NetAddressDnsPrimary(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
 
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         return pNetIf->dnsServer[0].Val;
     }
@@ -3230,9 +2913,9 @@ uint32_t TCPIP_STACK_NetAddressDnsPrimary(TCPIP_NET_HANDLE netH)
 
 uint32_t TCPIP_STACK_NetAddressDnsSecond(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
 
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         return pNetIf->dnsServer[1].Val;
     }
@@ -3240,18 +2923,18 @@ uint32_t TCPIP_STACK_NetAddressDnsSecond(TCPIP_NET_HANDLE netH)
     return 0;
 }
 
-bool TCPIP_STACK_NetDnsPrimarySet(TCPIP_NET_HANDLE netH, IPV4_ADDR* ipAddress)
+bool TCPIP_STACK_NetAddressDnsPrimarySet(TCPIP_NET_HANDLE netH, IPV4_ADDR* ipAddress)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
     TCPIP_STACK_PrimaryDNSAddressSet(pNetIf, ipAddress);
 
-    return pNetIf != NULL;
+    return pNetIf != 0;
 }
 
-bool TCPIP_STACK_NetDnsSecondSet(TCPIP_NET_HANDLE netH, IPV4_ADDR* ipAddress)
+bool TCPIP_STACK_NetAddressDnsSecondSet(TCPIP_NET_HANDLE netH, IPV4_ADDR* ipAddress)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
         TCPIP_STACK_SecondaryDNSAddressSet(pNetIf, ipAddress);
         return true;
@@ -3266,7 +2949,7 @@ bool  TCPIP_STACK_NetDnsIPv6Set(TCPIP_NET_HANDLE netH, const IPV6_ADDR* ipv6Addr
 {
     if(ipv6Address != NULL)
     {
-        TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(netH);
+        TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(netH);
         if(pNetIf != NULL)
         {
             IPV6_ADDR_HANDLE    ip6AddHndl = NULL;
@@ -3313,7 +2996,7 @@ bool  TCPIP_STACK_NetDnsIPv6Get(TCPIP_NET_HANDLE netH, IPV6_ADDR* dnsAddress)
 {
     if(dnsAddress != NULL)
     {
-        TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(netH);
+        TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(netH);
         if(pNetIf != NULL)
         {
             (void)memset(dnsAddress->v, 0, sizeof(*dnsAddress));
@@ -3338,11 +3021,10 @@ bool TCPIP_STACK_NetDnsIPv6Get(TCPIP_NET_HANDLE netH, IPV6_ADDR* dnsAddress)
 }
 #endif  // defined(TCPIP_STACK_USE_IPV6)
 
-
 uint32_t TCPIP_STACK_NetMask(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
         return TCPIP_STACK_NetMaskGet(pNetIf);
     }
@@ -3354,10 +3036,10 @@ uint32_t TCPIP_STACK_NetMask(TCPIP_NET_HANDLE netH)
 
 bool TCPIP_STACK_NetAddressMacSet(TCPIP_NET_HANDLE netH, const TCPIP_MAC_ADDR* pAddr)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
-        (void) memcpy(pNetIf->netMACAddr.v, pAddr->v, sizeof(pNetIf->netMACAddr));
+        memcpy(pNetIf->netMACAddr.v, pAddr->v, sizeof(pNetIf->netMACAddr));
         return true;
     }
 
@@ -3366,22 +3048,22 @@ bool TCPIP_STACK_NetAddressMacSet(TCPIP_NET_HANDLE netH, const TCPIP_MAC_ADDR* p
 
 const char* TCPIP_STACK_NetBIOSName(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(netH);
+    if(pNetIf)
     {
         return (const char*)pNetIf->NetBIOSName;
     }
 
-    return NULL;
+    return 0;
 
 }
 
 bool TCPIP_STACK_NetBiosNameSet(TCPIP_NET_HANDLE netH, const char* biosName)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
-        (void) memcpy(pNetIf->NetBIOSName, (const uint8_t*)biosName, sizeof(pNetIf->NetBIOSName));
+        memcpy(pNetIf->NetBIOSName, biosName, sizeof(pNetIf->NetBIOSName));
         TCPIP_Helper_FormatNetBIOSName(pNetIf->NetBIOSName);
         return true;
     }
@@ -3391,14 +3073,14 @@ bool TCPIP_STACK_NetBiosNameSet(TCPIP_NET_HANDLE netH, const char* biosName)
 
 const uint8_t* TCPIP_STACK_NetAddressMac(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(netH);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(netH);
     return TCPIP_STACK_NetUpMACAddressGet(pNetIf);
 }
 
 TCPIP_STACK_MODULE  TCPIP_STACK_NetMACIdGet(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
         return TCPIP_STACK_NetMACId(pNetIf);
     }
@@ -3408,10 +3090,10 @@ TCPIP_STACK_MODULE  TCPIP_STACK_NetMACIdGet(TCPIP_NET_HANDLE netH)
 
 TCPIP_MAC_TYPE TCPIP_STACK_NetMACTypeGet(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
-        return TCPIPStack_NetMacType(pNetIf);
+        return _TCPIPStack_NetMacType(pNetIf);
     }
 
     return TCPIP_MAC_TYPE_NONE;
@@ -3419,10 +3101,10 @@ TCPIP_MAC_TYPE TCPIP_STACK_NetMACTypeGet(TCPIP_NET_HANDLE netH)
 
 bool TCPIP_STACK_NetMACStatisticsGet(TCPIP_NET_HANDLE netH, TCPIP_MAC_RX_STATISTICS* pRxStatistics, TCPIP_MAC_TX_STATISTICS* pTxStatistics)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
-        TCPIP_MAC_RES res = (*pNetIf->pMacObj->MAC_StatisticsGet)(pNetIf->hIfMac, pRxStatistics, pTxStatistics);
+        TCPIP_MAC_RES res = (*pNetIf->pMacObj->TCPIP_MAC_StatisticsGet)(pNetIf->hIfMac, pRxStatistics, pTxStatistics);
         if(res == TCPIP_MAC_RES_OK)
         {
             return true;
@@ -3432,12 +3114,12 @@ bool TCPIP_STACK_NetMACStatisticsGet(TCPIP_NET_HANDLE netH, TCPIP_MAC_RX_STATIST
     return false;
 }
 
-bool  TCPIP_STACK_NetMACRegisterStatisticsGet(TCPIP_NET_HANDLE netH, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, size_t nEntries, size_t* pHwEntries)
+bool  TCPIP_STACK_NetMACRegisterStatisticsGet(TCPIP_NET_HANDLE netH, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
-        TCPIP_MAC_RES res = (*pNetIf->pMacObj->MAC_RegisterStatisticsGet)(pNetIf->hIfMac, pRegEntries, nEntries, pHwEntries);
+        TCPIP_MAC_RES res = (*pNetIf->pMacObj->TCPIP_MAC_RegisterStatisticsGet)(pNetIf->hIfMac, pRegEntries, nEntries, pHwEntries);
         if(res == TCPIP_MAC_RES_OK)
         {
             return true;
@@ -3452,28 +3134,27 @@ bool  TCPIP_STACK_NetMACRegisterStatisticsGet(TCPIP_NET_HANDLE netH, TCPIP_MAC_S
 #if (TCPIP_STACK_CONFIGURATION_SAVE_RESTORE != 0)
 size_t TCPIP_STACK_ModuleConfigGet(TCPIP_STACK_MODULE modId, void* configBuff, size_t buffSize, size_t* pNeededSize)
 {
-    if(tcpipNetIf != NULL)
+    if(tcpipNetIf != 0)
     {   // we should be up and running for this
-        size_t          netIx;
-        TCPIP_NET_IF*   pNetIf;
 
-        pNetIf = tcpipNetIf;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        int netIx;
+        TCPIP_NET_IF* pNetIf;
+
+        for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
         {
-            if(pNetIf->macId == (uint16_t)modId)
+            if(pNetIf->macId == modId)
             {
-                if(pNetIf->pMacObj != NULL)
+                if(pNetIf->pMacObj != 0)
                 {   // found MAC module
-                    return (*pNetIf->pMacObj->MAC_ConfigGet)(pNetIf->hIfMac, configBuff, buffSize, pNeededSize);
+                    return (*pNetIf->pMacObj->TCPIP_MAC_ConfigGet)(pNetIf->hIfMac, configBuff, buffSize, pNeededSize);
                 }
             }
-            pNetIf++;
         }
     }
 
 
     // not found
-    return 0U;
+    return -1;
 }
 
 // all the parameters are returned without checking
@@ -3483,50 +3164,47 @@ size_t TCPIP_STACK_NetConfigGet(TCPIP_NET_HANDLE netH, void* configStoreBuff, si
     TCPIP_NET_IF* pNetIf;
     TCPIP_STACK_NET_IF_DCPT* pNetStg;
 
-    pNetIf = TCPIPStackHandleToNet(netH);
-    if((tcpipNetIf == NULL) || (pNetIf == NULL))
+    if(tcpipNetIf == 0 || (pNetIf = _TCPIPStackHandleToNet(netH))== 0)
     {   // we should be up and running and have a valid IF
-        return 0U;
+        return -1;
     }
 
-    if((pNeededSize == NULL) && ((configStoreBuff == NULL) || (configStoreSize == 0U) ))
+    if(pNeededSize == 0 && (configStoreBuff == 0 || configStoreSize == 0 ))
     {   // nothing to do
         return 0;
     }
-
     // store needed size
-    if(pNeededSize != NULL)
+    if(pNeededSize)
     {
         *pNeededSize = sizeof(*pNetStg); 
     }
 
-    if((configStoreBuff != NULL) && (configStoreSize >= sizeof(*pNetStg)))
+    if(configStoreBuff && configStoreSize >= sizeof(*pNetStg))
     {   // copy all the fields
         pNetStg = (TCPIP_STACK_NET_IF_DCPT*)configStoreBuff;
 
         // the TCPIP_STACK_NET_IF_DCPT has to be at the very beginning of the pNetIf !!!
-        void* stgPtr = FC_NetDcpt2Vptr(pNetStg);
-        (void) memcpy(stgPtr, (void*)&pNetIf->size, sizeof(*pNetStg));
+        memcpy(pNetStg, &pNetIf->size, sizeof(*pNetStg));
         // update the size field
-        pNetStg->size = (uint16_t)sizeof(*pNetStg);
+        pNetStg->size = sizeof(*pNetStg);
 
         return sizeof(*pNetStg);
     }
 
-    return 0U;
+    return 0;
 }
 
-static void* F_NetConfigStringToBuffer(void** ppDstBuff, void* pSrcBuff, size_t* pDstSize, size_t* pNeedLen, size_t* pActLen)
+static void* _NetConfigStringToBuffer(void** ppDstBuff, void* pSrcBuff, size_t* pDstSize, size_t* pNeedLen, size_t* pActLen)
 {
     size_t  currLen;
 
-    currLen = strlen(pSrcBuff) + 1U;
+    currLen = strlen(pSrcBuff) + 1;
 
     *pNeedLen += currLen;
-    if((currLen != 0U) && (currLen <= *pDstSize))
+    if(currLen && currLen <= *pDstSize)
     {
         void* pCopy = *ppDstBuff;
-        (void) memcpy(*ppDstBuff, pSrcBuff, currLen);
+        memcpy(*ppDstBuff, pSrcBuff, currLen);
         *(uint8_t**)ppDstBuff += currLen;
         *pDstSize -= currLen;
         *pActLen += currLen;
@@ -3535,7 +3213,7 @@ static void* F_NetConfigStringToBuffer(void** ppDstBuff, void* pSrcBuff, size_t*
     else
     {   // stop copying
         *pDstSize = 0;
-        return NULL;
+        return 0;
     }
 
 }
@@ -3545,22 +3223,21 @@ TCPIP_NETWORK_CONFIG*   TCPIP_STACK_NetConfigSet(void* configStoreBuff, void* ne
 {
     TCPIP_NETWORK_CONFIG* pNetConf;            
     TCPIP_STACK_NET_IF_DCPT* pNetStg = (TCPIP_STACK_NET_IF_DCPT*)configStoreBuff;
-    uint32_t startFlags;
 
-    if((configStoreBuff == NULL) || (pNeededSize == NULL && (netConfigBuff == NULL) ))
+    if(configStoreBuff == 0 || (pNeededSize == 0 && netConfigBuff == 0 ))
     {   // nothing to do
-        return NULL;
+        return 0;
     }
 
     // minimum sanity check
     if(pNetStg->size != sizeof(*pNetStg))
     {   // not valid config save?
-        return NULL;
+        return 0;
     }
 
     if(buffSize < sizeof(*pNetConf))
     {   // not even enough room to start
-        return NULL;
+        return 0;
     }
 
     char    tempBuff[50 + 1];   // buffer large enough to hold any string in a TCPIP_NETWORK_CONFIG!
@@ -3572,81 +3249,79 @@ TCPIP_NETWORK_CONFIG*   TCPIP_STACK_NetConfigSet(void* configStoreBuff, void* ne
     pNetConf = (TCPIP_NETWORK_CONFIG*)netConfigBuff;
     pDstBuff = pNetConf + 1;    // write area
     dstSize = buffSize - sizeof(*pNetConf);
-    needLen = 0;
-    actualLen = 0;
-    tempBuff[sizeof(tempBuff) - 1U] = '\0';   // always end properly
+    needLen = actualLen = 0;
+    tempBuff[sizeof(tempBuff) - 1] = '\0';   // always end properly
     
     // get each field
-    if((pNetStg->pMacObj != NULL) && (pNetStg->pMacObj->macName != NULL))
+    if(pNetStg->pMacObj != 0 && pNetStg->pMacObj->macName != 0)
     {
-        (void) strncpy(tempBuff, pNetStg->pMacObj->macName, sizeof(tempBuff) - 1U);
-        pNetConf->interface = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+        strncpy(tempBuff, pNetStg->pMacObj->macName, sizeof(tempBuff) - 1);
+        pNetConf->interface = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
     }
     else
     {
-        pNetConf->interface = NULL;
+        pNetConf->interface = 0;
     }
 
-    (void) strncpy(tempBuff, (char*)pNetStg->NetBIOSName, sizeof(tempBuff) - 1U);
-    pNetConf->hostName = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    strncpy(tempBuff, (char*)pNetStg->NetBIOSName, sizeof(tempBuff) - 1);
+    pNetConf->hostName = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-    (void) TCPIP_Helper_MACAddressToString(&pNetStg->netMACAddr, tempBuff, sizeof(tempBuff) - 1U);
-    pNetConf->macAddr = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    TCPIP_Helper_MACAddressToString(&pNetStg->netMACAddr, tempBuff, sizeof(tempBuff) - 1);
+    pNetConf->macAddr = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-    (void) TCPIP_Helper_IPAddressToString(&pNetStg->netIPAddr, tempBuff, sizeof(tempBuff) - 1U);
-    pNetConf->ipAddr = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    TCPIP_Helper_IPAddressToString(&pNetStg->netIPAddr, tempBuff, sizeof(tempBuff) - 1);
+    pNetConf->ipAddr = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-    (void) TCPIP_Helper_IPAddressToString(&pNetStg->netMask, tempBuff, sizeof(tempBuff) - 1U);
-    pNetConf->ipMask = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    TCPIP_Helper_IPAddressToString(&pNetStg->netMask, tempBuff, sizeof(tempBuff) - 1);
+    pNetConf->ipMask = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-    (void) TCPIP_Helper_IPAddressToString(&pNetStg->netGateway, tempBuff, sizeof(tempBuff) - 1U);
-    pNetConf->gateway = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    TCPIP_Helper_IPAddressToString(&pNetStg->netGateway, tempBuff, sizeof(tempBuff) - 1);
+    pNetConf->gateway = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-    (void) TCPIP_Helper_IPAddressToString(&pNetStg->dnsServer[0], tempBuff, sizeof(tempBuff) - 1U);
-    pNetConf->priDNS = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    TCPIP_Helper_IPAddressToString(&pNetStg->dnsServer[0], tempBuff, sizeof(tempBuff) - 1);
+    pNetConf->priDNS = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-    (void) TCPIP_Helper_IPAddressToString(&pNetStg->dnsServer[1], tempBuff, sizeof(tempBuff) - 1U);
-    pNetConf->secondDNS = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    TCPIP_Helper_IPAddressToString(&pNetStg->dnsServer[1], tempBuff, sizeof(tempBuff) - 1);
+    pNetConf->secondDNS = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-    (void) strncpy(tempBuff, TCPIP_Helper_PowerModeToString((TCPIP_MAC_POWER_MODE)pNetStg->Flags.powerMode), sizeof(tempBuff) - 1U);
-    pNetConf->powerMode = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+    strncpy(tempBuff, TCPIP_Helper_PowerModeToString(pNetStg->Flags.powerMode), sizeof(tempBuff) - 1);
+    pNetConf->powerMode = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
     // set the flags
-    startFlags = 0U;
-    if(pNetStg->Flags.bIsDHCPEnabled != 0U)
+    pNetConf->startFlags = 0; 
+    if(pNetStg->Flags.bIsDHCPEnabled)
     {
-        startFlags |= (uint32_t)TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON;
+        pNetConf->startFlags |= TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON; 
     }
-    if(pNetStg->Flags.bIsDHCPSrvEnabled != 0U)
+    if(pNetStg->Flags.bIsDHCPSrvEnabled)
     {
-        startFlags |= (uint32_t)TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON; 
+        pNetConf->startFlags |= TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON; 
     }
-    if(pNetStg->Flags.bIsZcllEnabled != 0U)
+    if(pNetStg->Flags.bIsZcllEnabled)
     {
-        startFlags |= (uint32_t)TCPIP_NETWORK_CONFIG_ZCLL_ON;
+        pNetConf->startFlags |= TCPIP_NETWORK_CONFIG_ZCLL_ON; 
     }
     // set the MAC driver object
     pNetConf->pMacObject = pNetStg->pMacObj;
 #if defined(TCPIP_STACK_USE_IPV6)
-    if((pNetStg->startFlags & (uint16_t)TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0U)
+    if((pNetStg->startFlags & TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0)
     {
-        startFlags |= (uint32_t)TCPIP_NETWORK_CONFIG_IPV6_ADDRESS;
-        pNetConf->ipv6PrefixLen = (size_t)pNetStg->ipv6PrefixLen;
+        pNetConf->startFlags |= TCPIP_NETWORK_CONFIG_IPV6_ADDRESS;
+        pNetConf->ipv6PrefixLen = pNetStg->ipv6PrefixLen;
 
-        (void) TCPIP_Helper_IPv6AddressToString(&pNetStg->netIPv6Addr, tempBuff, sizeof(tempBuff) - 1U);
-        pNetConf->ipv6Addr = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+        TCPIP_Helper_IPv6AddressToString(&pNetStg->netIPv6Addr, tempBuff, sizeof(tempBuff) - 1);
+        pNetConf->ipv6Addr = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
 
-        (void) TCPIP_Helper_IPv6AddressToString(&pNetStg->netIPv6Gateway, tempBuff, sizeof(tempBuff) - 1U);
-        pNetConf->ipv6Gateway = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+        TCPIP_Helper_IPv6AddressToString(&pNetStg->netIPv6Gateway, tempBuff, sizeof(tempBuff) - 1);
+        pNetConf->ipv6Gateway = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
         
         (void) TCPIP_Helper_IPv6AddressToString(pNetStg->netIPv6Dns, tempBuff, sizeof(tempBuff) - 1U);
-        pNetConf->ipv6Dns = F_NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
+        pNetConf->ipv6Dns = _NetConfigStringToBuffer(&pDstBuff, tempBuff, &dstSize, &needLen, &actualLen);
     }
 
 #endif  // defined(TCPIP_STACK_USE_IPV6)
 
-    pNetConf->startFlags = (TCPIP_NETWORK_CONFIG_FLAGS)startFlags; 
-    if(pNeededSize != NULL)
+    if(pNeededSize)
     {
         *pNeededSize = needLen + sizeof(*pNetConf);
     }
@@ -3656,31 +3331,28 @@ TCPIP_NETWORK_CONFIG*   TCPIP_STACK_NetConfigSet(void* configStoreBuff, void* ne
         return pNetConf;
     }
 
-    return NULL;
+    return 0;
 
 }
 #endif  // (TCPIP_STACK_CONFIGURATION_SAVE_RESTORE != 0)
 
 TCPIP_STACK_MODULE TCPIP_STACK_StringToMACId(const char* str)
 {
-    if(str != NULL)
+    if(str)
     {
-        size_t  netIx;
+        int netIx;
         TCPIP_NET_IF* pNetIf;
         const TCPIP_MAC_OBJECT  *pObj;
 
-        pNetIf = tcpipNetIf;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
         {
-            pObj = pNetIf->pMacObj;
-            if(pObj != NULL)
+            if((pObj = pNetIf->pMacObj) != 0)
             {
                 if(strcmp(str, pObj->macName) == 0)
                 {
-                    return (TCPIP_STACK_MODULE)pObj->macId;
+                    return pObj->macId;
                 }
             }
-            pNetIf++;
         }
     }
 
@@ -3690,26 +3362,23 @@ TCPIP_STACK_MODULE TCPIP_STACK_StringToMACId(const char* str)
 
 
 
-const char* TCPIP_STACK_MACIdToString(TCPIP_STACK_MODULE macId)
+const char* TCPIP_STACK_MACIdToString(TCPIP_STACK_MODULE moduleId)
 {
-    size_t  netIx;
+    int netIx;
     TCPIP_NET_IF* pNetIf;
     const TCPIP_MAC_OBJECT  *pObj;
 
-    pNetIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
     {
-        pObj = pNetIf->pMacObj;
-        if(pObj != NULL)
+        if((pObj = pNetIf->pMacObj) != 0)
         {
-            if(pObj->macId == (uint16_t)macId)
+            if(pObj->macId == moduleId)
             {
                 return pObj->macName;
             }
         }
-        pNetIf++;
     }
-    return NULL;
+    return 0;
 }
 
 
@@ -3731,8 +3400,8 @@ const char* TCPIP_STACK_MACIdToString(TCPIP_STACK_MODULE macId)
  ********************************************************************/
 uint32_t TCPIP_STACK_NetAddressBcast(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(netH);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
         return (pNetIf->netIPAddr.Val | ~pNetIf->netMask.Val);
     }
@@ -3742,28 +3411,28 @@ uint32_t TCPIP_STACK_NetAddressBcast(TCPIP_NET_HANDLE netH)
 
 }
 
-bool TCPIP_STACK_NetIsUp(TCPIP_NET_HANDLE hNet)
+bool TCPIP_STACK_NetIsUp(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(hNet);
-    return pNetIf != NULL;
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    return pNetIf != 0;
 }
 
-bool TCPIP_STACK_NetIsLinked(TCPIP_NET_HANDLE hNet)
+bool TCPIP_STACK_NetIsLinked(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(hNet);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(netH);
+    if(pNetIf)
     {
         return TCPIP_STACK_NetworkIsLinked(pNetIf);
     }
     return false;
 }
 
-bool TCPIP_STACK_NetIsReady(TCPIP_NET_HANDLE hNet)
+bool TCPIP_STACK_NetIsReady(TCPIP_NET_HANDLE netH)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetLinked(hNet);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetLinked(netH);
+    if(pNetIf)
     {
-        return TCPIPStackIsConfig(pNetIf) == false;
+        return _TCPIPStackIsConfig(pNetIf) == 0;
     }
     return false;
 }
@@ -3772,11 +3441,11 @@ bool TCPIP_STACK_NetIsReady(TCPIP_NET_HANDLE hNet)
 TCPIP_STACK_DNS_SERVICE_TYPE TCPIP_STACK_DNSServiceSelect(TCPIP_NET_IF* pNetIf, TCPIP_NETWORK_CONFIG_FLAGS configFlags)
 {
     // clear all the existing DNS address service bits
-    pNetIf->Flags.v &= ~(uint16_t)TCPIP_STACK_DNS_SERVICE_MASK;
+    pNetIf->Flags.v &= ~TCPIP_STACK_DNS_SERVICE_MASK;
 
     
 #if defined(TCPIP_STACK_USE_DNS)
-        if(((uint16_t)configFlags & (uint16_t)TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON) != 0U )
+        if((configFlags & TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON) != 0 )
         { 
             pNetIf->Flags.bIsDnsClientEnabled = 1;
             return TCPIP_STACK_DNS_SERVICE_CLIENT;
@@ -3784,7 +3453,7 @@ TCPIP_STACK_DNS_SERVICE_TYPE TCPIP_STACK_DNSServiceSelect(TCPIP_NET_IF* pNetIf, 
 #endif  // defined(TCPIP_STACK_USE_DNS)
     
 #if defined(TCPIP_STACK_USE_DNS_SERVER)
-        if(((uint16_t)configFlags & (uint16_t)TCPIP_NETWORK_CONFIG_DNS_SERVER_ON) != 0U )
+        if((configFlags & TCPIP_NETWORK_CONFIG_DNS_SERVER_ON) != 0 )
         { 
             pNetIf->Flags.bIsDnsServerEnabled = 1;
             return TCPIP_STACK_DNS_SERVICE_SERVER;
@@ -3796,50 +3465,50 @@ TCPIP_STACK_DNS_SERVICE_TYPE TCPIP_STACK_DNSServiceSelect(TCPIP_NET_IF* pNetIf, 
 #endif  // defined(TCPIP_STACK_USE_IPV4)
 
 
-TCPIP_STACK_ADDR_SRVC_TYPE TCPIP_STACK_AddressServiceSelect(TCPIP_NET_IF* pNetIf, TCPIP_NETWORK_CONFIG_FLAGS configFlags)
+TCPIP_STACK_ADDRESS_SERVICE_TYPE TCPIP_STACK_AddressServiceSelect(TCPIP_NET_IF* pNetIf, TCPIP_NETWORK_CONFIG_FLAGS configFlags)
 {
 #if defined(TCPIP_STACK_USE_IPV4)
 
     // clear all the existing address service bits
-    pNetIf->Flags.v &= ~(uint16_t)TCPIP_STACK_ADDR_SRVC_MASK;
+    pNetIf->Flags.v &= ~TCPIP_STACK_ADDRESS_SERVICE_MASK;
 
     // Set up the address service on this interface
     // Priority (high to low): DHCPc, ZCLL, DHCPS, static IP address
 #if defined(TCPIP_STACK_USE_DHCP_CLIENT)
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
-    if(TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCP_CLIENT))
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
+    if(_TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCP_CLIENT))
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
     {
-        if(((uint16_t)configFlags & (uint16_t)TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON) != 0U )
+        if((configFlags & TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON) != 0 )
         { 
             pNetIf->Flags.bIsDHCPEnabled = 1;
-            return TCPIP_STACK_ADDR_SRVC_DHCPC;
+            return TCPIP_STACK_ADDRESS_SERVICE_DHCPC;
         }
     }
 #endif  // defined(TCPIP_STACK_USE_DHCP_CLIENT)
 
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
-    if(TCPIPStack_ModuleIsRunning(TCPIP_MODULE_ZCLL))
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
+    if(_TCPIPStack_ModuleIsRunning(TCPIP_MODULE_ZCLL))
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
     {
-        if(((uint16_t)configFlags & (uint16_t)TCPIP_NETWORK_CONFIG_ZCLL_ON) != 0U )
+        if((configFlags & TCPIP_NETWORK_CONFIG_ZCLL_ON) != 0 )
         { 
             pNetIf->Flags.bIsZcllEnabled = 1;
-            return TCPIP_STACK_ADDR_SRVC_ZCLL;
+            return TCPIP_STACK_ADDRESS_SERVICE_ZCLL;
         }
     }
 #endif  // defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
 
 #if defined(TCPIP_STACK_USE_DHCP_SERVER) || defined(TCPIP_STACK_USE_DHCP_SERVER_V2)
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
-    if(TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCP_SERVER))
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
+    if(_TCPIPStack_ModuleIsRunning(TCPIP_MODULE_DHCP_SERVER))
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
     {
-        if(((uint16_t)configFlags & (uint16_t)TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON) != 0U)
+        if((configFlags & TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON) != 0 )
         { 
             pNetIf->Flags.bIsDHCPSrvEnabled = 1;
-            return TCPIP_STACK_ADDR_SRVC_DHCPS;
+            return TCPIP_STACK_ADDRESS_SERVICE_DHCPS;
         }
     }
 #endif  // defined(TCPIP_STACK_USE_DHCP_SERVER) || defined(TCPIP_STACK_USE_DHCP_SERVER_V2)
@@ -3847,93 +3516,88 @@ TCPIP_STACK_ADDR_SRVC_TYPE TCPIP_STACK_AddressServiceSelect(TCPIP_NET_IF* pNetIf
 #endif  // defined(TCPIP_STACK_USE_IPV4)
     // couldn't select an address service
     // use default/static
-    return TCPIP_STACK_ADDR_SRVC_NONE;
+    return TCPIP_STACK_ADDRESS_SERVICE_NONE;
 
 }
 
 
 #if defined(TCPIP_STACK_USE_IPV4)
-bool TCPIP_STACK_AddressServiceCanStart(TCPIP_NET_IF* pNetIf, TCPIP_STACK_ADDR_SRVC_TYPE adSvcType)
+bool TCPIP_STACK_AddressServiceCanStart(TCPIP_NET_IF* pNetIf, TCPIP_STACK_ADDRESS_SERVICE_TYPE adSvcType)
 {
-    if(pNetIf != NULL)
+    if(pNetIf)
     {   // enable a different address service only if there's not another one running
         // client has to stop a previos service (DHCP, ZCLL, etc.) in order to start another one
-        return (pNetIf->Flags.v & (uint16_t)TCPIP_STACK_ADDR_SRVC_MASK) == (uint16_t)TCPIP_STACK_ADDR_SRVC_NONE;
+        return (pNetIf->Flags.v & TCPIP_STACK_ADDRESS_SERVICE_MASK) == TCPIP_STACK_ADDRESS_SERVICE_NONE;
     }
 
     return false;
 }
 
-TCPIP_STACK_ADDR_SRVC_TYPE TCPIPStackAddressServiceIsRunning(TCPIP_NET_IF* pNetIf)
+TCPIP_STACK_ADDRESS_SERVICE_TYPE _TCPIPStackAddressServiceIsRunning(TCPIP_NET_IF* pNetIf)
 {
-    uint16_t tempflag = pNetIf->Flags.v & (uint16_t)TCPIP_STACK_ADDR_SRVC_MASK;
-    return (TCPIP_STACK_ADDR_SRVC_TYPE)(tempflag);
+    return (TCPIP_STACK_ADDRESS_SERVICE_TYPE)(pNetIf->Flags.v & TCPIP_STACK_ADDRESS_SERVICE_MASK);
 }
 
-void TCPIP_STACK_AddressServiceEvent(TCPIP_NET_IF* pNetIf, TCPIP_STACK_ADDR_SRVC_TYPE adSvcType,
-                                    TCPIP_ADDR_SRVC_EV evType)
+void TCPIP_STACK_AddressServiceEvent(TCPIP_NET_IF* pNetIf, TCPIP_STACK_ADDRESS_SERVICE_TYPE adSvcType,
+                                    TCPIP_STACK_ADDRESS_SERVICE_EVENT evType)
 {
 
-    if(evType == TCPIP_ADDR_SRVC_EV_RUN_RESTORE)
+    if(evType == TCPIP_STACK_ADDRESS_SERVICE_EVENT_RUN_RESTORE)
     {   // run time connection restore; it should be the DHCPc
-        if(adSvcType == TCPIP_STACK_ADDR_SRVC_DHCPC)
+        if(adSvcType == TCPIP_STACK_ADDRESS_SERVICE_DHCPC)
         {
             // make sure any running service is cleared
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-            (void)TCPIP_ZCLL_ServiceEnable(pNetIf, false);
+            TCPIP_ZCLL_ServiceEnable(pNetIf, false);
 #endif  // defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
             pNetIf->Flags.bIsDHCPEnabled = 1;
             return;
         }
     }
-    else if(evType == TCPIP_ADDR_SRVC_EV_CONN_LOST)
+    else if(evType == TCPIP_STACK_ADDRESS_SERVICE_EVENT_CONN_LOST)
     {   // connection loss is considered a temporary event;
         // no need to disable a service
         // since we don't have network connectivity anyway
         return;
     }
-    else if(adSvcType == TCPIP_STACK_ADDR_SRVC_DHCPS)
+    else if(adSvcType == TCPIP_STACK_ADDRESS_SERVICE_DHCPS)
     {   // if DHCP server was stopped/failed
         // we won't start another address service
         // the user will have to take a decision
         return;
     }
-    else
-    {
-        /* Do Nothing */
-    }
 
     // the DHCPc/ZCLL address service failed/stopped:
-    // TCPIP_ADDR_SRVC_EV_RUN_FAIL, TCPIP_ADDR_SRVC_EV_USER_STOP
+    // TCPIP_STACK_ADDRESS_SERVICE_EVENT_RUN_FAIL, TCPIP_STACK_ADDRESS_SERVICE_EVENT_USER_STOP
     //
     // make sure any running service is cleared
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-    (void)TCPIP_ZCLL_ServiceEnable(pNetIf, false);
+    TCPIP_ZCLL_ServiceEnable(pNetIf, false);
 #endif  // defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-    pNetIf->Flags.v &= ~(uint16_t)TCPIP_STACK_ADDR_SRVC_MASK;
-    F_TCPIPStackSetConfig(pNetIf, true);
+    pNetIf->Flags.v &= ~TCPIP_STACK_ADDRESS_SERVICE_MASK;
+    _TCPIPStackSetConfig(pNetIf, true);
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-    typedef bool(*addressSvcFnc)(TCPIP_NET_IF* pNetIf, bool enable);
-    addressSvcFnc   addFnc = NULL;
+    typedef bool(*addSvcFnc)(TCPIP_NET_IF* pNetIf, bool enable);
+    addSvcFnc   addFnc = 0;
 #endif  // defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-    if(adSvcType == TCPIP_STACK_ADDR_SRVC_DHCPC)
+    if(adSvcType == TCPIP_STACK_ADDRESS_SERVICE_DHCPC)
     {   // the DHCP client has been stopped or failed
         // if possible we'll select ZCLL
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-        if((pNetIf->startFlags & (uint16_t)TCPIP_NETWORK_CONFIG_ZCLL_ON) != 0U)
+        if((pNetIf->startFlags & TCPIP_NETWORK_CONFIG_ZCLL_ON) != 0)
         {   // OK, we can use ZCLL
-            addFnc = &TCPIP_ZCLL_ServiceEnable;
+            addFnc = TCPIP_ZCLL_ServiceEnable;
         }
 #endif
     }
-    // else if (adSvcType == TCPIP_STACK_ADDR_SRVC_ZCLL)
+    // else if (adSvcType == TCPIP_STACK_ADDRESS_SERVICE_ZCLL)
     // we'll select the default IP address
 
     // either way, no DHCP; restore the static DNS
-    F_TCPIP_StackSetDefaultDns(pNetIf);
+    _TCPIP_StackSetDefaultDns(pNetIf);
 
 #if defined(TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL)
-    if(addFnc != NULL)
+    if(addFnc)
     {
         if((*addFnc)(pNetIf, true) == true)
         {   // success
@@ -3950,19 +3614,15 @@ void TCPIP_STACK_AddressServiceEvent(TCPIP_NET_IF* pNetIf, TCPIP_STACK_ADDR_SRVC
 
 bool TCPIP_STACK_DNSServiceCanStart(TCPIP_NET_IF* pNetIf, TCPIP_STACK_DNS_SERVICE_TYPE dnsSvcType)
 {
-    if(pNetIf != NULL)
+    if(pNetIf)
     {   // enable a different DNS service only if there's not another one running
         if(dnsSvcType == TCPIP_STACK_DNS_SERVICE_SERVER)
         {
-            return (pNetIf->Flags.bIsDnsClientEnabled == 0U);
+            return (pNetIf->Flags.bIsDnsClientEnabled == 0);
         }
         else if(dnsSvcType == TCPIP_STACK_DNS_SERVICE_CLIENT)
         {
-            return (pNetIf->Flags.bIsDnsServerEnabled == 0U);
-        }
-        else
-        {
-            /* Do Nothing */
+            return (pNetIf->Flags.bIsDnsServerEnabled == 0);
         }
     }
 
@@ -3971,7 +3631,7 @@ bool TCPIP_STACK_DNSServiceCanStart(TCPIP_NET_IF* pNetIf, TCPIP_STACK_DNS_SERVIC
 
 
 /*********************************************************************
- * Function:        bool F_InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, size_t nNets)
+ * Function:        bool _InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, int nNets)
  *
  * PreCondition:    None. Part of TCPIP_STACK_Initialize()
  *
@@ -3987,21 +3647,19 @@ bool TCPIP_STACK_DNSServiceCanStart(TCPIP_NET_IF* pNetIf, TCPIP_STACK_DNS_SERVIC
  *
  * Note:            None
  ********************************************************************/
-static bool F_InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, size_t nNets)
+static bool _InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, int nNets)
 {
-    size_t     ix;
+    int     ix;
     TCPIP_NET_IF* pConfigIf;
 
-    pConfigIf = tcpipNetIf;
-    for(ix =0; ix < nNets; ix++)
+
+    for(ix =0, pConfigIf = tcpipNetIf; ix < nNets; ix++, pConfigIf++, pUsrConfig++)
     {
-        if(!F_LoadNetworkConfig(pUsrConfig, pConfigIf, false))
+        if(!_LoadNetworkConfig(pUsrConfig, pConfigIf, false))
         {
-            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Default Flash Network configuration load failed %zu\r\n", ix);
+            SYS_ERROR_PRINT(SYS_ERROR_ERROR, TCPIP_STACK_HDR_MESSAGE "Default Flash Network configuration load failed %d\r\n", ix);
             return false;
         }
-        pConfigIf++;
-        pUsrConfig++;
     }
 
 
@@ -4011,7 +3669,7 @@ static bool F_InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, size_t nNets
 
 
 /*********************************************************************
- * Function:        bool F_LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET_IF* pNetIf, bool restartIf)
+ * Function:        bool _LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET_IF* pNetIf, bool restartIf)
  *
  * PreCondition:    None
  *
@@ -4028,12 +3686,12 @@ static bool F_InitNetConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, size_t nNets
  *
  * Note:            None
  ********************************************************************/
-static bool F_LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET_IF* pNetIf, bool restartIf)
+static bool _LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NET_IF* pNetIf, bool restartIf)
 {
-    uint16_t    netIfIx = 0;
-    bool        loadFault;
-    const void* pMacConfig = NULL;             // MAC configuration save
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+    int     netIfIx = 0;
+    bool    loadFault;
+    const void*  pMacConfig = 0;             // MAC configuration save
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     TCPIP_MAC_ADDR  oldMACAddr;
     oldMACAddr.v[0] = 0;
     oldMACAddr.v[1] = 0;
@@ -4041,51 +3699,50 @@ static bool F_LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NE
     oldMACAddr.v[3] = 0;
     oldMACAddr.v[4] = 0;
     oldMACAddr.v[5] = 0;
-    TCPIP_NET_IF    *pPriIf = NULL, *pAliasIf = NULL;
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+    TCPIP_NET_IF    *pPriIf = 0, *pAliasIf = 0;
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     char    oldIfName[sizeof(pNetIf->ifName) + 1];
 
     if(restartIf)
     {   // save old data that's still useful
-        (void) strncpy(oldIfName, pNetIf->ifName, sizeof(oldIfName) - 1U); 
+        strncpy(oldIfName, pNetIf->ifName, sizeof(oldIfName) - 1); 
         pMacConfig = pNetIf->pMacConfig;
         netIfIx = pNetIf->netIfIx;
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
         pPriIf = pNetIf->pPriIf; 
         pAliasIf = pNetIf->pAlias;
-        if(!TCPIPStackNetIsPrimary(pNetIf))
+        if(!_TCPIPStackNetIsPrimary(pNetIf))
         {
             oldMACAddr = pNetIf->netMACAddr;
         }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     }
 
     while(true)
     {
         loadFault = false;
-        (void) memset(pNetIf, 0, sizeof(*pNetIf));
+        memset(pNetIf, 0, sizeof(*pNetIf));
 
-        if(pUsrConfig->macAddr != NULL)
+        if(pUsrConfig->macAddr != 0)
         {
-            (void) TCPIP_Helper_StringToMACAddress(pUsrConfig->macAddr, pNetIf->netMACAddr.v);
+            TCPIP_Helper_StringToMACAddress(pUsrConfig->macAddr, pNetIf->netMACAddr.v);
         }
         else
         {
-            (void) memset(pNetIf->netMACAddr.v, 0, sizeof(pNetIf->netMACAddr.v));
+            memset(pNetIf->netMACAddr.v, 0, sizeof(pNetIf->netMACAddr.v));
         }
 
         // store the default addresses
 #if defined(TCPIP_STACK_USE_IPV4)
-        (void) TCPIP_Helper_StringToIPAddress(pUsrConfig->ipAddr, &pNetIf->DefaultIPAddr);
-        (void) TCPIP_Helper_StringToIPAddress(pUsrConfig->ipMask, &pNetIf->DefaultMask);
+        TCPIP_Helper_StringToIPAddress(pUsrConfig->ipAddr, &pNetIf->DefaultIPAddr);
+        TCPIP_Helper_StringToIPAddress(pUsrConfig->ipMask, &pNetIf->DefaultMask);
 
-        (void) TCPIP_Helper_StringToIPAddress(pUsrConfig->gateway, &pNetIf->DefaultGateway);
-        (void) TCPIP_Helper_StringToIPAddress(pUsrConfig->priDNS, &pNetIf->DefaultDNSServer[0]);
-        (void) TCPIP_Helper_StringToIPAddress(pUsrConfig->secondDNS, &pNetIf->DefaultDNSServer[1]);
+        TCPIP_Helper_StringToIPAddress(pUsrConfig->gateway, &pNetIf->DefaultGateway);
+        TCPIP_Helper_StringToIPAddress(pUsrConfig->priDNS, &pNetIf->DefaultDNSServer[0]);
+        TCPIP_Helper_StringToIPAddress(pUsrConfig->secondDNS, &pNetIf->DefaultDNSServer[1]);
 #endif  // defined(TCPIP_STACK_USE_IPV4)
 
-        pNetIf->pMacObj = pUsrConfig->pMacObject;
-        if(pNetIf->pMacObj == NULL)
+        if((pNetIf->pMacObj = pUsrConfig->pMacObject) == 0)
         {
             loadFault = true;       // no such MAC interface
             break;
@@ -4093,39 +3750,40 @@ static bool F_LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NE
 
         pNetIf->macId = pNetIf->pMacObj->macId;
         pNetIf->macType = pNetIf->pMacObj->macType;
-        if((pNetIf->macType == 0U) || (pNetIf->macType >= (uint8_t)TCPIP_MAC_TYPES))
+        if(pNetIf->macType == 0 || pNetIf->macType >= TCPIP_MAC_TYPES)
         {
             loadFault = true;       // no such MAC type
             break;
         } 
 
         // Load the NetBIOS Host Name
-        (void) memcpy(pNetIf->NetBIOSName, (const uint8_t*)pUsrConfig->hostName, sizeof(tcpipNetIf[0].NetBIOSName));
+        memcpy(pNetIf->NetBIOSName, pUsrConfig->hostName, sizeof(tcpipNetIf[0].NetBIOSName));
         TCPIP_Helper_FormatNetBIOSName(pNetIf->NetBIOSName);
 
 
         // store start up flags
-        pNetIf->startFlags = (uint16_t)pUsrConfig->startFlags;
+        pNetIf->startFlags = pUsrConfig->startFlags;
 #if defined(TCPIP_STACK_USE_IPV6)
-        if((pNetIf->startFlags & (uint16_t)TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0U)
+        if((pNetIf->startFlags & TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0)
         {
             bool configIPv6 = true;
 
             pNetIf->ipv6PrefixLen = (uint16_t)pUsrConfig->ipv6PrefixLen;
 
             // ignore the static IPv6 address if incorrect
-            if(pUsrConfig->ipv6Addr != NULL)
+            if(pUsrConfig->ipv6Addr == 0)
             {
                 if(!TCPIP_Helper_StringToIPv6Address (pUsrConfig->ipv6Addr, &pNetIf->netIPv6Addr))
-                {   // incorrect static IPv6 address
+                {
                     configIPv6 = false;
                 }
             }
+
             // ignore the IPv6 gateway if incorrect; gateway == 0 is allowed.
-            if(pUsrConfig->ipv6Gateway != NULL)
+            if(pUsrConfig->ipv6Gateway != 0)
             {
                 if(!TCPIP_Helper_StringToIPv6Address (pUsrConfig->ipv6Gateway, &pNetIf->netIPv6Gateway))
-                {   // incorrect gateway address
+                {   
                     configIPv6 = false;
                 }
             }
@@ -4144,24 +3802,24 @@ static bool F_LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NE
 
             if(configIPv6 == false)
             {
-                pNetIf->startFlags &= ~(uint16_t)TCPIP_NETWORK_CONFIG_IPV6_ADDRESS;
+                pNetIf->startFlags &= ~TCPIP_NETWORK_CONFIG_IPV6_ADDRESS;
             }
         }
 #endif  // defined(TCPIP_STACK_USE_IPV6)
 
         // Set up the address service on this interface
-        F_TCPIPStackSetConfig(pNetIf, true);
+        _TCPIPStackSetConfig(pNetIf, true);
 #if defined(TCPIP_STACK_USE_IPV4)
-        TCPIP_STACK_ADDR_SRVC_TYPE startAddService;
+        TCPIP_STACK_ADDRESS_SERVICE_TYPE startAddService;
         startAddService = TCPIP_STACK_AddressServiceSelect(pNetIf, pUsrConfig->startFlags);
 
-        if(startAddService == TCPIP_STACK_ADDR_SRVC_NONE)
+        if(startAddService == TCPIP_STACK_ADDRESS_SERVICE_NONE)
         {   // couldn't start an address service; use the static values supplied
             TCPIP_STACK_AddressServiceDefaultSet(pNetIf);
         }
 
         // set the default DNS server
-        F_TCPIP_StackSetDefaultDns(pNetIf);
+        _TCPIP_StackSetDefaultDns(pNetIf);
 
         // Let DHCP update the DNS server
         pNetIf->Flags.bIsDNSServerAuto = 1;
@@ -4185,18 +3843,18 @@ static bool F_LoadNetworkConfig(const TCPIP_NETWORK_CONFIG* pUsrConfig, TCPIP_NE
     if(restartIf)
     {   
         // restore the if name
-        (void) memcpy(pNetIf->ifName, oldIfName, sizeof(pNetIf->ifName)); 
+        memcpy(pNetIf->ifName, oldIfName, sizeof(pNetIf->ifName)); 
         // restore MAC config data
         pNetIf->pMacConfig = pMacConfig;
         pNetIf->netIfIx = netIfIx;
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
         pNetIf->pPriIf = pPriIf;
         pNetIf->pAlias = pAliasIf;
-        if(!TCPIPStackNetIsPrimary(pNetIf))
+        if(!_TCPIPStackNetIsPrimary(pNetIf))
         {
             pNetIf->netMACAddr = oldMACAddr;
         }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     }
     
 
@@ -4207,9 +3865,9 @@ void TCPIP_STACK_AddressServiceDefaultSet(TCPIP_NET_IF* pNetIf)
 {
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
     // keep access to IP addresses consistent
-    F_TCPIPStackSetIpAddress(pNetIf, &pNetIf->DefaultIPAddr, &pNetIf->DefaultMask, &pNetIf->DefaultGateway, false);
+    _TCPIPStackSetIpAddress(pNetIf, &pNetIf->DefaultIPAddr, &pNetIf->DefaultMask, &pNetIf->DefaultGateway, false);
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
-    F_TCPIPStackSetConfig(pNetIf, false);
+    _TCPIPStackSetConfig(pNetIf, false);
 }
 
 
@@ -4217,46 +3875,42 @@ void TCPIP_STACK_AddressServiceDefaultSet(TCPIP_NET_IF* pNetIf)
 
 // Stack external event notification support
 
-TCPIP_EVENT TCPIP_STACK_EventsPendingGet(TCPIP_NET_HANDLE hNet)
+TCPIP_EVENT TCPIP_STACK_EventsPendingGet(const void* h)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(hNet);
-    if(pNetIf != NULL)
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(h);
+    if(pNetIf)
     {
-        return TCPIP_STACK_Mac2TcpipEvent((*pNetIf->pMacObj->MAC_EventPendingGet)(pNetIf->hIfMac));
+        return TCPIP_STACK_Mac2TcpipEvent((*pNetIf->pMacObj->TCPIP_MAC_EventPendingGet)(pNetIf->hIfMac));
     }
     return TCPIP_EV_NONE;
 }
 
 #if (TCPIP_STACK_USER_NOTIFICATION != 0)
-TCPIP_EVENT_HANDLE    TCPIP_STACK_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_EVENT evMask, TCPIP_STACK_EVENT_HANDLER notifyHandler, const void* notifyfParam)
+TCPIP_EVENT_HANDLE    TCPIP_STACK_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_EVENT evMask, TCPIP_STACK_EVENT_HANDLER handler, const void* hParam)
 {
-    SGL_LIST_NODE*          node;
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(hNet);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(hNet);
 
-    if((pNetIf != NULL) && TCPIPStackNetIsPrimary(pNetIf) && (notifyHandler != NULL))
+    if(pNetIf && _TCPIPStackNetIsPrimary(pNetIf) && handler)
     {
         TCPIP_EVENT_LIST_NODE eventNode;
-        eventNode.handler = notifyHandler;
-        eventNode.hParam = notifyfParam;
+        eventNode.handler = handler;
+        eventNode.hParam = hParam;
         eventNode.evMask = evMask;
         eventNode.pNetIf = pNetIf;
-        eventNode.next   = NULL;
+        eventNode.next   = NULL;        
 
-        node = TCPIP_Notification_Add(&pNetIf->registeredClients, tcpip_stack_ctrl_data.memH, &eventNode, sizeof(eventNode));
-        return FC_ListNode2EventNode(node);
+        return (TCPIP_EVENT_LIST_NODE*)TCPIP_Notification_Add(&pNetIf->registeredClients, tcpip_stack_ctrl_data.memH, &eventNode, sizeof(eventNode));
     }
 
-    return NULL;
+    return 0;
 }
 
-bool TCPIP_STACK_HandlerDeregister(TCPIP_EVENT_HANDLE hEvent)
+bool TCPIP_STACK_HandlerDeregister(TCPIP_EVENT_HANDLE hStack)
 {
-    if(hEvent != NULL)
+    TCPIP_EVENT_LIST_NODE* pNode = (TCPIP_EVENT_LIST_NODE*)hStack;
+    if(pNode)
     {
-        SGL_LIST_NODE* node = FC_EvHndl2ListNode(hEvent); 
-        TCPIP_EVENT_LIST_NODE*  eventNode = FC_ListNode2EventNode(node); 
-
-        if(TCPIP_Notification_Remove(node, &eventNode->pNetIf->registeredClients, tcpip_stack_ctrl_data.memH))
+        if(TCPIP_Notification_Remove((SGL_LIST_NODE*)pNode, &pNode->pNetIf->registeredClients,tcpip_stack_ctrl_data.memH))
         {
             return true;
         }
@@ -4265,23 +3919,14 @@ bool TCPIP_STACK_HandlerDeregister(TCPIP_EVENT_HANDLE hEvent)
     return false;
 
 }
-#else
-TCPIP_EVENT_HANDLE    TCPIP_STACK_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_EVENT evMask, TCPIP_STACK_EVENT_HANDLER notifyHandler, const void* notifyfParam)
-{
-    return NULL;
-}
-bool TCPIP_STACK_HandlerDeregister(TCPIP_EVENT_HANDLE hEvent)
-{
-    return false;
-}
 #endif  // (TCPIP_STACK_USER_NOTIFICATION != 0)
 
 
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 
-static const TCPIP_STACK_MODULE_CONFIG* F_TCPIP_STACK_FindModuleData(TCPIP_STACK_MODULE moduleId, const TCPIP_STACK_MODULE_CONFIG* pModConfig, size_t nModules)
+static const TCPIP_STACK_MODULE_CONFIG* _TCPIP_STACK_FindModuleData(TCPIP_STACK_MODULE moduleId, const TCPIP_STACK_MODULE_CONFIG* pModConfig, int nModules)
 {
-    while(nModules-- != 0U)
+    while(nModules--)
     {
         if(pModConfig->moduleId == moduleId)
         {
@@ -4290,63 +3935,63 @@ static const TCPIP_STACK_MODULE_CONFIG* F_TCPIP_STACK_FindModuleData(TCPIP_STACK
         pModConfig++;
     }
 
-    return NULL;
+    return 0;
 }
 
 
 int  TCPIP_STACK_NetIxGet(const TCPIP_NET_IF* pNetIf)
 {
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
-        return (int)pNetIf->netIfIx;
+        return pNetIf->netIfIx;
     }
     return -1;
 }
 
 
-uint32_t  TCPIP_STACK_NetAddressGet(const TCPIP_NET_IF* pNetIf)
+uint32_t  TCPIP_STACK_NetAddressGet(TCPIP_NET_IF* pNetIf)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
-        return TCPIPStackNetAddress(pNetIf);
+        return _TCPIPStackNetAddress(pNetIf);
     }
     return 0;
 }
 
 
-const IPV6_ADDR* TCPIP_STACK_NetStaticIPv6AddressGet(const TCPIP_NET_IF* pNetIf, uint8_t* pPrefixLen)
+const IPV6_ADDR* TCPIP_STACK_NetStaticIPv6AddressGet(TCPIP_NET_IF* pNetIf, int* pPrefixLen)
 {
 #if defined(TCPIP_STACK_USE_IPV6)
-    if((pNetIf->startFlags & (uint16_t)TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0U)
+    if((pNetIf->startFlags & TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0)
     {
-        if(pPrefixLen != NULL)
+        if(pPrefixLen)
         {
-            *pPrefixLen = (uint8_t)pNetIf->ipv6PrefixLen;
+            *pPrefixLen = (int)pNetIf->ipv6PrefixLen;
         }
         return &pNetIf->netIPv6Addr;
     }
 #endif  // defined(TCPIP_STACK_USE_IPV6)
 
-    return NULL;
+    return 0;
 }
 
-const IPV6_ADDR* TCPIP_STACK_NetDefaultIPv6GatewayGet(const TCPIP_NET_IF* pNetIf)
+const IPV6_ADDR* TCPIP_STACK_NetDefaultIPv6GatewayGet(TCPIP_NET_IF* pNetIf)
 {
 #if defined(TCPIP_STACK_USE_IPV6)
-    if((pNetIf->startFlags & (uint16_t)TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0U)
+    if((pNetIf->startFlags & TCPIP_NETWORK_CONFIG_IPV6_ADDRESS) != 0)
     {
         return &pNetIf->netIPv6Gateway;
     }
 #endif  // defined(TCPIP_STACK_USE_IPV6)
 
-    return NULL;
+    return 0;
 }
 
 // sets the IP addresses of the interface
 // critical lock should be obtained if done in a multi-threaded system 
-static void F_TCPIPStackSetIpAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAddress, const IPV4_ADDR* mask, const IPV4_ADDR* gw, bool setDefault)
+static void _TCPIPStackSetIpAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAddress, const IPV4_ADDR* mask, const IPV4_ADDR* gw, bool setDefault)
 {
-    if(ipAddress != NULL)
+    if(ipAddress)
     {
         pNetIf->netIPAddr.Val = ipAddress->Val;
         if(setDefault)
@@ -4355,7 +4000,7 @@ static void F_TCPIPStackSetIpAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAd
         }
     }
 
-    if(mask != NULL)
+    if(mask)
     {
         pNetIf->netMask.Val = mask->Val;
         if(setDefault)
@@ -4364,7 +4009,7 @@ static void F_TCPIPStackSetIpAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAd
         }
     }
 
-    if(gw != NULL)
+    if(gw)
     {
         pNetIf->netGateway.Val = gw->Val;
         if(setDefault)
@@ -4375,15 +4020,15 @@ static void F_TCPIPStackSetIpAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAd
 }
 
 #if defined(TCPIP_STACK_USE_IPV4)
-void  TCPIPStackSetConfigAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAddress, const IPV4_ADDR* mask, const IPV4_ADDR* gw, bool config)
+void  _TCPIPStackSetConfigAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAddress, const IPV4_ADDR* mask, const IPV4_ADDR* gw, bool config)
 {
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
         // keep access to IP addresses consistent
-        F_TCPIPStackSetIpAddress(pNetIf, ipAddress, mask, gw, false);
+        _TCPIPStackSetIpAddress(pNetIf, ipAddress, mask, gw, false);
         OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
-        F_TCPIPStackSetConfig(pNetIf, config);
+        _TCPIPStackSetConfig(pNetIf, config);
     }
 }
 #endif  // defined(TCPIP_STACK_USE_IPV4)
@@ -4395,43 +4040,41 @@ void  TCPIPStackSetConfigAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAddres
 //  - if change was done by DHCP - this one has its own notification mechanism
 //  - if change was done by the user - no need to alert user probably
 //  - anyway, layer 2 modules can alert the users as well
-#if (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
-static void F_TCPIPStackSetConfig(TCPIP_NET_IF* pNetIf, bool config)
+#if (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+void _TCPIPStackSetConfig(TCPIP_NET_IF* pNetIf, bool config)
 {
-    size_t ix;
+    int ix;
     const uint16_t* pModIx;
-    TCPIP_MODULE_SIGNAL signal_t;
-    uint16_t    sigParam = (uint16_t)(1UL << pNetIf->netIfIx);
+    TCPIP_MODULE_SIGNAL signal;
+    uint16_t    sigParam = (uint16_t)(1 << pNetIf->netIfIx);
 
-    pNetIf->Flags.bInConfig = (uint8_t)config;
+    pNetIf->Flags.bInConfig = config;
 
     if(config == false)
     {   // we signal when ready
         OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
         pModIx = TCPIP_STACK_MODULE_SIGNAL_CHANGE_TBL;
-        for(ix = 0; ix < (sizeof(TCPIP_STACK_MODULE_SIGNAL_CHANGE_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_CHANGE_TBL)); ix++)
+        for(ix = 0; ix < sizeof(TCPIP_STACK_MODULE_SIGNAL_CHANGE_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_CHANGE_TBL); ix++, pModIx++)
         {
             TCPIP_MODULE_SIGNAL_ENTRY*  pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + *pModIx;
-            pSigEntry->signalVal |= (uint16_t)TCPIP_MODULE_SIGNAL_IF_CHANGE;
+            pSigEntry->signalVal |= (uint16_t)TCPIP_MODULE_SIGNAL_INTERFACE_CHANGE;
             pSigEntry->signalParam |= sigParam;
-            pModIx++;
         }
         OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
     }
 
     // call the external noftification
-    signal_t = (config == false) ? TCPIP_MODULE_SIGNAL_IF_CHANGE : TCPIP_MODULE_SIGNAL_IF_CONFIG;
+    signal = config == false ? TCPIP_MODULE_SIGNAL_INTERFACE_CHANGE : TCPIP_MODULE_SIGNAL_INTERFACE_CONFIG;
     pModIx = TCPIP_STACK_MODULE_SIGNAL_CONFIG_TBL;
-    for(ix = 0; ix < (sizeof(TCPIP_STACK_MODULE_SIGNAL_CONFIG_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_CONFIG_TBL)); ix++)
+    for(ix = 0; ix < sizeof(TCPIP_STACK_MODULE_SIGNAL_CONFIG_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_CONFIG_TBL); ix++, pModIx++)
     {
         TCPIP_MODULE_SIGNAL_ENTRY*  pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + *pModIx;
-        F_TCPIPSignalEntryNotify(pSigEntry, signal_t, sigParam);
-        pModIx++;
+        _TCPIPSignalEntryNotify(pSigEntry, signal, sigParam);
     }
 }
-#endif  // (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+#endif  // (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
 
-uint32_t  TCPIP_STACK_NetMaskGet(const TCPIP_NET_IF* pNetIf)
+uint32_t  TCPIP_STACK_NetMaskGet(TCPIP_NET_IF* pNetIf)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
@@ -4442,14 +4085,14 @@ uint32_t  TCPIP_STACK_NetMaskGet(const TCPIP_NET_IF* pNetIf)
 
 void  TCPIP_STACK_GatewayAddressSet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* ipAddress)
 {
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         pNetIf->netGateway.Val = ipAddress->Val;
     }
 }
 void  TCPIP_STACK_PrimaryDNSAddressSet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* ipAddress)
 {
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         pNetIf->dnsServer[0].Val = ipAddress->Val;
     }
@@ -4457,13 +4100,14 @@ void  TCPIP_STACK_PrimaryDNSAddressSet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* ipAddres
 
 void  TCPIP_STACK_SecondaryDNSAddressSet(TCPIP_NET_IF* pNetIf, IPV4_ADDR* ipAddress)
 {
-    if(pNetIf != NULL)
+    if(pNetIf)
     {
         pNetIf->dnsServer[1].Val = ipAddress->Val;
     }
 }
 
-bool  TCPIP_STACK_AddressIsOfNetUp(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
+
+bool  TCPIP_STACK_AddressIsOfNetUp( TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
@@ -4473,7 +4117,7 @@ bool  TCPIP_STACK_AddressIsOfNetUp(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR* 
 }
 
 // detects net-directed bcast
-bool  TCPIP_STACK_NetIsBcastAddress(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
+bool  TCPIP_STACK_NetIsBcastAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
@@ -4483,7 +4127,7 @@ bool  TCPIP_STACK_NetIsBcastAddress(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR*
 }
 
 // detects limited or net-directed bcast
-bool  TCPIP_STACK_IsBcastAddress(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
+bool  TCPIP_STACK_IsBcastAddress(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pIpAdd)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
@@ -4492,51 +4136,49 @@ bool  TCPIP_STACK_IsBcastAddress(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pI
     return false;
 }
 
-bool TCPIP_STACK_NetworkIsLinked(const TCPIP_NET_IF* pNetIf)
+bool TCPIP_STACK_NetworkIsLinked(TCPIP_NET_IF* pNetIf)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
-        return (bool)pNetIf->exFlags.linkPrev;
+        return pNetIf->exFlags.linkPrev;
     }
 
     return false;
 }
 
 // checks for valid up and linked interface
-TCPIP_NET_IF* TCPIPStackHandleToNetLinked(TCPIP_NET_HANDLE hNet)
+TCPIP_NET_IF* _TCPIPStackHandleToNetLinked(TCPIP_NET_HANDLE hNet)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(hNet);
-    if((pNetIf != NULL) && (pNetIf->exFlags.linkPrev != 0U))
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(hNet);
+    if(pNetIf != 0 && pNetIf->exFlags.linkPrev != 0)
     {
         return pNetIf;
     }
     
-    return NULL;
+    return 0;
 }
 
-TCPIP_NET_IF* TCPIPStackAnyNetLinked(bool useDefault)
+TCPIP_NET_IF* _TCPIPStackAnyNetLinked(bool useDefault)
 {
-    size_t netIx;
-    TCPIP_NET_IF* pNetIf = NULL;
+    int netIx;
+    TCPIP_NET_IF* pNetIf = 0;
 
     if(useDefault)
     {
-        pNetIf = TCPIPStackHandleToNetLinked(tcpipDefIf.defaultNet);
+        pNetIf = _TCPIPStackHandleToNetLinked(tcpipDefIf.defaultNet);
     }
 
-    if(pNetIf == NULL)
+    if(pNetIf == 0)
     {
         TCPIP_NET_IF* pIf;
 
-        pIf = tcpipNetIf ;
-        for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+        for(netIx = 0, pIf = tcpipNetIf ; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
         {
-            if((pIf->Flags.bInterfaceEnabled != 0U) && (pIf->exFlags.linkPrev != 0U))
+            if(pIf->Flags.bInterfaceEnabled && pIf->exFlags.linkPrev != 0)
             {   // found linked interface
                 pNetIf = pIf;
                 break;
             }
-            pIf++;
         }
     }
 
@@ -4548,46 +4190,44 @@ TCPIP_NET_IF* TCPIPStackAnyNetLinked(bool useDefault)
 // 0 in not found
 // does NOT check network up, linked, etc.
 // does NOT check primary/virtual interface!
-TCPIP_NET_IF* TCPIPStackAnyNetDirected(const IPV4_ADDR* pIpAdd)
+TCPIP_NET_IF* _TCPIPStackAnyNetDirected(const IPV4_ADDR* pIpAdd)
 {
-    size_t netIx;
+    int netIx;
 
     TCPIP_NET_IF* pIf;
 
-    pIf = tcpipNetIf;
-    for(netIx = 0; netIx < (size_t)tcpip_stack_ctrl_data.nIfs; netIx++)
+    for(netIx = 0, pIf = tcpipNetIf ; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pIf++)
     {
-        if(TCPIPStack_IsDirectedBcast(pIf, pIpAdd))
+        if(_TCPIPStack_IsDirectedBcast(pIf, pIpAdd))
         {
             return pIf;
         }
-        pIf++;
     }
 
-    return NULL;
+    return 0;
 }
 
-TCPIP_STACK_MODULE  TCPIP_STACK_NetMACId(const TCPIP_NET_IF* pNetIf)
+TCPIP_STACK_MODULE  TCPIP_STACK_NetMACId(TCPIP_NET_IF* pNetIf)
 {
-    return (pNetIf != NULL) ? (TCPIP_STACK_MODULE)pNetIf->macId:(TCPIP_STACK_MODULE)TCPIP_MODULE_MAC_NONE;
+    return pNetIf ? pNetIf->macId:(TCPIP_STACK_MODULE)TCPIP_MODULE_MAC_NONE;
 }
 
 
- TCPIP_MAC_HANDLE  TCPIP_STACK_NetToMAC(const TCPIP_NET_IF* pNetIf)
+ TCPIP_MAC_HANDLE  TCPIP_STACK_NetToMAC(TCPIP_NET_IF* pNetIf)
 {
-    return (pNetIf != NULL) ? pNetIf->hIfMac : 0U;
+    return pNetIf ? pNetIf->hIfMac : 0;
 }
 
 
 
-const uint8_t*  TCPIP_STACK_NetUpMACAddressGet(const TCPIP_NET_IF* pNetIf)
+const uint8_t*  TCPIP_STACK_NetUpMACAddressGet(TCPIP_NET_IF* pNetIf)
 {
     if(TCPIP_STACK_NetworkIsUp(pNetIf))
     {
         return pNetIf->netMACAddr.v;
     }
 
-    return NULL;
+    return 0;
 }
 
 static TCPIP_MAC_ACTION TCPIP_STACK_StackToMacAction(TCPIP_STACK_ACTION action)
@@ -4600,61 +4240,54 @@ static void TCPIP_STACK_StacktoMacCtrl(TCPIP_MAC_MODULE_CTRL* pMacCtrl, TCPIP_ST
     TCPIP_NET_IF* pNetIf = stackCtrlData->pNetIf;
 
 
-    (void) memset(pMacCtrl, 0, sizeof(*pMacCtrl));
+    memset(pMacCtrl, 0, sizeof(*pMacCtrl));
 
     pMacCtrl->nIfs = stackCtrlData->nIfs;
 
 #if defined(TCPIP_STACK_DRAM_DEBUG_ENABLE) 
-    pMacCtrl->mallocF = FC_MallocDbg2Malloc(&TCPIP_HEAP_MallocDebug);
-    pMacCtrl->callocF = FC_CallocDbg2Calloc(&TCPIP_HEAP_CallocDebug);
-    pMacCtrl->freeF = FC_FreeDbg2Free(&TCPIP_HEAP_FreeDebug);
+    pMacCtrl->mallocF = (TCPIP_MAC_HEAP_MallocF)TCPIP_HEAP_MallocDebug;
+    pMacCtrl->callocF = (TCPIP_MAC_HEAP_CallocF)TCPIP_HEAP_CallocDebug;
+    pMacCtrl->freeF = (TCPIP_MAC_HEAP_FreeF)TCPIP_HEAP_FreeDebug;
 #else
-    pMacCtrl->mallocF = &TCPIP_HEAP_MallocOutline;
-    pMacCtrl->callocF = &TCPIP_HEAP_CallocOutline;
-    pMacCtrl->freeF = &TCPIP_HEAP_FreeOutline;
+    pMacCtrl->mallocF = TCPIP_HEAP_MallocOutline;
+    pMacCtrl->callocF = TCPIP_HEAP_CallocOutline;
+    pMacCtrl->freeF = TCPIP_HEAP_FreeOutline;
 #endif // defined(TCPIP_STACK_DRAM_DEBUG_ENABLE) 
     
     pMacCtrl->memH = stackCtrlData->memH;
 
 
-#if defined(TCPIP_PACKET_ALLOCATION_TRACE_ENABLE)
-    pMacCtrl->pktAllocF = FC_PktAllocDbg2PktAlloc(&F_TCPIP_PKT_PacketAllocDebug);
-    pMacCtrl->pktFreeF = FC_PktFreeDbg2PktFree(&F_TCPIP_PKT_PacketFreeDebug);
-    pMacCtrl->pktAckF = FC_PktAckDbg2PktAck(&F_TCPIP_PKT_PacketAcknowledgeDebug);
-#else
-    pMacCtrl->pktAllocF = &F_TCPIP_PKT_PacketAlloc;
-    pMacCtrl->pktFreeF = &F_TCPIP_PKT_PacketFree;
-    pMacCtrl->pktAckF = &F_TCPIP_PKT_PacketAcknowledge;
-#endif  // defined(TCPIP_PACKET_ALLOCATION_TRACE_ENABLE)
+    pMacCtrl->pktAllocF = (TCPIP_MAC_PKT_AllocF)_TCPIP_PKT_ALLOC_FNC;
+    pMacCtrl->pktFreeF = (TCPIP_MAC_PKT_FreeF)_TCPIP_PKT_FREE_FNC;
+    pMacCtrl->pktAckF = (TCPIP_MAC_PKT_AckF)_TCPIP_PKT_ACK_FNC;
 
-    pMacCtrl->synchF = &F_TCPIP_StackSyncFunction;
+    pMacCtrl->synchF = _TCPIP_StackSyncFunction;
 
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
     // Stack can use one handler for all network interfaces, like in this case
     // Each time a notification is received, all interfaces are checked
     // Or, more efficient, use a handler per interface
-    pMacCtrl->eventF = &F_TCPIP_MacEventCB;
+    pMacCtrl->eventF = _TCPIP_MacEventCB;
     pMacCtrl->eventParam = pNetIf;
 #else
     pMacCtrl->eventF = 0;
     pMacCtrl->eventParam = 0;
 #endif  // defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
 
-    pMacCtrl->netIx = (uint16_t)stackCtrlData->netIx;
+    pMacCtrl->netIx = stackCtrlData->netIx;
     pMacCtrl->gapDcptOffset = TCPIP_PKT_GapDcptOffset();
     pMacCtrl->gapDcptSize = TCPIP_PKT_GapDcptSize();
-    pMacCtrl->macAction = (uint8_t)TCPIP_STACK_StackToMacAction((TCPIP_STACK_ACTION)stackCtrlData->stackAction);
-    pMacCtrl->powerMode = (uint8_t)stackCtrlData->powerMode;
-    pMacCtrl->controlFlags = (uint16_t)TCPIP_MAC_CONTROL_PAYLOAD_OFFSET_2;
-    (void) memcpy(pMacCtrl->ifPhyAddress.v, pNetIf->netMACAddr.v, sizeof(pMacCtrl->ifPhyAddress));
+    pMacCtrl->macAction = TCPIP_STACK_StackToMacAction(stackCtrlData->stackAction);
+    pMacCtrl->powerMode = stackCtrlData->powerMode;
+    pMacCtrl->controlFlags = TCPIP_MAC_CONTROL_PAYLOAD_OFFSET_2;
+    memcpy(pMacCtrl->ifPhyAddress.v, pNetIf->netMACAddr.v, sizeof(pMacCtrl->ifPhyAddress));
 }
 
 // returns true if the stack needs processing time because of events
 static bool TCPIP_STACK_CheckEventsPending(void)
 {
 #if defined(TCPIP_STACK_USE_EVENT_NOTIFICATION)
-    int32_t event = totTcpipEventsCnt;
-    return ((newTcpipTickAvlbl != 0) || (event != 0));
+    return (newTcpipTickAvlbl != 0 || totTcpipEventsCnt != 0);
 #else
     // fake pending events
     totTcpipEventsCnt++;
@@ -4663,43 +4296,41 @@ static bool TCPIP_STACK_CheckEventsPending(void)
 }
 
 
-TCPIP_SIGNAL_HANDLE TCPIPStackSignalHandlerRegister(TCPIP_STACK_MODULE modId, tcpipModuleSignalHandler signalHandler, int16_t asyncTmoMs)
+tcpipSignalHandle _TCPIPStackSignalHandlerRegister(TCPIP_STACK_MODULE modId, tcpipModuleSignalHandler signalHandler, int16_t asyncTmoMs)
 {
 
-    if(signalHandler != NULL )
+    if(signalHandler != 0 )
     {
-        if((TCPIP_MODULE_LAYER1 <= modId) && ((uint16_t)modId < (sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL)/sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL))))
+        if(TCPIP_MODULE_LAYER1 <= modId && modId < sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL)/sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL))
         {
-            TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (uint16_t)modId;
-            if((pSignalEntry->signalHandler == NULL) || (pSignalEntry->signalHandler == signalHandler))
+            TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + modId;
+            if(pSignalEntry->signalHandler == 0 || pSignalEntry->signalHandler == signalHandler)
             {   // found module slot
                 pSignalEntry->signalHandler = signalHandler;
-                if ((asyncTmoMs != 0) && (asyncTmoMs < (int16_t)stackTaskRate))
+                if ((asyncTmoMs != 0) && (asyncTmoMs < stackTaskRate))
                 {
-                    asyncTmoMs = (int16_t)stackTaskRate;
+                    asyncTmoMs = stackTaskRate;
                 }
-                pSignalEntry->asyncTmo = asyncTmoMs;
-                pSignalEntry->currTmo = asyncTmoMs;
+                pSignalEntry->asyncTmo = pSignalEntry->currTmo = asyncTmoMs;
                 return pSignalEntry;
             }
         }
     }
 
-    return NULL;
+    return 0;
 }
 
-bool TCPIPStackSignalHandlerSetParams(TCPIP_STACK_MODULE modId, TCPIP_SIGNAL_HANDLE handle, int16_t asyncTmoMs)
-{
-    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = FC_SigHndl2SigEntry(handle);
 
-    if(pSignalEntry != NULL && pSignalEntry->signalHandler != NULL)
+bool _TCPIPStackSignalHandlerSetParams(TCPIP_STACK_MODULE modId, tcpipSignalHandle handle, int16_t asyncTmoMs)
+{
+    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = (TCPIP_MODULE_SIGNAL_ENTRY*)handle;
+    if((pSignalEntry = (TCPIP_MODULE_SIGNAL_ENTRY*)handle) != 0 && pSignalEntry->signalHandler != 0)
     {   // minimum sanity check
-        if ((asyncTmoMs != 0) && (asyncTmoMs < (int16_t)stackTaskRate))
+        if ((asyncTmoMs != 0) && (asyncTmoMs < stackTaskRate))
         {
-            asyncTmoMs = (int16_t)stackTaskRate;
+            asyncTmoMs = stackTaskRate;
         }
-        pSignalEntry->asyncTmo = asyncTmoMs;
-        pSignalEntry->currTmo = asyncTmoMs;
+        pSignalEntry->asyncTmo = pSignalEntry->currTmo = asyncTmoMs;
         return true;
     }
 
@@ -4707,27 +4338,26 @@ bool TCPIPStackSignalHandlerSetParams(TCPIP_STACK_MODULE modId, TCPIP_SIGNAL_HAN
 }
 
 // de-registers a previous registered timeout handler
-void TCPIPStackSignalHandlerDeregister(TCPIP_SIGNAL_HANDLE handle)
+void _TCPIPStackSignalHandlerDeregister(tcpipSignalHandle handle)
 {
-    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = FC_SigHndl2SigEntry(handle);
-
-    if(pSignalEntry != NULL)
+    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry;
+    if((pSignalEntry = (TCPIP_MODULE_SIGNAL_ENTRY*)handle) != 0)
     {
-        (void) memset(pSignalEntry, 0x0, sizeof(*pSignalEntry));
+        memset(pSignalEntry, 0x0, sizeof(*pSignalEntry));
     }
 }
 
 // used by stack modules
-TCPIP_MODULE_SIGNAL  TCPIPStackModuleSignalGet(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL clrMask)
+TCPIP_MODULE_SIGNAL  _TCPIPStackModuleSignalGet(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL clrMask)
 {
 
-    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (uint16_t)modId;
+    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + modId;
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    TCPIP_MODULE_SIGNAL modSignal = (TCPIP_MODULE_SIGNAL)pSignalEntry->signalVal;
-    pSignalEntry->signalVal &= (~(uint16_t)clrMask);
-    if(((uint16_t)clrMask & (uint16_t)TCPIP_MODULE_SIGNAL_ASYNC) != 0U)
+    TCPIP_MODULE_SIGNAL modSignal = pSignalEntry->signalVal;
+    pSignalEntry->signalVal &= (uint16_t)(~clrMask);
+    if((clrMask & TCPIP_MODULE_SIGNAL_ASYNC) != 0)
     {
-        stackAsyncSignalCount -= 1U; 
+        stackAsyncSignalCount -= 1; 
     }
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
     return modSignal;
@@ -4737,63 +4367,58 @@ TCPIP_MODULE_SIGNAL  TCPIPStackModuleSignalGet(TCPIP_STACK_MODULE modId, TCPIP_M
 // returns the pending module signals + signal parameter
 // signalParam should NOT be 0!
 // the signal parameter is cleared after this operation, there's is no peek!
-#if (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
-TCPIP_MODULE_SIGNAL  TCPIPStackModuleSignalParamGet(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL clrMask, uint32_t* signalParam)
+#if (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+TCPIP_MODULE_SIGNAL  _TCPIPStackModuleSignalParamGet(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL clrMask, uint32_t* signalParam)
 {
 
-    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (uint16_t)modId;
+    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + modId;
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    TCPIP_MODULE_SIGNAL modSignal = (TCPIP_MODULE_SIGNAL)pSignalEntry->signalVal;
+    TCPIP_MODULE_SIGNAL modSignal = pSignalEntry->signalVal;
     *signalParam = pSignalEntry->signalParam;
-    pSignalEntry->signalVal &= (~(uint16_t)clrMask);
-    if(((uint16_t)clrMask & (uint16_t)TCPIP_MODULE_SIGNAL_ASYNC) != 0U)
+    pSignalEntry->signalVal &= (uint16_t)(~clrMask);
+    if((clrMask & TCPIP_MODULE_SIGNAL_ASYNC) != 0)
     {
-        stackAsyncSignalCount -= 1U; 
+        stackAsyncSignalCount -= 1; 
     }
     pSignalEntry->signalParam = 0;
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
     return modSignal;
 
 }
-#endif  // (M_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
+#endif  // (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
 
 // used by manager!
 // TMO and RX_PENDING signals only!
-static TCPIP_MODULE_SIGNAL  F_TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL clrMask)
+static TCPIP_MODULE_SIGNAL  _TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL clrMask)
 {
     TCPIP_MODULE_SIGNAL tmoMask;
     TCPIP_MODULE_SIGNAL rxMask;
     TCPIP_MODULE_SIGNAL mgrSignal;
-    TCPIP_MODULE_SIGNAL_ENTRY* pMgrEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (uint16_t)TCPIP_MODULE_MANAGER;
-    TCPIP_MODULE_SIGNAL_ENTRY* pTmoEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (uint16_t)TCPIP_MODULE_NONE;
-    uint16_t sigMask;
-    uint16_t sigVal;
+    TCPIP_MODULE_SIGNAL_ENTRY* pMgrEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + TCPIP_MODULE_MANAGER;
+    TCPIP_MODULE_SIGNAL_ENTRY* pTmoEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + TCPIP_MODULE_NONE;
 
 
-    if((uint16_t)clrMask == 0U)
+    if(clrMask == 0)
     {   // read only needed
-        sigVal = pMgrEntry->signalVal | pTmoEntry->signalVal;
-        return (TCPIP_MODULE_SIGNAL)sigVal;
+        return pMgrEntry->signalVal | pTmoEntry->signalVal;
     }
 
-    sigMask = (uint16_t)clrMask & (uint16_t)TCPIP_MODULE_SIGNAL_TMO;
-    tmoMask = (TCPIP_MODULE_SIGNAL)sigMask;
-    sigMask = (uint16_t)clrMask & (uint16_t)TCPIP_MODULE_SIGNAL_RX_PENDING;
-    rxMask = (TCPIP_MODULE_SIGNAL)sigMask;
+
+    tmoMask = clrMask & TCPIP_MODULE_SIGNAL_TMO;
+    rxMask = clrMask & TCPIP_MODULE_SIGNAL_RX_PENDING;
 
 
     // protect against ISRs (MAC + TMR) and other threads too!
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_HIGH);
-    sigVal = (uint16_t)pMgrEntry->signalVal | (uint16_t)pTmoEntry->signalVal;
-    mgrSignal = (TCPIP_MODULE_SIGNAL)sigVal;
-
-    if((uint16_t)tmoMask != 0U)
+    mgrSignal = pMgrEntry->signalVal;
+    mgrSignal |= pTmoEntry->signalVal;
+    if(tmoMask)
     {
-        pTmoEntry->signalVal &= (~(uint16_t)TCPIP_MODULE_SIGNAL_TMO);
+        pTmoEntry->signalVal &= (uint16_t)(~TCPIP_MODULE_SIGNAL_TMO);
     }
-    if((uint16_t)rxMask != 0U)
+    if(rxMask)
     {
-        pMgrEntry->signalVal &= (~(uint16_t)TCPIP_MODULE_SIGNAL_RX_PENDING);
+        pMgrEntry->signalVal &= (uint16_t)(~TCPIP_MODULE_SIGNAL_RX_PENDING);
     }
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_HIGH, critSect);
 
@@ -4801,10 +4426,10 @@ static TCPIP_MODULE_SIGNAL  F_TCPIPStackManagerSignalClear(TCPIP_MODULE_SIGNAL c
 }
 
 // coming from user threads if the module tasks run in user space
-static  void* F_TCPIPSignalEntrySet(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal_t)
+static  void* _TCPIPSignalEntrySet(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal)
 {
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    pSigEntry->signalVal |= (uint16_t)signal_t;
+    pSigEntry->signalVal |= (uint16_t)signal;
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
     return pSigEntry;
 }
@@ -4827,97 +4452,95 @@ static  void* F_TCPIPSignalEntrySet(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_
 //  When done with the critical section the module should clear the TCPIP_MODULE_SIGNAL_ASYNC signal.
 //  However, the stack manager keeps a global count of how many times the modules required TCPIP_MODULE_SIGNAL_ASYNC
 //  That means that a module should always call
-//  TCPIPStackModuleSignalRequest/TCPIPStackModuleSignalGet for TCPIP_MODULE_SIGNAL_ASYNC in pairs!
+//  _TCPIPStackModuleSignalRequest/_TCPIPStackModuleSignalGet for TCPIP_MODULE_SIGNAL_ASYNC in pairs!
 //
 // NOTE:
 //  A signal request sends a signal to the module task itself
 //  A signal request will also send a signal to the stack task itself, when the TCP/IP modules are executed internally
 //  - unless noMgrAlert is specified
 //
-bool TCPIPStackModuleSignalRequest(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL signal_t, bool noMgrAlert)
+bool _TCPIPStackModuleSignalRequest(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL signal, bool noMgrAlert)
 {
     if(modId <= TCPIP_MODULE_MANAGER)
     {   // cannot request signals to manager itself
         return false;
     }
 
-    F_TCPIPModuleSignalSetNotify(modId, signal_t);
+    _TCPIPModuleSignalSetNotify(modId, signal);
 
-    if(((uint16_t)signal_t & (uint16_t)TCPIP_MODULE_SIGNAL_ASYNC) != 0U)
+    if((signal & TCPIP_MODULE_SIGNAL_ASYNC) != 0)
     {
-        F_TCPIPAsyncSignalInc();
+        _TCPIPAsyncSignalInc();
     }
 
 #if !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
-    if(noMgrAlert == false)
+    if(noMgrAlert == 0)
     {
-        F_TCPIPSignalEntryNotify(F_TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER), signal_t, 0);
+        _TCPIPSignalEntryNotify(_TCPIPModuleToSignalEntry(TCPIP_MODULE_MANAGER), signal, 0);
     }
 #endif  //  !defined(TCPIP_STACK_APP_EXECUTE_MODULE_TASKS)
 
     return true;
 }
 
-static void F_TCPIPSignalEntryNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal_t, uint32_t sigParam)
+static void _TCPIPSignalEntryNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signal, uint32_t sigParam)
 {
     TCPIP_MODULE_SIGNAL_FUNC userF;
 
-    userF = pSigEntry->userSignalF;
-    if(userF != NULL)
+    if((userF = pSigEntry->userSignalF) != 0)
     {
-        (*userF)(pSigEntry, pSigEntry - TCPIP_STACK_MODULE_SIGNAL_TBL, signal_t, sigParam);
+        (*userF)(pSigEntry, pSigEntry - TCPIP_STACK_MODULE_SIGNAL_TBL, signal, sigParam);
     }
 }
 
-static void F_TCPIPSignalEntrySetNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signals, uint32_t sigParam)
+static void _TCPIPSignalEntrySetNotify(TCPIP_MODULE_SIGNAL_ENTRY* pSigEntry, TCPIP_MODULE_SIGNAL signals, uint32_t sigParam)
 {
-    (void) F_TCPIPSignalEntrySet(pSigEntry, signals);
-    F_TCPIPSignalEntryNotify(pSigEntry, signals, sigParam);
+    _TCPIPSignalEntrySet(pSigEntry, signals);
+    _TCPIPSignalEntryNotify(pSigEntry, signals, sigParam);
 }
 
 // signal the stack manager maintained timeout
-static void F_TCPIPStackSignalTmo(void)
+static void _TCPIPStackSignalTmo(void)
 {
-    size_t  ix;
+    int     ix;
     TCPIP_MODULE_SIGNAL_ENTRY*  pSigEntry;
 
-    pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + (uint32_t)TCPIP_MODULE_LAYER1;
-    for(ix = (size_t)TCPIP_MODULE_LAYER1; ix < (sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL)); ix++)
+    pSigEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + TCPIP_MODULE_LAYER1;
+    for(ix = TCPIP_MODULE_LAYER1; ix < sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL)/sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL); ix++, pSigEntry++)
     {
-        if((pSigEntry->signalHandler != NULL) && (pSigEntry->asyncTmo != 0))
-        {   // used slot
-            pSigEntry->currTmo -= (int16_t)stackTaskRate;
-            if(pSigEntry->currTmo <= 0)
-            {   // timeout: send a signal to this module
-                pSigEntry->currTmo += pSigEntry->asyncTmo;
-                F_TCPIPSignalEntrySetNotify(pSigEntry, TCPIP_MODULE_SIGNAL_TMO, 0); 
-            }
+        if(pSigEntry->signalHandler == 0 || pSigEntry->asyncTmo == 0)
+        {   // unused slot
+            continue;
         }
-        pSigEntry++;
+
+        if((pSigEntry->currTmo -= stackTaskRate) <= 0)
+        {   // timeout: send a signal to this module
+            pSigEntry->currTmo += pSigEntry->asyncTmo;
+            _TCPIPSignalEntrySetNotify(pSigEntry, TCPIP_MODULE_SIGNAL_TMO, 0); 
+        }
     }
 }
 
 // insert a packet into a module RX queue
 // signal should be false when modId == TCPIP_MODULE_MANAGER !
-bool TCPIPStackModuleRxInsert(TCPIP_STACK_MODULE modId, TCPIP_MAC_PACKET* pRxPkt, bool signal_t)
+bool _TCPIPStackModuleRxInsert(TCPIP_STACK_MODULE modId, TCPIP_MAC_PACKET* pRxPkt, bool signal)
 {
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
-    TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + (uint32_t)modId;
-    if(pRDcpt->isRunning == 0U)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
+    TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + modId;
+    if(pRDcpt->isRunning == 0)
     {
         return false;
     }
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
 
-    SINGLE_LIST* pQueue = TCPIP_MODULES_QUEUE_TBL + (uint32_t)modId;
-    SGL_LIST_NODE* node = FC_MacPkt2SglNode(pRxPkt); 
+    SINGLE_LIST* pQueue = TCPIP_MODULES_QUEUE_TBL + modId;
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    TCPIP_Helper_SingleListTailAdd(pQueue, node);
+    TCPIP_Helper_SingleListTailAdd(pQueue, (SGL_LIST_NODE*)pRxPkt);
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
 
-    if(signal_t)
+    if(signal)
     {
-        F_TCPIPModuleSignalSetNotify(modId, TCPIP_MODULE_SIGNAL_RX_PENDING);
+        _TCPIPModuleSignalSetNotify(modId, TCPIP_MODULE_SIGNAL_RX_PENDING);
     }
     return true;
 }
@@ -4925,64 +4548,51 @@ bool TCPIPStackModuleRxInsert(TCPIP_STACK_MODULE modId, TCPIP_MAC_PACKET* pRxPkt
 //
 // extracts a packet from a module RX queue
 // returns 0 if queue is empty
-TCPIP_MAC_PACKET* TCPIPStackModuleRxExtract(TCPIP_STACK_MODULE modId)
+TCPIP_MAC_PACKET* _TCPIPStackModuleRxExtract(TCPIP_STACK_MODULE modId)
 {
-    SINGLE_LIST* pQueue = TCPIP_MODULES_QUEUE_TBL + (uint32_t)modId;
-
+    SINGLE_LIST* pQueue = TCPIP_MODULES_QUEUE_TBL + modId;
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    SGL_LIST_NODE* node = TCPIP_Helper_SingleListHeadRemove(pQueue);
+    TCPIP_MAC_PACKET* pRxPkt = (TCPIP_MAC_PACKET*)TCPIP_Helper_SingleListHeadRemove(pQueue);
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
-
-    return FC_SglNode2MacPkt(node);
+    return pRxPkt;
 }
 
 // purges the packets from a module RX queue
 // belonging to the pNetIf
-void TCPIPStackModuleRxPurge(TCPIP_STACK_MODULE modId, TCPIP_NET_IF* pNetIf)
+void _TCPIPStackModuleRxPurge(TCPIP_STACK_MODULE modId, TCPIP_NET_IF* pNetIf)
 {
-    SINGLE_LIST     remList = { 0 };  // list of packets to remove/ack
-    SINGLE_LIST     keepList = { 0 };  // list of packets to keep
-    SGL_LIST_NODE*  node;
-    TCPIP_MAC_PACKET* pMacPkt;
-    
-    SINGLE_LIST*      pRxQueue = (TCPIP_MODULES_QUEUE_TBL + (uint32_t)modId); // list to extract from
+    TCPIP_MAC_PACKET* pRxPkt;
+    SINGLE_LIST       remList = { 0 };  // list of packets to remove/ack
+    SINGLE_LIST       keepList = { 0 };  // list of packets to keep
+
+    SINGLE_LIST*      pRxQueue = (TCPIP_MODULES_QUEUE_TBL + modId); // list to extract from
     
     // kill the list
     while(true)
     {
         OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-        node = TCPIP_Helper_SingleListHeadRemove(pRxQueue);
+        pRxPkt = (TCPIP_MAC_PACKET*)TCPIP_Helper_SingleListHeadRemove(pRxQueue);
         OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
-
-        pMacPkt = FC_SglNode2MacPkt(node); 
-        if(pMacPkt == NULL)
+        if(pRxPkt == 0)
         {
             break;
         }
 
 
-        if(pMacPkt->pktIf == pNetIf)
+        if(pRxPkt->pktIf == pNetIf)
         {   // need to remove
-            TCPIP_Helper_SingleListTailAdd(&remList, node);
+            TCPIP_Helper_SingleListTailAdd(&remList, (SGL_LIST_NODE*)pRxPkt);
         }
         else
         {   // need to keep
-            TCPIP_Helper_SingleListTailAdd(&keepList, node);
+            TCPIP_Helper_SingleListTailAdd(&keepList, (SGL_LIST_NODE*)pRxPkt);
         }
     }
 
     // acknowledge the removed packets
-    while(true)
+    while((pRxPkt = (TCPIP_MAC_PACKET*)TCPIP_Helper_SingleListHeadRemove(&remList)) != 0)
     {
-        node = TCPIP_Helper_SingleListHeadRemove(&remList);
-        pMacPkt = FC_SglNode2MacPkt(node); 
-
-        if(pMacPkt == NULL)
-        {
-            break;
-        }
-
-        TCPIP_PKT_PacketAcknowledge(pMacPkt, TCPIP_MAC_PKT_ACK_SOURCE_ERR);
+        TCPIP_PKT_PacketAcknowledge(pRxPkt, TCPIP_MAC_PKT_ACK_SOURCE_ERR);
     }
 
     if(!TCPIP_Helper_SingleListIsEmpty(&keepList))
@@ -4997,31 +4607,31 @@ void TCPIPStackModuleRxPurge(TCPIP_STACK_MODULE modId, TCPIP_NET_IF* pNetIf)
 
 // inserts a RX packet into the manager RX queue
 // this has to be a fully formatted TCPIP_MAC_PACKET
-void TCPIPStackInsertRxPacket(const TCPIP_NET_IF* pNetIf, TCPIP_MAC_PACKET* pRxPkt, bool signal_t)
+void _TCPIPStackInsertRxPacket(TCPIP_NET_IF* pNetIf, TCPIP_MAC_PACKET* pRxPkt, bool signal)
 {
-    pRxPkt->pktFlags |= (uint32_t)TCPIP_MAC_PKT_FLAG_QUEUED;
+    pRxPkt->pktFlags |= TCPIP_MAC_PKT_FLAG_QUEUED;
     // update the frame length
-    pRxPkt->pDSeg->segLen -= (uint16_t)sizeof(TCPIP_MAC_ETHERNET_HEADER);
-    F_TCPIPInsertMacRxPacket(pNetIf, pRxPkt);
+    pRxPkt->pDSeg->segLen -= sizeof(TCPIP_MAC_ETHERNET_HEADER);
+    _TCPIPInsertMacRxPacket(pNetIf, pRxPkt);
 
-    if(signal_t)
+    if(signal)
     {
-        F_TCPIP_NetIfEvent(TCPIPStackNetGetPrimary(pNetIf), TCPIP_MAC_EV_RX_DONE, true);
+        _TCPIP_NetIfEvent(_TCPIPStackNetGetPrimary(pNetIf), TCPIP_MAC_EV_RX_DONE, true);
     }
 }
 
-TCPIP_MAC_RES TCPIPStackPacketTx(const TCPIP_NET_IF* pNetIf, TCPIP_MAC_PACKET * ptrPacket)
+TCPIP_MAC_RES _TCPIPStackPacketTx(TCPIP_NET_IF* pNetIf, TCPIP_MAC_PACKET * ptrPacket)
 {
     TCPIP_MAC_RES res;
 
     TCPIP_PKT_FlightLogTx(ptrPacket, TCPIP_THIS_MODULE_ID);
-    TCPIP_PKT_FlightLogTx(ptrPacket, (TCPIP_STACK_MODULE)pNetIf->macId);    // MAC doesn't call the log function
+    TCPIP_PKT_FlightLogTx(ptrPacket, pNetIf->macId);    // MAC doesn't call the log function
 
-    if(pNetIf->hIfMac != 0U)
+    if(pNetIf->hIfMac != 0)
     {
-        res = pNetIf->pMacObj->MAC_PacketTx(pNetIf->hIfMac, ptrPacket);
+        res = pNetIf->pMacObj->TCPIP_MAC_PacketTx(pNetIf->hIfMac, ptrPacket);
         // stack should always use well formatted packets!
-        TCPIPStack_Assert((int32_t)res >= 0, __FILE__, __func__, __LINE__);
+        _TCPIPStack_Assert(res >= 0, __FILE__, __func__, __LINE__);
     }
     else
     {
@@ -5031,56 +4641,34 @@ TCPIP_MAC_RES TCPIPStackPacketTx(const TCPIP_NET_IF* pNetIf, TCPIP_MAC_PACKET * 
     return res;
 }
 
-static bool F_TCPIP_StackSyncFunction(void* synchHandle, TCPIP_MAC_SYNCH_REQUEST req)
+static bool _TCPIP_StackSyncFunction(void* synchHandle, TCPIP_MAC_SYNCH_REQUEST req)
 {
-    bool res;
-
     switch(req)
     {
         case TCPIP_MAC_SYNCH_REQUEST_OBJ_CREATE: 
-            res = (OSAL_SEM_Create((OSAL_SEM_HANDLE_TYPE*)synchHandle, OSAL_SEM_TYPE_BINARY, 1, 1) == OSAL_RESULT_SUCCESS ) ? true : false;
-            break;
+            return (OSAL_SEM_Create((OSAL_SEM_HANDLE_TYPE*)synchHandle, OSAL_SEM_TYPE_BINARY, 1, 1) == OSAL_RESULT_TRUE) ? true : false;
 
         case TCPIP_MAC_SYNCH_REQUEST_OBJ_DELETE: 
-            res = (OSAL_SEM_Delete((OSAL_SEM_HANDLE_TYPE*)synchHandle) == OSAL_RESULT_SUCCESS ) ? true : false;
-            break;
+            return (OSAL_SEM_Delete((OSAL_SEM_HANDLE_TYPE*)synchHandle) == OSAL_RESULT_TRUE) ? true : false;
 
         case TCPIP_MAC_SYNCH_REQUEST_OBJ_LOCK: 
-            res = (OSAL_SEM_Pend((OSAL_SEM_HANDLE_TYPE*)synchHandle, OSAL_WAIT_FOREVER) == OSAL_RESULT_SUCCESS ) ? true: false;
-            break;
+            return (OSAL_SEM_Pend((OSAL_SEM_HANDLE_TYPE*)synchHandle, OSAL_WAIT_FOREVER) == OSAL_RESULT_TRUE) ? true: false;
 
         case TCPIP_MAC_SYNCH_REQUEST_OBJ_UNLOCK: 
-            res = (OSAL_SEM_Post((OSAL_SEM_HANDLE_TYPE*)synchHandle) == OSAL_RESULT_SUCCESS ) ? true: false;
-            break;
+            return (OSAL_SEM_Post((OSAL_SEM_HANDLE_TYPE*)synchHandle) == OSAL_RESULT_TRUE) ? true: false;
             
         case TCPIP_MAC_SYNCH_REQUEST_CRIT_ENTER:
             *(OSAL_CRITSECT_DATA_TYPE*)synchHandle =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-            res = true; 
-            break;
+            return true; 
 
         case TCPIP_MAC_SYNCH_REQUEST_CRIT_LEAVE:
             OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, *(OSAL_CRITSECT_DATA_TYPE*)synchHandle);
-            res = true; 
-            break;
+            return true; 
 
         default:
-            res = false;
-            break;
+            return false;
     }
 
-    return res;
-}
-
-uint8_t TCPIP_STACK_MacTxPriGet(TCPIP_NET_HANDLE netH)
-{
-    TCPIP_NET_IF*  pNetIf = TCPIPStackHandleToNet(netH);
-    return TCPIPStack_TxPriNum(pNetIf);
-}
-
-uint8_t TCPIP_STACK_MacRxPriGet(TCPIP_NET_HANDLE netH)
-{
-    TCPIP_NET_IF*  pNetIf = TCPIPStackHandleToNet(netH);
-    return TCPIPStack_RxPriNum(pNetIf);
 }
 
 unsigned int TCPIP_STACK_VersionGet ( const SYS_MODULE_INDEX index )
@@ -5100,18 +4688,17 @@ const char * TCPIP_STACK_VersionStrGet ( const SYS_MODULE_INDEX index )
 
 
 // this happens in user space
-TCPIP_MODULE_SIGNAL_HANDLE TCPIP_MODULE_SignalFunctionRegister(TCPIP_STACK_MODULE moduleId, TCPIP_MODULE_SIGNAL_FUNC signalF)
+TCPIP_MODULE_SIGNAL_HANDLE TCPIP_MODULE_SignalFunctionRegister(TCPIP_STACK_MODULE modId, TCPIP_MODULE_SIGNAL_FUNC signalF)
 {
-    TCPIP_MODULE_SIGNAL_ENTRY* pEntry = NULL;
+    TCPIP_MODULE_SIGNAL_ENTRY* pEntry = 0;
 
-    if(signalF != NULL )
+    if(signalF != 0 )
     {
-        size_t modId = (size_t)moduleId;
-        if((0U < modId) && (modId < (sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL))))
+        if(0 < modId && modId < sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL)/sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL))
         {
             TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + modId;
             OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-            if(pSignalEntry->userSignalF == NULL)
+            if(pSignalEntry->userSignalF == 0)
             {   // found module slot
                 pSignalEntry->userSignalF = signalF;
                 pEntry = pSignalEntry;
@@ -5127,10 +4714,10 @@ TCPIP_MODULE_SIGNAL_HANDLE TCPIP_MODULE_SignalFunctionRegister(TCPIP_STACK_MODUL
 // however it should be an atomic access
 bool TCPIP_MODULE_SignalFunctionDeregister(TCPIP_MODULE_SIGNAL_HANDLE signalHandle)
 {
-    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = FC_SigHndl2SigEntry(signalHandle);
-    if(pSignalEntry != NULL)
+    TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = (TCPIP_MODULE_SIGNAL_ENTRY*)signalHandle;
+    if(pSignalEntry)
     {
-        pSignalEntry->userSignalF = NULL;
+        pSignalEntry->userSignalF = 0;
         return true;
     }
 
@@ -5140,27 +4727,22 @@ bool TCPIP_MODULE_SignalFunctionDeregister(TCPIP_MODULE_SIGNAL_HANDLE signalHand
 
 // from user space
 // read only atomic access
-TCPIP_MODULE_SIGNAL TCPIP_MODULE_SignalGet(TCPIP_STACK_MODULE moduleId)
+TCPIP_MODULE_SIGNAL TCPIP_MODULE_SignalGet(TCPIP_STACK_MODULE modId)
 {
-    size_t modId = (size_t)moduleId;
-    if(moduleId == TCPIP_MODULE_MANAGER)
+    if(modId == TCPIP_MODULE_MANAGER)
     {
-        return (TCPIP_MODULE_SIGNAL)F_TCPIPStackManagerSignalClear((TCPIP_MODULE_SIGNAL)0);
+        return _TCPIPStackManagerSignalClear(0);
     }
-    else if((0U < modId) && (modId < (sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL) / sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL))))
+    else if(0 < modId && modId < sizeof(TCPIP_STACK_MODULE_SIGNAL_TBL)/sizeof(*TCPIP_STACK_MODULE_SIGNAL_TBL))
     {
         TCPIP_MODULE_SIGNAL_ENTRY* pSignalEntry = TCPIP_STACK_MODULE_SIGNAL_TBL + modId;
-        return (TCPIP_MODULE_SIGNAL)pSignalEntry->signalVal;
-    }
-    else
-    {
-        /* Do Nothing */
+        return pSignalEntry->signalVal;
     }
 
     return TCPIP_MODULE_SIGNAL_NONE; 
 }
 
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
 bool TCPIP_MODULE_Deinitialize(TCPIP_STACK_MODULE moduleId)
 {
     size_t  netIx, entryIx;
@@ -5168,39 +4750,36 @@ bool TCPIP_MODULE_Deinitialize(TCPIP_STACK_MODULE moduleId)
     TCPIP_STACK_MODULE_CTRL stackCtrlData;        
     const TCPIP_STACK_MODULE_ENTRY  *pEntry, *pModEntry;
 
-    if(tcpipNetIf != NULL)
+    if(tcpipNetIf != 0)
     {
-        if(1U < (uint32_t)moduleId && ((uint32_t)moduleId < (sizeof(TCPIP_MODULES_RUN_TBL) / sizeof(*TCPIP_MODULES_RUN_TBL))))
+        if(1 < moduleId && moduleId < sizeof(TCPIP_MODULES_RUN_TBL) / sizeof(*TCPIP_MODULES_RUN_TBL))
         {
-            TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + (uint32_t)moduleId;
-            if(pRDcpt->isRunning != 0U)
+            TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + moduleId;
+            if(pRDcpt->isRunning != 0)
             {   // this module up and running
                 //
                 //
-                stackCtrlData.stackAction = (uint8_t)TCPIP_STACK_ACTION_DEINIT;
-                stackCtrlData.powerMode = (uint8_t)TCPIP_MAC_POWER_NONE;
+                stackCtrlData.stackAction = TCPIP_STACK_ACTION_DEINIT;
+                stackCtrlData.powerMode = TCPIP_MAC_POWER_NONE;
                 // find the corresponding module entry
-                pModEntry = NULL;
+                pModEntry = 0;
                 pEntry = TCPIP_STACK_MODULE_ENTRY_TBL;
-                for(entryIx = 0; entryIx < (sizeof(TCPIP_STACK_MODULE_ENTRY_TBL)/sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL)); entryIx++)
+                for(entryIx = 0; entryIx < sizeof(TCPIP_STACK_MODULE_ENTRY_TBL)/sizeof(*TCPIP_STACK_MODULE_ENTRY_TBL); entryIx++, pEntry++)
                 {
-                    if(pEntry->moduleId == (uint16_t)moduleId)
+                    if(pEntry->moduleId == moduleId)
                     {   // found entry
                         pModEntry = pEntry;
                         break;
                     }
-                    pEntry++;
                 }
 
-                if(pModEntry != NULL)
+                if(pModEntry != 0)
                 {
-                    pNetIf = tcpipNetIf;
-                    for(netIx = 0; netIx < tcpip_stack_ctrl_data.nIfs; netIx++)
+                    for(netIx = 0, pNetIf = tcpipNetIf; netIx < tcpip_stack_ctrl_data.nIfs; netIx++, pNetIf++)
                     {
                         stackCtrlData.pNetIf = pNetIf;
                         stackCtrlData.netIx = pNetIf->netIfIx;
                         pEntry->deInitFunc(&stackCtrlData);
-                        pNetIf++;
                     }
 
                     pRDcpt->isRunning = 0;
@@ -5215,75 +4794,66 @@ bool TCPIP_MODULE_Deinitialize(TCPIP_STACK_MODULE moduleId)
 
 bool TCPIP_MODULE_IsRunning(TCPIP_STACK_MODULE moduleId)
 {
-    if(tcpipNetIf != NULL)
+    if(tcpipNetIf != 0)
     {
-        if((1U < (uint32_t)moduleId) && ((uint32_t)moduleId < (sizeof(TCPIP_MODULES_RUN_TBL) / sizeof(*TCPIP_MODULES_RUN_TBL))))
+        if(1 < moduleId && moduleId < sizeof(TCPIP_MODULES_RUN_TBL) / sizeof(*TCPIP_MODULES_RUN_TBL))
         {
-            TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + (uint32_t)moduleId;
-            return (pRDcpt->isRunning != 0U);
+            TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + moduleId;
+            return (pRDcpt->isRunning != 0);
         }
     }
 
     return false;
 }
-#else
-bool TCPIP_MODULE_Deinitialize(TCPIP_STACK_MODULE moduleId)
-{
-    return false;
-}
-bool TCPIP_MODULE_IsRunning(TCPIP_STACK_MODULE moduleId)
-{
-    return false;
-}
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
 
-TCPIP_STACK_HEAP_HANDLE TCPIP_STACK_HeapHandleGet(TCPIP_STACK_HEAP_TYPE heapType, size_t heapIndex)
+TCPIP_STACK_HEAP_HANDLE TCPIP_STACK_HeapHandleGet(TCPIP_STACK_HEAP_TYPE heapType, int heapIndex)
 {
-    return (heapType == tcpip_stack_ctrl_data.heapType) ? tcpip_stack_ctrl_data.memH : NULL;
+    return (heapType == tcpip_stack_ctrl_data.heapType) ? tcpip_stack_ctrl_data.memH : 0;
 }
 
 size_t TCPIP_STACK_HEAP_Size(TCPIP_STACK_HEAP_HANDLE heapH)
 {
-    return (heapH != NULL) ? TCPIP_HEAP_Size(heapH) : 0U;
+    return heapH ? TCPIP_HEAP_Size(heapH) : 0;
 }
 
 
 size_t TCPIP_STACK_HEAP_MaxSize(TCPIP_STACK_HEAP_HANDLE heapH)
 {
-    return (heapH != NULL) ? TCPIP_HEAP_MaxSize(heapH) : 0U;
+    return heapH ? TCPIP_HEAP_MaxSize(heapH) : 0;
 }
 
 
 
 size_t TCPIP_STACK_HEAP_FreeSize(TCPIP_STACK_HEAP_HANDLE heapH)
 {
-    return (heapH != NULL) ? TCPIP_HEAP_FreeSize(heapH) : 0U;
+    return heapH ? TCPIP_HEAP_FreeSize(heapH) : 0;
 }
 
 size_t TCPIP_STACK_HEAP_HighWatermark(TCPIP_STACK_HEAP_HANDLE heapH)
 {
-    return (heapH != NULL) ? TCPIP_HEAP_HighWatermark(heapH) : 0U;
+    return heapH ? TCPIP_HEAP_HighWatermark(heapH) : 0;
 }
 
 
 TCPIP_STACK_HEAP_RES TCPIP_STACK_HEAP_LastError(TCPIP_STACK_HEAP_HANDLE heapH)
 {
-    return (heapH != NULL) ? TCPIP_HEAP_LastError(heapH) : TCPIP_STACK_HEAP_RES_NO_HEAP; 
+    return heapH ? TCPIP_HEAP_LastError(heapH) : TCPIP_STACK_HEAP_RES_NO_HEAP; 
 }
 
 // return the stack heap configuration parameters
-const TCPIP_STACK_HEAP_CONFIG* TCPIPStackHeapConfig(void)
+const TCPIP_STACK_HEAP_CONFIG* _TCPIPStackHeapConfig(void)
 {
     return &tcpip_heap_config;
 }
 
 TCPIP_NETWORK_TYPE TCPIP_STACK_NetGetType(TCPIP_NET_HANDLE hNet)
 {
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(hNet);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(hNet);
 
-    if(pNetIf != NULL)
+    if(pNetIf != 0)
     {
-        return TCPIPStackNetIsPrimary(pNetIf) ? TCPIP_NETWORK_TYPE_PRIMARY : TCPIP_NETWORK_TYPE_ALIAS;
+        return _TCPIPStackNetIsPrimary(pNetIf) ? TCPIP_NETWORK_TYPE_PRIMARY : TCPIP_NETWORK_TYPE_ALIAS;
     }
 
     return TCPIP_NETWORK_TYPE_UNKNOWN; 
@@ -5297,15 +4867,15 @@ TCPIP_NETWORK_TYPE TCPIP_STACK_NetGetType(TCPIP_NET_HANDLE hNet)
 // Note: if limited broadcast we cannot replicate on all alias interfaces.
 // So, the incoming, primary interface is selected.
 // Net directed broadcast should be used, and is preferred!
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
-TCPIP_NET_IF* TCPIPStackMapAliasInterface(const TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pDestAddress)
+#if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+TCPIP_NET_IF* _TCPIPStackMapAliasInterface(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* pDestAddress)
 {
     TCPIP_NET_IF    *pAliasIf;
 
     if(!TCPIP_Helper_IsBcastAddress(pDestAddress))
     {
         // browse the aliases belonging to this primary!
-        for(pAliasIf = TCPIPStackNetGetPrimary(pNetIf); pAliasIf != NULL; pAliasIf = TCPIPStackNetGetAlias(pAliasIf))
+        for(pAliasIf = _TCPIPStackNetGetPrimary(pNetIf); pAliasIf != 0; pAliasIf = _TCPIPStackNetGetAlias(pAliasIf))
         {
             if(TCPIP_STACK_AddressIsOfNet(pAliasIf, pDestAddress))
             {
@@ -5315,12 +4885,12 @@ TCPIP_NET_IF* TCPIPStackMapAliasInterface(const TCPIP_NET_IF* pNetIf, const IPV4
     }
 
     // no mapping; return the original interface
-    return FC_CNetIf2NetIf(pNetIf);
+    return pNetIf;
 }
 
 
 // copies the alias interface MAC settings from the primary interface
-static void F_TCPIPCopyMacAliasIf(TCPIP_NET_IF* pAliasIf, TCPIP_NET_IF* pPriIf)
+static void _TCPIPCopyMacAliasIf(TCPIP_NET_IF* pAliasIf, TCPIP_NET_IF* pPriIf)
 {
     pAliasIf->macType = pPriIf->macType;
     pAliasIf->netMACAddr = pPriIf->netMACAddr;
@@ -5330,39 +4900,37 @@ static void F_TCPIPCopyMacAliasIf(TCPIP_NET_IF* pAliasIf, TCPIP_NET_IF* pPriIf)
     pAliasIf->linkMtu = pPriIf->linkMtu;
 }
 
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
+#endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
 
 // external packet processing
 #if (TCPIP_STACK_EXTERN_PACKET_PROCESS != 0)
 TCPIP_STACK_PROCESS_HANDLE TCPIP_STACK_PacketHandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_STACK_PACKET_HANDLER pktHandler, const void* handlerParam)
 {
-    TCPIP_STACK_PACKET_HANDLER  pktH = NULL;
+    TCPIP_STACK_PROCESS_HANDLE pHandle = 0;
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNetUp(hNet);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNetUp(hNet);
 
-    if((pNetIf != NULL) && (pNetIf->pktHandler == NULL))
+    if(pNetIf != 0 && pNetIf->pktHandler == 0)
     {
         pNetIf->pktHandlerParam = handlerParam;
         pNetIf->pktHandler = pktHandler;
-        pktH = pktHandler;
+        pHandle = pktHandler;
     }
 
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
-    return FC_PktHndl2ProcHndl(pktH);
+    return pHandle;
 }
 
-bool TCPIP_STACK_PacketHandlerDeregister(TCPIP_NET_HANDLE hNet, TCPIP_STACK_PROCESS_HANDLE procHandle)
+bool TCPIP_STACK_PacketHandlerDeregister(TCPIP_NET_HANDLE hNet, TCPIP_STACK_PROCESS_HANDLE pktHandle)
 {
-    TCPIP_STACK_PACKET_HANDLER pktH = FC_ProcHndl2PktHndl(procHandle);
-
     bool res = false;
     OSAL_CRITSECT_DATA_TYPE critSect =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
 
-    TCPIP_NET_IF* pNetIf = TCPIPStackHandleToNet(hNet);
+    TCPIP_NET_IF* pNetIf = _TCPIPStackHandleToNet(hNet);
 
-    if((pNetIf != NULL) && (pNetIf->pktHandler == pktH))
+    if(pNetIf != 0 && pNetIf->pktHandler == pktHandle)
     {
-        pNetIf->pktHandler = NULL;
+        pNetIf->pktHandler = 0;
         res = true;
     } 
 
@@ -5370,52 +4938,42 @@ bool TCPIP_STACK_PacketHandlerDeregister(TCPIP_NET_HANDLE hNet, TCPIP_STACK_PROC
     return res;
 }
 
-#else
-TCPIP_STACK_PROCESS_HANDLE TCPIP_STACK_PacketHandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_STACK_PACKET_HANDLER pktHandler, const void* handlerParam)
-{
-    return NULL;
-}
-bool TCPIP_STACK_PacketHandlerDeregister(TCPIP_NET_HANDLE hNet, TCPIP_STACK_PROCESS_HANDLE procHandle)
-{
-    return false;
-}
 #endif  // (TCPIP_STACK_EXTERN_PACKET_PROCESS != 0)
 
 // run time module initialization
-#if (M_TCPIP_STACK_RUN_TIME_INIT != 0)
-bool TCPIPStack_ModuleIsRunning(TCPIP_STACK_MODULE moduleId)
+#if (_TCPIP_STACK_RUN_TIME_INIT != 0)
+bool _TCPIPStack_ModuleIsRunning(TCPIP_STACK_MODULE moduleId)
 {
-    size_t modId = (size_t)moduleId;
-
-    if((0U < modId) && (modId < (sizeof(TCPIP_MODULES_RUN_TBL) / sizeof(*TCPIP_MODULES_RUN_TBL))))
+    if(0 < moduleId && moduleId < sizeof(TCPIP_MODULES_RUN_TBL) / sizeof(*TCPIP_MODULES_RUN_TBL))
     {
-        TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + modId;
-        return pRDcpt->isRunning != 0U;
+        TCPIP_MODULE_RUN_DCPT* pRDcpt = TCPIP_MODULES_RUN_TBL + moduleId;
+        return pRDcpt->isRunning != 0;
     }
     return false;
 }
-#endif  // (M_TCPIP_STACK_RUN_TIME_INIT != 0)
+#endif  // (_TCPIP_STACK_RUN_TIME_INIT != 0)
 
 // local time keeping
 // reverts to a sys service, when available
 
-static void F_TCPIP_SecondCountSet(void)
+static void _TCPIP_SecondCountSet(void)
 {
+    uint32_t tmrFreq = SYS_TIME_FrequencyGet();
     // use a 64 bit count to avoid roll over
     uint64_t tmrCount = SYS_TIME_Counter64Get();
 
-    tcpip_SecCount = (uint32_t)(tmrCount / sysTmrFreq); 
-    tcpip_MsecCount = (uint32_t)(tmrCount / (sysTmrFreq / 1000ULL)); 
+    _tcpip_SecCount = tmrCount / tmrFreq; 
+    _tcpip_MsecCount = tmrCount / (tmrFreq / 1000); 
 }
 
-uint32_t TCPIP_SecCountGet(void)
+uint32_t _TCPIP_SecCountGet(void)
 {
-    return tcpip_SecCount;
+    return _tcpip_SecCount;
 }
 
-uint32_t TCPIP_MsecCountGet(void)
+uint32_t _TCPIP_MsecCountGet(void)
 {
-    return tcpip_MsecCount;
+    return _tcpip_MsecCount;
 }
 
 
@@ -5446,4 +5004,45 @@ uint64_t TCPIP_STACK_TimeMeasureGet(bool stop)
 
 #endif // defined(TCPIP_STACK_TIME_MEASUREMENT)
 
+#if ((_TCPIP_STACK_DEBUG_LEVEL & _TCPIP_STACK_DEBUG_MASK_BASIC) != 0)
+#if (_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
+volatile int _TCPIP_Stack_LeaveAssertLoop = 0;
+#endif  // (_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
+void _TCPIPStack_Assert(bool cond, const char* fileName, const char* funcName, int lineNo)
+{
+    if(cond == false)
+    {
+        // remove the path from the fileName
+        const char* lastPath = strrchr(fileName, '/');
+        if(lastPath == 0)
+        {   // try windows style
+            lastPath = strrchr(fileName, '\\');
+        }
+        if(lastPath != 0)
+        {
+            lastPath++;
+        }
+        else
+        {   // no luck
+            lastPath = fileName;
+        }
+        SYS_CONSOLE_PRINT("TCPIP Stack Assert: in file: %s, func: %s, line: %d, \r\n", lastPath, funcName, lineNo);
+#if (_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
+        while(_TCPIP_Stack_LeaveAssertLoop == 0);
+#endif  // (_TCPIP_STACK_ENABLE_ASSERT_LOOP != 0)
+    }
+}
+
+volatile int _TCPIP_Stack_LeaveCondLoop = 0;
+void _TCPIPStack_Condition(bool cond, const char* fileName, const char* funcName, int lineNo)
+{
+    if(cond == false)
+    {
+        SYS_CONSOLE_PRINT("TCPIP Stack Cond: in file: %s, func: %s, line: %d, \r\n", fileName, funcName, lineNo);
+#if (_TCPIP_STACK_ENABLE_COND_LOOP != 0)
+        while(_TCPIP_Stack_LeaveCondLoop == 0);
+#endif // (_TCPIP_STACK_ENABLE_COND_LOOP != 0)
+    }
+}
+#endif  // ((_TCPIP_STACK_DEBUG_LEVEL & _TCPIP_STACK_DEBUG_MASK_BASIC) != 0)
 

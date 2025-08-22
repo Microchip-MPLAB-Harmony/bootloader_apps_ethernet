@@ -305,7 +305,7 @@ uint8_t txPrioNumToQueIndxEth [DRV_ETH_NUMBER_OF_QUEUES];
 uint8_t rxPrioNumToQueIndxEth [DRV_ETH_NUMBER_OF_QUEUES];
 
 /*** ETH Initialization Data ***/
-TCPIP_MODULE_GMAC_QUEUE_CONFIG  eth_queue_cfg[DRV_ETH_NUMBER_OF_QUEUES]=
+TCPIP_MODULE_GMAC_QUEUE_CONFIG  eth_queue_config[DRV_ETH_NUMBER_OF_QUEUES]=
 {
    {   /** QUEUE 0 Initialization**/
        .queueTxEnable = true,
@@ -389,7 +389,7 @@ TCPIP_MODULE_GMAC_QUEUE_CONFIG  eth_queue_cfg[DRV_ETH_NUMBER_OF_QUEUES]=
 
 const TCPIP_MODULE_MAC_PIC32C_CONFIG tcpipETHInitData =
 { 
-       .gmac_queue_config = eth_queue_cfg,
+       .gmac_queue_config = eth_queue_config,
        .macQueNum = DRV_ETH_NUMBER_OF_QUEUES, 
        .txPrioNumToQueIndx = txPrioNumToQueIndxEth,
        .rxPrioNumToQueIndx = rxPrioNumToQueIndxEth,
@@ -490,6 +490,7 @@ const TCPIP_UDP_MODULE_CONFIG tcpipUDPInitData =
 
 
 
+
 /*** IPv4 Initialization Data ***/
 
 
@@ -503,10 +504,9 @@ const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData =
 
 
 
-
 TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
 {
-    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL,
+    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL_HEAP,
     .heapFlags = TCPIP_STACK_HEAP_USE_FLAGS,
     .heapUsage = TCPIP_STACK_HEAP_USAGE_CONFIG,
     .malloc_fnc = TCPIP_STACK_MALLOC_FUNC,
@@ -577,14 +577,13 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 {
     TCPIP_STACK_INIT    tcpipInit;
 
-    (void)memset(&tcpipInit, 0, sizeof(tcpipInit));
     tcpipInit.pNetConf = TCPIP_HOSTS_CONFIGURATION;
     tcpipInit.nNets = TCPIP_HOSTS_CONFIGURATION_SIZE;
     tcpipInit.pModConfig = TCPIP_STACK_MODULE_CONFIG_TBL;
     tcpipInit.nModules = TCPIP_STACK_MODULE_CONFIG_TBL_SIZE;
-    tcpipInit.initCback = NULL;
+    tcpipInit.initCback = 0;
 
-    return TCPIP_STACK_Initialize(0, &tcpipInit);
+    return TCPIP_STACK_Initialize(0, &tcpipInit.moduleInit);
 }
 // </editor-fold>
 
@@ -664,7 +663,7 @@ void SYS_Initialize ( void* data )
     /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
    /* Initialize the MIIM Driver Instance 0*/
-   sysObj.drvMiim_0 = DRV_MIIM_OBJECT_BASE_Default.miim_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
+   sysObj.drvMiim_0 = DRV_MIIM_OBJECT_BASE_Default.DRV_MIIM_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
 
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  

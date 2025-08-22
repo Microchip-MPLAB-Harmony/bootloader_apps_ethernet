@@ -23,7 +23,7 @@ Reference: RFC 3376, RFC 3678, RFC 4604, RFC 4607, RFC 1112, RFC 2730, RFC 2771
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -54,8 +54,8 @@ Microchip or any third party.
 
 //DOM-IGNORE-END
 
-#ifndef H_IGMP_H_
-#define H_IGMP_H_
+#ifndef __IGMP_H
+#define __IGMP_H
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -128,7 +128,7 @@ typedef enum
 */
 typedef enum
 {
-    TCPIP_IGMP_FILTER_NONE = 0,     // inactive/invalid filter
+    TCPIP_IGMP_FILTER_NONE,         // inactive/invalid filter
     TCPIP_IGMP_FILTER_INCLUDE,      // interface is in include mode: listening to a set of sources
     TCPIP_IGMP_FILTER_EXCLUDE,      // interface is in exclude mode: listening to all but a set of sources
 }TCPIP_IGMP_FILTER_TYPE;
@@ -146,8 +146,6 @@ typedef enum
     
   Remarks:
     Multiple events can be set.
-
-    16 bits only maintained.
 */
 typedef enum
 {
@@ -222,7 +220,7 @@ typedef const void* TCPIP_IGMP_HANDLE;
 
 typedef struct
 {
-    size_t                  listSize;           // in: number of elements in the sourceList array
+    int                     listSize;           // in: number of elements in the sourceList array
                                                 // Could be 0 if the actual sources not needed
     IPV4_ADDR*              sourceList;         // array of IPv4 addresses
                                                 // out: array that will store the sources associated to this
@@ -231,7 +229,7 @@ typedef struct
                                                 // Up to listSize sources will be copied
                                                 // Note that there may be more sources present if 
                                                 // presentSources > listSize
-    size_t                  presentSources;     // out: number of sources that are present for this group
+    int                     presentSources;     // out: number of sources that are present for this group
     TCPIP_IGMP_FILTER_TYPE  filterType;         // out: current interface filter
 
 } TCPIP_IGMP_GROUP_INFO;
@@ -260,21 +258,21 @@ typedef struct
     const char* highSsmAddress; // the high limit of the SSM range;
                                 // if 0, default value IANA 232.255.255.255 is used.
                                 //
-    size_t      reportInterval; // Unsolicited report interval, ms; default 1 second
+    int         reportInterval; // Unsolicited report interval, ms; default 1 second
                                 // The Unsolicited Report Interval is the time between repetitions of a
                                 // host?s initial report of membership in a group.
                                 // RFC 3376 IGMPv3: Default: 1 second.
 
-    size_t      nInterfaces;    // the (maximum) number of interfaces that support IGMP multicast
+    int         nInterfaces;    // the (maximum) number of interfaces that support IGMP multicast
                                 // the minimum between this number and the actual number of present interfaces
                                 // when the stack is initialized will be selected
  
     // dynamic implementation members
-    size_t      nSockets;       // maximum number of sockets that can subscribe to IGMP    
-    size_t      nGroups;        // the (maximum) number of multicast groups (multicast destination addresses)
+    int         nSockets;       // maximum number of sockets that can subscribe to IGMP    
+    int         nGroups;        // the (maximum) number of multicast groups (multicast destination addresses)
                                 // that the IGMP module can accomodate
-    size_t      nGroupSources;  // the (maximum) number of sources that can belong to a group
-    size_t      nSourceSockets; // maximum number of different sockets that could listen on a source
+    int         nGroupSources;  // the (maximum) number of sources that can belong to a group
+    int         nSourceSockets; // maximum number of different sockets that could listen on a source
                                 // as part of a group
 
 
@@ -295,7 +293,7 @@ typedef struct
 // *****************************************************************************
 /* 
   Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_Subscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
+    TCPIP_IGMP_RESULT TCPIP_IGMP_Subscribe(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
                       TCPIP_IGMP_FILTER_TYPE filterMode, const IPV4_ADDR* sourceList, size_t* listSize);
 
   Summary:
@@ -310,7 +308,7 @@ typedef struct
     The IGMP module must be initialized.
 
   Parameters:
-    uSkt       - the UDP multicast socket
+    socket       - the UDP multicast socket
     hNet         - Interface handle.
                    if hNet == 0, then the default interface will be used!
     mcastAddress - the multicast group address to subscribe to
@@ -343,14 +341,14 @@ typedef struct
     For SSM sources the EXCLUDE mode is not allowed!
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_Subscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
+TCPIP_IGMP_RESULT TCPIP_IGMP_Subscribe(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
                       TCPIP_IGMP_FILTER_TYPE filterMode, const IPV4_ADDR* sourceList, size_t* listSize);
 
 
 // *****************************************************************************
 /* 
   Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_Unsubscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, const IPV4_ADDR* sourceList, size_t* listSize);
+    TCPIP_IGMP_RESULT TCPIP_IGMP_Unsubscribe(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, const IPV4_ADDR* sourceList, size_t* listSize);
 
   Summary:
     Removes the subscription to sources in an IGMP multicast group.
@@ -364,7 +362,7 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_Subscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, I
     The IGMP module must be initialized.
 
   Parameters:
-    uSkt       - the UDP multicast socket
+    socket       - the UDP multicast socket
     hNet         - Interface handle.
                    if hNet == 0, then the default interface will be used!
     mcastAddress - the multicast group address to unsubscribe from
@@ -390,12 +388,12 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_Subscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, I
     So this call is equivalent to Subscribe(INCLUDE, {})
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_Unsubscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, const IPV4_ADDR* sourceList, size_t* listSize);
+TCPIP_IGMP_RESULT TCPIP_IGMP_Unsubscribe(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, const IPV4_ADDR* sourceList, size_t* listSize);
 
 // *****************************************************************************
 /* 
   Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_SubscribeGet(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
+    TCPIP_IGMP_RESULT TCPIP_IGMP_SubscribeGet(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
                       TCPIP_IGMP_FILTER_TYPE* filterMode, IPV4_ADDR* sourceList, size_t* listSize);
 
   Summary:
@@ -408,7 +406,7 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_Unsubscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet,
     The IGMP module must be initialized.
 
   Parameters:
-    uSkt       - the UDP multicast socket
+    socket       - the UDP multicast socket
     hNet         - Interface handle.
                    if hNet == 0, then the default interface will be used!
     mcastAddress - the multicast group address
@@ -431,13 +429,13 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_Unsubscribe(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet,
     listSize == 0 or (*listSize != 0 and sourceList == 0) is invalid!
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_SubscribeGet(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
+TCPIP_IGMP_RESULT TCPIP_IGMP_SubscribeGet(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress,
                       TCPIP_IGMP_FILTER_TYPE* filterMode, IPV4_ADDR* sourceList, size_t* listSize);
 
 // *****************************************************************************
 /* 
   Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_IncludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
+    TCPIP_IGMP_RESULT TCPIP_IGMP_IncludeSource(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
 
   Summary:
     Helper to subscribe to one source.
@@ -451,7 +449,7 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_SubscribeGet(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet
     The IGMP module must be initialized.
 
   Parameters:
-    uSkt       - the UDP multicast socket
+    socket       - the UDP multicast socket
     hNet         - Interface handle.
                    if hNet == 0, then the default interface will be used!
     mcastAddress - the multicast address to subscribe to
@@ -470,12 +468,12 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_SubscribeGet(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet
     It is a shortcut to TCPIP_IGMP_Subscribe(INCLUDE, 1 source);
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_IncludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
+TCPIP_IGMP_RESULT TCPIP_IGMP_IncludeSource(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
 
 // *****************************************************************************
 /* 
   Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_ExcludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
+    TCPIP_IGMP_RESULT TCPIP_IGMP_ExcludeSource(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
 
   Summary:
     Helper to unsubscribe from one source.
@@ -489,7 +487,7 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_IncludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNe
     The IGMP module must be initialized.
 
   Parameters:
-    uSkt        - the UDP multicast socket
+    socket        - the UDP multicast socket
     hNet          - Interface handle.
                     if hNet == 0, then the default interface will be used!
     mcastAddress  - the multicast address to unsubscribe from
@@ -508,14 +506,14 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_IncludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNe
     It is a shortcut to TCPIP_IGMP_Subscribe(EXCLUDE, 1 source);
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_ExcludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
+TCPIP_IGMP_RESULT TCPIP_IGMP_ExcludeSource(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress, IPV4_ADDR sourceAddress);
 
 
 
 // *****************************************************************************
 /* 
   Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_Join(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
+    TCPIP_IGMP_RESULT TCPIP_IGMP_Join(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
 
   Summary:
     IGMPv2 style "join" function.
@@ -528,7 +526,7 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_ExcludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNe
     The IGMP module must be initialized.
 
   Parameters:
-    uSkt       - the UDP multicast socket
+    socket       - the UDP multicast socket
     hNet         - Interface handle.
                    if hNet == 0, then the default interface will be used!
     mcastAddress - the multicast group to join to
@@ -546,12 +544,12 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_ExcludeSource(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNe
     It is a shortcut to TCPIP_IGMP_Subscribe(EXCLUDE, {});
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_Join(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
+TCPIP_IGMP_RESULT TCPIP_IGMP_Join(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
 
 // *****************************************************************************
 /* 
   Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_Leave(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
+    TCPIP_IGMP_RESULT TCPIP_IGMP_Leave(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
 
   Summary:
     IGMPv2 style "leave" function.
@@ -564,7 +562,7 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_Join(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_A
     The IGMP module must be initialized.
 
   Parameters:
-    uSkt       - the UDP multicast socket
+    socket       - the UDP multicast socket
     hNet         - Interface handle.
                    if hNet == 0, then the default interface will be used!
     mcastAddress - the multicast group to leave
@@ -582,7 +580,7 @@ TCPIP_IGMP_RESULT TCPIP_IGMP_Join(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_A
     It is a shortcut to TCPIP_IGMP_Subscribe(INCLUDE, {});
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_Leave(UDP_SOCKET uSkt, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
+TCPIP_IGMP_RESULT TCPIP_IGMP_Leave(UDP_SOCKET socket, TCPIP_NET_HANDLE hNet, IPV4_ADDR mcastAddress);
 
 
 // *****************************************************************************
@@ -643,7 +641,7 @@ bool TCPIP_IGMP_HandlerDeRegister(TCPIP_IGMP_HANDLE hIgmp);
 
 // *****************************************************************************
 /* Function:
-    TCPIP_IGMP_RESULT TCPIP_IGMP_GroupsGet(IPV4_ADDR* groupsList, size_t listSize, size_t* pnGroups);
+    TCPIP_IGMP_RESULT TCPIP_IGMP_GroupsGet(IPV4_ADDR* groupsList, int listSize, int* pnGroups);
 
 
   Summary:
@@ -674,7 +672,7 @@ bool TCPIP_IGMP_HandlerDeRegister(TCPIP_IGMP_HANDLE hIgmp);
    None
 
  */
-TCPIP_IGMP_RESULT TCPIP_IGMP_GroupsGet(IPV4_ADDR* groupsList, size_t listSize, size_t* pnGroups);
+TCPIP_IGMP_RESULT TCPIP_IGMP_GroupsGet(IPV4_ADDR* groupsList, int listSize, int* pnGroups);
 
 // *****************************************************************************
 /* Function:
@@ -739,4 +737,4 @@ void  TCPIP_IGMP_Task(void);
 #endif
 //DOM-IGNORE-END
 
-#endif  // H_IGMP_H_
+#endif  // __IGMP_H

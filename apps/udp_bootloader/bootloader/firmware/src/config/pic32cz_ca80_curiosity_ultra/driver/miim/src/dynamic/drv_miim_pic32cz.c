@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2018-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2018-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -88,55 +88,57 @@ typedef enum {
 } GMAC_MIIM_CLK;
 
 
-static void F_DRV_MIIM_SMIClockSet(uintptr_t miimId, uint32_t hostClock, uint32_t maxMIIMClock )
+static void _DRV_MIIM_SMIClockSet(uintptr_t miimId, uint32_t hostClock, uint32_t maxMIIMClock )
 {
     uint32_t mdc_div; 
-    uint32_t clock_dividor;    // GMAC_MIIM_CLK value 
+    GMAC_MIIM_CLK clock_dividor ; 
     mdc_div = hostClock / maxMIIMClock; 
-    if (mdc_div <= 8U) 
+    if (mdc_div <= 8 ) 
     { 
-        clock_dividor = (uint32_t)GMAC_MIIM_SYSCLK_DIV_BY_8; 
+        clock_dividor = GMAC_MIIM_SYSCLK_DIV_BY_8; 
     } 
-    else if (mdc_div <= 16U) 
+    else if (mdc_div <= 16 ) 
     { 
-        clock_dividor = (uint32_t)GMAC_MIIM_SYSCLK_DIV_BY_16; 
+        clock_dividor = GMAC_MIIM_SYSCLK_DIV_BY_16; 
     } 
-    else if (mdc_div <= 32U) 
+    else if (mdc_div <= 32 ) 
     { 
-        clock_dividor = (uint32_t)GMAC_MIIM_SYSCLK_DIV_BY_32; 
+        clock_dividor = GMAC_MIIM_SYSCLK_DIV_BY_32; 
     } 
-    else if (mdc_div <= 48U) 
+    else if (mdc_div <= 48 ) 
     { 
-        clock_dividor = (uint32_t)GMAC_MIIM_SYSCLK_DIV_BY_48; 
+        clock_dividor = GMAC_MIIM_SYSCLK_DIV_BY_48; 
     } 
-    else if (mdc_div <= 64U) 
+    else if (mdc_div <= 64 ) 
     { 
-        clock_dividor = (uint32_t)GMAC_MIIM_SYSCLK_DIV_BY_64; 
+        clock_dividor = GMAC_MIIM_SYSCLK_DIV_BY_64; 
     } 
-    else if (mdc_div <= 96U) 
+    else if (mdc_div <= 96 ) 
     { 
-        clock_dividor = (uint32_t)GMAC_MIIM_SYSCLK_DIV_BY_96; 
+        clock_dividor = GMAC_MIIM_SYSCLK_DIV_BY_96; 
     } 
     else 
     { 
-        clock_dividor = (uint32_t)GMAC_MIIM_SYSCLK_DIV_ABOVE_96; 
+        clock_dividor = GMAC_MIIM_SYSCLK_DIV_ABOVE_96; 
     } 
 
     eth_registers_t *  pEthRegs = (eth_registers_t *) miimId;
     // disable tx if it is already enabled
-    bool tx_stat = (pEthRegs->ETH_NCR & ETH_NCR_TXEN_Msk) != 0U;
+    bool tx_stat = pEthRegs->ETH_NCR & ETH_NCR_TXEN_Msk;
     if (tx_stat)
     {
         pEthRegs->ETH_NCR &= ~ETH_NCR_TXEN_Msk; 
     }
     // disable rx if it is already enabled
-    bool rx_stat = (pEthRegs->ETH_NCR & ETH_NCR_RXEN_Msk) != 0U;
+    bool rx_stat = pEthRegs->ETH_NCR & ETH_NCR_RXEN_Msk;
     if (rx_stat)
     {
         pEthRegs->ETH_NCR &= ~ETH_NCR_RXEN_Msk;  
     }
 
-    pEthRegs->ETH_NCFGR = (pEthRegs->ETH_NCFGR & (~ETH_NCFGR_CLK_Msk)) | (clock_dividor << ETH_NCFGR_CLK_Pos); 
+    pEthRegs->ETH_NCFGR = (pEthRegs->ETH_NCFGR & 
+            (~ETH_NCFGR_CLK_Msk)) | 
+        (clock_dividor << ETH_NCFGR_CLK_Pos); 
     // enable tx if it was previously enabled
     if (tx_stat)
     {
@@ -156,7 +158,7 @@ static void F_DRV_MIIM_SMIClockSet(uintptr_t miimId, uint32_t hostClock, uint32_
 DRV_MIIM_RESULT DRV_MIIM_DeviceSetup(uintptr_t miimId, const DRV_MIIM_SETUP* pSetUp)
 {
     // setup the clock
-    F_DRV_MIIM_SMIClockSet(miimId, pSetUp->hostClockFreq, pSetUp->maxBusFreq );
+    _DRV_MIIM_SMIClockSet(miimId, pSetUp->hostClockFreq, pSetUp->maxBusFreq );
 
     // other settings if needed
     return DRV_MIIM_RES_OK;    
@@ -193,10 +195,7 @@ void DRV_MIIM_WriteData(uintptr_t miimId, uint16_t phyAdd, uint16_t regIx, uint1
 
 
     // wait for device to be idle again...
-    while((pEthRegs->ETH_NSR & ETH_NSR_IDLE_Msk) == 0U)
-    {
-        // wait
-    }
+    while((pEthRegs->ETH_NSR & ETH_NSR_IDLE_Msk) == 0);
 
 }
 
@@ -211,10 +210,7 @@ void DRV_MIIM_ReadStart(uintptr_t miimId, uint16_t phyAdd, uint16_t regIx)
         | ETH_MAN_DATA(0);
 
     // wait for device to be idle again...
-    while((pEthRegs->ETH_NSR & ETH_NSR_IDLE_Msk) == 0U)
-    {
-        // wait
-    }
+    while((pEthRegs->ETH_NSR & ETH_NSR_IDLE_Msk) == 0);
 }
 
 uint16_t DRV_MIIM_ReadDataGet(uintptr_t miimId)

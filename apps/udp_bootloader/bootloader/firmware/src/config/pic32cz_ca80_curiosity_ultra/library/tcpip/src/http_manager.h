@@ -1,20 +1,19 @@
 /*******************************************************************************
-  WSC module manager header
+  HTTP internal API Headers for Microchip TCP/IP Stack
 
   Company:
     Microchip Technology Inc.
     
   File Name:
-    wsc_manager.h
+    http_manager.h
 
   Summary:
-    Stack internal definitions for WSC module
 
   Description:
-    This file contains the stack internal API for the WSC module
 *******************************************************************************/
+// DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -43,64 +42,71 @@ Microchip or any third party.
 
 
 
+// DOM-IGNORE-END
 
-#ifndef H_WSC_MANAGER_H_
-#define H_WSC_MANAGER_H_
+#ifndef __HTTP_MANAGER_H_
+#define __HTTP_MANAGER_H_
 
 
-// stack private API functions
+/****************************************************************************
+  Section:
+    Function Prototypes
+  ***************************************************************************/
 
 /*****************************************************************************
   Function:
-    void TCPIP_WSC_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_WSC_MODULE_CONFIG* wscData)
+    bool TCPIP_HTTP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl,
+        const TCPIP_HTTP_MODULE_CONFIG* httpInitData)
 
   Summary:
-    Initializes the WSC module.
+    Initializes the HTTP server module.
 
   Description:
-    Initializes the WSC module.
+    Sets all HTTP sockets to the listening state, and initializes the
+    state machine and file handles for each connection.
 
   Precondition:
-    None
+    TCP must already be initialized.
 
   Parameters:
-    stackCtrl  - stack initialization parameters
-    wscData    - WSC specific initialization parameters
+    None
 
   Returns:
     true if initialization succeeded,
     false otherwise
 
   Remarks:
-    None
- */
-bool  TCPIP_WSC_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const void* initData);
+    This function is called only one during lifetime of the application.
+  ***************************************************************************/
+bool TCPIP_HTTP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const TCPIP_HTTP_MODULE_CONFIG* httpData);
 
 
 /*****************************************************************************
   Function:
-    void  TCPIP_WSC_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
+    bool TCPIP_HTTP_Deinitialize(void)
 
   Summary:
-    Deinitializes the WSC module.
+    DeInitializes the HTTP server module.
 
   Description:
-    Deinitializes the WSC module.
+    Takes down all HTTP sockets, the state machine and file handles for
+    each connection. 
 
   Precondition:
-    None.
+    None
 
   Parameters:
-    stackCtrl  - stack initialization parameters, used by TCPIP_WSC_Initialize
-                 to initialize the WSC module.
+    None
 
   Returns:
-    None.
+    None
 
   Remarks:
-    None.
- */
-void  TCPIP_WSC_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
+    This function is called only once during lifetime of the application.
+  ***************************************************************************/
+void TCPIP_HTTP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData);
 
-#endif  // H_WSC_MANAGER_H_
+
+
+#endif // __HTTP_MANAGER_H_
 

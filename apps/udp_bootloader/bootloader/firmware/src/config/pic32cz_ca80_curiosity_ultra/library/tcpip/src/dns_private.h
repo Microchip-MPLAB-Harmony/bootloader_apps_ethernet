@@ -9,7 +9,7 @@
 *******************************************************************************/
 
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -39,8 +39,8 @@ Microchip or any third party.
 
 
 
-#ifndef H_DNS_PRIVATE_H_ 
-#define H_DNS_PRIVATE_H_
+#ifndef _DNS_PRIVATE_H_ 
+#define _DNS_PRIVATE_H_
 
 
 // DNS debug levels
@@ -54,7 +54,7 @@ Microchip or any third party.
 #define TCPIP_DNS_DEBUG_MASK_IPV6_SCOPE      (0x0080)
 
 // enable DNS debugging levels
-#define TCPIP_DNS_DEBUG_LEVEL               (0x01)
+#define TCPIP_DNS_DEBUG_LEVEL               (0)
 
 
 /* Max number of DNS servers supported*/
@@ -72,11 +72,11 @@ Microchip or any third party.
 
 // 2 retries per interface, to be able to try both DNS servers
 // this should match the number of DNS servers per interface
-#define M_TCPIP_DNS_IF_RETRY_COUNT 2U
+#define _TCPIP_DNS_IF_RETRY_COUNT 2
 
 // once an entry is unsolved and exhausted its retries
 // it will be removed from the cache
-#define M_TCPIP_DNS_CACHE_UNSOLVED_EXPIRE_TMO     1U
+#define _TCPIP_DNS_CLIENT_CACHE_UNSOLVED_EXPIRE_TMO     1
 
 // a DNS debug event
 typedef enum
@@ -143,7 +143,7 @@ typedef struct
     IPV4_ADDR*                  pip4Address;    // pointer to an array of IPv4: nIPv4Entries entries 
     IPV6_ADDR*                  pip6Address;    // pointer to an array of IPv6: nIPv6Entries entries
     TCPIP_UINT32_VAL            ipTTL;          // Minimum TTL per IPv4 and Ipv6 addresses
-    const TCPIP_NET_IF*         currNet;        // current Interface used 
+    TCPIP_NET_IF*               currNet;        // current Interface used 
     char*                       pHostName;
     // unaligned members
     TCPIP_UINT16_VAL            transactionId;
@@ -162,7 +162,7 @@ typedef struct
     OA_HASH_DCPT*           hashDcpt;                       // hash descriptor + hash table entries    
     TCPIP_NET_IF*           strictNet;                      // strict DNS interface, if set
     TCPIP_NET_IF*           prefNet;                        // preferred DNS interface, if set
-    TCPIP_SIGNAL_HANDLE     dnsSignalHandle;
+    tcpipSignalHandle       dnsSignalHandle;
     const void              *memH;
     uint32_t                cacheEntryTMO;
     IP_ADDRESS_TYPE         ipAddressType;
@@ -192,18 +192,14 @@ typedef enum
 
 
 // Structure for the DNS header
-typedef union
+typedef struct
 {
-    uint8_t     v[2];
-    struct __attribute__((packed))
-    {
-        TCPIP_UINT16_VAL TransactionID;
-        TCPIP_UINT16_VAL Flags;
-        TCPIP_UINT16_VAL Questions;
-        TCPIP_UINT16_VAL Answers;
-        TCPIP_UINT16_VAL AuthoritativeRecords;
-        TCPIP_UINT16_VAL AdditionalRecords;
-    };
+    TCPIP_UINT16_VAL TransactionID;
+    TCPIP_UINT16_VAL Flags;
+    TCPIP_UINT16_VAL Questions;
+    TCPIP_UINT16_VAL Answers;
+    TCPIP_UINT16_VAL AuthoritativeRecords;
+    TCPIP_UINT16_VAL AdditionalRecords;
 } TCPIP_DNS_HEADER;
 
 // DNS response header for ANSWER, Authorative and Additional packet response header
@@ -219,9 +215,9 @@ typedef struct __attribute__((packed))
 
 // DNS event registration
 
-typedef struct  S_TAG_TCPIP_DNS_LIST_NODE
+typedef struct  _TAG_TCPIP_DNS_LIST_NODE
 {
-    struct S_TAG_TCPIP_DNS_LIST_NODE*    next;       // next node in list
+    struct _TAG_TCPIP_DNS_LIST_NODE*    next;       // next node in list
                                                     // makes it valid SGL_LIST_NODE node
     TCPIP_DNS_EVENT_HANDLER             handler;    // handler to be called for event
     const void*                         hParam;     // handler parameter
@@ -254,5 +250,5 @@ static size_t TCPIP_DNS_OAHASH_ProbeHash(OA_HASH_DCPT* pOH, const void* key);
 
 
 
-#endif  /* H_DNS_PRIVATE_H_ */
+#endif  /* _DNS_PRIVATE_H_ */
 

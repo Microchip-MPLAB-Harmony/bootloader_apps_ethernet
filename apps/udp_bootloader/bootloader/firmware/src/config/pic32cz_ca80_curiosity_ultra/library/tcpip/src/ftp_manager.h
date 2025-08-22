@@ -14,7 +14,7 @@
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -45,11 +45,11 @@ Microchip or any third party.
 
 // DOM-IGNORE-END
 
-#ifndef H_FTP_MANAGER_H_
-#define H_FTP_MANAGER_H_
+#ifndef __FTP_MANAGER_H_
+#define __FTP_MANAGER_H_
 
 /*********************************************************************
-  Function:  bool TCPIP_FTP_ServerInitialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData)
+  Function:  bool TCPIP_FTP_ServerInitialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const TCPIP_FTP_MODULE_CONFIG* ftpData)
 
   PreCondition:    TCP module is already initialized.
 
@@ -64,7 +64,8 @@ Microchip or any third party.
 
   Note:
  */
-bool TCPIP_FTP_ServerInitialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData);
+bool TCPIP_FTP_ServerInitialize(const TCPIP_STACK_MODULE_CTRL* const stackData,
+                          const TCPIP_FTP_MODULE_CONFIG* ftpData);
 
 
 /*********************************************************************
@@ -86,5 +87,5 @@ void TCPIP_FTP_ServerDeinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData
 
 
 
-#endif  // H_FTP_MANAGER_H_
+#endif  // __FTP_MANAGER_H_
 

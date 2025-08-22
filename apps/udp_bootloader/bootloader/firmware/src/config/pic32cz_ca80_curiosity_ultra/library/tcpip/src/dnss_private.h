@@ -16,7 +16,7 @@ DNS Server module private header
 *******************************************************************************/
 
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -46,15 +46,18 @@ Microchip or any third party.
 
 
 
-#ifndef H_DNSS_PRIVATE_H_
-#define H_DNSS_PRIVATE_H_
+#ifndef _DNSS_PRIVATE_H_
+#define _DNSS_PRIVATE_H_
 
+#define DNS_SERVER_ENABLE   1
+#define DNS_SERVER_DISABLE  0
 
-#define     TCPIP_DNSS_HASH_PROBE_STEP      1U    // step to advance for hash collision
+#define     TCPIP_DNSS_HOSTNAME_MAX_SIZE  255
+#define     TCPIP_DNSS_HASH_PROBE_STEP      1    // step to advance for hash collision
 // When the DNS server entry validity time is 0, then this following macro
 // value will be send as TTL time and this value specifies that the etry is permanent 
 // and the entry can be removed only when user deletes it.
-#define     TCPIP_DNSS_PERMANENT_ENTRY_TTL_TIME     0xFFFFFFFFU
+#define     TCPIP_DNSS_PERMANENT_ENTRY_TTL_TIME     0xFFFFFFFF
 
 // *****************************************************************************
 /* 
@@ -72,12 +75,12 @@ Microchip or any third party.
 */
 typedef struct
 {
-    const uint8_t*              sHostNameData;  // Host name size
-    IPV4_ADDR                   ip4Address;     // Provide a symbol for IPv4 entries number; 
-    TCPIP_UINT32_VAL            tConfig;        // Configured time for all the IPv4 and Ipv6 address per hostname
-    IP_ADDRESS_TYPE             addressType;     // DNS protocol record type is mapped to IP address type
-    TCPIP_UINT32_VAL            entryTimeout;   // Time out in seconds configured from command prompt.
-    IPV6_ADDR                   ip6Address;     // Provide a symbol for IPv6 entries number
+    uint8_t*                    sHostNameData;  //Host name size
+    IPV4_ADDR                   ip4Address;    // Provide a symbol for IPv4 entries number; 
+    TCPIP_UINT32_VAL            tConfig;       //  Configured time for all the IPv4 and Ipv6 address per hostname
+    IP_ADDRESS_TYPE             recordType;     //  DNS protocol record type is mapped to IP address type
+    TCPIP_UINT32_VAL            entryTimeout; // Time out in seconds configured from command prompt.
+    IPV6_ADDR                   ip6Address;    // Provide a symbol for IPv6 entries number
 }TCPIP_DNSS_CACHE_ENTRY;
 
 
@@ -97,6 +100,17 @@ typedef enum
 
 }DNSS_HASH_ENTRY_FLAGS;
 
+typedef union
+{
+    uint8_t Val;
+    struct
+    {
+        unsigned char DNSServInUse      : 1;    // Indicates the DNS Server module is in use
+        unsigned char AddressType   : 2;    // IP_ADDRESS_TYPE_IPV6 or IP_ADDRESS_TYPE_IPV4
+        unsigned char filler        : 5;
+    } bits;
+} DNS_SERVER_FLAGS;
+
 typedef enum
 {
     DNSS_STATE_START             = 0,
@@ -107,18 +121,21 @@ typedef enum
 
 typedef struct
 {
-    OA_HASH_DCPT*       dnssHashDcpt;           // contiguous space for a hash descriptor  and hash table entries  
-    UDP_SOCKET          dnsSrvSocket;           // Server Socket used by DNS Server
-    uint16_t            intfIdx;    
+    OA_HASH_DCPT*       dnssHashDcpt;       // contiguous space for a hash descriptor  and hash table entries  
+    UDP_SOCKET          dnsSrvSocket;               // Server Socket used by DNS Server
+    DNSS_STATE          smState;           // server state machine status
+    uint8_t             dnsSrvInitCount;
+    DNS_SERVER_FLAGS    flags;
+    int                 intfIdx;    
     const void          *memH;
-    size_t              IPv4EntriesPerDNSName;
+    int                 IPv4EntriesPerDNSName;
 #ifdef TCPIP_STACK_USE_IPV6
-    size_t              IPv6EntriesPerDNSName;
+    int                 IPv6EntriesPerDNSName;
 #endif
-    TCPIP_SIGNAL_HANDLE dnsSSignalHandle;
-    uint32_t            dnsSTimeMseconds;
-    uint8_t             dnsServInUse;
-    uint8_t             replyWithBoardInfo;
+    int             dnsSTickPending;             // DNS server processing tick
+    tcpipSignalHandle dnsSSignalHandle;
+    uint32_t        dnsSTimeMseconds;
+    bool            replyWithBoardInfo;
 }DNSS_DCPT;
 
 /*
@@ -128,22 +145,22 @@ typedef struct
 */
 
 // DNS Server cache entry
-typedef struct  S_TAG_DNSS_HASH_ENTRY 
+typedef struct  _TAG_DNSS_HASH_ENTRY 
 {
     OA_HASH_ENTRY               hEntry;         // hash header;
     uint8_t*                    memblk;         // memory block for IPv4 and IPv6 and TTL block of memory. Hostname is not part of this block
     uint32_t                    tInsert;        // start time per hash entry
 
-    size_t                      nIPv4Entries;   // how many entries in the ip4Address[] array; if IPv4 is defined
-    IPV4_ADDR*                  pip4Address;    // pointer to an array of IPv4 entries 
+    int                         nIPv4Entries;     // how many entries in the ip4Address[] array; if IPv4 is defined
+    IPV4_ADDR*                  pip4Address;  // pointer to an array of IPv4 entries 
 #ifdef TCPIP_STACK_USE_IPV6
-    size_t                      nIPv6Entries;   // how many entries in the ip6Address[] array; if IPv6 is defined
-    IPV6_ADDR*                  pip6Address;    // pointer to an array of IPv6 entries
+    int                         nIPv6Entries;     // how many entries in the ip6Address[] array; if IPv6 is defined
+    IPV6_ADDR*                  pip6Address;  // pointer to an array of IPv6 entries
 #endif    
     uint8_t                     *pHostName;
-    uint8_t                     addType;        // IP_ADDRESS_TYPE value
+    uint8_t                     recordType;  // record can be  IPv6 ( 28 )or IPv4 ( 1)  
     uint8_t                     netIfIdx;
-    TCPIP_UINT32_VAL            validityTime;    // user configured time per hash entry in second
+    TCPIP_UINT32_VAL            validityTime;      // user configured time per hash entry in second
 }DNSS_HASH_ENTRY;
 
 
@@ -152,9 +169,10 @@ size_t TCPIP_OAHASH_DNSS_KeyHash(OA_HASH_DCPT* pOH, const void* key);
 OA_HASH_ENTRY* TCPIP_OAHASH_DNSS_EntryDelete(OA_HASH_DCPT* pOH);
 int TCPIP_OAHASH_DNSS_KeyCompare(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* hEntry, const void* key);
 void TCPIP_OAHASH_DNSS_KeyCopy(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* dstEntry, const void* key);
+size_t TCPIP_OAHASH_DNSS_ProbeHash(OA_HASH_DCPT* pOH, const void* key);
 
 
 
 
-#endif     /*H_DNSS_PRIVATE_H_*/
+#endif     /*_DNSS_PRIVATE_H_*/
 

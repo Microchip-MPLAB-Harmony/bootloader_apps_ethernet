@@ -13,7 +13,7 @@
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -44,16 +44,16 @@ Microchip or any third party.
 
 // DOM-IGNORE-END
 
-#ifndef H_ZERO_CONF_MANAGER_H_
-#define H_ZERO_CONF_MANAGER_H_
+#ifndef __ZERO_CONF_MANAGER_H_
+#define __ZERO_CONF_MANAGER_H_
 
-bool TCPIP_MDNS_Initialize( const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData);
-void TCPIP_MDNS_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
+bool TCPIP_MDNS_Initialize( const TCPIP_STACK_MODULE_CTRL* const stackData ,const TCPIP_DNS_CLIENT_MODULE_CONFIG* dnsData);
+void TCPIP_MDNS_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData);
 
 
 /***************************************************************
   Function:
-   bool TCPIP_ZCLL_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData);
+   void TCPIP_ZCLL_Initialize(void)
 
   Summary:
    Initialization routine for Zeroconf Link-Local state-machine.
@@ -72,7 +72,7 @@ void TCPIP_MDNS_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
   Returns:
      None
  */
-bool TCPIP_ZCLL_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const void* initData);
+bool TCPIP_ZCLL_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData ,const ZCLL_MODULE_CONFIG* zeroData);
 
 
 /***************************************************************
@@ -92,7 +92,7 @@ bool TCPIP_ZCLL_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const
   Returns:
      None
  */
-void TCPIP_ZCLL_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
+void TCPIP_ZCLL_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData);
 
 
 /***************************************************************
@@ -121,4 +121,4 @@ bool TCPIP_ZCLL_ServiceEnable(TCPIP_NET_IF* pNetIf, bool enable);
 
 
 
-#endif // H_ZERO_CONF_MANAGER_H_
+#endif // __ZERO_CONF_MANAGER_H_

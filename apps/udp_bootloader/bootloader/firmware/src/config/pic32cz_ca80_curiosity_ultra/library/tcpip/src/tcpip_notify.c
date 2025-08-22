@@ -16,7 +16,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -54,14 +54,14 @@ Microchip or any third party.
 
 bool TCPIP_Notification_Initialize(PROTECTED_SINGLE_LIST* notifyList)
 {
-    return TCPIP_Helper_ProtSglListInitialize(notifyList);
+    return TCPIP_Helper_ProtectedSingleListInitialize(notifyList);
 }
 
 
 void TCPIP_Notification_Deinitialize(PROTECTED_SINGLE_LIST* notifyList, TCPIP_STACK_HEAP_HANDLE heapH)
 {
     TCPIP_Notification_RemoveAll(notifyList, heapH);
-    TCPIP_Helper_ProtSglListDeinitialize(notifyList);
+    TCPIP_Helper_ProtectedSingleListDeinitialize(notifyList);
 }
 
 
@@ -70,13 +70,13 @@ SGL_LIST_NODE* TCPIP_Notification_Add(PROTECTED_SINGLE_LIST* notifyList, TCPIP_S
 {
     SGL_LIST_NODE* newNode = TCPIP_HEAP_Malloc(heapH, nBytes);
 
-    if(newNode != NULL)
+    if(newNode)
     {
-        if(pContent != NULL)
+        if(pContent)
         {
-           (void) memcpy((void *)newNode, pContent, nBytes);
+            memcpy(newNode, pContent, nBytes);
         }
-        TCPIP_Helper_ProtSglListTailAdd(notifyList, newNode);
+        TCPIP_Helper_ProtectedSingleListTailAdd(notifyList, newNode);
     }
     return newNode;
 }
@@ -85,48 +85,44 @@ SGL_LIST_NODE* TCPIP_Notification_Add(PROTECTED_SINGLE_LIST* notifyList, TCPIP_S
 
 bool TCPIP_Notification_Remove(SGL_LIST_NODE* node, PROTECTED_SINGLE_LIST* notifyList, TCPIP_STACK_HEAP_HANDLE heapH)
 {
-    bool status = false;
-    
-    if(TCPIP_Helper_ProtSglListNodeRemove(notifyList, node) != NULL)
+    if(TCPIP_Helper_ProtectedSingleListNodeRemove(notifyList, node))
     {
-        (void) TCPIP_HEAP_Free(heapH, node);
-        status = true;
+        TCPIP_HEAP_Free(heapH, node);
+        return true;
     }
 
-    return status;
+    return false;
 
 }
 
 bool TCPIP_Notification_CbackRemove(SGL_LIST_NODE* node, PROTECTED_SINGLE_LIST* notifyList, TCPIP_STACK_HEAP_HANDLE heapH, void (*pCback)(SGL_LIST_NODE* node))
 {
-    bool status = false;
-    
-    if(TCPIP_Helper_ProtSglListLock(notifyList))
+    if(TCPIP_Helper_ProtectedSingleListLock(notifyList))
     {
         SGL_LIST_NODE* ret = TCPIP_Helper_SingleListNodeRemove(&notifyList->list, node);
-        if(ret != NULL && pCback != NULL)
+        if(ret && pCback)
         {
             (*pCback)(ret);
         }
 
-        (void)TCPIP_Helper_ProtSglListUnlock(notifyList);
+        TCPIP_Helper_ProtectedSingleListUnlock(notifyList);
 
-        if(ret != NULL)
+        if(ret)
         {
-            (void)TCPIP_HEAP_Free(heapH, node);
-            status = true;
+            TCPIP_HEAP_Free(heapH, node);
+            return true;
         }
     }
-    return status;
+    return false;
 }
 
 void TCPIP_Notification_RemoveAll(PROTECTED_SINGLE_LIST* notifyList, TCPIP_STACK_HEAP_HANDLE heapH)
 {
     SGL_LIST_NODE* dNode;
 
-    while( (dNode = TCPIP_Helper_ProtSglListHeadRemove(notifyList)) != NULL )
+    while( (dNode = TCPIP_Helper_ProtectedSingleListHeadRemove(notifyList)) != 0 )
     {
-        (void)TCPIP_HEAP_Free(heapH, dNode);
+        TCPIP_HEAP_Free(heapH, dNode);
     }
 
 }

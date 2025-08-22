@@ -1,22 +1,21 @@
 /*******************************************************************************
-  KSZ9031 public definitions
+  SMTP client Header file
 
   Company:
     Microchip Technology Inc.
     
   File Name:
-    drv_extphy_ksz9031.h
+    smtp_manager.h
 
   Summary:
-    KSZ9031 public definitions
+    SMTP manager interface file
 
   Description:
-    This file provides the KSZ9031 public definitions.
-
+    This source file contains the stack internal SMTP manager API
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2022-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -38,15 +37,27 @@ implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
 
+
+
+
+
+
+
+
 // DOM-IGNORE-END
 
-#ifndef H_KSZ9031_H_
+#ifndef _SMTP_MANAGER_H_
+#define _SMTP_MANAGER_H_
 
-#define H_KSZ9031_H_
+
+// stack private module API
+
+bool        TCPIP_SMTP_ClientInitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_SMTP_CLIENT_MODULE_CONFIG* pSmtpConfig);
 
 
-// the PHY object
-extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_KSZ9031;
+void        TCPIP_SMTP_ClientDeinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
 
-#endif  // H_KSZ9031_H_
+
+
+#endif  // _SMTP_MANAGER_H_
 

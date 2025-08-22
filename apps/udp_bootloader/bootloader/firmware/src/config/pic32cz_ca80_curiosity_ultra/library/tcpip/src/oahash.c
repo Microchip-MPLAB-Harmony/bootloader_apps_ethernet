@@ -10,7 +10,7 @@
 *******************************************************************************/
 
 /*
-Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -42,7 +42,6 @@ Microchip or any third party.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stddef.h>
 
 #include "device.h"
 #include "tcpip/src/oahash.h"
@@ -51,82 +50,19 @@ Microchip or any third party.
 // local prototypes
 // 
 
-// conversion helpers
-//
-static __inline__ ptrdiff_t __attribute__((always_inline)) FC_HePtrDiff(OA_HASH_ENTRY* hE1, OA_HASH_ENTRY* hE2)
-{
-    return hE1 - hE2;
-}
+static OA_HASH_ENTRY*   _OAHashFindBkt(OA_HASH_DCPT* pOH, const void* key);
 
-static __inline__ ptrdiff_t __attribute__((always_inline)) FC_CU8PtrDiff(uint8_t* ptr1, uint8_t* ptr2)
+static __inline__ void __attribute__((always_inline)) _OAHashRemoveEntry(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* pOE)
 {
-    return ptr1 - ptr2;
-}
-
-static __inline__ uint32_t __attribute__((always_inline)) FC_HEntryDiff2UI32(OA_HASH_ENTRY* hPtr, OA_HASH_ENTRY* startPtr)
-{
-    union
+    if(pOE->flags.busy)
     {
-        OA_HASH_ENTRY*  pH;
-        uint8_t*        u8Ptr;
-    }U_HE_U8_PTR1, U_HE_U8_PTR2;
-
-    union
-    {
-        ptrdiff_t   pDiff;
-        uint32_t    uv32;
-    }U_PTR_DIFF_UI32;
-
-    U_HE_U8_PTR1.pH = hPtr;
-    U_HE_U8_PTR2.pH = startPtr;
-
-    U_PTR_DIFF_UI32.pDiff = FC_CU8PtrDiff(U_HE_U8_PTR1.u8Ptr, U_HE_U8_PTR2.u8Ptr);
-    return U_PTR_DIFF_UI32.uv32;
-}
-
-static __inline__ OA_HASH_ENTRY* __attribute__((always_inline)) FC_HEntryInc(OA_HASH_ENTRY* hE, size_t sizeInc)
-{
-    union
-    {
-        OA_HASH_ENTRY*  hE;
-        uint8_t*        u8Ptr;
-    }U_HE_U8_PTR;
-
-    U_HE_U8_PTR.hE = hE;
-    U_HE_U8_PTR.u8Ptr += sizeInc;
-
-    return U_HE_U8_PTR.hE;
-}
-
-static __inline__ OA_HASH_ENTRY* __attribute__((always_inline)) FC_Vptr2HEntryInc(void* vPtr, size_t sizeInc)
-{
-    union
-    {
-        void*           vPtr;
-        uint8_t*        u8Ptr;
-        OA_HASH_ENTRY*  hE;
-    }U_V_PTR_U8_PTR_HE;
-
-    U_V_PTR_U8_PTR_HE.vPtr = vPtr;
-    U_V_PTR_U8_PTR_HE.u8Ptr += sizeInc;
-
-    return U_V_PTR_U8_PTR_HE.hE;
-}
-
-
-static OA_HASH_ENTRY*   F_OAHashFindBkt(OA_HASH_DCPT* pOH, const void* key);
-
-static __inline__ void __attribute__((always_inline)) F_OAHashRemoveEntry(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* pOE)
-{
-    if(pOE->flags.busy != 0U)
-    {
-        pOE->flags.busy = 0U;
+        pOE->flags.busy = 0;
         pOH->fullSlots--;
     }
 }
 
 
-static  size_t  F_OAHashProbeStep(OA_HASH_DCPT* pOH, const void* key)
+/*static __inline__*/static  size_t /*__attribute__((always_inline))*/ _OAHashProbeStep(OA_HASH_DCPT* pOH, const void* key)
 {
     size_t probeStep;
     
@@ -159,11 +95,11 @@ void TCPIP_OAHASH_Initialize(OA_HASH_DCPT* pOH)
 
     pOH->fullSlots = 0; 
     
-    pHE = FC_Vptr2HEntryInc(pOH->memBlk, 0U);
+    pHE = (OA_HASH_ENTRY*)pOH->memBlk;
     for(ix = 0; ix < pOH->hEntries; ix++)
     {
         pHE->flags.value = 0;
-        pHE = FC_HEntryInc(pHE, pOH->hEntrySize);
+        pHE = (OA_HASH_ENTRY*)((uint8_t*)pHE + pOH->hEntrySize);
     }
 }
 
@@ -177,7 +113,7 @@ OA_HASH_ENTRY* TCPIP_OAHASH_EntryLookup(OA_HASH_DCPT* pOH, const void* key)
     size_t      bktIx;
     size_t      probeStep;
    
-    probeStep = F_OAHashProbeStep(pOH, key);
+    probeStep = _OAHashProbeStep(pOH, key);
 #if defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
     bktIx = (*pOH->hashF)(pOH, key);
 #else
@@ -186,17 +122,17 @@ OA_HASH_ENTRY* TCPIP_OAHASH_EntryLookup(OA_HASH_DCPT* pOH, const void* key)
 
     while(bkts < pOH->hEntries)
     {
-        pBkt = FC_Vptr2HEntryInc(pOH->memBlk, bktIx * pOH->hEntrySize);
+        pBkt = (OA_HASH_ENTRY*)((uint8_t*)(pOH->memBlk) + bktIx * pOH->hEntrySize);
 #if defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
-        if(pBkt->flags.busy != 0U && (*pOH->cmpF)(pOH, pBkt, key) == 0)
+        if(pBkt->flags.busy && (*pOH->cmpF)(pOH, pBkt, key) == 0)
         {   // found entry
-            pBkt->flags.newEntry = 0U;
+            pBkt->flags.newEntry = 0;
             return pBkt;
         }
 #else
-        if(pBkt->flags.busy != 0U && TCPIP_OAHASH_KeyCompare(pOH, pBkt, key) == 0)
+        if(pBkt->flags.busy && TCPIP_OAHASH_KeyCompare(pOH, pBkt, key) == 0)
         {   // found entry
-            pBkt->flags.newEntry = 0U;
+            pBkt->flags.newEntry = 0;
             return pBkt;
         }
 #endif  // defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
@@ -211,7 +147,7 @@ OA_HASH_ENTRY* TCPIP_OAHASH_EntryLookup(OA_HASH_DCPT* pOH, const void* key)
         bkts++;
     }
     
-    return NULL;   // not found
+    return 0;   // not found
 }
 
 // Performs look up and insert
@@ -229,53 +165,45 @@ OA_HASH_ENTRY*   TCPIP_OAHASH_EntryLookupOrInsert(OA_HASH_DCPT* pOH, const void*
 {
     OA_HASH_ENTRY   *pBkt, *pDel;
 
-    pBkt = F_OAHashFindBkt(pOH, key);
-    if(pBkt == NULL)
+    pBkt = _OAHashFindBkt(pOH, key);
+    if(pBkt == 0)
     {
         if(pOH->fullSlots != pOH->hEntries)
         {   // wrong probeStep!
-            return NULL;
+            return 0;
         }
         
         // else cache is full
         // discard an old entry and retry
 #if defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
-        if(pOH->delF == NULL)
+        if(pOH->delF == 0 || (pDel = (*pOH->delF)(pOH)) == 0)
         {   // nothing else we can do
-            return NULL;
-        }
-        else if((pDel = (*pOH->delF)(pOH)) == NULL)
-        {   // nothing else we can do
-            return NULL;
-        }
-        else
-        {
-            // OK
+            return 0;
         }
 #else
-        if((pDel = TCPIP_OAHASH_EntryDelete(pOH)) == NULL)
+        if((pDel = TCPIP_OAHASH_EntryDelete(pOH)) == 0)
         {   // nothing else we can do
-            return NULL;
+            return 0;
         }
 #endif  // defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
 
-        F_OAHashRemoveEntry(pOH, pDel);
-        pBkt = F_OAHashFindBkt(pOH, key);
-        if(pBkt == NULL)
+        _OAHashRemoveEntry(pOH, pDel);
+        pBkt = _OAHashFindBkt(pOH, key);
+        if(pBkt == 0)
         {   // probeStep failure, again
-            return NULL;
+            return 0;
         }
     }
 
     // we found an entry
-    if(pBkt->flags.busy == 0U)
+    if(pBkt->flags.busy == 0)
     {
-        pBkt->flags.busy = 1U;
-        pBkt->flags.newEntry = 1U;
+        pBkt->flags.busy = 1;
+        pBkt->flags.newEntry = 1;
     }
     else
     {   // old entry
-        pBkt->flags.newEntry = 0U;
+        pBkt->flags.newEntry = 0;
     }
     
     return pBkt;
@@ -289,7 +217,7 @@ OA_HASH_ENTRY*   TCPIP_OAHASH_EntryLookupOrInsert(OA_HASH_DCPT* pOH, const void*
 // the hash state is maintained internally, no need to call TCPIP_OAHASH_EntryRemove();
 void TCPIP_OAHASH_EntryRemove(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* pOE)
 {
-    F_OAHashRemoveEntry(pOH, pOE);
+    _OAHashRemoveEntry(pOH, pOE);
 }
 
 // Function to remove all entries from the hash
@@ -300,15 +228,15 @@ void TCPIP_OAHASH_EntriesRemoveAll(OA_HASH_DCPT* pOH)
     OA_HASH_ENTRY*  pBkt;
     size_t      bktIx;
     
-    pBkt = FC_Vptr2HEntryInc(pOH->memBlk, 0U);
+    pBkt = (OA_HASH_ENTRY*)pOH->memBlk;
     for(bktIx = 0; bktIx < pOH->hEntries; bktIx++)
     {
-        if(pBkt->flags.busy != 0U)
+        if(pBkt->flags.busy)
         {   // found entry
-            F_OAHashRemoveEntry(pOH, pBkt);
+            _OAHashRemoveEntry(pOH, pBkt);
         }
 
-        pBkt = FC_HEntryInc(pBkt, pOH->hEntrySize);
+        pBkt = (OA_HASH_ENTRY*)((uint8_t*)pBkt + pOH->hEntrySize);
     }
 }
 
@@ -316,28 +244,25 @@ OA_HASH_ENTRY* TCPIP_OAHASH_EntryGet(OA_HASH_DCPT* pOH, size_t entryIx)
 {
     if(entryIx < pOH->hEntries)
     {
-        return FC_Vptr2HEntryInc(pOH->memBlk, entryIx * pOH->hEntrySize);
+        return (OA_HASH_ENTRY*)((uint8_t*)(pOH->memBlk) + entryIx * pOH->hEntrySize);
     }
 
-    return NULL;
+    return 0;
 }
 
 int32_t TCPIP_OAHASH_EntryGetIndex(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* pHe)
 {
-    if(pOH != NULL && pHe != NULL)
+    if(pOH != 0 && pHe != 0)
     {
         OA_HASH_ENTRY   *pStartBkt, *pEndBkt, *pBkt;
 
-        pStartBkt = FC_Vptr2HEntryInc(pOH->memBlk, 0U);
-        pEndBkt = FC_Vptr2HEntryInc(pOH->memBlk, pOH->hEntries * pOH->hEntrySize);
+        pStartBkt = (OA_HASH_ENTRY*)pOH->memBlk;
+        pEndBkt = (OA_HASH_ENTRY*)((uint8_t*)pOH->memBlk + pOH->hEntries * pOH->hEntrySize);
 
-        // check that (pStartBkt <= pHe && pHe < pEndBkt)
-        ptrdiff_t startDiff = FC_HePtrDiff(pHe, pStartBkt); // pHe - pStartBkt
-        ptrdiff_t endDiff = FC_HePtrDiff(pEndBkt, pHe); // pEndBkt - pHe 
-        if(startDiff >= 0 && endDiff > 0)
+        if(pStartBkt <= pHe && pHe < pEndBkt)
         {
-            size_t entryIx = FC_HEntryDiff2UI32(pHe, pStartBkt) / pOH->hEntrySize;
-            pBkt = FC_HEntryInc(pStartBkt, entryIx * pOH->hEntrySize);
+            size_t entryIx = ((uint8_t*)pHe - (uint8_t*)pStartBkt) / pOH->hEntrySize;
+            pBkt = (OA_HASH_ENTRY*)((uint8_t*)pStartBkt + entryIx * pOH->hEntrySize);
             if(pBkt == pHe)
             {
                 return (int32_t)entryIx;
@@ -352,14 +277,14 @@ int32_t TCPIP_OAHASH_EntryGetIndex(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* pHe)
 
 // finds a entry that either contains the desired key
 // or is empty and can be used to insert the key 
-static OA_HASH_ENTRY* F_OAHashFindBkt(OA_HASH_DCPT* pOH, const void* key)
+static OA_HASH_ENTRY* _OAHashFindBkt(OA_HASH_DCPT* pOH, const void* key)
 {
     OA_HASH_ENTRY*  pBkt;
     size_t      bktIx;
     size_t      probeStep;
-    size_t      bkts = 0U;
+    size_t      bkts = 0;
 
-    probeStep = F_OAHashProbeStep(pOH, key);
+    probeStep = _OAHashProbeStep(pOH, key);
 #if defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
     bktIx = (*pOH->hashF)(pOH, key);
 #else
@@ -368,15 +293,15 @@ static OA_HASH_ENTRY* F_OAHashFindBkt(OA_HASH_DCPT* pOH, const void* key)
 
     while(bkts < pOH->hEntries)
     {
-        pBkt = FC_Vptr2HEntryInc(pOH->memBlk, bktIx * pOH->hEntrySize);
-        if(pBkt->flags.busy == 0U)
+        pBkt = (OA_HASH_ENTRY*)((uint8_t*)(pOH->memBlk) + bktIx * pOH->hEntrySize);
+        if(pBkt->flags.busy == 0)
         {   // found unused entry
 #if defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
             (*pOH->cpyF)(pOH, pBkt, key);   // set the key
 #else
             TCPIP_OAHASH_KeyCopy(pOH, pBkt, key);   // set the key
 #endif  // defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
-            pBkt->probeCount = (uint16_t)bkts;
+            pBkt->probeCount = bkts;
             pOH->fullSlots++;
             return pBkt;
         }
@@ -403,7 +328,7 @@ static OA_HASH_ENTRY* F_OAHashFindBkt(OA_HASH_DCPT* pOH, const void* key)
         bkts++;
     }
     
-    return NULL;   // cache full, not found
+    return 0;   // cache full, not found
 }
 
 
