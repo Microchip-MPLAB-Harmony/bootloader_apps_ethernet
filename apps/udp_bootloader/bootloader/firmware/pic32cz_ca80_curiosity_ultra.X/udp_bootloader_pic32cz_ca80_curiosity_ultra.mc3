@@ -3347,10 +3347,10 @@
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;DATA LINK LAYER&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;drvExtPhyKsz9031&quot; x=&quot;301&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;drvGmac&quot; x=&quot;183&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;drvMiim&quot; x=&quot;420&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpipNetConfig&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;drvExtPhyKsz9031&quot; x=&quot;440&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;drvGmac&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;drvMiim&quot; x=&quot;300&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpipNetConfig&quot; x=&quot;140&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;NETWORK LAYER&quot;&gt;
@@ -3361,10 +3361,10 @@
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;TCP/IP STACK&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;DATA LINK LAYER&quot; x=&quot;230&quot; y=&quot;80&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;NETWORK LAYER&quot; x=&quot;400&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;220&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;DATA LINK LAYER&quot; x=&quot;560&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;NETWORK LAYER&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;380&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;6&quot; id=&quot;TRANSPORT LAYER&quot;&gt;
@@ -3411,7 +3411,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;CONFIG_CLOCK_DFLL_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3587,7 +3587,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;DFLL_CLOCK_FREQ&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;48000000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19323,11 +19323,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\configuration.h</file>
-         <hash>a0ba5ac5b326a15dfb0cff4952c5b7367ad807f8e06eef96ccc9721667cf49ef</hash>
+         <hash>15c3d2f6ddaff9574b01d08fb16c083643f81c2d8268383a2961d169877323fe</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\definitions.h</file>
-         <hash>af940244c6c6861e11dffbd3cbd49fcf992a0414668682b84ff444efde8d1a8f</hash>
+         <hash>ea228873453fc5e81fe90ff8693b21b0232d4654befca33000480bce24d4cdb3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\device.h</file>
@@ -19351,75 +19351,79 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\drv_ethphy.h</file>
-         <hash>19c63b50d002ecffcdc302012af6515d876f3e7bf612acc749c97bf0d78d9207</hash>
+         <hash>d26505e4266e34c422f743a1746e1daa46faef93364fd50d62d7da9ad6dca397</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\drv_extphy_ksz9031.h</file>
+         <hash>6487e833c629510a0d8a261ecd0c5090a802e1ff024379b5998ebe1890234ebc</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\drv_ethphy_local.h</file>
-         <hash>3f19a0efd23df04cc9ba8e7359d01372236eed0688979ea00507b429c6c9c698</hash>
+         <hash>61490890ffcc97e0298cd09926042756ecb3b5acaf90afece0b8706dd5f84305</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_ethphy.c</file>
-         <hash>75183993e62a8a904cc4d28310d2296be1c54f0840fb5c1b27112b05c0dfc0bf</hash>
+         <hash>6fe4940248b04ce0004ca61a543418e2ee507fe97e925e32d18da3e38fda0961</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_extphy_ksz9031.c</file>
-         <hash>4328ab76066c79873bf275d10e54ffa45e442ce02bd7b460ad087ce54d345300</hash>
+         <hash>9f1b5e2d6901485948ca32cf3484514e3613f9e9ed9c993bb570c8dd92ba8eed</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_extphy_ksz9031.h</file>
-         <hash>3506f84fa70a52e9c5d41e792855f212c8efd38df4f626f47b3fb1f284ebbd3d</hash>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_extphy_ksz9031_priv.h</file>
+         <hash>d58bb47a4c8587eb440dfb38f6b7d97dc89a2bf6883d05b264baafd475e32df8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_extphy_regs.h</file>
-         <hash>8b304230ccee2b2aef3b92eef3c004c938e81432844db5fb0db127986a811e9f</hash>
+         <hash>7543faff37b6b5723e3c5e989a2ae35da7c9e232b71303df818ad51f479a06cb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\drv_gmac.h</file>
-         <hash>13156c8eece795451e315ceef5c981ef2a51c5f1276b558680abf32e641212d5</hash>
+         <hash>e8a85632f3b90a8e176bed83bf8c77d8a422a56e7a33767489f459d8ef4c8e22</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\drv_gmac_local.h</file>
-         <hash>fd579111fc31dfbd27c9eeda465eaa51a2fc59c52b642bf54aa1134050e2fe8a</hash>
+         <hash>b1358bdeef737c1ab89dfafaa8184827f90c681320ce1e1b305913a91ef082c3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\_gmac_dcpt_lists.h</file>
-         <hash>519537782349dc1ba5154b6a9a34b54800893cbf029fb5930a7873ae48cac355</hash>
+         <hash>eff3dde2f3e2ab4b1ffb4803d46bb7987c74c8a4f4fdedaf518821b986f7fcfc</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac.c</file>
-         <hash>de39e85812083898dc20722bd18a52224887a4c9c065736bf96621d7bceb6bc3</hash>
+         <hash>dfc7b60318a8a16f87fa1b5f7f03d29fb808b65d12f4aae7731c60386fd18028</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac_lib.h</file>
-         <hash>140f06b7b4ba66e02ea54330ab80b555da4d2694064acf50bb8e5569113d0e37</hash>
+         <hash>d79ae658bfe984fff3a70931b3164f001932c10934aac25fb4d146e373a30896</hash>
       </entry>
       <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac_lib_pic32CZ.c</file>
-         <hash>421e67ce0d578c24408be57310d48fea5f847dcaeb71934d9e8a24c5d2dbd9fb</hash>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac_lib_pic32cZ.c</file>
+         <hash>50f7304b0ea76b7f5c5258ac92238037aa98c2199e899d97f8cf8e7a4afcccca</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac_lib_pic32cz.h</file>
-         <hash>0f87d12bf96ec1145b14e7201a075e0e313807f87038b459b2db5c00bde662f2</hash>
+         <hash>94e6936c77821ec7a75447ee45be27cfe3c1667d6b16551af331007974036723</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\drv_miim.h</file>
-         <hash>4971ff0f45a66f415f5435687b847568e7ee65697ccf25f97281d7036cd6f37a</hash>
+         <hash>b22300b23bb5dbfb2415b06fdf8e905b53314afa9036ff6d780d951654538725</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\drv_miim_local.h</file>
-         <hash>2788809a5707f44ba7f921e5ebb818cc14a3e38986a52638906d56074014fdad</hash>
+         <hash>2c16db09bc51d8d6661ff04794c4e1197a7972ce459ab1c9ba6f67c812d52308</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic\drv_miim.c</file>
-         <hash>945c9461a8682e8096bef399f6fd2e0a5ef996783c9df3c74b8e4aa85d6f386f</hash>
+         <hash>e5d890c0e8efbd724f1c5ee9a638a540c3f49fcd4eb09f1e0021dbf37b1481d8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic\drv_miim_device.h</file>
-         <hash>4623fceab1f3a28961af6715e1733ed0ea37ef50c533a601d2262e728ab7e449</hash>
+         <hash>f4cf73da9e1f7c8341a34e041590513e7cc13a6c5dbfc1c0a5bba31c7547e32b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic\drv_miim_pic32cz.c</file>
-         <hash>3b0353a9e6f454cb136402c2bbe715e1ad7d0c861521437e8282f1f081728076</hash>
+         <hash>b98de22fb8c63cf64e94446b75d3f64d8feccdb8f38ff7897d6f4a1cba02b02c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\exceptions.c</file>
@@ -19427,7 +19431,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\initialization.c</file>
-         <hash>9ddc5d7e827403ed6e719ee0421c7ea6d6b2aea1ecb4f049dbe535d52c0ca5a9</hash>
+         <hash>f8a3447285ce6b2358cd9763929e7a7fdab598c11ba8bd276b6023c3e0e84ee2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\interrupts.c</file>
@@ -19443,559 +19447,535 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\arp.h</file>
-         <hash>2a5925ed5186568c3339c61bf48c38ecfe05c640c39c49764d30381df6d667f4</hash>
+         <hash>450ad6b0a80ffdcf33eab32bf8f662318da13ad5df0896a845cc28a490ff83a6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\berkeley_api.h</file>
-         <hash>b4b144c31e5e38532500d636fc5879a827af913ae35a664f0ebaeec31e279995</hash>
+         <hash>78bfa0c9987d20aacaaf88a65661b7f1481cdea54a749719914ff4b811bb2d45</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ddns.h</file>
-         <hash>36fb562efeeebf87ca0fbeec4b6bbe47b65043b9fc77d0c9101c0f8f537310f2</hash>
+         <hash>a881c70f63f4880dcf3baebda3828c5d203d5cf7ad85efcc4bba8f49916ab747</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcp.h</file>
-         <hash>b4d999699bf15079ea9d3c907ac3cc77f3d0547b46b100413e58bc4530708559</hash>
+         <hash>b28c883cdd3ece1554e71c5a476ec234a8d6b0c0c8e3ca81fa3836c9da2aeb8c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcp_server.h</file>
-         <hash>f279952651872077220a00d12d182632c1d5fd7c9e301d199a00a078a9ba7ec5</hash>
+         <hash>6df67ca37153e8661d6289fe1cc365e30ddef6ab232a401589c76d1938b1f44e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcps.h</file>
-         <hash>660852a6a642b29f23ffcdab88fd8931adc1acae051288691247ecddecc2d3ac</hash>
+         <hash>b9982926e550e7a24aa8eefebeb144eb8ef32072dd190b8ad6221d639b10a39a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcpv6.h</file>
-         <hash>002ee8f06c499ac64c216a6958c42a320e894890ebd623b64cb2512b1ce2ab42</hash>
+         <hash>3f56b0995f3a8f55082e7d4768d777ba5098a728b1ee223a3f11e0e1a6d69afe</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dns.h</file>
-         <hash>8f012b5a60435f4333dea747d3ff3de3811f8febee22e42f6a0b4186b65dc901</hash>
+         <hash>6b6659e901859bbd136c8d50c9723f1b080fdb253252454bc70032200b5646d7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dnss.h</file>
-         <hash>0ef62bfa081036ae879120921ca97f1c3dedc71b2df2c1fbdd259c5fe5ba1a15</hash>
+         <hash>b7c9e60fbbac9d6e4f19b1f3c0b49f28d388d279e790103c44daaa5f216f0325</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ftp.h</file>
-         <hash>0d7e99157c90c7b5ff125f0ac171de501e9a63c612a2e2f2b6eb918dd3687c29</hash>
+         <hash>e311c4e31c311b260b03c3cf88f3786a0cf95cf279a657acc0a1f16b0b8c0cad</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ftpc.h</file>
-         <hash>2f94649ae9fa9ee66ad17c51050540ea2aa89ba42201027e13a9b47dc6dfd090</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\http.h</file>
-         <hash>c624983fac1a910df704aea42e31de2dabf37e54f0994f36b945243d76fb69a9</hash>
+         <hash>1f29fc839603249f24b2530ab279e2179cf91608c04d0805da63c35456f1802e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\http_net.h</file>
-         <hash>4428032129f5f2552a9a49e01d9734dc77d8859047cf88223eede6747fcdcdfd</hash>
+         <hash>34375be99aee3038a02ccbcffa6156cf1c87589b15037852a19ed838edd0ec87</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\icmp.h</file>
-         <hash>dc61712e7af63775ef2a6708c9b266dfd2528c09f34032cacc3561e101a210ed</hash>
+         <hash>f15acf15fe8db38e0a310fb7e682917db781779a532d735eb7f9c55988987e94</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\icmpv6.h</file>
-         <hash>09039db6d0ccddddb2d4639aedf266014f524e41270c1331f287e8dcc532f59f</hash>
+         <hash>c79b4d3f78f95408e57c2e250522ae016581a5f1902ece3e3873b02364b8fcd3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\igmp.h</file>
-         <hash>fcd3d579e90c20763d0188b19a058e7f5c1a0694f9560c8cc8fdfff3c1a15ee9</hash>
+         <hash>847f8740de389deaac35cf8f08fc479f9f848d42e4e2a9b3b9f4b4eaa9bb94ec</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\iperf.h</file>
-         <hash>80ac05a9b7ad4f22d4923d4422d9c24261d3647149dcbca4a482830747899231</hash>
+         <hash>cf5d0df87ac35c1ae2ba8a9349054d971d6189e9d8cbc77a626b3d80295c07f6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ipv4.h</file>
-         <hash>2287a5d9c73089b4adae100ce7783238fbb723519107b5b4b4f07d043d10269c</hash>
+         <hash>f1575f977fbe2bf9667b96653e945a3eb7c61a8d63c3e281fa112b4022bfe457</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ipv6.h</file>
-         <hash>ff15077578923fe5a30b33b7bbe49f71cc338f7bb54daafd859402eaac44aa9f</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\lldp.h</file>
-         <hash>b0769b19a5152894f79985ef5c4cd2320ee8a53c24940e03e62ab4ad04d37760</hash>
+         <hash>bbe55fbeaf8e0dd3544c52bf6156a836251994eda28f06dff59e35b6aa356901</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\nbns.h</file>
-         <hash>46843c7ecdbbff465b2976c6e35951656773ae3ae633656806a6f7c6af8c3e37</hash>
+         <hash>5b155004c3059779591e85f1bf6ae6ccb25a8b77623fc2fe76f79fd26cccf363</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ndp.h</file>
-         <hash>27988e8ea18ad08813d66056a83087d05017f02526f5e5d0c3992326c2a5093b</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\smtp.h</file>
-         <hash>79268ea631f733be1f34cab892fb9bb0d6e956652f805e5e96fd7d557c3129ba</hash>
+         <hash>64737eb115b13a3350c77ca841ad539771757f6218ab218f2498496c9f96b9d1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\smtpc.h</file>
-         <hash>26aebd0cd90ed0ddcec1445d7a50c23e77046c9bb641d0e97437b46718b02197</hash>
+         <hash>35a90921d5ef73bbd1343350c4ee94e1c7699dc219d7fbb0c6d4b56a5094f53d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\snmp.h</file>
-         <hash>79acfada1bce0998c6257c3ccaf201b25645b655c5d0abfc232fbe41222dc603</hash>
+         <hash>d90393597ac4e0698248ab4517a59c3ce6fd8fd6fee250aff9b28f473563db22</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\snmpv3.h</file>
-         <hash>aceaa660e21a025148679aef5bebc1a162376392cf66736388dbe4bbecbe80ce</hash>
+         <hash>cce52297200205344c268abaae8c0c4fed46d0ca8641e5d012645e0e0383e64f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\sntp.h</file>
-         <hash>6c32fdefdba112f694e75b0376e6c69a26bea5ff3bffd082a1a7218a4a8404d2</hash>
+         <hash>6281c1b3ae81d36891176b49fcade669bf466d3d2b9cd0f060db5ed8c2da884a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\arp.c</file>
-         <hash>79977f34fd72ff71a5cd9c5bebd932d9cb5d5300a5b5c8a4a2a48e59cc006578</hash>
+         <hash>3f602711eee68d7936f274d2c8812001f43d186592e6ac41610a927303ddb88b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\arp_manager.h</file>
-         <hash>b36c7361ae4e158c5624c0c1d5f3360fed773608ef0e4f4d38e925b56d83c49c</hash>
+         <hash>6fadf7ffe9e1e1caa16c2ebb9000c00dd53afb7911df91ea53b4e38d5020b65a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\arp_private.h</file>
-         <hash>b53a253dc9f43a0af3adec49e8f8a8a2172412e4e081dc9e1619593a5dfba5cb</hash>
+         <hash>ab526b98d199da1899334874098ac9e43cbb2a1f724480d520d2ef25c8c9ad78</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\berkeley_manager.h</file>
-         <hash>523b55a8af2a7783868f95c9529ad55d260daad19a2f59214c63654fa85b0ee5</hash>
+         <hash>d161c0148da51d72ea7f918822a880107211facbacb5173be28fa4cd0410f206</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\common\helpers.h</file>
-         <hash>0e107c845b72ae6c7fdc28b33038641e8412f6fae5e3900f3808eb972d0971c4</hash>
+         <hash>b7160dbb52b49f88b17971d9bfb349bd82bab9094fe4a58ec112d23fb053ef85</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\common\sys_fs_shell.h</file>
-         <hash>b285a8d34a0350d00ad36c741e993d6172f0242fa601b2ec7ada86b74a1838ff</hash>
+         <hash>c838d0909e0eb81354325fe34a645274e005d63becbc526e7976fb816b2caf76</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ddns_manager.h</file>
-         <hash>3a62ace23bb563afe9b01107eb47832164a7472dca4c5118cf550d1df537f769</hash>
+         <hash>6c3417b626d51238a0749f8297e7bce7cbf5d4cf300440f5cb44d81b8e8cd569</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp.c</file>
-         <hash>d0e21acd785cd7e1a6c8ea805caa09a4fed69f9a100372a37db79e9fea892b3f</hash>
+         <hash>d8943ae4310bb64f5c1c5962fda0a5d5e6c3a0a575d68dfa57d33e9e4512b40a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_manager.h</file>
-         <hash>2a60482d99b8371831d90ad158d8933fe595c0bb1b2c8dbadd76a920d4807f0d</hash>
+         <hash>8a0a2918896ff73ff85b06cedea6bd7c81b34ca5221bf8ae938adc7774e6ed4c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_private.h</file>
-         <hash>239cf6740eedd49b616c0ed0d19a0e753d23ea39005ac45917cca0a739ea9c5c</hash>
+         <hash>21623a69e36a39f4c220f0f31f2ddd57bc4b85c21da096f7c9dab16a69f802dc</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_server_manager.h</file>
-         <hash>216856d708536e245ce8ef98235bd3b5cc68c83a67f75342268cff7323a771ac</hash>
+         <hash>f1cedd71f447e3189991976cebb38b35648f6ee9395025e8d1525e68aef7a992</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_server_private.h</file>
-         <hash>f095fba0413f7cf9ff254b5e4f8a370b052bdf260e3859d261128ceccfcbbbfb</hash>
+         <hash>6a4550f4cac4c26606bfb09edba08e1861c6ff4412237d7633cecf76cb6eb79f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcps_manager.h</file>
-         <hash>0f7a5bec2beb400e1b90dc554784ae1275ec9f62800b69025d26e909eacb1245</hash>
+         <hash>2d4a5e759ab76c9dcd0ba53ee3a1a48dfd0996eb0f291f80002707942438457c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcps_private.h</file>
-         <hash>5e8f0c30c2bc0abfe3ed2fd00fca8fa27f75980098f0dbc434ea793f4737497e</hash>
+         <hash>bc7ca19cdab3f94b1690fbfb085f5c8fc92fba3581db9accee4d80c8f5e70a76</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcpv6_manager.h</file>
-         <hash>653d735027668d1231a7d6f89c73b72a10660829024e3b5df42ce8b3643276d1</hash>
+         <hash>ed973e677e96ae1395ca74a9595801fa1273b6044d0b0c1bc994cd2d30d76d0f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcpv6_private.h</file>
-         <hash>c8e4315fb00317b1f84f7a314a225c2c8fc501343db360dd5be5787ae4137baf</hash>
+         <hash>a3b43b8f3e023c2dbcb3bdf45c7867326225255bb9da30f4c4d27430377ba354</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dns.c</file>
-         <hash>b19f92d881853239f1c5cef1c891333f438228bdbdfeafe1f422d28ccb37d4df</hash>
+         <hash>c9fd7c8d68dd4d7f118b6c174307f53cba966a4b74908120f79a81f524df151f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dns_manager.h</file>
-         <hash>ef3c9db841410b7beb9bb7794a39ff338fb8f6e0fd160c49b862812e09bc2e05</hash>
+         <hash>f7d4396bf0d1b52b87a4b04bd05c09c3c5a46766fd473d286b3b7f5de561fa72</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dns_private.h</file>
-         <hash>5c16def3ab1248a0146661ff3e7641bd39a0d464ec8dea0ab484875df863128a</hash>
+         <hash>88c55ce1963017d1aa956b661b479e865a8cdccb9b8de5b790ddaafc91677e86</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dnss_manager.h</file>
-         <hash>7c9419689791597068d0a40cbbc4d8281b59432776fd422ac1b7b393a9511850</hash>
+         <hash>638fb783c2aa77b8faad681997ff1b7f898d0063a7750735b5257fca87efb67c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dnss_private.h</file>
-         <hash>d0629ad93c122cce80217350161dabbae2907a9dc905cbacc3cf184254a740ff</hash>
+         <hash>f41204dfeccc0bc23d29694d223ed953a03ffda69db9b50bde2ecb1e4ee9ba45</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftp_manager.h</file>
-         <hash>8173e2062cc6b4bd599548beee5298b0fcf04e230056b1f54f98ecbc91c88784</hash>
+         <hash>d20d87a63793831dac370073be1bf3f77541abd030b2d205e8f14749c090bdee</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftp_private.h</file>
-         <hash>a42ec714dc38f7d517ace7f368e95dc8c2fa20b1e67bc37389872b816c967c35</hash>
+         <hash>c6ee06ba8c4445a9de7bfd12143d4a71f6cefee9905aec0916346e3c404baef1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftpc_manager.h</file>
-         <hash>076b13bd84433ad321df8539d713c01fe82f20052a06c025631283717c9de21b</hash>
+         <hash>34504ce1bdd6f347854cb2670ccfc26bdbcec7ff4b421dd9037d0f2a928d4781</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftpc_private.h</file>
-         <hash>17846a08f9b9c3a4b16075ac6e6f2d97a92e1c6edb0f4e081590f12900d8ab57</hash>
+         <hash>4705171d8e853636ac5def28e65145434a3ff9e517be5730f0dfeca61203adf8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\hash_fnv.c</file>
-         <hash>b443652acf5b7c6f357282a67cf62cf049b03589752896fa3b42d8ff601b2f81</hash>
+         <hash>5a17e4f4ed098ad4f6d5c4e98f5ae31707ca10202068f116bb281b39ff0fdd1e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\hash_fnv.h</file>
-         <hash>08928a0c0ce1effbdfe3336a8daa5921a3334a850189f4c4d67c24836a173871</hash>
+         <hash>2b2711f7333a2d9d9871a28b7fb892977eabc95e7eec94be388489b7e52f74e2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\helpers.c</file>
-         <hash>171aca38c18c6084dd53acca4f04d785f3429d8d056a62f86d6e176102646f6d</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\http_manager.h</file>
-         <hash>5129306edd8719cda3f78dc49cd50029be12f7783e37e96e3f124f855ee21cff</hash>
+         <hash>46229b193b4f76f81e6251bbda9bc561751caa155f8c1cb23778fff49e692c0d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\http_net_manager.h</file>
-         <hash>c3c80b63abb3890947cc6ce34f899574ab30776a95fefd35a5f889d3e7a042b7</hash>
+         <hash>609c9766621bc1e0cdc4f60e15e1277000b10468175714db094028bd8b39feb3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\http_net_private.h</file>
-         <hash>36fb9e49a443566c811f78458c5c29000e9eea061bdebe95175d7bcdb39b9015</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\http_private.h</file>
-         <hash>8e6c8e33a14324cbd403e7c52718605bd27bf9f8b91667ab11acd045963a2dbc</hash>
+         <hash>299f382168f08fc9c6679a7adf675c5995b4614f3695eee4d7997d6052ef623f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\icmp_manager.h</file>
-         <hash>70c316280838197122c69fa9515cf596047ae269eb68d49226fed94b8bc71107</hash>
+         <hash>8eee9dda5cc3665352953f43770352fe52c64c1e2ebae4f94a6910e581931d38</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\icmpv6_manager.h</file>
-         <hash>338a01145ab84161193edad653158a8df061f48e4b4c3b3dcb31f00de8581af0</hash>
+         <hash>fab05341755c1f58cd4340814a3211a7d004dcb64ab50e4e0467abf1e34b6934</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\igmp_manager.h</file>
-         <hash>d1271ea6b36b2bea3895a16cd2a856c75a0b226aaf17b181a7093059638e842c</hash>
+         <hash>ac14cff57f9242085a57dc335abacef5d0f4315c5ce5380f8d3ed7b8d0b7c8d3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\igmp_private.h</file>
-         <hash>311f7af0bacd7fb445ffddbacbee283213be2ebab27f551bdff06a54d4edce95</hash>
+         <hash>c0ed2699efcd780d7301b8044b945c239f5bd2811a386bf15dc9f9de8abe2411</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\iperf_manager.h</file>
-         <hash>d5c85239882095b3315acc278a01896025ddeacbcc666c9efa34bbba86f8befa</hash>
+         <hash>9c58e11f866d6584e59f3e748b338836c97087311d931d68b839f42d93fd3532</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv4.c</file>
-         <hash>a267bbbf54e48ce952155e9c4f502a94b655e1f4be197117b8da8e153bbd0c3d</hash>
+         <hash>52eda011d797b9c2f86581388311874e562824fd5194895af1408fe7340dd531</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv4_manager.h</file>
-         <hash>12bd9195ed8205033067fd9b2e80310244f3092e1dfc9662fe63bec9e54d76be</hash>
+         <hash>ff0a90699cf33dc38e6c150c1bd09764a52d8099257ada6c4f61909985a8b312</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv4_private.h</file>
-         <hash>a9a39d02f1487eba918b7495828168de620d4e8701a2010aa94d0cbcebc99f51</hash>
+         <hash>c170c883182c8566fbff5bfada64d9102e881fc3fe49774a58b900a5b2b0a547</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv6_manager.h</file>
-         <hash>b3e53c05254a285834eb0eb1b630857f184cd786a1dfccd3fc7384e806e9a579</hash>
+         <hash>cafddba492e12ec895268ea46e3e77e97382064067e48d17d32b6f8539f22093</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv6_private.h</file>
-         <hash>90dfa3f4e03e494a56721e74350ae9c8b1f02b95d233244a755f64e49e3eeae8</hash>
+         <hash>b6962ee495972aa6d83c2f91153ceb35b06d49e9eac99c4034af4aebbc2dc360</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\link_list.h</file>
-         <hash>258f4b8b84d295a9ae012fb6049995b4074dbca9230e7ce184224e9cfa0320cd</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\lldp_manager.h</file>
-         <hash>d3967ca15a4b719d8bcdea669342753846b965b1fbb5811bb8a71b218d7bfe7a</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\lldp_private.h</file>
-         <hash>59e4e71086c119db22699c5dced94ef420a741fbc5f984809b80e913ba85fd84</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\lldp_tlv.h</file>
-         <hash>9630271cd5bdea8c31e41f1fb8e4a50c5d2942df7dafb04e33d3559915000810</hash>
+         <hash>434780caa1126d1500a7cf27819a3fd3ba719034be9a4e243410dd733e21af4d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\nbns_manager.h</file>
-         <hash>97d2623aed56415b2a16f134bee4254687b29762c116c1d4cddc3a2c9f418060</hash>
+         <hash>06aec08ec05cb098dff2e518b110b2f262ba470bef661a6949809148497782e0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ndp_manager.h</file>
-         <hash>b659af82e14f5642d2d92d8895ebd11a8323803ab2d1c0570398424ff72d28d3</hash>
+         <hash>09f90f547d2e2bb617c6fc36618b9bc80b462d8f7e7a1894f0f58f72d3421913</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ndp_private.h</file>
-         <hash>f717e33491ed8feb01389ae7d9dff0f944411cd676cf71eadaf858b3cb67568d</hash>
+         <hash>d4ceb6ed212c7beaced0e422e5db33636cd0f8aa39b08eb99de47fb9b79f6828</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\oahash.c</file>
-         <hash>e277cdaf0043bd7317b73c47c7aca5b2051f7c6881d4d8184b146db507079bc8</hash>
+         <hash>5037c62bdb04d4946afeb3e6b1bb3b4b1c0d756443817e8c32f1ea3cc9a05148</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\oahash.h</file>
-         <hash>1b97e6d4d9aa480e94b8d2641d7abbc52be867f5167c43410586d9b59d160151</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\smtp_manager.h</file>
-         <hash>f51e89d8c5e770f9cdfcb71d7d73bf4d113e093ac562d912ea52c595d86aa9b9</hash>
+         <hash>2e01b208cbf6602df70907cab625b52e7e928f0b0503cf453300750a38ed1d5f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\smtpc_manager.h</file>
-         <hash>4a2e36d8bc850849640e76ee9bf19a3c2951b67c93aa3b607dcd7f6f4e9df3bc</hash>
+         <hash>9a553f73fdbb328610bfd6f8785874379ec2bb5742bae867bf50d7624c102059</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\smtpc_private.h</file>
-         <hash>0b0d82df59b40acf1a870988cb7c00ed91924df50486eaee9b080a78a808cafe</hash>
+         <hash>5a540abc91fce8f5347cfd6ac827f3493889dc950a8c14fe0a20665a4f0eb4fa</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\snmp_manager.h</file>
-         <hash>37207c958ca46436a35dee7711762f5cb49a9a70526d4372c50a7d9cf57720b7</hash>
+         <hash>53e4d630d06173b2e4bb4f999cce51f0ecf384fed4872c9a58fbd6e49dcfdccb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\snmp_private.h</file>
-         <hash>413071246f81e5ed5641a299dc44173c1e23b685c932a263332cca9140a67694</hash>
+         <hash>93e7ede3de5d3ca337cb4c59635bc40daf880a5a091b890e9530ba6e8fbd1d5f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\snmpv3_private.h</file>
-         <hash>2829d2d64b8dd0022f06f2dc93567cce8bc86c059130af2ea3028252b736a1f9</hash>
+         <hash>abc871b12690c2898ed238c713a7ff3a0f1b4186166367d0f919cbcf4da18a85</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\sntp_manager.h</file>
-         <hash>d96139f5cd065f2755d0a7db815b9a55ab74709a06251561d3c8599a1868b113</hash>
+         <hash>246b539db2d08028ec642e23fab652a23d617c71617a88a1886ef6d5569fafdf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcp_manager.h</file>
-         <hash>31347e98a4f9f641a63bc4910f5d560a1823176bc848db5b22e04244e5828949</hash>
+         <hash>233332129743ea5f6faaa921b8673b035bc8a46b87d9039512e4bfbfd7046c7c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcp_private.h</file>
-         <hash>51d518216ec292b19321f7043f1c1f93e577b01fe77db7b4e52573f8d5cb56c2</hash>
+         <hash>3d4756f7316044fb4aa60d46866f0f4424b4664428c10df70c5868ba15c24b08</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_announce_manager.h</file>
-         <hash>d300fe07c49c66a4b4c1ff62395b1e6723284a2a7b369f7b0a87522cf20584b8</hash>
+         <hash>3f0a86ad803b406ba5d10db3ebf37581c789770a248f7401630959f8b7c17993</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_commands_manager.h</file>
-         <hash>98a35f037744933778e156089e8b3279f6c862d8b568230367424258344ece6d</hash>
+         <hash>0fa5fe865a716515dd6853e152c6f04ae32679d67fe6381992db6910cb5287fb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_heap_alloc.c</file>
-         <hash>7ab13472426209131b5d72e6b7df64d3a038faf6574061d9ffdd3746d8cd7ad3</hash>
+         <hash>931713c11d8b6a8dfc16cde720ba6fe3f65f9234be1e9527351c61cf49e41ef3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_heap_alloc.h</file>
-         <hash>79522d1b08d5a1e4467f316be1dec58fcf0699546ca6ecd99d9ad23ff95dfbf5</hash>
+         <hash>f6cedd79f1cb5fbd6f75072b562a3ef53c638cc99e68386f914bbe81d15b349b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_heap_internal.c</file>
-         <hash>13ee6eb823fd4c7ad02c879fa490e69a722a255f2626499ab6ec6b672a04b779</hash>
+         <hash>449479e6d6cf0daf9056f4d65eaf6c0ca2c2090243822d3edd2e017c3107898b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_helpers.c</file>
-         <hash>941fce11e083b5220bf19144d4e63c90bf83a4e2dd574d7cd4414ac887b64408</hash>
+         <hash>41c23866d5cc4c9793675c8220616786346e2d2a6bd4f7b0ef437bd76550ef8d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_helpers_private.h</file>
-         <hash>c1a9d58bb202ac83a85e9b79bb1d4ae9eaf585d6f6cd471fdadf433df47295d3</hash>
+         <hash>93621247cc5c2405fdca2756dcd3a5ff87695478a93a6543305bd90ae643e862</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_mac_bridge_manager.h</file>
-         <hash>e5fedf559f32be814e26b0440a68547d7d0d1a4ee3d7abb4147904a0f5208cdf</hash>
+         <hash>85c01b632193be93838f91c7b73e3ba3ef5579d7133fa6bbc209136ba7b96e62</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_mac_bridge_private.h</file>
-         <hash>8a616af6e5e81b37d32df4a326d20d6f52e91a2053211a6abf2ec9391ef2b2a3</hash>
+         <hash>5c6d0671b39be47922853f2e2da9e104b6dc0846c8b0a8de2e53e07bf3db5341</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_manager.c</file>
-         <hash>13883bd70b394bbe37e2624a7962ee292b7b3fd52a13034cb028d5ff92734f5e</hash>
+         <hash>317a676995f267856883cae213515db3cd2575211cd724267d682723751aaecb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_manager_control.h</file>
-         <hash>f8004bf4c0330cd88c64023a6dea31876ba353b9785fcaa26585884d0136ac06</hash>
+         <hash>dff74f016947b9b49204dad35454db3a86f3865f9a00cb6f634869775c7e7312</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_module_manager.h</file>
-         <hash>5b124a232ff36c186aea959c97d37783c75d69ca31126243dceab8b3ec0e15d2</hash>
+         <hash>cd1dac8b9b4e1e831f34b6cfe7f6e0f695375218efb5665bef6ed8d6954c8995</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_notify.c</file>
-         <hash>0dd1355b6aae2c926dea12a2b636ac5e812f27ea41f10441e0f8c44e099b6b0b</hash>
+         <hash>d071cbe9a25f9a0148dba87fbf805eb6097a4afefb85449ca42ad4123c9c55b6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_notify.h</file>
-         <hash>36309e0534f4f0084d42ef24f1d8c3a17e68eb99e5c5fa108f746bf009ed7169</hash>
+         <hash>9ea99f473f323987af522b08e2edc477ebd39b71c04567ccb4b91a4ee15743e5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_packet.c</file>
-         <hash>6f9a50bfdd735e8e453a41e4f10040efac9fd505335197c237d369de0fa496a2</hash>
+         <hash>fa68314af5bf4b0237da2ca37b7af86abe28221d21eccd226cf21fbef733bb14</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_packet.h</file>
-         <hash>7e4c86b1f25d55a4f3db8c1c05db7847a86687c282e7f06c9307eb475418ec21</hash>
+         <hash>03bd02f8223f40528ab93d01e3a832647609a489a14fd31b811d410eb732281b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_private.h</file>
-         <hash>42f1802f9e8788c6d9e8d31742f3b5e3534d521650981f6bbc2a1bf0d267c547</hash>
+         <hash>634d71544bc76979118f925c800cbc35c6571cd24c8efd400a8f8ff1d1a132b8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_reboot_manager.h</file>
-         <hash>92a485f506d4337dd5116a666126f8932fd78b2a16c87917d1314bc431ec364d</hash>
+         <hash>ae0c90024a3a67c01b1e3b624f620ccc2f216577879f5f4977bf400f6c0e33a7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_types.h</file>
-         <hash>4a3a76b1768c9d355ea2fd7618f2f66e4ecb0056cdacf4ac033ff3f9e8e17362</hash>
+         <hash>a4821acc65597e3d44da41d8acbcaa26664ef03bcc1fe7b62f60fa6c079a71cd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\telnet_manager.h</file>
-         <hash>261058ce6621821d0b4c15a1336e03f1bbaedd4dc5cb26c7ad32c11999b9a763</hash>
+         <hash>f608ca7b0f96dcd4369192121141c7e5f32354c0d17036280d1b9a943c6f0659</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftpc_manager.h</file>
-         <hash>6c57ebe32dcf6c666f74313e2003796b765ae2d58e1a765137e9105638201b9b</hash>
+         <hash>c00abff5d665d4457703c57e577302127e70eaded80348c7fb2e26d6c35e952e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftpc_private.h</file>
-         <hash>b6feabce316b6f47bbedaca0cec7a2e635bd72c554f53afa034aa25fed93a30d</hash>
+         <hash>3597487fd8bb1b460b3d727306122bd30147500eeaf1774e1beaecf09f4bd1ed</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftps_manager.h</file>
-         <hash>ef35fbb123b0ef2298754c31888ae3a9c1895ca28b3ce5ec48be3e27ebf09ca9</hash>
+         <hash>5e1d2df813a701473f80b01c50ba88d5cde072658830c03762862c1b98768204</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftps_private.h</file>
-         <hash>fb32ab4d4d547a195c92154927e6ba049d2fb010eddaff6fb3a1d58c03d2fdf0</hash>
+         <hash>060cd44f8d3d70f1df0a1acadbd7f762eef3356ebc875429e4f9f145de578a65</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\udp.c</file>
-         <hash>9479edef57387aff0635891b4b1580e79225c4f529b6dfa2045361ccd401c6cd</hash>
+         <hash>9f11ef99cfd56228fbd185c1be30eb1536a83bb4cdece06d831d3292e150f041</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\udp_manager.h</file>
-         <hash>d7f37688e3e11ccb8eb937f7c7266bfb676e245b41ccd166fba9249e7b572c1d</hash>
+         <hash>c38dd07e1eb31eaf8ccfa85cf3a9f1c4625b3465d98b839daf28c699f34aa724</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\udp_private.h</file>
-         <hash>d45d62008b7e4978453c37e124a7205662558d4c0086ac03fab7b41990f3c9fa</hash>
+         <hash>441efc3eaf12e8aff5941bed440e0d2eb586e751b43d4f05ce7ff14c6f12aa90</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\wsc_manager.h</file>
+         <hash>a3c7138f31d56ac604b52a1ccae780b1d17d9db76f7d44c980ede9b947787257</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\wsc_private.h</file>
+         <hash>09704fba5dbbbe4ebdf5f926f28d7d8dc8272f5e9111895cc920954c2d35b8e0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\zero_conf_helper.h</file>
-         <hash>613947ebb18d15f0775b6424a79df26f0f689d0a1f4f391c35e6abdb5b7f11a7</hash>
+         <hash>fc6bd610d1e2cc529aab3f5d44d8a5b5fa554eeb7c62ae4922c6dbba6050c09d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\zero_conf_link_local_private.h</file>
-         <hash>e73bc44e9dcd71d04fad4b7f08ef1292f5f4e76c6b22fef8cb557952f1fd0bf4</hash>
+         <hash>a186e628ce3de4a151758bb5c959df31bb2c54692098e7f957b811cd175add4a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\zero_conf_manager.h</file>
-         <hash>00ff9e10f9ea9e0d0b5c55022c67179ebb72e2d1de3a82c3c6a7c4dcbc3c6f44</hash>
+         <hash>8fca0a795bc4967de3dfebb6fcb4c2f85e25de71e337eee0d849160d027d5112</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcp.h</file>
-         <hash>31a9ec2ee972cb503fa6782b5ec4d0a293602fd84d76c4d48a836c7c8a3294f7</hash>
+         <hash>75c1d426acd52f9fd107ec961efd73151346425967c32a9ee2b72344f5bf64ac</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip.h</file>
-         <hash>f492dffce88758fc383398a3ce40f9815da209d813d72bf72454b4a2ebd48f36</hash>
+         <hash>64a978375ea3a065a64e489960dd0d286acb3d2fc6fd7e28e9b7422f586dddb8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_announce.h</file>
-         <hash>6d887e28cee3ad9edf6ecd7d474fcbf0d19847e3c5280c76746a60d3793a117b</hash>
+         <hash>fdb314e051ce514dffcb6f4205c1a826f61e4de8d513b48cae614e9c3a479ae6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_commands.h</file>
-         <hash>ed5f61dfb43fc89fe3014cda860f06958a9a888484c101d325fa9baf0d5625b4</hash>
+         <hash>f7cf8928f00435f5939fffabbd4677fee3445b4dc376947fe04d0cc96f24d703</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_common_ports.h</file>
-         <hash>9dfeb3210843a746c1322e58faac8c82275e970680ac51a3dc84102dd81a4196</hash>
+         <hash>1471210a67ea8bc70a84a62f7daa78fe5455cf85e808d128dd8fff5335754a4a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_ethernet.h</file>
-         <hash>bd85e30057daab11d9fd829c985c1edb57a92f83120c5d8a7ede1f91f0efc065</hash>
+         <hash>bf95d5529d0b4a15051d05e11ec6b491d925c384c72e8c2d4e81965a2488168d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_heap.h</file>
-         <hash>3f4ea368775f31ae699dd953e3dd0c21d7880fc24cd4ceb755f92f26cc22e211</hash>
+         <hash>922023fa4287979ea8b53039069285edb6e837279bffd82bac8ae1af8e8b9f6f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_helpers.h</file>
-         <hash>e68458ba5061938427ec2b29f87cfcdbf5dfe6fd17620e62e03fbf1c823192ee</hash>
+         <hash>d1ff16d63f3a47023c425fce03ebd8be235d9f5bbbf2044b335ce573e99f1e8d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_mac.h</file>
-         <hash>7137ed6478803b511ada20f717583d7168e680c784b6d6c42dbaa75e4b928ea1</hash>
+         <hash>c506de0090cf8415a7c4c2b499a546447a66c32f1fa941c6669bfe0d96985a47</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_mac_bridge.h</file>
-         <hash>63799feb328729eae30b3734d3f413597dba2654cf7dc000ef33b0cab03ea430</hash>
+         <hash>f20db2e4f02e72a5ad8bb0f1220bcf5f46d80ad3cc4ae939341de31520b27126</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_mac_object.h</file>
-         <hash>a2165601d592aace23bfc05e3b4d0df59517e4663cfe9821eba6f2b37a4465f9</hash>
+         <hash>615e9e32893cd14cc743e406739916c19f8e9663cbc1af9f6a7f8439b6caa2ca</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_manager.h</file>
-         <hash>7aa08845aecc0dccf2cfb6769b679c35e54af7d9aa901572be09883323719d81</hash>
+         <hash>3682d579861ee3d8468126ce17182636112051c164d03d5bde8d107ce6ef39c7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_reboot.h</file>
-         <hash>b8353b2a02e23a9a0bf72ec917dc8dde444fb199e3b74c53d8559990afad3065</hash>
+         <hash>f33b6b9d8e704c2d9e61d9165802a977a84e335310fefcac6287d89315f814da</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\telnet.h</file>
-         <hash>7f80fc99f47777152b9ddc3dff27158761276a7bc8f3545f181c367e90378905</hash>
+         <hash>dbcf1620870a3fcb1eae9fc9e62e1180492b4efe2e400ccf786a851c241ae9be</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tftpc.h</file>
-         <hash>a65cfdad9f0d3856a703cc2fadd9e8390ea479978e79c1440144f382c3bd6e3f</hash>
+         <hash>c42aea9b8fb6a3f116eb5c7bae748846d6cc19ac559c5b1fd158ad78f65dcab4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tftps.h</file>
-         <hash>841b654fc46af5ce4175455a16df1d5f2b2848f3a0a036432f94256913789a44</hash>
+         <hash>270f54837f41f8c9be21538052d6ce67987d175a5db3d5b535a04902eb0574ae</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\udp.h</file>
-         <hash>29442924e56cb3a82e5973c04b23adca67a21ff4052876e12dc46e431e17f75d</hash>
+         <hash>e66a85475864518a2e78fa8824b848635351bbf8d6e46725f992d732cccb275b</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\wsc.h</file>
+         <hash>7a6975fefc9dec7c4fbbf876224e99977a7ab1f206011f09d76fed0d1969a59e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\zero_conf_link_local.h</file>
-         <hash>5c3dbdef6f4d2322880212e860fa9922a255519bbe438ab391b39f3e9160b6e6</hash>
+         <hash>6b08cfeae2521b7d24a53d74b382d8ba200b519ad3785ba182ce024f75953b06</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\zero_conf_multicast_dns.h</file>
-         <hash>f0df8b849afed8c3258e3006621c74f16bfb1522d5aff7a835217a73593a5eae</hash>
+         <hash>a44a37e537e93b0deda7bc5fb156b1d506601426d584c2423dcb19143433e7d2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\net_pres\pres\net_pres.h</file>
-         <hash>75bbd37e5ab74ad35093911307e1b7f68f73f6f2832020356abb59ffaee987d6</hash>
+         <hash>00bfb807c77bf87f5143862267e25971f1702ea6928a66b324f66488f8528076</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\net_pres\pres\net_pres_socketapi.h</file>
-         <hash>af2046033292b8bdc87f5cbf8b558942c5eff0cb0742bd791020d974b0b86381</hash>
+         <hash>00481cb6ce191dafb03a986813eb08423427da56946469dcd25f02de2d14f0f5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\net_pres\pres\net_pres_socketapiconversion.h</file>
-         <hash>7486203d60a2a0b97834de1d5284312af0725727a5fec0b2a3fef9325ac25be0</hash>
+         <hash>fea956ce0a826b0123329a90f2b70e13d18f21e08e0ba8f90b661122ac3e3703</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\osal\osal.h</file>
@@ -20011,7 +19991,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\clock\plib_clock.c</file>
-         <hash>31c28bb59826094d7cedfc3b52ace06396a853673e2df211e274633120b29807</hash>
+         <hash>4aabbea79d224cdac7283180f214590082a93048f9636f82f6c7acd9160a033d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\peripheral\clock\plib_clock.h</file>
@@ -20111,15 +20091,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\system\sys_random_h2_adapter.h</file>
-         <hash>7a517a17efdaed2f4b05d64859e80b55968041ab805b73c34de17bead03727c1</hash>
+         <hash>0216eb4843f37e09b75994edf688ac53902417edead950348e95f560ba4791aa</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\system\sys_time_h2_adapter.c</file>
-         <hash>256a5532300d89dcc7849da229c15b8b8b0e5674355d6d61a4f4afbcb516e820</hash>
+         <hash>f2236dd84a36edaaae270355a1f78e7e2eb6d29123889682b7346d717ae8ec59</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\system\sys_time_h2_adapter.h</file>
-         <hash>2ef793c2575c80c0349edf97642dde832daa16b8ec9c162f9c39d527c8ee24b9</hash>
+         <hash>0c22cea8804e12b7d465f417e37450300f5a84def28077a689344a4b17670f05</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\system\system.h</file>
@@ -20151,15 +20131,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\system_config.h</file>
-         <hash>d074f77e96777a5c66b7eb8b7180218b1115f19fb685b8d7a3882b87dbd4b28d</hash>
+         <hash>75bb782a83fe71ae86d5119fbf0b6ef5407c26899de1ce4dddf033a505e7b32e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\system_definitions.h</file>
-         <hash>0537e8562b5dfda1d120ff2fef6186fc71b1f7d8d964e14a6e3260fa5e8b7afd</hash>
+         <hash>612bd2e1561e9222079ce81f842ab47e962671dfce335e26dd1e53d71602e9e5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\tasks.c</file>
-         <hash>667b07c04e0babce9b768dfa3269fad06b0b008bfcdd044008db3be9942f1974</hash>
+         <hash>ad42873900b6e6a3ef66516fd2e6d1f9fb813f9c3dfeaaa90bfcdd4040d43888</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cz_ca80_curiosity_ultra\toolchain_specifics.h</file>

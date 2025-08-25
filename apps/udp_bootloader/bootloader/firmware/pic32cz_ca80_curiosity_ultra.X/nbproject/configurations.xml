@@ -25,11 +25,12 @@
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
                   <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/dynamic/drv_extphy_regs.h</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/dynamic/drv_extphy_ksz9031.h</itemPath>
+                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/dynamic/drv_extphy_ksz9031_priv.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/src/drv_ethphy_local.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/drv_ethphy.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/ethphy/drv_extphy_ksz9031.h</itemPath>
             </logicalFolder>
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -129,12 +130,8 @@
                 <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/tcpip_announce_manager.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
                 <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/dhcp_server_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/smtp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/lldp_tlv.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/lldp_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/lldp_manager.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/http_private.h</itemPath>
-                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/http_manager.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/wsc_private.h</itemPath>
+                <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/wsc_manager.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/ndp.h</itemPath>
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_mac_bridge.h</itemPath>
@@ -179,9 +176,7 @@
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/snmpv3.h</itemPath>
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/tcpip_mac.h</itemPath>
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/dns.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/smtp.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/http.h</itemPath>
-              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/lldp.h</itemPath>
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/wsc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
@@ -437,8 +432,12 @@
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
+                  <logicalFolder name="drv_gmac_lib_pic32cZ.c"
+                                 displayName="drv_gmac_lib_pic32cZ.c"
+                                 projectFiles="true">
+                    <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac_lib_pic32CZ.c</itemPath>
+                  </logicalFolder>
                   <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
-                  <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac_lib_pic32CZ.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -536,7 +535,7 @@
         <targetDevice>PIC32CZ8110CA80208</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>pkob4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>

@@ -59,10 +59,9 @@ void CLOCK_DeInitialize(void)
         /* Wait for the Generator 0 synchronization */
     }
     
+      // Disable PLL0 control
+    OSCCTRL_REGS->OSCCTRL_PLL0CTRL &= ~OSCCTRL_PLL0CTRL_ENABLE_Msk;
     
-    
-    
-  
 }
 
 /* Fill this function to release or De-Initialize all the resources used 
