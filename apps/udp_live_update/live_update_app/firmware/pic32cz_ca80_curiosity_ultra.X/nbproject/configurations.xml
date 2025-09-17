@@ -232,6 +232,9 @@
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="reset" displayName="reset" projectFiles="true">
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/reset/sys_reset.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/time/sys_time_definitions.h</itemPath>
@@ -516,6 +519,9 @@
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="reset" displayName="reset" projectFiles="true">
+              <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/reset/sys_reset.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
@@ -581,7 +587,7 @@
         <makeCustomizationNormalizeHexFile>true</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C32>
-        <property key="additional-warnings" value="true"/>
+        <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
@@ -602,7 +608,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="keep-inline" value="false"/>
-        <property key="make-warnings-into-errors" value="true"/>
+        <property key="make-warnings-into-errors" value="false"/>
         <property key="oXC16gcc-errata" value=""/>
         <property key="oXC16gcc-large-aggregate" value="false"/>
         <property key="oXC16gcc-mpa-lvl" value=""/>
@@ -694,7 +700,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros"
-                  value="RAM_LENGTH=0xffff0;RAM_ORIGIN=0x20020010;ROM_LENGTH=0x400000"/>
+                  value="RAM_LENGTH=0xffff0;RAM_ORIGIN=0x20020010;ROM_LENGTH=0x400000;VECTOR_REGION=rom"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>

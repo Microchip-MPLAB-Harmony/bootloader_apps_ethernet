@@ -105,8 +105,8 @@ P1,PA11,,Available,,,,,,No,FAST
 P2,PA12,,Available,,,,,,No,FAST
 P4,PA20,,Available,,,,,,No,FAST
 P15,PC00,,Available,,,,,,No,FAST
-P17,PC21,,Available,,,,,,No,FAST
-P18,PC22,,Available,,,,,,No,FAST
+P17,PC21,,SERCOM4_PAD0,Digital,High Impedance,n/a,No,No,No,FAST
+P18,PC22,,SERCOM4_PAD1,Digital,High Impedance,n/a,No,No,No,FAST
 R1,PA13,,Available,,,,,,No,FAST
 R2,PA14,,Available,,,,,,No,FAST
 R5,PB02,,Available,,,,,,No,FAST

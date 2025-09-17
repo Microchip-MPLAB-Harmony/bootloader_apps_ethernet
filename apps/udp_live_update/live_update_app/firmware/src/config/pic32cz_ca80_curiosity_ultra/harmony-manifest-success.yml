@@ -4,7 +4,7 @@
 
 
 project: live_update_app
-creation_date: 2025-09-02T11:34:51.066+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-09-18T10:59:32.333+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
@@ -14,10 +14,10 @@ harmony_version: v1.5.5
 compiler: XC32 4.60
 
 modules:
-    - {name: "csp", version: "v3.22.5"}
+    - {name: "csp", version: "dev"}
     - {name: "core", version: "v3.15.2"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "bootloader", version: "ca80_live_update_supp"}
+    - {name: "bootloader", version: "dual_bank_supp_ca80"}
     - {name: "net", version: "v3.14.2"}
     - {name: "bsp", version: "v3.22.0"}
 

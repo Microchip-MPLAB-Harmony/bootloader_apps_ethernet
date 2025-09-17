@@ -220,8 +220,7 @@ void APP_PIC32CZ_CA_Tasks ( void )
                     
                 }
 
-                FCW_BankSwap();
-                bootloader_TriggerReset();
+                bootloader_SwapAndReset();
             }
 
             break;
