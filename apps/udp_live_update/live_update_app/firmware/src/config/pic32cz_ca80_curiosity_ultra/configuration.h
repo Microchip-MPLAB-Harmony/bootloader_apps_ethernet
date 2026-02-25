@@ -208,6 +208,9 @@ extern "C" {
 
 #define DRV_ETH_DESCRIPTOR_ADDRESS                0x2011f000
 
+#define DRV_GMAC_MULTI_CLIENT        			false
+
+
 
 
 /*** UDP Configuration ***/
@@ -259,6 +262,11 @@ extern "C" {
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
                                                     
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_GMAC_Object
+
+
+
+#define TCPIP_NETWORK_VLAN_ID_IDX0         0
+#define TCPIP_NETWORK_VLAN_PCP_IDX0         0
 
 
 #define TCPIP_STACK_NETWORK_INTERAFCE_COUNT  	1
@@ -329,6 +337,8 @@ extern "C" {
 #define TCPIP_STACK_LINK_RATE		        		333
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
+
+#define TCPIP_STACK_VLAN_INTERFACE_SUPPORT   false
 
 #define TCPIP_PACKET_LOG_ENABLE     0
 

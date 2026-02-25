@@ -1,0 +1,1388 @@
+generatedFiles:
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\drv_gmac.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\gmac
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\drv_gmac_local.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\gmac\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\_gmac_dcpt_lists.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac_lib_pic32cz.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac_lib.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic\drv_gmac_lib_pic32cz.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\gmac\src\dynamic
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\fcw\plib_fcw.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\fcw
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\fcw\plib_fcw.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\fcw
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\usart\plib_sercom1_usart.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\usart
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\usart\plib_sercom_usart_common.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\usart
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\usart\plib_sercom1_usart.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\sercom\usart
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\evsys\plib_evsys.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\evsys
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\evsys\plib_evsys.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\evsys
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\device_cache.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\toolchain_specifics.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\main.c
+  projectFolder: ''
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\definitions.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\initialization.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\interrupts.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\interrupts.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\device_vectors.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\exceptions.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\PIC32CZ8110CA80208.ld
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Linker Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\stdio\xc32_monitor.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\stdio
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\port\plib_port.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\port
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\port\plib_port.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\port
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\pin_configurations.csv
+  projectFolder: ''
+  type: Important Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\clock\plib_clock.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\clock
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\clock\plib_clock.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\clock
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\nvic\plib_nvic.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\nvic
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\nvic\plib_nvic.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\nvic
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\mpu\plib_mpu.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\mpu
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\mpu\plib_mpu_local.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\mpu
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\mpu\plib_mpu.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\mpu
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\startup_xc32.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\libc_syscalls.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\udp.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\drv_miim.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\miim
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\drv_miim_local.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\miim\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic\drv_miim_device.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic\drv_miim.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic\drv_miim_pic32cz.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\miim\src\dynamic
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\arp.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\rtc\plib_rtc.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\rtc
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\peripheral\rtc\plib_rtc_timer.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\peripheral\rtc
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\time\sys_time.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\time
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\time\sys_time_definitions.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\time
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\time\src\sys_time.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\time
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\time\src\sys_time_local.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\time
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\device.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\ac.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\adc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\can.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\dma.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\drmtcm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\dsu.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\ebi.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\eic.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\eth.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\evsys.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\fcr.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\fcw.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\freqm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\fuses.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\gclk.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\mclk.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\mcramc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\mlb.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\osc32kctrl.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\oscctrl.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\pac.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\pm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\port.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\prm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\ptc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\rstc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\rtc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\sdmmc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\sercom.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\spi_ixs.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\sqi.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\supc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\tcc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\tram.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\trng.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\usbhs.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\component\wdt.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\component
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\ac.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\adc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\can0.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\can1.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\can2.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\can3.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\can4.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\can5.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\dma.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\drmtcm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\dsu.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\ebi.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\eic.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\eth.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\evsys.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\fcr.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\fcw.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\freqm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\fuses.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\gclk.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\mclk.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\mcramc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\mlb.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\osc32kctrl.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\oscctrl.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\pac.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\pm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\port.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\prm.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\ptc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\rstc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\rtc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sdmmc0.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sdmmc1.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom0.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom1.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom2.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom3.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom4.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom5.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom6.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom7.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom8.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sercom9.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\spi_ixs0.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\spi_ixs1.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sqi0.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\sqi1.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\supc.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc0.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc1.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc2.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc3.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc4.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc5.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc6.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc7.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc8.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tcc9.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\tram.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\trng.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\usbhs0.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\usbhs1.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\instance\wdt.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\instance
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\pic32cz8110ca80208.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\PIC32CZ8110CA80208_DFP\pio\pic32cz8110ca80208.h
+  projectFolder: packs\PIC32CZ8110CA80208_DFP\pio
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_udp.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_udp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_nvm_interface.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_nvm_interface.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\datastream\datastream.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader\datastream
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\datastream\datastream_udp.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader\datastream
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_common.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_common.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bootloader\bootloader_interrupt.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bootloader
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cmsis_compiler.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cmsis_iccarm.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cmsis_gcc.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armcc.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang_ltm.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\core_cm7.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h
+  projectFolder: packs\CMSIS\CMSIS\Core\Include
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\drv_ethphy.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\ethphy
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\drv_ethphy_local.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_extphy_regs.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\drv_extphy_ksz9031.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\ethphy
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_extphy_ksz9031_priv.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_ethphy.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic\drv_extphy_ksz9031.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver\ethphy\src\dynamic
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bsp\bsp.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bsp
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\bsp\bsp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\bsp
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv4.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_heap_alloc.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_heap_internal.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_common_ports.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_mac.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_mac_object.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_heap.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_heap_alloc.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_helpers.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ndp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ndp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ndp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ipv4.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv4_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv4_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ipv6.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv6_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ipv6_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\icmpv6.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\icmp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\icmpv6_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcpv6.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\arp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\arp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\arp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\udp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\udp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\udp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\berkeley_api.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcps.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcps_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcps_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dhcp_server.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_server_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcp_server_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\zero_conf_link_local.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\zero_conf_multicast_dns.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\zero_conf_helper.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\zero_conf_link_local_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\zero_conf_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dns.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dns.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dns_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dns_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\dnss.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dnss_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dnss_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ftp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ftpc.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftpc_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ftpc_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\icmp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\nbns.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\nbns_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\ddns.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\ddns_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\telnet.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\telnet_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\sntp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\sntp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\http_net.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\http_net_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\http_net_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\snmp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\snmp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\snmp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\snmpv3.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\snmpv3_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_announce.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_announce_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\smtpc.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\smtpc_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\smtpc_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\igmp.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\igmp_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\igmp_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tftpc.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftpc_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftpc_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tftps.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftps_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tftps_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_reboot.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_reboot_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\iperf.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\iperf_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_commands.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_commands_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\common\helpers.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\common
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\hash_fnv.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\link_list.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\oahash.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_helpers_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_manager_control.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_module_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_notify.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_packet.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_types.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\berkeley_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcpv6_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\dhcpv6_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\wsc.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\wsc_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\wsc_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_mac_bridge.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_mac_bridge_manager.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_mac_bridge_private.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\tcpip_ethernet.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\common\sys_fs_shell.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\common
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\net_pres\pres\net_pres.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\net_pres\pres
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\net_pres\pres\net_pres_socketapi.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\net_pres\pres
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\net_pres\pres\net_pres_socketapiconversion.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\net_pres\pres
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\helpers.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\common
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\hash_fnv.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\oahash.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_helpers.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_manager.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_notify.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\library\tcpip\src\tcpip_packet.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\library\tcpip\src
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\sys_time_h2_adapter.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\sys_time_h2_adapter.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\sys_random_h2_adapter.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system_config.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system_definitions.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\driver.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\driver\driver_common.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\driver
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\system.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\system_common.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\system_module.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\int\sys_int.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\int
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\int\sys_int_mapping.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\int
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\int\src\sys_int.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\int
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\cache\sys_cache.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\cache
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\cache\sys_cache.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\cache
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\reset\sys_reset.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\reset
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\reset\sys_reset.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\reset
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\osal\osal.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\osal
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\osal\osal_definitions.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\osal
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\osal\osal_impl_basic.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\osal
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\app_pic32cz_ca.c
+  projectFolder: ''
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\app_pic32cz_ca.h
+  projectFolder: ''
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\user.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\configuration.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\sys_tasks.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Header Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\tasks.c
+  projectFolder: config\pic32cz_ca80_curiosity_ultra
+  type: Source Files
+- excludeFromProject: false
+  path: C:\apps\bootloader_apps_ethernet\apps\udp_live_update\live_update_app\firmware\src\config\pic32cz_ca80_curiosity_ultra\system\debug\sys_debug.h
+  projectFolder: config\pic32cz_ca80_curiosity_ultra\system\debug
+  type: Header Files
+generatedSettings:
+- category: C32-LD
+  key: heap-size
+  value: '98304'
+- category: C32
+  key: extra-include-directories
+  value: ../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/packs/PIC32CZ8110CA80208_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/
+- category: C32CPP
+  key: extra-include-directories
+  value: ../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/packs/PIC32CZ8110CA80208_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/
+- category: C32-LD
+  key: no-device-startup-code
+  value: 'true'
+- category: C32Global
+  key: mstacktcm
+  value: 'false'
+- category: C32-LD
+  key: preprocessor-macros
+  value: ROM_ORIGIN="BOOT_ROM_ORIGIN + 1024";ROM_LENGTH=0x400000;RAM_ORIGIN=0x20020010;RAM_LENGTH=0xffff0
+- category: C32
+  key: optimization-level
+  value: -O2
+- category: C32
+  key: extra-include-directories
+  value: ../src/config/pic32cz_ca80_curiosity_ultra/library;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common
+removedFiles: [
+  ]

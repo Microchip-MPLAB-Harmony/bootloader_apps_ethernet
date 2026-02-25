@@ -49,7 +49,6 @@ Microchip or any third party.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdarg.h>
 
 #include "tcpip/tcpip_mac.h"
 
@@ -271,6 +270,10 @@ int16_t    TCPIP_PKT_GapDcptOffset(void);
 // == sizeof(TCPIP_MAC_SEGMENT_GAP_DCPT::segmentPktPtr) + sizeof(TCPIP_MAC_SEGMENT_GAP_DCPT::segmentDataGap)
 // It has the same value for all packets allocated by the stack.
 uint16_t    TCPIP_PKT_GapDcptSize(void);
+
+// returns the segment gap signature
+// This is a signature that the allocator sets in the TCPIP_MAC_SEGMENT_GAP_DCPT structure
+uint32_t    TCPIP_PKT_GapSign(void);
 
 
 #if !defined(TCPIP_PACKET_ALLOCATION_TRACE_ENABLE)
