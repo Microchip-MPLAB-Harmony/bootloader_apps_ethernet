@@ -518,9 +518,6 @@ TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
 
 const TCPIP_NETWORK_CONFIG __attribute__((unused))  TCPIP_HOSTS_CONFIGURATION[] =
 {
-
-
-
     /*** Network Configuration Index 0 ***/
     {
         .interface = TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0,
@@ -534,7 +531,6 @@ const TCPIP_NETWORK_CONFIG __attribute__((unused))  TCPIP_HOSTS_CONFIGURATION[] 
         .powerMode = TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0,
         .startFlags = TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0,
         .pMacObject = &TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0,
-
     },
 };
 

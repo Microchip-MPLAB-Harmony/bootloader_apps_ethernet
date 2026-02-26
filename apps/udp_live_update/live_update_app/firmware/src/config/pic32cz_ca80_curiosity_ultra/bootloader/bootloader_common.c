@@ -156,9 +156,9 @@ void bootloader_UpdateFlashSerial(uint32_t serial, uint32_t addr)
 
     while (FCW_IsBusy()) { /* Nothing to do */ }
 
-    FCW_PageErase( addr );
+    (void)FCW_PageErase( addr );
 
-    (void)FCW_RowWrite((uint32_t *)&update_flash_serial, addr);
+    (void)FCW_RowWrite((uint32_t *)((void *)&update_flash_serial), addr);
 
     while (FCW_IsBusy()) { /* Nothing to do */ }
 }

@@ -1,0 +1,62 @@
+configVersion: 1.0.0
+componentName: drvMiim
+coreVersion: 5.8.4
+device: PIC32CZ8110CA80208
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvMiim
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: bootloader
+  type: package
+  version: v3.8.0
+- dependencyPackage: ''
+  name: bsp
+  type: package
+  version: v3.22.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.2
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.25.1
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.2
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: DATA LINK LAYER
+    children:
+    - children:
+      - attributes:
+          id: drvMiim
+          x: '300'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_MIIM_INSTANCES_NUMBER:
+      attributes:
+        id: DRV_MIIM_INSTANCES_NUMBER
+      children:
+      - children:
+        - attributes:
+            id: drvMiim
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

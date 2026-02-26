@@ -340,17 +340,17 @@ static  void F_ARPRemoveEntry(ARP_CACHE_DCPT* pArpDcpt, OA_HASH_ENTRY* hE)
 
 }
 
-#if (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT) && (TCPIP_ARP_PRIMARY_CACHE_ONLY != 0)
+#if (TCPIP_ARP_PRIMARY_CACHE_ONLY != 0)
 static __inline__  ARP_CACHE_DCPT*  __attribute__((always_inline)) F_ARPGetIfDcpt(const TCPIP_NET_IF* pIf)
 {
-    return arpMod.arpCacheDcpt + TCPIPStackNetGetPrimary(pIf)->priIfIx;
+    return arpMod.arpCacheDcpt + TCPIP_STACK_NetIxGet(TCPIPStackNetGetPrimary(pIf));
 }
 #else
 static __inline__  ARP_CACHE_DCPT*  __attribute__((always_inline)) F_ARPGetIfDcpt(const TCPIP_NET_IF* pIf)
 {
     return arpMod.arpCacheDcpt + TCPIP_STACK_NetIxGet(pIf);
 }
-#endif  // (M_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT) && (TCPIP_ARP_PRIMARY_CACHE_ONLY != 0)
+#endif // (TCPIP_ARP_PRIMARY_CACHE_ONLY != 0)
 
 /****************************************************************************
   Section:

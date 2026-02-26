@@ -1,0 +1,135 @@
+configVersion: 1.0.0
+componentName: drvExtPhyKsz9031
+coreVersion: 5.8.4
+device: PIC32CZ8110CA80208
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvExtPhyKsz9031
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: bootloader
+  type: package
+  version: v3.8.0
+- dependencyPackage: ''
+  name: bsp
+  type: package
+  version: v3.22.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.2
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.25.1
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.2
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: libdrvExtPhyKsz9031
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drvGmac
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: ETH_PHY_Dependency
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: drvExtPhyKsz9031
+  elementPosition:
+    attributes:
+      id: DATA LINK LAYER
+    children:
+    - children:
+      - attributes:
+          id: drvExtPhyKsz9031
+          x: '440'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_ETHPHY_MAC_NAME:
+      attributes:
+        id: DRV_ETHPHY_MAC_NAME
+      children:
+      - children:
+        - attributes:
+            id: drvExtPhyKsz9031
+            value: ETH
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_ETHPHY_PERIPHERAL_ID:
+      attributes:
+        id: DRV_ETHPHY_PERIPHERAL_ID
+      children:
+      - children:
+        - attributes:
+            id: drvExtPhyKsz9031
+            value: ETH_BASE_ADDRESS
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_ETHPHY_USE_RESET_CALLBACK:
+      attributes:
+        id: DRV_ETHPHY_USE_RESET_CALLBACK
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    TCPIP_INTMAC_PHY_ADDRESS:
+      attributes:
+        id: TCPIP_INTMAC_PHY_ADDRESS
+      children:
+      - children:
+        - attributes:
+            value: '3'
+          type: User
+        type: Values
+      type: Integer
+    TCPIP_INTMAC_PHY_CONFIG_GMII:
+      attributes:
+        id: TCPIP_INTMAC_PHY_CONFIG_GMII
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    TCPIP_INTMAC_PHY_CONFIG_RMII:
+      attributes:
+        id: TCPIP_INTMAC_PHY_CONFIG_RMII
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}

@@ -338,7 +338,6 @@ void bootloader_UDP_Tasks( void )
                 DATASTREAM_BufferEventHandlerSet(btlData.streamHandle,
                         bootloader_BufferEventHandler, APP_USR_CONTEXT);
 
-                btlData.prevState = btlData.currentState;
                 btlData.currentState = BOOTLOADER_GET_COMMAND;
             }
             break;

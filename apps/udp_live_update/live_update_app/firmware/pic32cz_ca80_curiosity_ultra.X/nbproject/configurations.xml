@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="65">
   <logicalFolder name="root" displayName="root" projectFiles="true">
-    <logicalFolder name="HeaderFiles" displayName="Header Files" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80_curiosity_ultra" displayName="pic32cz_ca80_curiosity_ultra" projectFiles="true">
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
+                       displayName="pic32cz_ca80_curiosity_ultra"
+                       projectFiles="true">
           <logicalFolder name="bootloader" displayName="bootloader" projectFiles="true">
             <logicalFolder name="datastream" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/datastream/datastream.h</itemPath>
@@ -274,7 +278,9 @@
             </logicalFolder>
           </logicalFolder>
         </logicalFolder>
-        <logicalFolder name="PIC32CZ8110CA80208_DFP" displayName="PIC32CZ8110CA80208_DFP" projectFiles="true">
+        <logicalFolder name="PIC32CZ8110CA80208_DFP"
+                       displayName="PIC32CZ8110CA80208_DFP"
+                       projectFiles="true">
           <logicalFolder name="component" displayName="component" projectFiles="true">
             <itemPath>../src/packs/PIC32CZ8110CA80208_DFP/component/mlb.h</itemPath>
             <itemPath>../src/packs/PIC32CZ8110CA80208_DFP/component/eth.h</itemPath>
@@ -388,76 +394,106 @@
       </logicalFolder>
       <itemPath>../src/app_pic32cz_ca.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles" displayName="Important Files" projectFiles="true">
-      <logicalFolder name="udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra" displayName="udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra" projectFiles="true">
-        <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/mcc-config.mc4</itemPath>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <logicalFolder name="udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra"
+                     displayName="udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra"
+                     projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/BSP_PIC32CZ_CA80_Curiosity_Ultra.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/cmsis.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/core.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/dfp.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/evsys.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/fcw.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/HarmonyCore.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/rtc.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/sercom1.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/stdio.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/sys_time.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/tcpipNetConfig_0.yml</itemPath>
-          <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/udp_bootloader.yml</itemPath>
-          <logicalFolder name="TCP_forwardSlash_IP STACK" displayName="TCP_forwardSlash_IP STACK" projectFiles="true">
-            <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
+          <logicalFolder name="TCP_forwardSlash_IP STACK"
+                         displayName="TCP_forwardSlash_IP STACK"
+                         projectFiles="true">
             <logicalFolder name="components" displayName="components" projectFiles="true">
-              <logicalFolder name="APPLICATION LAYER" displayName="APPLICATION LAYER" projectFiles="true">
-                <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/APPLICATION LAYER.yml</itemPath>
+              <logicalFolder name="APPLICATION LAYER"
+                             displayName="APPLICATION LAYER"
+                             projectFiles="true">
+                <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/APPLICATION LAYER.yml</itemPath>
               </logicalFolder>
-              <logicalFolder name="BASIC CONFIGURATION" displayName="BASIC CONFIGURATION" projectFiles="true">
-                <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
+              <logicalFolder name="BASIC CONFIGURATION"
+                             displayName="BASIC CONFIGURATION"
+                             projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
                 </logicalFolder>
+                <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
               </logicalFolder>
-              <logicalFolder name="DATA LINK LAYER" displayName="DATA LINK LAYER" projectFiles="true">
-                <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
+              <logicalFolder name="DATA LINK LAYER"
+                             displayName="DATA LINK LAYER"
+                             projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtPhyKsz9031.yml</itemPath>
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvGmac.yml</itemPath>
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvGmac.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtPhyKsz9031.yml</itemPath>
                 </logicalFolder>
+                <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
               </logicalFolder>
-              <logicalFolder name="NETWORK LAYER" displayName="NETWORK LAYER" projectFiles="true">
-                <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
+              <logicalFolder name="NETWORK LAYER"
+                             displayName="NETWORK LAYER"
+                             projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
                 </logicalFolder>
+                <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
               </logicalFolder>
-              <logicalFolder name="PRESENTATION LAYER" displayName="PRESENTATION LAYER" projectFiles="true">
-                <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/PRESENTATION LAYER/PRESENTATION LAYER.yml</itemPath>
+              <logicalFolder name="PRESENTATION LAYER"
+                             displayName="PRESENTATION LAYER"
+                             projectFiles="true">
+                <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/PRESENTATION LAYER/PRESENTATION LAYER.yml</itemPath>
               </logicalFolder>
-              <logicalFolder name="TRANSPORT LAYER" displayName="TRANSPORT LAYER" projectFiles="true">
-                <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/TRANSPORT LAYER.yml</itemPath>
+              <logicalFolder name="TRANSPORT LAYER"
+                             displayName="TRANSPORT LAYER"
+                             projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>udp_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipUdp.yml</itemPath>
+                  <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipUdp.yml</itemPath>
                 </logicalFolder>
+                <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/TRANSPORT LAYER.yml</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
           </logicalFolder>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/stdio.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/sercom1.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/fcw.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/cmsis.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/core.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/sys_time.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/dfp.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/evsys.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/rtc.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/BSP_PIC32CZ_CA80_Curiosity_Ultra.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/udp_bootloader.yml</itemPath>
+          <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/components/HarmonyCore.yml</itemPath>
         </logicalFolder>
+        <itemPath>udp_live_update_bootloader_pic32cz_ca80_curiosity_ultra_pic32cz_ca80_curiosity_ultra/mcc-config.mc4</itemPath>
       </logicalFolder>
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <logicalFolder name="LinkerScript" displayName="Linker Files" projectFiles="true">
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80_curiosity_ultra" displayName="pic32cz_ca80_curiosity_ultra" projectFiles="true">
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
+                       displayName="pic32cz_ca80_curiosity_ultra"
+                       projectFiles="true">
           <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/PIC32CZ8110CA80208.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
-    <logicalFolder name="SourceFiles" displayName="Source Files" projectFiles="true">
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="pic32cz_ca80_curiosity_ultra" displayName="pic32cz_ca80_curiosity_ultra" projectFiles="true">
+        <logicalFolder name="pic32cz_ca80_curiosity_ultra"
+                       displayName="pic32cz_ca80_curiosity_ultra"
+                       projectFiles="true">
           <logicalFolder name="bootloader" displayName="bootloader" projectFiles="true">
             <logicalFolder name="datastream" displayName="datastream" projectFiles="true">
               <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/bootloader/datastream/datastream_udp.c</itemPath>
@@ -481,6 +517,11 @@
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
+                  <logicalFolder name="drv_gmac_lib_pic32cZ.c"
+                                 displayName="drv_gmac_lib_pic32cZ.c"
+                                 projectFiles="true">
+                    <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac_lib_pic32CZ.c</itemPath>
+                  </logicalFolder>
                   <itemPath>../src/config/pic32cz_ca80_curiosity_ultra/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
@@ -584,11 +625,11 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC32CZ8110CA80208</targetDevice>
-        <targetHeader/>
-        <targetPluginBoard/>
-        <platformTool>pkob4hybrid</platformTool>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>5.00</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -606,7 +647,7 @@
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <parseOnProdLoad>false</parseOnProdLoad>
-          <alternateLoadableFile/>
+          <alternateLoadableFile></alternateLoadableFile>
         </loading>
         <subordinates>
         </subordinates>
@@ -614,9 +655,9 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep/>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
-        <makeCustomizationPostStep/>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>true</makeCustomizationNormalizeHexFile>
@@ -637,7 +678,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="expand-pragma-config" value="false"/>
-        <property key="extra-include-directories" value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/config/pic32cz_ca80_curiosity_ultra/library;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/config/pic32cz_ca80_curiosity_ultra/library;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src;../src/config/pic32cz_ca80_curiosity_ultra/library/tcpip/src/common;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -733,7 +775,8 @@
         <property key="oXC16ld-stackguard" value="16"/>
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
-        <property key="preprocessor-macros" value="RAM_LENGTH=0xffff0;RAM_ORIGIN=0x20020010;ROM_LENGTH=0x400000;VECTOR_REGION=rom"/>
+        <property key="preprocessor-macros"
+                  value="RAM_LENGTH=0xffff0;RAM_ORIGIN=0x20020010;ROM_LENGTH=0x400000;VECTOR_REGION=rom"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
@@ -754,7 +797,8 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cz_ca80_curiosity_ultra;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CZ8110CA80208_DFP"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -795,9 +839,12 @@
       <Tool>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath" value="Press to browse for a specific firmware version"/>
-        <property key="ToolFirmwareOption.UpdateOptions" value="ToolFirmwareOption.UseLatest"/>
-        <property key="ToolFirmwareToolPack" value="Press to select which tool pack to use"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UpdateOptions"
+                  value="ToolFirmwareOption.UseLatest"/>
+        <property key="ToolFirmwareToolPack"
+                  value="Press to select which tool pack to use"/>
         <property key="communication.interface" value="swd"/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="2.000"/>
@@ -819,16 +866,19 @@
         <property key="memories.exclude.configurationmemory" value="true"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="true"/>
-        <property key="memories.instruction.ram.ranges" value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="8000000-c7fffff"/>
-        <property key="programmerToGoFilePath" value="C:/Users/I76597/h3/bootloader_apps_ethernet/apps/udp_bootloader/bootloader/firmware/pic32cz_ca80_curiosity_ultra.X/debug/pic32cz_ca80_curiosity_ultra/pic32cz_ca80_curiosity_ultra_ptg"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/I76597/h3/bootloader_apps_ethernet/apps/udp_bootloader/bootloader/firmware/pic32cz_ca80_curiosity_ultra.X/debug/pic32cz_ca80_curiosity_ultra/pic32cz_ca80_curiosity_ultra_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
         <property key="programoptions.pgmspeed" value="Med"/>
         <property key="programoptions.preservedataflash" value="false"/>
-        <property key="programoptions.preservedataflash.ranges" value="${memories.dataflash.default}"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value=""/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
@@ -840,16 +890,21 @@
         <property key="programoptions.smart.program" value="When debugging only"/>
         <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
         <property key="script.reset_by_pin" value="false"/>
-        <property key="toolpack.updateoptions" value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion" value="Press to select which tool pack to use"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
         <property key="x.erase.key" value="0xFFFFFFFF,0xFFFFFFFF,0xFFFFFFFF,0xFFFFFFFF"/>
       </Tool>
       <pkob4hybrid>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath" value="Press to browse for a specific firmware version"/>
-        <property key="ToolFirmwareOption.UpdateOptions" value="ToolFirmwareOption.UseLatest"/>
-        <property key="ToolFirmwareToolPack" value="Press to select which tool pack to use"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UpdateOptions"
+                  value="ToolFirmwareOption.UseLatest"/>
+        <property key="ToolFirmwareToolPack"
+                  value="Press to select which tool pack to use"/>
         <property key="communication.interface" value="swd"/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="2.000"/>
@@ -871,7 +926,8 @@
         <property key="memories.exclude.configurationmemory" value="true"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="true"/>
-        <property key="memories.instruction.ram.ranges" value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="8000000-c7fffff"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
@@ -879,7 +935,8 @@
         <property key="programoptions.pgmentry.voltage" value="low"/>
         <property key="programoptions.pgmspeed" value="Med"/>
         <property key="programoptions.preservedataflash" value="false"/>
-        <property key="programoptions.preservedataflash.ranges" value="${memories.dataflash.default}"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value=""/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
@@ -891,8 +948,10 @@
         <property key="programoptions.smart.program" value="When debugging only"/>
         <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
         <property key="script.reset_by_pin" value="false"/>
-        <property key="toolpack.updateoptions" value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion" value="Press to select which tool pack to use"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
         <property key="x.erase.key" value="0xFFFFFFFF,0xFFFFFFFF,0xFFFFFFFF,0xFFFFFFFF"/>
       </pkob4hybrid>
     </conf>
