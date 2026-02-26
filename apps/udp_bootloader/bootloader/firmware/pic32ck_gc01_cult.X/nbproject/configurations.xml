@@ -24,12 +24,13 @@
             <logicalFolder name="ethphy" displayName="ethphy" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/pic32ck_gc01_cult/driver/ethphy/src/dynamic/drv_extphy_ksz8091.h</itemPath>
                   <itemPath>../src/config/pic32ck_gc01_cult/driver/ethphy/src/dynamic/drv_extphy_regs.h</itemPath>
+                  <itemPath>../src/config/pic32ck_gc01_cult/driver/ethphy/src/dynamic/drv_extphy_ksz8091_priv.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32ck_gc01_cult/driver/ethphy/src/drv_ethphy_local.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32ck_gc01_cult/driver/ethphy/drv_ethphy.h</itemPath>
+              <itemPath>../src/config/pic32ck_gc01_cult/driver/ethphy/drv_extphy_ksz8091.h</itemPath>
             </logicalFolder>
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -73,7 +74,6 @@
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tcpip_notify.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/ndp_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/dnss_private.h</itemPath>
-                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/http_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/icmp_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/dhcp_server_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/igmp_manager.h</itemPath>
@@ -83,7 +83,6 @@
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/ipv4_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/snmpv3_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tcpip_private.h</itemPath>
-                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/lldp_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/ipv6_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/sntp_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/arp_private.h</itemPath>
@@ -93,12 +92,10 @@
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tcpip_announce_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/dhcp_server_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/dns_manager.h</itemPath>
-                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/lldp_tlv.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/dns_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/dhcpv6_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/ddns_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/arp_manager.h</itemPath>
-                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/lldp_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/smtpc_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/zero_conf_helper.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/iperf_manager.h</itemPath>
@@ -107,7 +104,6 @@
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tcpip_helpers_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/zero_conf_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tftps_private.h</itemPath>
-                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/http_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/ndp_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tftpc_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tftpc_manager.h</itemPath>
@@ -126,7 +122,6 @@
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tftps_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tcp_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
-                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/smtp_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/nbns_manager.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/dhcps_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/hash_fnv.h</itemPath>
@@ -135,12 +130,12 @@
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/ftpc_private.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/tcpip_manager_control.h</itemPath>
                 <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/ftpc_manager.h</itemPath>
+                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/wsc_manager.h</itemPath>
+                <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/src/wsc_private.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/dhcpv6.h</itemPath>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/ipv6.h</itemPath>
-              <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/lldp.h</itemPath>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/ddns.h</itemPath>
-              <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/smtp.h</itemPath>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/tcpip_announce.h</itemPath>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/tcpip_heap.h</itemPath>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/tcpip_helpers.h</itemPath>
@@ -181,7 +176,7 @@
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/arp.h</itemPath>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/icmpv6.h</itemPath>
               <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/tcpip_mac_object.h</itemPath>
-              <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/http.h</itemPath>
+              <itemPath>../src/config/pic32ck_gc01_cult/library/tcpip/wsc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
@@ -258,25 +253,6 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
-        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
-          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
-            <logicalFolder name="Core" displayName="Core" projectFiles="true">
-              <logicalFolder name="Include" displayName="Include" projectFiles="true">
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm33.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-          </logicalFolder>
-        </logicalFolder>
         <logicalFolder name="PIC32CK2051GC01144_DFP"
                        displayName="PIC32CK2051GC01144_DFP"
                        projectFiles="true">
@@ -394,8 +370,73 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult"
+                     displayName="udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <logicalFolder name="TCP_forwardSlash_IP STACK"
+                         displayName="TCP_forwardSlash_IP STACK"
+                         projectFiles="true">
+            <logicalFolder name="components" displayName="components" projectFiles="true">
+              <logicalFolder name="BASIC CONFIGURATION"
+                             displayName="BASIC CONFIGURATION"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
+                </logicalFolder>
+                <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="DATA LINK LAYER"
+                             displayName="DATA LINK LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtPhyKsz8091.yml</itemPath>
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvGmac.yml</itemPath>
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
+                </logicalFolder>
+                <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="NETWORK LAYER"
+                             displayName="NETWORK LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
+                </logicalFolder>
+                <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="TRANSPORT LAYER"
+                             displayName="TRANSPORT LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipUdp.yml</itemPath>
+                </logicalFolder>
+                <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/TRANSPORT LAYER.yml</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
+          </logicalFolder>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/cmsis.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/core.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/fcw.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/BSP_PIC32CK_GC01_Curiosity_Ultra.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/dfp.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/udp_bootloader.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/evsys.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/pm.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/rtc.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/HarmonyCore.yml</itemPath>
+          <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/components/sys_time.yml</itemPath>
+        </logicalFolder>
+        <itemPath>udp_bootloader_pic32ck_gc01_cult_pic32ck_gc01_cult/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>udp_bootloader_pic32ck_gc01_cult.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -575,6 +616,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -604,7 +646,7 @@
         <property key="oXC16gcc-sfr-warn" value="false"/>
         <property key="oXC16gcc-smar-io-lvl" value="1"/>
         <property key="oXC16gcc-smart-io-fmt" value=""/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -653,6 +695,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -699,6 +742,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -727,6 +771,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

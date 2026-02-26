@@ -59,6 +59,8 @@
 #include "driver/miim/drv_miim.h"
 #include "peripheral/rtc/plib_rtc.h"
 #include "system/time/sys_time.h"
+#include "driver/ethphy/drv_ethphy.h"
+#include "driver/ethphy/drv_extphy_ksz8091.h"
 #include "bsp/bsp.h"
 #include "bootloader/bootloader_udp.h"
 #include "library/tcpip/tcpip.h"
@@ -204,6 +206,7 @@ typedef struct
     SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ  tcpip;
+
 
 } SYSTEM_OBJECTS;
 

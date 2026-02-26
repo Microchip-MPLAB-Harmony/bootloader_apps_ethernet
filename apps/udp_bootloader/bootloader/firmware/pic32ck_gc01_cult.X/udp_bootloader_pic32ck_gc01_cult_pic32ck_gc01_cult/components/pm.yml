@@ -1,0 +1,52 @@
+configVersion: 1.0.0
+componentName: pm
+coreVersion: 5.8.4
+device: PIC32CK2051GC01144
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: pm
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: bootloader
+  type: package
+  version: v3.8.0
+- dependencyPackage: ''
+  name: bsp
+  type: package
+  version: v3.22.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.2
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.22.5
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.1
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: pm
+          x: '400'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}
