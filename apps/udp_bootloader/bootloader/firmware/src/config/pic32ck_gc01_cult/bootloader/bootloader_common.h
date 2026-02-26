@@ -62,12 +62,12 @@
 #define PAGES_IN_ERASE_BLOCK                    (ERASE_BLOCK_SIZE / PAGE_SIZE)
 
 
-#define BOOTLOADER_SIZE                         55000
+#define BOOTLOADER_SIZE                         65536
 
 #define FLASH_END_ADDRESS                       (FLASH_START + FLASH_LENGTH)
 
 
-#define APP_START_ADDRESS                       (0xc00e000U)
+#define APP_START_ADDRESS                       (0xc010000U)
 
 
 #define BTL_TRIGGER_RAM_START                   0x20000000

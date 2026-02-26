@@ -2,12 +2,12 @@
 
 manifest_file_version: 1.0.0
 project: udp_bootloader_pic32ck_gc01_cult
-creation_date: 2026-02-26T17:42:55.312+05:30[Asia/Calcutta]
+creation_date: 2026-02-27T09:55:52.509+05:30[Asia/Calcutta]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.30
 device_name: PIC32CK2051GC01144
-compiler: XC32 4.60
+compiler: XC32 5.00
 mcc_version: 5.6.4
 mcc_core_version: 5.8.4
 content_manager_version: 6.0.4

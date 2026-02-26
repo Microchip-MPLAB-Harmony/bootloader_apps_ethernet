@@ -57,25 +57,6 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
-        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
-          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
-            <logicalFolder name="Core" displayName="Core" projectFiles="true">
-              <logicalFolder name="Include" displayName="Include" projectFiles="true">
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm33.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-          </logicalFolder>
-        </logicalFolder>
         <logicalFolder name="PIC32CK2051GC01144_DFP"
                        displayName="PIC32CK2051GC01144_DFP"
                        projectFiles="true">
@@ -193,8 +174,27 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult"
+                     displayName="udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/evsys.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/sercom5.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/core.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/dfp.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/stdio.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/cmsis.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/HarmonyCore.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/pm.yml</itemPath>
+          <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/components/BSP_PIC32CK_GC01_Curiosity_Ultra.yml</itemPath>
+        </logicalFolder>
+        <itemPath>udp_bootloader_test_app_pic32ck_gc01_cult_pic32ck_gc01_cult/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>uddp_bootloader_test_app_pic32ck_gc01_cult.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -398,7 +398,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros"
-                  value="ROM_LENGTH=0x1f2000;ROM_ORIGIN=0xc00e000;VECTOR_REGION=rom"/>
+                  value="ROM_LENGTH=0x1f0000;ROM_ORIGIN=0xc010000;VECTOR_REGION=rom"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
@@ -541,7 +541,7 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-63ffffff"/>
         <property key="programmerToGoFilePath"
-                  value="C:/Users/I76597/h3-BB/bootloader_apps_ethernet/apps/udp_bootloader/test_app/firmware/pic32ck_gc01_cult.X/debug/pic32ck_gc01_cult/pic32ck_gc01_cult_ptg"/>
+                  value="C:/apps/bootloader_apps_ethernet/apps/udp_bootloader/test_app/firmware/pic32ck_gc01_cult.X/debug/pic32ck_gc01_cult/pic32ck_gc01_cult_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>

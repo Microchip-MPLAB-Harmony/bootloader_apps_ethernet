@@ -14,25 +14,9 @@ dependency:
   type: package
   version: 5.9.0
 - dependencyPackage: ''
-  name: bootloader
-  type: package
-  version: v3.8.0
-- dependencyPackage: ''
-  name: bsp
-  type: package
-  version: v3.22.0
-- dependencyPackage: ''
-  name: core
-  type: package
-  version: v3.15.2
-- dependencyPackage: ''
   name: csp
   type: package
   version: v3.22.5
-- dependencyPackage: ''
-  name: net
-  type: package
-  version: v3.14.1
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}

@@ -1,21 +1,18 @@
 configVersion: 1.0.0
-componentName: NETWORK LAYER
+componentName: cmsis
 coreVersion: 5.8.4
 device: PIC32CK2051GC01144
 library: []
 dependency:
-- dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
-  name: NETWORK LAYER
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: cmsis
   type: module
   version: ''
 - dependencyPackage: ''
+  devMode: true
   name: CMSIS_5
   type: package
   version: 5.9.0
-- dependencyPackage: ''
-  name: bootloader
-  type: package
-  version: v3.8.0
 - dependencyPackage: ''
   name: bsp
   type: package
@@ -28,21 +25,17 @@ dependency:
   name: csp
   type: package
   version: v3.22.5
-- dependencyPackage: ''
-  name: net
-  type: package
-  version: v3.14.1
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
   elementPosition:
     attributes:
-      id: TCP/IP STACK
+      id: __ROOTVIEW
     children:
     - children:
       - attributes:
-          id: NETWORK LAYER
-          x: '400'
+          id: cmsis
+          x: '660'
           y: '20'
         type: ElementPosition
       type: ElementPositions
